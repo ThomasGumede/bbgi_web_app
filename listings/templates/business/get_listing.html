@@ -41,7 +41,7 @@
                         alt="{{listing.title}} background_image by {{listing.owner.get_full_name}}"
                         class="absolute top-1/2 left-1/2 h-full -translate-x-1/2 -translate-y-1/2 w-full transition-all duration-500 ease-in group-hover:scale-105 opacity-50 object-cover">
                     {% else %}
-                    <img src="{% static 'imgs/global/image-no.jpg' %}" alt="{{listing.title}}"
+                    <img src="{% static 'imgs/no-image.png' %}" alt="{{listing.title}}"
                         class="absolute top-1/2 left-1/2 h-full -translate-x-1/2 -translate-y-1/2 w-full transition-all duration-500 ease-in group-hover:scale-105 opacity-50 object-cover">
                     {% endif %}
                 </div>
@@ -55,7 +55,7 @@
                                         alt="{{listing.title}} logo by {{listing.owner.get_full_name}}"
                                         class="absolute top-1/2 left-1/2 h-full -translate-x-1/2 -translate-y-1/2 w-full transition-all duration-500 ease-in object-cover">
                                     {% else %}
-                                    <img src="{% static 'imgs/global/image-no.jpg' %}" alt="{{listing.title}}"
+                                    <img src="{% static 'imgs/no-image.png' %}" alt="{{listing.title}}"
                                         class="absolute top-1/2 left-1/2 h-full -translate-x-1/2 -translate-y-1/2 w-full transition-all duration-500 ease-in object-cover">
                                     {% endif %}
                                 </div>

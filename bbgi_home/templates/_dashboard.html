@@ -56,8 +56,12 @@
                             <div class="grid gap-y-6 sm:gap-y-7">
                                 <h3 class="duration-300 text-xl uppercase tracking-widest text-white font-semibold">
                                     dashboard</h3>
-
                                 <a href="{% url 'bbgi_home:dashboard' %}"
+                                    class="px-4 py-2 duration-500 hover:bg-gray-50 hover:text-custom-h rounded flex items-center text-white font-normal text-base">
+                                    <span class="text-base font-normal whitespace-nowrap">Dashboard</span>
+                                </a>
+
+                                <a href="{% url 'bbgi_home:bbgi-home' %}"
                                     class="px-4 py-2 duration-500 hover:bg-gray-50 hover:text-custom-h rounded flex items-center text-white font-normal text-base">
                                     <span class="text-base font-normal whitespace-nowrap">Home</span>
                                 </a>
@@ -185,23 +189,90 @@
                                     <img src="{% static 'imgs/logo_1.png' %}" alt="BBGI logo" class="object-cover">
                                 </a>
                                 <div class="flex w-fit items-center text-white space-x-9">
-                                    <div id="profile">
-                                        {% if request.user.is_authenticated %}
-                                        {% if request.user.profile_image %}
-                                        <a href="" class="text-white rounded-full overflow-hidden">
-                                            <img src="{{request.user.profile_image.url}}" alt="{{request.user.get_full_name}}"
-                                                class="w-10 h-10 rounded-full object-cover">
-                                        </a>
-                                        {% else %}
-                                        <a href="" class="text-white rounded-full overflow-hidden">
-                                            <img src="{% static 'imgs/about/About-1.png' %}" alt="" class="w-10 h-10 rounded-full object-cover">
-                                        </a>
-                                        {% endif %}
-                                        {% else %}
-                                        <a href="{% url 'accounts:login' %}" class="text-white">
-                                            <i class="fa-solid fa-user fa-lg"></i>
-                                        </a>
-                                        {% endif %}
+                                    <div class="w-fit flex items-center space-x-5">
+                                        <div x-data="{ isOpen: false }" class="relative inline-block ">
+                                            <!-- Dropdown toggle button -->
+                                            <button @click="isOpen = !isOpen"
+                                                class="relative z-10 flex items-center w-10 h-10 rounded-full   bg-white border border-transparent focus:border-blue-500 focus:ring-opacity-40  focus:ring-blue-300  focus:ring  focus:outline-none">
+                                                {% if request.user.profile_image %}
+                                                <div class="text-white rounded-full overflow-hidden">
+                                                    <img src="{{request.user.profile_image.url}}" alt="{{request.user.get_full_name}}"
+                                                        class="w-10 h-10 rounded-full object-cover">
+                                                </div>
+                                                {% else %}
+                                                <div href="{% url 'bbgi_home:dashboard' %}" class="text-white rounded-full overflow-hidden">
+                                                    <i class="fa-solid fa-user fa-xl"></i>
+                                                </div>
+                                                {% endif %}
+                                    
+                                            </button>
+                                    
+                                            <!-- Dropdown menu -->
+                                            <div x-cloak x-show="isOpen" @click.away="isOpen = false" x-transition:enter="transition ease-out duration-100"
+                                                x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                                                x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 scale-100"
+                                                x-transition:leave-end="opacity-0 scale-90"
+                                                class="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl ">
+                                                <a href="{% url 'accounts:user-details' request.user.username %}"
+                                                    class="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform  hover:bg-gray-100 ">
+                                                    {% if request.user.profile_image %}
+                                                    <img class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
+                                                        src="{{request.user.profile_image.url}}" alt="{{request.user.get_full_name}} avatar">
+                                                    {% else %}
+                                                    <img class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
+                                                        src="{% static 'images/global/no-image-available.webp' %}"
+                                                        alt="{{request.user.get_full_name}} avatar">
+                                                    {% endif %}
+                                                    <div class="mx-1 w-full">
+                                                        <h5 class="text-sm font-semibold text-gray-700 ">
+                                                            {{request.user.get_full_name}}</h5>
+                                                        <p class="text-sm text-gray-500 ">
+                                                            {{request.user.get_username}}
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                    
+                                                <hr class="border-gray-200  ">
+                                    
+                                                <a href="{% url 'bbgi_home:dashboard' %}"
+                                                    class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100 ">
+                                                    Dashboard
+                                                </a>
+                                                <a href="{% url 'accounts:contact-update' %}"
+                                                    class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100 ">
+                                                    Settings
+                                                </a>
+                                    
+                                    
+                                                {% if request.user.is_superuser or request.user.is_staff %}
+                                    
+                                                <a href="{% url 'admin:index' %}"
+                                                    class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100">
+                                                    Admin
+                                                </a>
+                                                {% endif %}
+                                    
+                                    
+                                                <hr class="border-gray-200  ">
+                                    
+                                                <a href="{% url 'campaigns:create-campaign' %}"
+                                                    class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100">
+                                                    Add Campaign
+                                                </a>
+                                    
+                                                <a href="{% url 'events:create-event' %}"
+                                                    class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100">
+                                                    Add Event
+                                                </a>
+                                    
+                                                <hr class="border-gray-200  ">
+                                    
+                                                <a href="{% url 'accounts:logout' %}"
+                                                    class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100">
+                                                    Sign Out
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div id="cart">
                                         <a href="" class="text-white">
