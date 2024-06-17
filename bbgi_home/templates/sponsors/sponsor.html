@@ -73,12 +73,9 @@
                 <!-- description -->
                 <div>
                     <p class="text-sm lg:text-base my-6">
-                        <span
-                            class="w-[60px] h-[60px] md:w-[100px] md:h-[100px] bg-custom-primary mr-5 md:mr-[30px] text-40px md:text-[70px] font-bold text-white uppercase text-center leading-1 md:leading-1 flex justify-center items-center float-left">
-                            {{sponsor.decription.0}}
-                        </span>
+                        
 
-                        {{sponsor.decription|slice:"1:"}}
+                        {{sponsor.decription|safe}}
                     </p>
                 </div>
             </div>
