@@ -28,8 +28,8 @@ SILENCED_SYSTEM_CHECKS = ['security.W019']
 
 # YOCO
 if DEBUG:
-    YOCO_WEBHOOK_KEY = 'sk_test_b0d0f98f34r4Gxg9a12418dacf0d'
-    YOCO_API_KEY = 'whsec_MUVBOUVCRTVBN0YzRkREN0IwNDlERDE3N0Q1RDEzRDU='
+    YOCO_WEBHOOK_KEY = config('YOCO_TEST_WEBHOOK_KEY')
+    YOCO_API_KEY = config('YOCO_TEST_API_KEY')
     ALLOWED_HOSTS=['*']
 
 else:
@@ -226,9 +226,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.bbgi.co.za'  # e.g., 'smtp.gmail.com' or 'smtp.yourdomain.com'
-EMAIL_PORT = 587  # or 465 for SSL
-EMAIL_USE_TLS = True  # or EMAIL_USE_SSL = True if using SSL
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = 587  
+EMAIL_USE_TLS = True  
 EMAIL_HOST_USER = 'technical@bbgi.co.za'
-EMAIL_HOST_PASSWORD = 'Sexse123@'
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'noreply@bbgi.co.za'
