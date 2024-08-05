@@ -35,7 +35,7 @@ if DEBUG:
 else:
     YOCO_WEBHOOK_KEY = config('YOCO_LIVE_WEBHOOK_KEY')
     YOCO_API_KEY = config('YOCO_LIVE_API_KEY')
-    ALLOWED_HOSTS=config("ALLOWED_HOSTS",cast=Csv())
+    
 
     # SSL SETTINGS
     
@@ -45,6 +45,9 @@ else:
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+
+    # Allowed Hosts
+    ALLOWED_HOSTS=config("ALLOWED_HOSTS",cast=Csv())
 
 # Files
 TICKETS_PDF_DIR = os.path.join(BASE_DIR, 'media/tickets/pdf')
@@ -61,7 +64,6 @@ if not os.path.exists(TICKETS_QRCODE_DIR):
     os.makedirs(TICKETS_QRCODE_DIR)
 
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -144,24 +146,26 @@ WSGI_APPLICATION = 'bbgi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+if DEBUG:
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-DATABASES = {
+    DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': "bbgidb",
-            'USER': config("DB_USER"),
-            'PASSWORD': config("DB_PASSWORD"),
-            'HOST': config("DB_HOST",'localhost'),
-            'PORT': '',
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+else:
+
+    DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': "bbgidb",
+                'USER': config("DB_USER"),
+                'PASSWORD': config("DB_PASSWORD"),
+                'HOST': config("DB_HOST",'localhost'),
+                'PORT': '',
+            }
+        }
 
 
 # Password validation
