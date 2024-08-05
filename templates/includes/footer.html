@@ -1,0 +1,107 @@
+{% load static %}
+<footer class="w-full mb-11 mt-10 bg-white overflow-hidden ">
+    <div class="container grid overflow-hidden">
+        <div class="w-full bg-custom-h p-4 rounded-xl md:p-7 text-white">
+            <div class="grid items-start md:grid-cols-4 gap-9 justify-between w-full">
+                <div class="space-y-5">
+                    <a href="{% url 'bbgi_home:bbgi-home' %}" class="logo w-36 overflow-hidden h-full">
+                        <img src="{% static 'imgs/logo_1.png' %}" alt="BBGI logo" class="object-cover">
+                    </a>
+                    <div class="space-y-5">
+                        <p class="text-xs font-normal font-poppins">
+                            We serves as a unified community of Black enterpreneurs and professionals, providing a space to showcase businesses and
+                            expertise
+                        </p>
+                        <div class="flex items-center space-x-5">
+                            <a rel="nofollow" href=""
+                                class="bg-white text-custom-h p-2 grid items-center justify-center rounded-full text-center">
+                                <i class="fa-brands fa-facebook fa-xl"></i>
+                            </a>
+                            <a rel="nofollow" href="" class="bg-white text-custom-h p-2 grid items-center justify-center rounded-full text-center">
+                                <i class="fa-brands fa-youtube fa-xl"></i>
+                            </a>
+                            <a rel="nofollow" href="" class="bg-white text-custom-h p-2 grid items-center justify-center rounded-full text-center">
+                                <i class="fa-brands fa-linkedin fa-xl"></i>
+                            </a>
+                            <a rel="nofollow" href="" class="bg-white text-custom-h p-2 grid items-center justify-center rounded-full text-center">
+                                <i class="fa-brands fa-instagram fa-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="space-y-5">
+                    <h6 class="font-bold font-roboto text-base">USEFULL LINKS</h6>
+                    <ul class="space-y-3">
+                        <li><a href="{% url 'bbgi_home:bbgi-home' %}" class="text-sm font-bold font-roboto">Home</a></li>
+                        <li><a href="{% url 'bbgi_home:about-bbgi' %}" class="text-sm font-bold font-roboto">About</a></li>
+                        <li><a href="{% url 'listings:listings' %}" class="text-sm font-bold font-roboto">Listings</a></li>
+                        <li><a href="{% url 'bbgi_home:blogs' %}" class="text-sm font-bold font-roboto">Blogs</a></li>
+                        <li><a href="{% url 'bbgi_home:contact' %}" class="text-sm font-bold font-roboto">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-5">
+                    <h6 class="font-bold font-roboto text-base">QUICK LINKS</h6>
+                    <ul class="space-y-3">
+                        <li><a href="{% url 'listings:add-listing' %}" class="text-sm font-bold font-roboto">Add Listing</a>
+                        </li>
+                        <li><a href="{% url 'events:create-event' %}" class="text-sm font-bold font-roboto">Add Event</a>
+                        </li>
+                        <li><a href="{% url 'campaigns:create-campaign' %}" class="text-sm font-bold font-roboto">Add Campaign</a>
+                        </li>
+                        <li><a href="" class="text-sm font-bold font-roboto">Terms & Conditions</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="space-y-5">
+                    <h6 class="font-bold font-roboto text-base">COMMUNITY</h6>
+                    <ul class="space-y-3">
+                        <li class="flex items-start w-fit space-x-4  justify-center">
+                            <div class="mx-auto text-white my-auto text-center">
+                                <i class="fa-solid fa-phone text-3xl"></i>
+                            </div>
+                            <div>
+
+                                <a href="" class="text-sm block phone_number font-poppins font-normal">+27765591525</a>
+                                <a href="" class="text-sm block phone_number_2 font-poppins font-normal">+27812528412</a>
+                            </div>
+                        </li>
+                        <li class="flex items-start w-fit space-x-4  justify-center">
+                            <div class="mx-auto text-white my-auto text-center">
+                                <i class="fa-solid fa-envelope text-3xl"></i>
+                            </div>
+                            <div>
+                                <a href=""
+                                    class="text-sm contact_email font-poppins font-normal">info@bbgi.co.za</a>
+                                <a href=""
+                                    class="text-sm contact_email_2 font-poppins font-normal">bbgi@gmail.com</a>
+                            </div>
+                        </li>
+                        <li class="flex items-start w-fit space-x-4  justify-center">
+                            <div class="mx-auto text-white my-auto text-center">
+                                <i class="fa-solid fa-location text-3xl"></i>
+                            </div>
+                            <div>
+                                <a rel="nofollow" target="_blank" href="https://goo.gl/maps/bFbihFzr7LVmKs2p7"
+                                    class="font-bold font-roboto md:text-base text-sm">Suite 2L & M, 08 Old Main
+                                    Road, Hillcrest, 3650</a>
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="self-center mt-7 justify-self-center text-black text-base font-normal font-poppins inline-flex">
+            <p class="inline-block md:text-center">
+                &copy;
+                <script>document.write(new Date().getFullYear());</script> BBGI All Rights
+                Reserved
+                by <a href="#" rel="nofollow" class="">wedodev.</a> | <a rel="nofollow" href="./privacy/terms.html"
+                    nofollow>Terms & Conditions</a> | <a href="./privacy/privacy.html" rel="nofollow">Privacy
+                    Policy</a>
+            </p>
+
+        </div>
+    </div>
+</footer>

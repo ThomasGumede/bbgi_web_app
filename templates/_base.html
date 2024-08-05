@@ -1,0 +1,191 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% tailwind_preload_css %}
+    {% tailwind_css %}
+    {{form.media}}
+    {% block styles %}
+    {% endblock styles %}
+    <style>
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track { background: #fff; }
+
+        ::-webkit-scrollbar-thumb {
+            background: hsl(200, 15%, 43%);
+            border-left: 2px solid #fff;
+        }
+        .has-scrollbar {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            overflow-x: auto;
+            margin-inline: -15px;
+            padding-inline: 15px;
+            scroll-padding-left: 15px;
+            padding-bottom: 60px;
+            scroll-snap-type: inline mandatory;
+        }
+
+        .has-scrollbar > li {
+            min-width: 100%;
+            scroll-snap-align: start;
+        }
+
+        .has-scrollbar::-webkit-scrollbar-track {
+            background: hsl(192, 24%, 96%);
+            outline: 2px solid hsl(200, 15%, 43%);
+            border-radius: 10px;
+        }
+
+        .has-scrollbar::-webkit-scrollbar-thumb {
+            background: hsl(200, 15%, 43%);
+            border: 1px solid hsl(192, 24%, 96%);
+            border-radius: 10px;
+        }
+
+        .has-scrollbar::-webkit-scrollbar-button { width: 15%; }
+
+        @media (min-width: 600px) {
+            .has-scrollbar {
+                gap: 25px;
+                margin-inline: -25px;
+                padding-inline: 25px;
+                scroll-padding-left: 25px;
+            }
+
+            .has-scrollbar > li { min-width: calc(50% - 12.5px); }
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="max-image-preview:large">
+
+    <!-- Important JS -->
+    {% block import_js %}
+    {% endblock import_js %}
+    <script defer src="{% static 'js/alpinejs.min.js' %}"></script>
+
+    <!-- Custom Static -->
+    <link rel="stylesheet" href="{% static 'css/fonts/all.min.css' %}" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+
+    <!-- Icons -->
+    <link rel="icon" href="{% static 'imgs/cropped-Footer-32x32.png' %}" sizes="32x32">
+    <link rel="icon" href="{% static 'imgs/cropped-Footer-192x192.png' %}" sizes="192x192">
+    <link rel="apple-touch-icon" href="{% static 'imgs/cropped-Footer-180x180.png' %}">
+    <link href="https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/keen-slider.min.css" rel="stylesheet" />
+
+    <!-- Alpine JS -->
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+
+    
+    <meta name="keywords"
+        content="bbgi, Black Business Growth Initiative, Black African businesses, support, ndwandwa, sazi ndwandwa, business, cape town, south africa, ndwandwa family foundation, business listing, business support, african business listing">
+    <meta name="robots" content="index, nofollow">
+
+    {% block seo_tags %}
+    <title>BBGI - Black Business Growth Initiative</title>
+    <meta name="description"
+        content="The Black Business Growth Initiative supports Black African businesses and careers by providing a unified platform for entrepreneurs and professionals to showcase their expertise and promote unity and cooperation.">
+    <meta name="title" content="BBGI -  Black Business Growth Initiative" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bbgi.co.za" />
+    <meta property="og:title" content="BBGI - Black Business Growth Initiative" />
+    <meta property="og:description"
+        content="The Black Business Growth Initiative supports Black African businesses and careers by providing a unified platform for entrepreneurs and professionals to showcase their expertise and promote unity and cooperation." />
+    <meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://bbgi.co.za" />
+    <meta property="twitter:title" content="BBGI - Black Business Growth Initiative" />
+    <meta property="twitter:description"
+        content="The Black Business Growth Initiative supports Black African businesses and careers by providing a unified platform for entrepreneurs and professionals to showcase their expertise and promote unity and cooperation." />
+    <meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+    {% endblock seo_tags %}
+</head>
+<body class="">
+    <!-- Header -->
+    {% include "includes/header.html" %}
+    <!-- End Header -->
+
+    <!-- Main -->
+    <main class="main relative block pt-24">
+        {% include "includes/messages.html" %}
+        {% block content %}
+        {% endblock content %}
+        
+    </main>
+    <!-- End Main -->
+    
+
+    <!-- Footer -->
+    {% include "includes/footer.html" %}
+    <!-- End Footer -->
+    
+    <script src="{% static 'js/all.min.js' %}"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script>
+        // Navbar
+        const menu = document.querySelector("#menu-bar");
+        const nav = document.querySelector("#nav-items");
+
+        menu.addEventListener("click", function(){
+            if(nav.classList.contains("-right-full") && nav.classList.contains("hidden")){
+                nav.classList.remove("-right-full");
+                nav.classList.remove("hidden");
+                nav.classList.add("right-0");
+                nav.classList.add("grid");
+            }else{
+                nav.classList.remove("right-0");
+                nav.classList.remove("grid");
+                nav.classList.add("-right-full");
+                nav.classList.add("hidden");
+                
+            }
+        })
+        const close_1 = document.querySelector("#close-menu");
+        const close_2 = document.querySelector("#close-menu-2");
+
+        close_1.addEventListener("click", function(){
+            if (nav.classList.contains("right-0") && nav.classList.contains("grid")) {
+                nav.classList.remove("right-0");
+                nav.classList.remove("grid");
+                nav.classList.add("-right-full");
+                nav.classList.add("hidden");
+                
+            }
+        })
+
+        close_2.addEventListener("click", function () {
+                if (nav.classList.contains("right-0") && nav.classList.contains("grid")) {
+                    nav.classList.remove("right-0");
+                    nav.classList.remove("grid");
+                    nav.classList.add("-right-full");
+                    nav.classList.add("hidden");
+
+                }
+            })
+    </script>
+    <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
+    {% block js %}{% endblock js %}
+</body>
+</html>

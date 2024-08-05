@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    
+    label {
+        @apply block text-custom-h text-base font-medium capitalize mb-2
+    }
+}
+
+@layer components {
+    .container {
+        @apply ml-auto mx-auto px-3 w-full md:w-11/12 md:px-5
+    }
+}

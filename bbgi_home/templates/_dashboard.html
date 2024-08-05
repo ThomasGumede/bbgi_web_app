@@ -1,0 +1,252 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% tailwind_preload_css %}
+    {% tailwind_css %}
+    {{form.media}}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="{% static 'css/jquery.datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fonts/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'fonts/icon-fonts/icons-fonts.css' %}" />
+    <link rel="stylesheet" href="{% static 'fonts/typography/typography-fonts.css' %}" />
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon" />
+    <script defer src="{% static 'js/alpinejs.min.js' %}"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    {% block cloak %}
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+    {% endblock cloak %}
+
+    <!-- Icons -->
+    <link rel="icon" href="{% static 'imgs/cropped-Footer-32x32.png' %}" sizes="32x32">
+    <link rel="icon" href="{% static 'imgs/cropped-Footer-192x192.png' %}" sizes="192x192">
+    <link rel="apple-touch-icon" href="{% static 'imgs/cropped-Footer-180x180.png' %}">
+    <link href="https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/keen-slider.min.css" rel="stylesheet" />
+
+
+    <title>BBGI - {% block title %}User dashboard{% endblock title%}</title>
+</head>
+
+<body>
+    <main>
+        
+        <div class="relative block font-sans bg-custom-bg">
+            <div x-data="{dashboard : false}" class="w-full h-full bg-white">
+                <div :class="dashboard ? 'left-0' : '-left-full' "
+                    class="fixed lg:left-0 top-0 z-50 bg-custom-h h-screen w-full lg:w-2/12">
+                    <div class="relative block overflow-auto">
+                        <div @click="dashboard = false" class="absolute top-4 right-4 lg:hidden">
+                            <i class="fa-solid fa-bars text-xl text-white"></i>
+                        </div>
+                        <div class="p-4 grid gap-y-10">
+                            <div class="grid gap-y-6 sm:gap-y-7">
+                                <h3 class="duration-300 text-xl uppercase tracking-widest text-white font-semibold">
+                                    dashboard</h3>
+
+                                <a href="{% url 'bbgi_home:dashboard' %}"
+                                    class="px-4 py-2 duration-500 hover:bg-gray-50 hover:text-custom-h rounded flex items-center text-white font-normal text-base">
+                                    <span class="text-base font-normal whitespace-nowrap">Home</span>
+                                </a>
+
+                                <div
+                                    class="px-4 py-1 w-full group hover:max-h-full rounded hover:bg-gray-50 overflow-hidden max-h-7 duration-500 ease-in-out">
+                                    <div
+                                        class="duration-500  group-hover:text-custom-h rounded flex justify-between w-full items-center text-white font-normal text-sm">
+                                        <div>
+                                            <span class="text-base font-normal whitespace-nowrap">Organisor</span>
+                                        </div>
+                                        <div>
+                                            <i
+                                                class="fa-solid fa-chevron-down text-base group-hover:rotate-180  mr-auto"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="rounded mt-2">
+                                        <div class="nav__dropdown-content grid px-4">
+                                            <a href="{% url 'events:manage-events' %}"
+                                                class="nav__dropdown-item text-sm py-2 font-normal text-text-custom-h duration-500 text-custom-h rounded">My
+                                                Events</a>
+                                            <a href="{% url 'campaigns:manage-campaigns' %}"
+                                                class="nav__dropdown-item text-sm py-2 font-normal text-text-custom-h duration-500 text-custom-h rounded">My
+                                                Campaigns</a>
+                                            <a href="{% url 'campaigns:all-contributions' %}"
+                                                class="nav__dropdown-item text-sm py-2 font-normal text-text-custom-h duration-500 text-custom-h rounded">Contributions</a>
+                                            <a href="{% url 'events:all-ticket-orders' %}"
+                                                class="nav__dropdown-item text-sm py-2 font-normal text-text-custom-h duration-500 text-custom-h rounded">Ticket
+                                                Orders</a>
+                                            <a href="{% url 'events:all-ticket-orders' %}"
+                                                class="nav__dropdown-item text-sm py-2 font-normal text-text-custom-h duration-500 text-custom-h rounded">Qoutation requests</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div
+                                    class="px-4 py-1 w-full group hover:max-h-full rounded hover:bg-gray-50 overflow-hidden max-h-7 duration-500 ease-in-out">
+                                    <div
+                                        class="duration-500  group-hover:text-custom-h rounded flex justify-between w-full items-center text-white font-normal text-sm">
+                                        <div>
+                                            <span class="text-base font-normal whitespace-nowrap">Account</span>
+                                        </div>
+                                        <div>
+                                            <i
+                                                class="fa-solid fa-chevron-down text-base group-hover:rotate-180  mr-auto"></i>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="rounded mt-2">
+                                        <div class="nav__dropdown-content grid px-4">
+                                            <a href="{% url 'accounts:profile-update' %}"
+                                                class="text-sm font-normal text-custom-h duration-500 py-2">Update
+                                                profile</a>
+                                            <a href=""
+                                                class="text-sm font-normal text-custom-h duration-500 py-2">My
+                                                wallet</a>
+                                            <a href="{% url 'events:manage-ticket-orders' %}"
+                                                class="text-sm font-normal text-custom-h duration-500 py-2">My
+                                                tickets</a>
+
+                                            <a href="{% url 'campaigns:manage-contributions' %}"
+                                                class="text-sm font-normal text-custom-h duration-500 py-2">My
+                                                contributions</a>
+                                            <a href="{% url 'listings:manage-listings' %}"
+                                                class="text-sm font-normal text-custom-h duration-500 py-2">My
+                                                listings</a>
+                                            <a href="{% url 'bbgi_home:all-quotations' %}" class="text-sm font-normal text-custom-h duration-500 py-2">My
+                                                qoutations</a>
+                                            <a href="{% url 'accounts:logout' %}" class="text-sm font-normal text-custom-h duration-500 py-2">Logout</a>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if request.user.is_staff and request.user.is_superuser %}
+
+
+                                <div
+                                    class="px-4 py-1 w-full group hover:max-h-full rounded hover:bg-gray-50 overflow-hidden max-h-7 duration-500 ease-in-out">
+                                    <div
+                                        class="duration-500  group-hover:text-custom-h rounded flex justify-between w-full items-center text-white font-normal text-sm">
+                                        <div>
+                                            <span class="text-base font-normal whitespace-nowrap">Admin</span>
+                                        </div>
+                                        <div>
+                                            <i
+                                                class="fa-solid fa-chevron-down text-base group-hover:rotate-180  mr-auto"></i>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="rounded mt-2">
+                                        <div class="nav__dropdown-content grid px-4">
+                                            <a href=""
+                                                class="text-sm font-normal text-custom-h duration-500 py-2">Earnings</a>
+                                            <a href="{% url 'bbgi_home:all-accounts' %}"
+                                                class="text-sm font-normal text-custom-h duration-500 py-2">Accounts</a>
+                                            <a href="{% url 'bbgi_home:team-members' %}"
+                                                class="text-sm font-normal text-custom-h duration-500 py-2">Team</a>
+                                            <a href="{% url 'bbgi_home:all-listings' %}"
+                                                class="text-sm font-normal text-custom-h duration-500 py-2">Listings</a>
+                                            <a href="{% url 'bbgi_home:all-campaigns' %}" class="text-sm font-normal text-custom-h duration-500 py-2">Campaigns</a>
+                                            <a href="{% url 'bbgi_home:all-events' %}" class="text-sm font-normal text-custom-h duration-500 py-2">Events</a>
+                                            <a href="{% url 'bbgi_home:all-contributions' %}"
+                                                class="text-sm font-normal text-custom-h duration-500 py-2">Contributions</a>
+                                            <a href="{% url 'bbgi_home:all-ticket-orders' %}" class="text-sm font-normal text-custom-h duration-500 py-2">Ticket
+                                                orders</a>
+                                            <a href="{% url 'bbgi_home:all-blogs' %}"
+                                                class="text-sm font-normal text-custom-h duration-500 py-2">Blog</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% endif %}
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:absolute lg:right-0 w-full lg:w-10/12 h-full lg:top-0">
+                    <div class="relative   block w-full bg-custom-h">
+                        <nav class="w-full relative block">
+                            <div class="flex items-center container justify-between py-2">
+                                <a href="{% url 'bbgi_home:bbgi-home' %}" class="logo w-36 overflow-hidden h-full">
+                                    <img src="{% static 'imgs/logo_1.png' %}" alt="BBGI logo" class="object-cover">
+                                </a>
+                                <div class="flex w-fit items-center text-white space-x-9">
+                                    <div id="profile">
+                                        {% if request.user.is_authenticated %}
+                                        {% if request.user.profile_image %}
+                                        <a href="" class="text-white rounded-full overflow-hidden">
+                                            <img src="{{request.user.profile_image.url}}" alt="{{request.user.get_full_name}}"
+                                                class="w-10 h-10 rounded-full object-cover">
+                                        </a>
+                                        {% else %}
+                                        <a href="" class="text-white rounded-full overflow-hidden">
+                                            <img src="{% static 'imgs/about/About-1.png' %}" alt="" class="w-10 h-10 rounded-full object-cover">
+                                        </a>
+                                        {% endif %}
+                                        {% else %}
+                                        <a href="{% url 'accounts:login' %}" class="text-white">
+                                            <i class="fa-solid fa-user fa-lg"></i>
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                    <div id="cart">
+                                        <a href="" class="text-white">
+                                            <i class="fa-solid fa-cart-shopping fa-lg"></i>
+                                        </a>
+                                    </div>
+                                    <a href="{% url 'listings:add-listing' %}" id="add-listing w-full">
+                                        <span href="" class="text-white md:hidden  w-full">
+                                            <i class="fa-solid fa-plus fa-lg"></i>
+                                        </span>
+                                        <span
+                                            class="hidden w-36 font-semibold md:block py-2 px-3 text-center rounded-sm text-white bg-custom-primary">
+                                            <i class="fa-solid fa-plus fa-sm mr-1"></i>
+                                            Add Listing
+                                        </span>
+                                    </a>
+                                    <div @click="dashboard = !dashboard" class="cursor-pointer lg:hidden">
+                                        <i class="fa-solid text-white fa-bars fa-lg"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                        <div class=" bg-custom-bg py-10 relative block w-full h-full">
+                            {% include "includes/messages.html" %}
+                            {% block content %}
+                            {% endblock content %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+    <script src="{% static 'js/all.min.js' %}"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/js.cookie.min.js' %}"></script>
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script src="{% static 'js/jquery.datetimepicker.full.min.js' %}"></script>
+
+    {% block js %} {% endblock js %}
+</body>
+
+</html>

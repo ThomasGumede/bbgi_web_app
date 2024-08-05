@@ -1,0 +1,397 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block seo_tags %}
+<title>BBGI - Create Listing</title>
+<meta name="description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
+                            to showcase businesses and expertise">
+<meta name="title" content="BBGI - Create Listing" />
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://bbgi.co.za/listings/add" />
+<meta property="og:title" content="BBGI - Create Listing" />
+<meta property="og:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
+                            to showcase businesses and expertise" />
+<meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://bbgi.co.za/listings/add" />
+<meta property="twitter:title" content="BBGI - Create Listing" />
+<meta property="twitter:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
+                            to showcase businesses and expertise" />
+<meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+{% endblock seo_tags %}
+
+{% block content %}
+<section class="w-full font-sans relative py-20 block bg-custom-bg">
+    <div class="container">
+        <div class="relative block h-full w-full">
+
+            <div class="font-sans mx-auto md:w-7/12  w-fit z-40">
+                <div class="w-full space-y-9 mx-auto">
+                    <div class="space-y-6 text-center w-full">
+                        <h1 class="text-custom-primary text-base font-semibold">BBGI - Request Quotation
+                        </h1>
+                        <h4 class="text-3xl md:text-5xl text-custom-h font-bold">
+                            Ensuring Future For All
+                        </h4>
+                        <p class="text-custom-text text-base font-normal">
+                            We serves as a unified community of Black enterpreneurs and professionals, providing a space
+                            to showcase businesses and expertise
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="w-full font-sans py-10 h-full bg-white">
+    <div class="space-y-4 container bg-white w-full relative">
+        <div class="px-4">
+            {% if forms.errors or form.errors %}
+            <div class="w-full mx-auto">
+                <div class="bg-red-50 border-l-8 border-red-900">
+                    <div class="flex items-center">
+                        <div class="p-2">
+                            <div class="flex items-center">
+                                <div class="ml-2">
+                                    <svg class="h-8 w-8 text-red-900 mr-2 cursor-pointer"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <p class="px-6 py-4 text-red-900 font-semibold text-lg">Please fix the
+                                    following
+                                    errors.</p>
+                            </div>
+
+                            <ul class="px-16 mb-4">
+                                {% if forms.non_field_errors %}
+                                <li class="text-md font-bold p-1 list-none text-red-500 text-sm">
+                                    {{forms.non_field_errors.as_text}}
+                                </li>
+                                {% endif %}
+                                {% if form.non_field_errors %}
+                                <li class="text-md font-bold p-1 list-none text-red-500 text-sm">
+                                    {{form.non_field_errors}}</li>
+                                {% endif %}
+
+                                {% for key, value in form.errors.items %}
+                                <li
+                                    class="text-md font-bold p-1 list-none text-red-500 text-sm flex items-center gap-4">
+                                    {{key|escape}}: {{value|escape}}</li>
+                                {% endfor %}
+
+                                {% for form2 in forms %}
+                                {% for field in form2 %}
+                                {% for err in field.errors %}
+                                <li
+                                    class="text-md font-bold p-1 list-none text-red-500 text-sm flex items-center gap-4">
+                                    {{field.label}}:
+                                    {{err}}</li>
+                                {% endfor%}
+                                {% for err in field.non_field_errors %}
+                                <li
+                                    class="text-md font-bold p-1 list-none text-red-500 text-sm flex items-center gap-4">
+                                    {{err}}</li>
+                                {% endfor%}
+                                {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="grid items-start gap-7">
+                    <div class="p-4 border border-solid  rounded-lg w-full">
+                        <h6 class="text-custom-h text-base mt-3 mb-6 font-bold uppercase">
+                            Quotation Information
+                        </h6>
+                        <div class="flex flex-wrap">
+                            
+                            <div class="w-full lg:w-12/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_title">
+                                        Full names*
+                                    </label>
+                                    {{form.full_names}}
+                                    <span
+                                        class="text-[11px] text-custom-text block font-normal lowercase">{{form.full_names.help_text}}</span>
+
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_title">
+                                        Phone*
+                                    </label>
+                                    <input value="" id="id_phone" name="phone" required maxlength="15" type="tel"
+                                        class="block p-3 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary placeholder:text-gray-400 focus:border-custom-primary ease-linear transition-all duration-150">
+                                    <span
+                                        class="text-[11px] text-custom-text block font-normal lowercase">{{form.phone.help_text}}</span>
+
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_email">
+                                        Email Address*
+                                    </label>
+                                    {{form.email}}
+                                    <span class="text-[11px] text-custom-text block font-normal lowercase">{{form.email.help_text}}</span>
+                            
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_email">
+                                        Time*
+                                    </label>
+                                    {{form.time}}
+                                    <span class="text-[11px] text-custom-text block font-normal lowercase">When do you need the service to be
+                                        completed?</span>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_email">
+                                        When should we contact you?*
+                                    </label>
+                                    {{form.call_at}}
+                            
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-12/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_location">
+                                        Where are you based?
+                                    </label>
+                                    <input type="text" id="id_location" name="location"
+                                        class="block p-3 md:text-base w-full text-sm text-custom-h outline-none placeholder:text-gray-400 bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-custom-primary ease-linear transition-all duration-150">
+                                    <span class="text-[11px] text-custom-text block font-normal lowercase">Does this job need to be done on a specific location?</span>
+                            
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="w-full px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_details">
+                                        Tell us more about what you need done (optional)
+                                    </label>
+
+                                    {{form.description}}
+                                    <span
+                                        class="text-[11px] text-custom-text block font-normal lowercase">Adding a short description will get you better quotes</span>
+                                    {% if form.description.errors %}
+                                    <span
+                                        class="text-[11px] text-red-500 block font-normal lowercase">{{form.description.errors.as_text}}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="w-full px-4 mb-3">
+                                <div class="mb-3">
+                                    <label for="id_file">
+                                        Upload an image (optional)
+                                    </label>
+                                    {{form.file}}
+                                    <div class="w-full border rounded-md bg-white border-dotted p-6">
+                                        <div class="flex items-center flex-col md:flex-row gap-4 w-full justify-between">
+                                            <div class="flex items-center space-x-4">
+                                                <div id="img_container" class="h-16 w-20 overflow-hidden rounded bg-gray-300">
+                                                    <div id="no_image"></div>
+                                                </div>
+                                                <div class="space-y-1">
+                                                    <p class="text-xs font-bold text-gray-500">Include any reference material that would be helpful.</p>
+                                                    <p class="text-xs font-light text-gray-500">SVG, PNG,
+                                                        JPG, JPEG or GIF</p>
+                                                </div>
+                                            </div>
+                                            <div id="pick_image" class="border p-2 cursor-pointer text-center text-black">
+                                                <p class="text-sm">Browser</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <hr class="mt-6 border-b-1 border-blueGray-300">
+                <p class="text-sm text-custom-h font-medium mt-4">
+                    By clicking submit, you are agreeing to our quotation request <a href=""
+                        class="text-custom-primary">terms and
+                        conditions</a>.
+                </p>
+                <div class="mt-3">
+                    <div class="text-center inline-block h-12 bg-custom-primary w-[150px] rounded-md cursor-pointer">
+                        <input type="submit" value="submit"
+                            class="text-white w-full h-full cursor-pointer text-sm font-semibold" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+{% block js %}
+<script>
+    const file_picker = document.querySelector("#id_file"),
+            pick_image = document.querySelector("#pick_image"),
+            register_form = document.querySelector("#register_form");
+            
+
+        pick_image.addEventListener('click', () => {
+            file_picker.click()
+        })
+
+
+        file_picker.onchange = ({target}) => {
+            const no_image = document.querySelector("#no_image");
+            const img_container = document.querySelector("#img_container")
+            const img = document.querySelector("#img")
+            const file = target.files[0]
+            if (file) {
+                // console.log(no_image)
+                if (no_image) {
+                    // console.log(img_container)
+
+                    img_container.removeChild(no_image);
+                    img_container.innerHTML += `
+                    <img
+                        src="${window.URL.createObjectURL(file)}"
+                        alt="{{request.user.first_name}}"
+                        class="w-full h-full object-cover"
+                        id="img"
+                    />
+                `
+                } else {
+                    img.src = window.URL.createObjectURL(file)
+                }
+
+            } else {
+                alert("no file selected")
+            }
+
+        };
+</script>
+<script onerror="mapApiErrorHandler">
+    "use strict";
+    function mapApiErrorHandler() {
+        document.getElementById("id_location").disabled = false;
+        alert("Error encountered trying to load map for your address")
+    }
+    function initMap() {
+        try {
+            const CONFIGURATION = {
+                ctaTitle: "Checkout",
+                mapOptions: {
+                    center: {lat: -33.918861, lng: 18.423300},
+                    fullscreenControl: true,
+                    mapTypeControl: false,
+                    streetViewControl: true,
+                    zoom: 11,
+                    zoomControl: true,
+                    maxZoom: 22,
+                    mapId: ""
+                },
+                capabilities: {
+                    addressAutocompleteControl: true,
+                    mapDisplayControl: true,
+                    ctaControl: true
+                }
+            };
+
+            const componentForm = [
+                'location',
+                'locality',
+                'administrative_area_level_1',
+                'country',
+                'postal_code',
+            ];
+
+
+            const autocompleteInput = document.getElementById('id_location');
+            
+
+            
+
+            
+
+           
+            try {
+                const autocomplete = new google.maps.places.Autocomplete(autocompleteInput, {
+                    fields: ["place_id", "address_components", "geometry", "name"],
+                    types: ["address"],
+                });
+
+                autocomplete.setComponentRestrictions({'country': ['za']});
+
+                autocomplete.addListener('place_changed', () => {
+                    const place = autocomplete.getPlace();
+                    if (!place.geometry) {
+                        alert(`No details available for input: '${place.name}'`);
+                        return;
+                    }
+                    
+                    fillInAddress(place);
+                });
+
+                function fillInAddress(place) {
+                    const addressNameFormat = {
+                        'street_number': 'short_name',
+                        'route': 'long_name',
+                        'locality': 'long_name',
+                        'administrative_area_level_1': 'short_name',
+                        'country': 'long_name',
+                        'postal_code': 'short_name',
+                    };
+
+                    const getAddressComp = (type) => {
+                        for (const component of place.address_components) {
+                            if (component.types[0] === type) {
+                                return component[addressNameFormat[type]];
+                            }
+                        }
+                        return '';
+                    };
+
+                    autocompleteInput.value = `${getAddressComp('route')}, ${getAddressComp('locality')}, ${getAddressComp('administrative_area_level_1')}, ${getAddressComp('postal_code')}, South Africa`;
+                    
+                    const latitude = place.geometry.location.lat();
+                    const longitude = place.geometry.location.lng();
+                    if (latitude && longitude) {
+                        mapCoordinates.value = `${latitude},${longitude}`;
+                    }
+                }
+
+                
+
+            } catch (error) {
+                mapApiErrorHandler()
+            }
+
+
+        } catch (error) {
+            mapApiErrorHandler()
+        }
+    }
+    window.gm_authFailure = () => {
+        mapApiErrorHandler()
+    }
+</script>
+
+
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1vMyd0KzU7mTn_AkMW3zd2V4cJC9w31I&libraries=places&callback=initMap&solution_channel=GMP_QB_addressselection_v1_cAC"
+    async defer onerror="mapApiErrorHandler"></script>
+{% endblock js %}

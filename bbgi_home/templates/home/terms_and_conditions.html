@@ -1,0 +1,38 @@
+{% extends "_privacy.html" %}
+{% load static %}
+{% block title %}
+{{term.title}}
+{% endblock title %}
+
+{% block seo_tags %}
+<!-- Primary Meta Tags -->
+<title>BBGI - Terms and Conditions</title>
+<meta name="title" content="BBGI - Terms and Conditions" />
+<meta name="description"
+    content="We serves as a unified community of Black entrepreneurs and professionals, providing a space to showcase businesses and expertise." />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://bbgi.co.za/privacy" />
+<meta property="og:title" content="BBGI - Terms and Conditions" />
+<meta property="og:description"
+    content="We serves as a unified community of Black entrepreneurs and professionals, providing a space to showcase businesses and expertise." />
+<meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://bbgi.co.za/privacy" />
+<meta property="twitter:title" content="BBGI - Terms and Conditions" />
+<meta property="twitter:description"
+    content="We serves as a unified community of Black entrepreneurs and professionals, providing a space to showcase businesses and expertise." />
+<meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+
+<!-- Meta Tags Generated with https://metatags.io -->
+{% endblock seo_tags %}
+
+
+{% block privacy %}
+<div>
+    {{term.content|safe}}
+<div>
+{% endblock privacy %}

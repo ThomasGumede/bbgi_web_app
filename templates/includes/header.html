@@ -1,0 +1,244 @@
+{% load static %}
+<header class="w-full font-sans fixed z-[600] top-0 bg-custom-h left-0">
+    <div class="w-full bg-white py-1">
+        <div class="container flex items-center justify-between">
+            <ul class="flex items-center gap-4">
+            
+                <li>
+                    <a href="mailto:info@bbgi.co.za" target="_blank" rel="noopener noreferrer" class="flex items-center font-semibold gap-2 text-custom-h">
+                        <i class="fa-solid text-custom-primary fa-envelope"></i>
+            
+                        <span>info@bbgi.co.za</span>
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="flex items-center font-semibold gap-2 text-custom-h">
+                        <i class="fa-solid text-custom-primary fa-envelope"></i>
+            
+                        <address>15/A, Nest Tower, WC</address>
+                    </a>
+                </li>
+            
+            </ul>
+            <div class="flex items-center gap-4">
+                <a href="" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook text-custom-h"></i></a>
+                <a href="" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-twitter text-custom-h"></i></a>
+                <a href="" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin text-custom-h"></i></a>
+            </div>
+        </div>
+    </div>
+    <nav class="w-full relative block">
+        <div class="flex items-center container justify-between py-2">
+            <a href="{% url 'bbgi_home:bbgi-home' %}" class="logo w-36 overflow-hidden h-full">
+                <img src="{% static 'imgs/logo_1.png' %}" alt="BBGI logo" class="object-cover">
+            </a>
+            <ul class="items-center w-fit bg-transparent gap-4 hidden md:flex">
+                <li>
+                    <a href="{% url 'bbgi_home:bbgi-home' %}"
+                        class="px-3 py-2 mx-3  {% if request.resolver_match.url_name == 'bbgi-home' %}text-custom-primary border-b border-b-custom-primary{% else %}text-white{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">Home</a>
+                </li>
+                <li>
+                    <a href="{% url 'bbgi_home:about-bbgi' %}"
+                        class="px-3 py-2 mx-3 {% if request.resolver_match.url_name == 'about-bbgi' %}text-custom-primary border-b border-b-custom-primary{% else %}text-white{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">About</a>
+                </li>
+                
+                <li>
+                    <a href="{% url 'bbgi_home:blogs' %}"
+                        class="px-3 py-2 mx-3 {% if request.resolver_match.url_name == 'blogs' %}text-custom-primary border-b border-b-custom-primary{% else %}text-white{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">Blogs</a>
+                </li>
+                <li>
+                    <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
+                        class="text-white hover:text-custom-primary hover:border-b hover:border-b-custom-primary px-3 py-2 mx-3 font-medium flex items-center justify-between w-fit">Explore
+                        <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg></button>
+                    <!-- Dropdown menu -->
+                    <div id="dropdownNavbar"
+                        class="hidden bg-white text-base z-10 list-none divide-y divide-gray-100 rounded shadow my-4 w-44">
+                        <ul class="py-1" aria-labelledby="dropdownLargeButton">
+                            <li>
+                                <a href="{% url 'listings:listings' %}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Listings</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'events:events' %}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Events</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'campaigns:campaigns' %}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Campaigns</a>
+                            </li>
+                            <!-- <li>
+                                <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Market</a>
+                            </li> -->
+                        </ul>
+                        
+                    </div>
+                </li>
+                <li>
+                    <a href="{% url 'bbgi_home:contact' %}"
+                        class="px-3 py-2 mx-3 {% if request.resolver_match.url_name == 'contact' %}text-custom-primary border-b border-b-custom-primary{% else %}text-white{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">Contact</a>
+                </li>
+                
+            </ul>
+            <div class="flex w-fit items-center text-white space-x-9">
+                <div id="profile">
+                    {% if request.user.is_authenticated %}
+                        <div class="w-fit flex items-center space-x-5">
+                            <div x-data="{ isOpen: false }" class="relative inline-block ">
+                                <!-- Dropdown toggle button -->
+                                <button @click="isOpen = !isOpen"
+                                    class="relative z-10 flex items-center w-10 h-10 rounded-full   bg-white border border-transparent focus:border-blue-500 focus:ring-opacity-40  focus:ring-blue-300  focus:ring  focus:outline-none">
+                                    {% if request.user.profile_image %}
+                                    <div class="text-white rounded-full overflow-hidden">
+                                        <img src="{{request.user.profile_image.url}}" alt="{{request.user.get_full_name}}"
+                                            class="w-10 h-10 rounded-full object-cover">
+                                    </div>
+                                    {% else %}
+                                    <div href="{% url 'bbgi_home:dashboard' %}" class="text-white rounded-full overflow-hidden">
+                                        <i class="fa-solid fa-user fa-xl"></i>
+                                    </div>
+                                    {% endif %}
+                        
+                                </button>
+                        
+                                <!-- Dropdown menu -->
+                                <div x-cloak x-show="isOpen" @click.away="isOpen = false" x-transition:enter="transition ease-out duration-100"
+                                    x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                                    x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 scale-100"
+                                    x-transition:leave-end="opacity-0 scale-90"
+                                    class="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl ">
+                                    <a href="{% url 'accounts:user-details' request.user.username %}"
+                                        class="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform  hover:bg-gray-100 ">
+                                        {% if request.user.profile_image %}
+                                        <img class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
+                                            src="{{request.user.profile_image.url}}" alt="{{request.user.get_full_name}} avatar">
+                                        {% else %}
+                                        <img class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
+                                            src="{% static 'images/global/no-image-available.webp' %}"
+                                            alt="{{request.user.get_full_name}} avatar">
+                                        {% endif %}
+                                        <div class="mx-1 w-full">
+                                            <h5 class="text-sm font-semibold text-gray-700 ">
+                                                {{request.user.get_full_name}}</h5>
+                                            <p class="text-sm text-gray-500 ">
+                                                {{request.user.get_username}}
+                                            </p>
+                                        </div>
+                                    </a>
+                        
+                                    <hr class="border-gray-200  ">
+                        
+                                    <a href="{% url 'bbgi_home:dashboard' %}"
+                                        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100 ">
+                                        Dashboard
+                                    </a>
+                                    <a href="{% url 'accounts:contact-update' %}"
+                                        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100 ">
+                                        Settings
+                                    </a>
+                        
+                        
+                                    {% if request.user.is_superuser or request.user.is_staff %}
+                        
+                                    <a href="{% url 'admin:index' %}"
+                                        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100">
+                                        Admin
+                                    </a>
+                                    {% endif %}
+                        
+                        
+                                    <hr class="border-gray-200  ">
+                        
+                                    <a href="{% url 'campaigns:create-campaign' %}"
+                                        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100">
+                                        Add Campaign
+                                    </a>
+                        
+                                    <a href="{% url 'events:create-event' %}"
+                                        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100">
+                                        Add Event
+                                    </a>
+                        
+                                    <hr class="border-gray-200  ">
+                        
+                                    <a href="{% url 'accounts:logout' %}"
+                                        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100">
+                                        Sign Out
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                    <div class="w-fit flex items-center space-x-5">
+                        <div x-data="{ isOpen: false }" class="relative inline-block ">
+                            <!-- Dropdown toggle button -->
+                            <button @click="isOpen = !isOpen"
+                                class="relative z-10 flex items-center w-10 h-10 rounded-full  justify-center bg-white border border-transparent focus:border-blue-500 focus:ring-opacity-40  focus:ring-blue-300  focus:ring  focus:outline-none">
+                                
+                                <div class="text-black rounded-full text-center overflow-hidden">
+                                    <i class="fa-solid fa-user fa-xl"></i>
+                                </div>
+                                
+                    
+                            </button>
+                    
+                            <!-- Dropdown menu -->
+                            <div x-cloak x-show="isOpen" @click.away="isOpen = false" x-transition:enter="transition ease-out duration-100"
+                                x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                                x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 scale-100"
+                                x-transition:leave-end="opacity-0 scale-90"
+                                class="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl ">
+                                
+                    
+                                <a href="{% url 'accounts:login' %}"
+                                    class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100 ">
+                                    Sign in
+                                </a>
+                                <a href="{% url 'accounts:register' %}"
+                                    class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100 ">
+                                    Register
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <a href="{% url 'listings:add-listing' %}" id="add-listing w-full">
+                    <span href="" class="text-white md:hidden  w-full">
+                        <i class="fa-solid fa-plus fa-lg"></i>
+                    </span>
+                    <span class="hidden w-36 h-12 font-semibold md:grid justify-center items-center rounded-sm text-white bg-custom-primary">
+                        
+                        Add Listing
+                    </span>
+                </a>
+                
+                <div id="menu-bar" class="cursor-pointer block md:hidden">
+                    <i class="fa-solid text-white fa-bars fa-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div id="nav-items" class="fixed z-50 -right-full hidden transition-all duration-500 border  top-0 w-full h-screen overflow-hidden bg-[#24231f7b]">
+            <div class="relative transition-all delay-200 duration-500 block p-5 self-end justify-self-end w-full md:w-72 h-full bg-white">
+                <div id="close-menu" class="hidden md:block absolute cursor-pointer -left-11 top-4">
+                    <i class="fa-solid fa-x fa-xl text-white"></i>
+                </div>
+                <div id="close-menu-2" class="md:hidden cursor-pointer absolute right-4 top-4">
+                    <i class="fa-solid fa-x fa-xl text-black"></i>
+                </div>
+                <div class="space-y-3 mt-6 md:mt-0" >
+                    <a href="{% url 'bbgi_home:bbgi-home' %}" class="text-custom-primary py-3 px-2 font-normal font-sans block border-b border-b-custom-primary">Home</a>
+                    <a href="{% url 'bbgi_home:about-bbgi' %}" class="text-black py-3 px-2 font-normal font-sans block">About Us</a>
+                    <a href="{% url 'listings:listings' %}" class="text-black py-3 px-2 font-normal font-sans block">Listings</a>
+                    <a href="{% url 'events:events' %}" class="text-black py-3 px-2 font-normal font-sans block">Events</a>
+                    <a href="{% url 'campaigns:campaigns' %}" class="text-black py-3 px-2 font-normal font-sans block">Campaigns</a>
+                    <!-- <a href="{% url 'bbgi_home:contact' %}" class="text-black py-3 px-2 font-normal font-sans block">Market</a> -->
+                    <a href="{% url 'bbgi_home:contact' %}" class="text-black py-3 px-2 font-normal font-sans block">Contact</a>
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

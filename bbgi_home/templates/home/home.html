@@ -1,0 +1,408 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="w-full font-sans relative py-20 block bg-custom-bg">
+    <div class="container">
+        <div class="relative block h-full w-full">
+            <div class="font-sans mx-auto md:w-9/12  w-fit z-40">
+                <div class="w-full space-y-9 mx-auto">
+                    <div class="space-y-6 w-full leading-7">
+                        <h1 class="text-custom-primary text-base font-semibold">BBGI - Black Business Growth Initiative</h1>
+                        <h4 class="text-3xl md:text-6xl text-custom-h font-bold leading-loose">
+                            Empowering Black African Entrepreneurs
+                        </h4>
+                        <p class="text-custom-text text-base font-normal">
+                            We are your partner in building a stronger, more connected community.
+                        </p>
+                    </div>
+
+                    <div class=" w-full mx-auto">
+                        <div class="relative block w-full">
+                            <form method="get" action="{% url 'bbgi_home:search' %}">
+                                <label for="default-search"
+                                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
+                                <div class="relative w-full">
+                                    <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <input type="search" id="default-search" name="query"
+                                        class="block p-4 pl-10 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-custring-custom-primary"
+                                        placeholder="Search Listings, Events..." required>
+                                    <button type="submit"
+                                        class="text-white absolute right-2.5 bottom-2.5 bg-custom-primary hover:bg-custom-primary focus:ring-4 focus:outline-none focus:ring-custom-primary font-medium rounded-lg text-sm px-4 py-2">Search</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="w-full py-20 relative block font-sans">
+    <div class="container grid md:grid-cols-2 gap-16 items-center">
+        <figure class="h-full w-full md:w-[400px] lg:w-[500px] rounded-md relative">
+            <img src="{% static 'imgs/about/Abur-2.png' %}" alt="BBGI Team" class="w-full h-full rounded-2xl object-cover">
+            <img src="{% static 'imgs/about/About-1.png' %}" alt="BBGI Team" class="absolute bottom-9 w-80 rounded-2xl -left-5">
+        </figure>
+        <div class="">
+            <p class="text-custom-primary mb-5 font-semibold text-lg">About Us</p>
+            <h4 class="text-4xl mb-5 text-custom-h font-bold">The Leading Business Growth Initiative In Cape Town</h4>
+            <p class="text-custom-text mb-6 text-base font-normal">
+                The Black Business Growth Initiative supports Black African businesses and careers by providing a unified platform for
+                entrepreneurs and professionals to showcase their expertise and promote unity and cooperation.
+            </p>
+            <ul class="grid grid-cols-2 mb-6 gap-4">
+            
+                <li class="flex items-center gap-3">
+                    <div class="w-11 h-11 grid rounded-full place-items-center bg-[#c2a6404d]">
+                        <i class="fa-solid fa-hand-holding-hand text-custom-primary"></i>
+                    </div>
+            
+                    <p class="text-custom-text font-normal text-base">Support Black Businesses</p>
+                </li>
+            
+                <li class="flex items-center gap-3">
+                    <div class="w-11 h-11 grid rounded-full place-items-center bg-[#c2a6404d]">
+                        <i class="fa-solid fa-hand-holding-hand text-custom-primary"></i>
+                    </div>
+            
+                    <p class="text-custom-text font-normal text-base">Showcase Expertise</p>
+                </li>
+            
+                <li class="flex items-center gap-3">
+                    <div class="w-11 h-11 grid rounded-full place-items-center bg-[#c2a6404d]">
+                        <i class="fa-solid fa-hand-holding-hand text-custom-primary"></i>
+                    </div>
+            
+                    <p class="text-custom-text font-normal text-base">Promote Unity</p>
+                </li>
+            
+                <li class="flex items-center gap-3">
+                    <div class="w-11 h-11 grid rounded-full place-items-center bg-[#c2a6404d]">
+                        <i class="fa-solid fa-hand-holding-hand text-custom-primary"></i>
+                    </div>
+            
+                    <p class="text-custom-text font-normal text-base">Foster Cooperation</p>
+                </li>
+            
+            </ul>
+            <p class="text-custom-text mb-6 text-sm font-regular py-5 px-6 border-l-4 bg-[#c2a6404d] border-l-custom-primary border-l-solid">
+                "BBGI's expertise in optimizing our business listings has significantly boosted our online visibility."
+            </p>
+            <a href="{% url 'bbgi_home:about-bbgi' %}" class="w-fit font-normal md:block py-3 px-5 text-lg text-center rounded-sm text-white bg-custom-primary">
+                <span>Read more</span>
+            </a>
+        </div>
+    </div>
+</section>
+<section class="w-full font-sans relative py-20 block bg-custom-bg">
+    <div class="container">
+        <div class="text-center mb-5">
+            <p class="text-custom-primary mb-3 font-semibold text-lg">About Us</p>
+            <h4 class="text-4xl text-custom-h font-bold">Our Main Goal</h4>
+        </div>
+        <ul class="service-list flex items-center justify-center gap-9 flex-wrap">
+        
+            <li class="w-full sm:w-72 md:w-[350px]">
+                <div class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
+        
+                    <div class="w-32 mx-auto overflow-hidden">
+                        <img src="{% static 'imgs/services/service-1.png' %}" alt="Service icon" class="w-full h-full object-cover">
+                    </div>
+        
+                    <h3 class="text-xl font-semibold text-custom-h">
+                        <a href="#">Find Verified & Reliable Businesses</a>
+                    </h3>
+        
+                    <p class="text-sm text-custom-text">
+                        over 1 million+ businesses available on the website, we can match you with a house you will want
+                        to call home.
+                    </p>
+        
+                    <a href="{% url 'listings:listings' %}" class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
+                        <span>Discover listings</span>
+        
+                        <ion-icon name="arrow-forward-outline" role="img" class="md hydrated"
+                            aria-label="arrow forward outline"></ion-icon>
+                    </a>
+        
+                </div>
+            </li>
+        
+            <li class="w-full sm:w-72 md:w-[350px]">
+                <div class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
+        
+                    <div class="w-32 mx-auto overflow-hidden">
+                        <img src="{% static 'imgs/services/service-2.png' %}" alt="Service icon" class="w-full h-full object-cover">
+                    </div>
+        
+                    <h3 class="text-xl font-semibold text-custom-h">
+                        <a href="#">Get Support For Your Business</a>
+                    </h3>
+        
+                    <p class="text-sm text-custom-text">
+                        over 1 million+ homes for sale available on the website, we can match you with a house you will want
+                        to call home.
+                    </p>
+        
+                    <a href="{% url 'campaigns:create-campaign' %}" class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
+                        <span>Add Campaign</span>
+        
+                        <ion-icon name="arrow-forward-outline" role="img" class="md hydrated"
+                            aria-label="arrow forward outline"></ion-icon>
+                    </a>
+        
+                </div>
+            </li>
+        
+            <li class="w-full sm:w-72 md:w-[350px]">
+                <div class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
+        
+                <div class="w-32 mx-auto overflow-hidden">
+                    <img src="{% static 'imgs/services/service-3.png' %}" alt="Service icon" class="w-full h-full object-cover">
+                </div>
+        
+                    <h3 class="text-xl font-semibold text-custom-h">
+                        <a href="#">Connect With More Customers</a>
+                    </h3>
+        
+                    <p class="text-sm text-custom-text">
+                        over 1 million+ homes for sale available on the website, we can match you with a house you will want
+                        to call home.
+                    </p>
+        
+                    <a href="{% url 'listings:add-listing' %}" class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
+                        <span>Add Listing</span>
+        
+                        <ion-icon name="arrow-forward-outline" role="img" class="md hydrated"
+                            aria-label="arrow forward outline"></ion-icon>
+                    </a>
+        
+                </div>
+            </li>
+        
+        </ul>
+    </div>
+</section>
+<section class="w-full font-sans relative py-20 block bg-white">
+    <div class="container">
+        <div class="text-center mb-8">
+            <p class="text-custom-primary mb-3 font-semibold text-lg">Fictured Listings</p>
+            <h4 class="text-4xl text-custom-h font-bold">Our Top Listings</h4>
+        </div>
+        <div class="relative">
+            <div class="grid gap-6 w-full mx-auto md:grid-cols-4">
+                {% for listing in listings %}
+                <div class="group overflow-hidden shadow-[0px_10px_30px_0px_rgba(0,_0,_0,_0.07)] rounded-lg">
+                    <div class="relative overflow-hidden block">
+                        <div class="img_box overflow-hidden relative block">
+                            <div class="overflow-hidden h-44 bg-custom-h relative block transition-all duration-500 ease-in">
+                                {% if listing.background_image %}
+                                <img src="{{listing.background_image.url}}"
+                                    alt="{{listing.title}} background_image by {{listing.owner.get_full_name}}"
+                                    class="w-full transition-all duration-500 ease-in group-hover:scale-105 group-hover:opacity-50 h-full object-cover">
+                                {% else %}
+                                <img src="{% static 'imgs/no-image.png' %}" alt="{{listing.title}}"
+                                    class="w-full transition-all duration-500 ease-in group-hover:scale-105 group-hover:opacity-50 h-full object-cover">
+                                {% endif %}
+                            </div>
+                            <div class="absolute bottom-3 left-3">
+                                <div class="py-1 px-2 bg-custom-primary">
+                                    <div class="flex items-center justify-center space-x-1">
+                                        <i class="fa-regular text-white fa-xs fa-star"></i>
+                                        <p class="text-white text-xs p-0 font-semibold">{{listing.get_average_rating|safe}}</p>
+                                    </div>
+                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block text-center space-y-6 bg-white ">
+                            <div class="space-y-1 pt-5 px-5">
+                                <h3 class="text-custom-h m-0 transition-all duration-500 text-xl font-bold">
+                                    <a href="{{listing.get_absolute_url}}"
+                                        class="text-custom-h transition-all duration-500 ease-in group-hover:text-custom-primary">{{listing.title|truncatewords:3}}</a>
+                                </h3>
+                                <p class="text-gray-500 text-sm">
+                                    {{listing.slogan}}
+                                </p>
+                            </div>
+                
+                            <div class="relative px-5 flex justify-between items-center">
+                                <div class="">
+                                    <p class="text-xs text-gray-500 font-normal">{{listing.get_location}}</p>
+                                </div>
+                                <div class="">
+                                    <p class="text-xs text-gray-500 font-normal">{{listing.phone}}</p>
+                                </div>
+                            </div>
+                            <div class="relative block border-t py-2 px-5  border-solid">
+                                <div class="relative flex justify-between items-center">
+                                    <div class="relative space-x-2 flex justify-center w-min items-center">
+                                        <div
+                                            class="text-sm  h-7 w-7 grid items-center justify-center text-custom-primary">
+                                            <i class="fa-solid fa-tag font-bold p-0 m-0 fa-sm"></i>
+                                        </div>
+                                        <div class="w-full">
+                                            <a href="{% url 'listings:get-listings-by-category' category=listing.category.slug %}"
+                                                class="text-xs text-gray-500 font-normal">{{listing.category.label|truncatewords:1}}</a>
+                                        </div>
+                                        <div
+                                            class="text-sm  h-7 w-7 grid items-center justify-center text-custom-primary">
+                                            <p class="font-light p-0 m-0 text-xs">+{{listing.category.businesses.count}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <p class="text-xs text-gray-500 font-normal">{% if listing.is_open %}<span
+                                                class="p-1 rounded-sm text-white bg-green-400">open</span>{% else %}<span
+                                                class="p-1 text-white rounded-sm bg-red-400">close</span>{% endif %}</p>
+                                    </div>
+                                </div>
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </div>
+</section>
+<section class="w-full font-sans relative py-20 block bg-custom-bg">
+    <div class="container">
+        <div class="text-center mb-8">
+            <p class="text-custom-primary mb-3 font-semibold text-lg">Categories</p>
+            <h4 class="text-4xl text-custom-h font-bold">Our Top Categories</h4>
+        </div>
+        <ul class="features-list flex items-center justify-center gap-5 flex-wrap">
+            {% for category in listing_categories %}
+            <li class="w-full sm:w-48 relative bg-white  rounded-md shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
+                <a href="{% url 'listings:get-listings-by-category' category.slug %}" class="features-card text-center flex flex-col items-center py-4 justify-center">
+        
+                    <div class="card-icon w-16 mb-3 h-16 overflow-hidden">
+                        {% if category.thumbnail %}
+                            <img src="{{category.thumbnail.url}}" alt="Medical Category" class="w-full  h-full object-cover">
+                        {% else %}
+                            <img src="{% static 'imgs/categories/Medical.png' %}" alt="Medical Category" class="w-full  h-full object-cover">
+                        {% endif %}
+                    </div>
+                    <div>
+                        <h3 class="card-title text-lg font-bold text-custom-h">{{category.label|truncatechars:10}}</h3>
+                        <p class="text-sm text-custom-text">{{category.businesses.count}}+ listings</p>
+                    </div>
+                    
+    
+                </a>
+            </li>
+            {% endfor %}
+            
+        </ul>
+    </div>
+</section>
+<section class="w-full font-sans relative py-20 block bg-custom-bg">
+    <div class="container">
+        <div class="overflow-hidden rounded-lg shadow-2xl md:grid md:grid-cols-3">
+            <img alt=""
+                src="{% static 'imgs/about/about-3.png' %}"
+                class="h-32 w-full object-cover md:h-full" />
+        
+            <div class="p-4 text-center sm:p-6 md:col-span-2 lg:p-8">
+                <p class="text-sm font-semibold uppercase tracking-widest">Join Us Today</p>
+        
+                <h2 class="mt-6 font-black uppercase">
+                    <span class="text-4xl font-black sm:text-5xl lg:text-6xl"> Get 100% off </span>
+        
+                    <span class="mt-2 block text-sm">On your first year subscription</span>
+                </h2>
+        
+                <a class="mt-8 inline-block w-full bg-black py-4 text-sm font-bold uppercase tracking-widest text-white"
+                    href="{% url 'accounts:choose-package' %}">
+                    Get Discount
+                </a>
+        
+                <p class="mt-8 text-xs font-medium uppercase text-gray-400">
+                    Offer valid until we reach 100 listings*
+                </p>
+            </div>
+        </div>
+    </div>
+    
+</section>
+
+<section class="w-full font-sans relative py-20 block bg-white">
+    <div class="container">
+        <div class="text-center mb-8">
+            <p class="text-custom-primary mb-3 font-semibold text-lg">News & Blogs</p>
+            <h4 class="text-4xl text-custom-h font-bold">Latest News Feed</h4>
+        </div>
+        <div class="relative blog">
+            <div class="flex flex-wrap">
+                {% for post in posts %}
+                    <div
+                        class="max-w-full w-full group flex-shrink-0 px-[calc(30px_/_2)] lg:w-1/3 lg:flex-[0_0_auto] sm:w-1/2 sm:flex-[0_0_auto]">
+                        <div class="relative block mb-8">
+                            <div class="relative block">
+                                <div class="relative block overflow-hidden rounded-lg">
+                                    {% if post.image %}
+                                    <img src="{{post.image.url}}" alt="{{post.title}}" class="w-full">
+                                    {% else %}
+                                    <img src="{% static 'imgs/no-image.png'  %}" alt="{{post.title}}" class="w-full">
+                                    {% endif %}
+                                </div>
+                                <div class="absolute bottom-5 right-5 bg-custom-primary p-[15px_14px_15px] text-center items-center">
+                                    <p class="text-base text-white font-bold mb-1">{{post.created.date.day}}</p>
+                                    <span class="relative block text-xs text-white font-bold uppercase">{{post.created|date:"M"}}</span>
+                                </div>
+                            </div>
+                            <div class="relative block bg-white p-[26px_30px_20px] shadow-[0px_10px_30px_0px_rgba(0,_0,_0,_0.07)]">
+                                <ul class="relative flex items-center pl-0">
+                                    <li>
+                                        <a href="" class="text-sm font-normal text-custom-h">
+                                            <i class="fa-solid fa-user-circle text-custom-primary pr-1"></i>
+                                            By {{post.author.get_full_name}}
+                                        </a>
+                                    </li>
+                                    <li class="ml-2">
+                                        <a href="" class="text-sm font-normal text-custom-h">
+                                            <i class="fa-solid fa-comment text-custom-primary pr-1"></i>
+                                            {{post.comments.count}} comment{{post.comments.count|pluralize}}
+                                        </a>
+                                    </li>
+                                </ul>
+                                <h3 class="text-2xl font-bold">
+                                    <a href="{{post.get_absolute_url}}" class="text-custom-h">{{post.title|truncatewords:5}}</a>
+                                </h3>
+                                <div class="relative flex center justify-between px-8 py-4 bg-[#f2f7f7] mt-5">
+                                    <div>
+                                        <a href="{{post.get_absolute_url}}"
+                                            class="relative text-xs font-medium uppercase text-gray-500 flex items-center py-1">
+                                            Read more
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            
+               
+            
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock content %}
+
+{% block js %}
+
+{% endblock js %}
