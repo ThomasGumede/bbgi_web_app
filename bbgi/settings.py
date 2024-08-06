@@ -21,7 +21,7 @@ ADMINS = [('admin@bbgi.co.za'),( 'support@bbgi.co.za'), ('gumedethomas12@gmail.c
 MANAGERS = [('admin@bbgi.co.za'), ('support@bbgi.co.za'), ('gumedethomas12@gmail.com') ]
 
 # Security
-CSRF_TRUSTED_ORIGINS = ['https://127.0.0.1', 'https://localhost', 'https://bbgi.co.za', 'https://www.bbgi.co.za', 'https://www.bbgi.co.za']
+CSRF_TRUSTED_ORIGINS = ['https://127.0.0.1', 'https://localhost', 'https://bbgi.co.za', 'https://www.bbgi.co.za']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SILENCED_SYSTEM_CHECKS = ['security.W019']
@@ -47,7 +47,7 @@ else:
     SECURE_HSTS_PRELOAD = True
 
     # Allowed Hosts
-    ALLOWED_HOSTS=config("ALLOWED_HOSTS",cast=Csv())
+    ALLOWED_HOSTS=['https://bbgi.co.za', 'https://www.bbgi.co.za', 'https://www.bbgi.co.za', 'www.bbgi.co.za', 'bbgi.co.za']
 
 # Files
 TICKETS_PDF_DIR = os.path.join(BASE_DIR, 'media/tickets/pdf')
@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'accounts.apps.AccountsConfig',
     'bbgi_home',
     'listings',
@@ -88,6 +89,8 @@ INSTALLED_APPS = [
     'tinymce',
     'django_celery_beat',
     'django_celery_results',
+    # "django.contrib.sites",
+    # 'django.contrib.sitemaps',
 ]
 
 TAILWIND_APP_NAME = 'theme'
