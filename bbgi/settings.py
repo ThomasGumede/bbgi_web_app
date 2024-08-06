@@ -47,7 +47,8 @@ else:
     SECURE_HSTS_PRELOAD = True
 
     # Allowed Hosts
-    ALLOWED_HOSTS=['https://bbgi.co.za', 'https://www.bbgi.co.za', 'https://www.bbgi.co.za', 'www.bbgi.co.za', 'bbgi.co.za']
+    ALLOWED_HOSTS = ['bbgi.co.za', 'www.bbgi.co.za']
+
 
 # Files
 TICKETS_PDF_DIR = os.path.join(BASE_DIR, 'media/tickets/pdf')
