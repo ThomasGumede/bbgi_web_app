@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.sitemaps.views import sitemap
 
 
 urlpatterns = [
@@ -13,6 +14,7 @@ urlpatterns = [
     path("events/", include("events.urls", namespace="events")),
     path("markets/", include("markets.urls", namespace="markets")),
     path("payments/", include("payments.urls", namespace="payments")),
+    
 ]
 
 if settings.DEBUG:

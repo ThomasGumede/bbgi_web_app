@@ -4,6 +4,9 @@ from listings.models import Business
 from markets.models import Service, Qoutation
 from markets.forms import ServiceForm, QoutationForm
 from django.contrib import messages
+from django.contrib.sites.shortcuts import get_current_site
+
+from markets.tasks import send_email_to_owner
 
 @login_required
 def get_services(request, listing_id):
@@ -58,6 +61,16 @@ def delete_service(request, listing_id, service_id):
         return redirect("markets:get-services", listing.id)
     return render(request, "markets/services/delete-service.html", {"listing": listing, "service": service})
 
+@login_required
+def get_quotations(request, service_id):
+    service = get_object_or_404(Service, id=service_id)
+    quotations = Qoutation.objects.filter(service = service)
+    return render(request, "markets/quotations/quotations.html", {"quotations": quotations})
+
+@login_required
+def quotation_details(request, quotation_id):
+    quotation = get_object_or_404(Qoutation, id=quotation_id)
+    return render(request, "markets/quotations/quotation.html", {"quotation": quotation})
 
 @login_required
 def create_quotation(request, service_id):
@@ -67,9 +80,13 @@ def create_quotation(request, service_id):
         form = QoutationForm(request.POST, request.FILES)
         if form.is_valid():
             quote = form.save(commit=False)
+            cd = form.cleaned_data
             quote.service = service
             quote.client = request.user
             quote.save()
+            domain = get_current_site(request).domain
+            protocol = "https" if request.is_secure() else "http"
+            send_email_to_owner.delay(domain, protocol, quote.id)
             messages.success(request, "Quote was successfully sent to business owners")
             return redirect("listings:get-listing", service.business.slug)
         else:

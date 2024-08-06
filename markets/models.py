@@ -21,6 +21,7 @@ class Service(AbstractCreate):
     on_discount = models.BooleanField(default=False)
     discount_percentage = models.DecimalField(max_digits=1000, decimal_places=2, help_text=_("Enter discount percentage, e.g 100"), null=True, blank=True)
     discount_description = models.CharField(max_length=150, null=True, blank=True)
+    is_popular = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)

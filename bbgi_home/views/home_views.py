@@ -7,6 +7,7 @@ from bbgi_home.tasks import send_email_to_admin
 from campaigns.models import CampaignModel
 from events.models import EventModel
 from listings.models import Business
+from markets.models import Service
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -26,7 +27,7 @@ def contact(request):
             form.save()
             send_email_to_admin.delay(form.cleaned_data["subject"], form.cleaned_data["message"], form.cleaned_data["from_email"], form.cleaned_data["name"])
             messages.success(request, "We have successfully receive your email, will be in touch shortly")
-            return redirect("home:contact")
+            return redirect("bbgi_home:contact")
         else:
             messages.error(request, "Something went wrong, please fix errors below")
             for err in form.errors:
@@ -38,8 +39,8 @@ def contact(request):
 
 @login_required
 def dashboard(request):
-    
-    return render(request, "dashboard/dashboard.html")
+    popular_services = Service.objects.filter(is_popular=True, on_discount=True)
+    return render(request, "dashboard/dashboard.html", {"popular_services": popular_services})
 
 def search(request):
 

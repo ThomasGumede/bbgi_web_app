@@ -231,33 +231,46 @@
                 <div class="py-7">
                     <h2 class="text-xl font-semibold text-custom-h mb-8">This week's popular deals</h2>
                     <div class="relative block">
-                        <div class="grid grid-cols-1">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+                            {% for service in popular_services %}
                             <div class="w-full h-96 sm:w-72">
                                 <div class="relative w-full h-full rounded-3xl overflow-hidden">
                                     <div class="w-full border h-full">
+                                        {% if service.image %}
+                                        <img src="{{service.image.url}}" alt="{{service.title}}" class="w-full h-full object-cover object-top" />
+                                        {% else %}
                                         <img src="{% static 'imgs/about/About-1.png' %}" class="w-full h-full object-cover object-top" />
+                                        {% endif %}
                                     </div>
                                     <div class="absolute bg-gradient-to-t from-custom-h to-[#f8fafc55]  w-full h-full top-0 left-0 z-20 p-8">
                                         <div class="space-y-6">
                                             <div class="business space-y-2">
-                                                <div class="w-16 h-16 bg-custom-primary rounded-full overflow-none"></div>
-                                                <h4 class="font-bold text-xl text-white">Sako Electricians</h4>
+                                                <div class="w-16 h-16 bg-custom-primary rounded-full overflow-none">
+                                                    {% if service.business.logo %}
+                                                    <img src="{{service.business.logo.url}}" alt="{{service.business.title}}" class="w-full h-full object-cover object-top" />
+                                                    {% else %}
+                                                    <div class="w-full h-full text-center rounded-full">
+                                                        <p class="text-white font-bold text-lg">{{service.business.title.0}}{{service.business.title.1}}</p>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                                <h4 class="font-bold text-xl text-white">{{service.business.title}}</h4>
                                                 <div class="relative gap-2 flex items-center">
                                                     <div class="text-sm text-custom-primary">
                                                         <i class="fa-solid fa-location-dot fa-lg font-bold"></i>
                                                     </div>
                                                     <div class="">
-                                                        <p class="text-sm font-medium text-white">Cape Town</p>
+                                                        <p class="text-sm font-medium text-white">{{service.business.city}}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="space-y-2">
-                                                <h5 class="font-bold text-2xl text-white">11% Off</h5>
-                                                <p class="text-sm font-medium text-white">For orders over R5000</p>
+                                                <h5 class="font-bold text-2xl text-white">{{service.discount_percentage}} Off</h5>
+                                                <p class="text-sm font-medium text-white">{{service.discount_description}}</p>
                                                 <p class="text-sm font-normal text-white underline">T's & C's apply</p>
                                             </div>
                                             <div>
-                                            <a href="{% url 'listings:add-listing' %}" id="add-listing w-full" class="rounded-sm">
+                                            <a href="{% url 'markets:create-quotation' service.id %}" id="add-listing w-full" class="rounded-sm">
                                                 
                                                 <span
                                                     class="rounded-xl w-36 h-12 font-semibold md:grid justify-center items-center text-white bg-custom-h">
@@ -270,6 +283,7 @@
                                     </div>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

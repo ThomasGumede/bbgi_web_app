@@ -1,6 +1,8 @@
 {% extends '_base.html' %}
 {% load static %}
-
+{% block styles %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+{% endblock styles %}
 {% block content %}
 <section class="w-full font-sans relative py-20 block bg-custom-bg">
     <div class="container">
@@ -109,90 +111,105 @@
             <p class="text-custom-primary mb-3 font-semibold text-lg">About Us</p>
             <h4 class="text-4xl text-custom-h font-bold">Our Main Goal</h4>
         </div>
-        <ul class="service-list flex items-center justify-center gap-9 flex-wrap">
-        
-            <li class="w-full sm:w-72 md:w-[350px]">
-                <div class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-        
-                    <div class="w-32 mx-auto overflow-hidden">
-                        <img src="{% static 'imgs/services/service-1.png' %}" alt="Service icon" class="w-full h-full object-cover">
+        <div class="swiper-2 overflow-hidden">
+            <di class="service-list swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="w-full sm:w-72 md:w-[350px]">
+                        <div
+                            class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
+                
+                            <div class="w-32 mx-auto overflow-hidden">
+                                <img src="{% static 'imgs/services/service-1.png' %}" alt="Service icon"
+                                    class="w-full h-full object-cover">
+                            </div>
+                
+                            <h3 class="text-xl font-semibold text-custom-h">
+                                <a href="#">Find Verified & Reliable Businesses</a>
+                            </h3>
+                
+                            <p class="text-sm text-custom-text">
+                                over 1 million+ businesses available on the website, we can match you with a house you will want
+                                to call home.
+                            </p>
+                
+                            <a href="{% url 'listings:listings' %}"
+                                class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
+                                <span>Discover listings</span>
+                
+                                <ion-icon name="arrow-forward-outline" role="img" class="md hydrated"
+                                    aria-label="arrow forward outline"></ion-icon>
+                            </a>
+                
+                        </div>
                     </div>
-        
-                    <h3 class="text-xl font-semibold text-custom-h">
-                        <a href="#">Find Verified & Reliable Businesses</a>
-                    </h3>
-        
-                    <p class="text-sm text-custom-text">
-                        over 1 million+ businesses available on the website, we can match you with a house you will want
-                        to call home.
-                    </p>
-        
-                    <a href="{% url 'listings:listings' %}" class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
-                        <span>Discover listings</span>
-        
-                        <ion-icon name="arrow-forward-outline" role="img" class="md hydrated"
-                            aria-label="arrow forward outline"></ion-icon>
-                    </a>
-        
                 </div>
-            </li>
-        
-            <li class="w-full sm:w-72 md:w-[350px]">
-                <div class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-        
-                    <div class="w-32 mx-auto overflow-hidden">
-                        <img src="{% static 'imgs/services/service-2.png' %}" alt="Service icon" class="w-full h-full object-cover">
+                <div class="swiper-slide">
+                    <div class="w-full sm:w-72 md:w-[350px]">
+                        <div
+                            class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
+                
+                            <div class="w-32 mx-auto overflow-hidden">
+                                <img src="{% static 'imgs/services/service-2.png' %}" alt="Service icon"
+                                    class="w-full h-full object-cover">
+                            </div>
+                
+                            <h3 class="text-xl font-semibold text-custom-h">
+                                <a href="#">Get Support For Your Business</a>
+                            </h3>
+                
+                            <p class="text-sm text-custom-text">
+                                over 1 million+ homes for sale available on the website, we can match you with a house you will want
+                                to call home.
+                            </p>
+                
+                            <a href="{% url 'campaigns:create-campaign' %}"
+                                class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
+                                <span>Add Campaign</span>
+                
+                                <ion-icon name="arrow-forward-outline" role="img" class="md hydrated"
+                                    aria-label="arrow forward outline"></ion-icon>
+                            </a>
+                
+                        </div>
                     </div>
-        
-                    <h3 class="text-xl font-semibold text-custom-h">
-                        <a href="#">Get Support For Your Business</a>
-                    </h3>
-        
-                    <p class="text-sm text-custom-text">
-                        over 1 million+ homes for sale available on the website, we can match you with a house you will want
-                        to call home.
-                    </p>
-        
-                    <a href="{% url 'campaigns:create-campaign' %}" class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
-                        <span>Add Campaign</span>
-        
-                        <ion-icon name="arrow-forward-outline" role="img" class="md hydrated"
-                            aria-label="arrow forward outline"></ion-icon>
-                    </a>
-        
                 </div>
-            </li>
-        
-            <li class="w-full sm:w-72 md:w-[350px]">
-                <div class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-        
-                <div class="w-32 mx-auto overflow-hidden">
-                    <img src="{% static 'imgs/services/service-3.png' %}" alt="Service icon" class="w-full h-full object-cover">
+                <div class="swiper-slide">
+                    <div class="w-full sm:w-72 md:w-[350px]">
+                        <div
+                            class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
+                
+                            <div class="w-32 mx-auto overflow-hidden">
+                                <img src="{% static 'imgs/services/service-3.png' %}" alt="Service icon"
+                                    class="w-full h-full object-cover">
+                            </div>
+                
+                            <h3 class="text-xl font-semibold text-custom-h">
+                                <a href="#">Connect With More Customers</a>
+                            </h3>
+                
+                            <p class="text-sm text-custom-text">
+                                over 1 million+ homes for sale available on the website, we can match you with a house you will want
+                                to call home.
+                            </p>
+                
+                            <a href="{% url 'listings:add-listing' %}"
+                                class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
+                                <span>Add Listing</span>
+                
+                                <ion-icon name="arrow-forward-outline" role="img" class="md hydrated"
+                                    aria-label="arrow forward outline"></ion-icon>
+                            </a>
+                
+                        </div>
+                    </div>
                 </div>
+            
+            </div>
+        </div>
         
-                    <h3 class="text-xl font-semibold text-custom-h">
-                        <a href="#">Connect With More Customers</a>
-                    </h3>
-        
-                    <p class="text-sm text-custom-text">
-                        over 1 million+ homes for sale available on the website, we can match you with a house you will want
-                        to call home.
-                    </p>
-        
-                    <a href="{% url 'listings:add-listing' %}" class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
-                        <span>Add Listing</span>
-        
-                        <ion-icon name="arrow-forward-outline" role="img" class="md hydrated"
-                            aria-label="arrow forward outline"></ion-icon>
-                    </a>
-        
-                </div>
-            </li>
-        
-        </ul>
     </div>
 </section>
-<section class="w-full font-sans relative py-20 block bg-white">
+<section class="w-full overflow-hidden font-sans relative py-20 block bg-white">
     <div class="container">
         <div class="text-center mb-8">
             <p class="text-custom-primary mb-3 font-semibold text-lg">Fictured Listings</p>
@@ -282,29 +299,34 @@
             <p class="text-custom-primary mb-3 font-semibold text-lg">Categories</p>
             <h4 class="text-4xl text-custom-h font-bold">Our Top Categories</h4>
         </div>
-        <ul class="features-list flex items-center justify-center gap-5 flex-wrap">
-            {% for category in listing_categories %}
-            <li class="w-full sm:w-48 relative bg-white  rounded-md shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-                <a href="{% url 'listings:get-listings-by-category' category.slug %}" class="features-card text-center flex flex-col items-center py-4 justify-center">
-        
-                    <div class="card-icon w-16 mb-3 h-16 overflow-hidden">
-                        {% if category.thumbnail %}
-                            <img src="{{category.thumbnail.url}}" alt="Medical Category" class="w-full  h-full object-cover">
-                        {% else %}
-                            <img src="{% static 'imgs/categories/Medical.png' %}" alt="Medical Category" class="w-full  h-full object-cover">
-                        {% endif %}
-                    </div>
-                    <div>
-                        <h3 class="card-title text-lg font-bold text-custom-h">{{category.label|truncatechars:10}}</h3>
-                        <p class="text-sm text-custom-text">{{category.businesses.count}}+ listings</p>
-                    </div>
-                    
-    
-                </a>
-            </li>
-            {% endfor %}
+        <div class="swiper-1 mb-8 overflow-hidden">
+            <div class="swiper-wrapper py-8">
+                {% for category in listing_categories %}
+                <div class="swiper-slide">
+                    <div class="w-full sm:w-48 relative bg-white  rounded-md shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
+                        <a href="{% url 'listings:get-listings-by-category' category.slug %}" class="features-card text-center flex flex-col items-center py-4 justify-center">
+                
+                            <div class="card-icon w-16 mb-3 h-16 overflow-hidden">
+                                {% if category.thumbnail %}
+                                    <img src="{{category.thumbnail.url}}" alt="Medical Category" class="w-full  h-full object-cover">
+                                {% else %}
+                                    <img src="{% static 'imgs/categories/Medical.png' %}" alt="Medical Category" class="w-full  h-full object-cover">
+                                {% endif %}
+                            </div>
+                            <div>
+                                <h3 class="card-title text-lg font-bold text-custom-h">{{category.label|truncatechars:10}}</h3>
+                                <p class="text-sm text-custom-text">{{category.businesses.count}}+ listings</p>
+                            </div>
+                            
             
-        </ul>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+        
     </div>
 </section>
 <section class="w-full font-sans relative py-20 block bg-custom-bg">
@@ -404,5 +426,57 @@
 {% endblock content %}
 
 {% block js %}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+<script type="module">
+    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
 
+    const swiper = new Swiper('.swiper-1', {
+            // Optional parameters
+            slidesPerView: 1,
+            spaceBetween: 10,
+            loop: true,
+
+            breakpoints: {
+                // when window width is >= 320px
+                350: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+                750: {
+                    slidesPerView: 3,
+                    spaceBetween: 20
+                },
+                // when window width is >= 480px
+                1032: {
+                    slidesPerView: 4,
+                    spaceBetween: 30
+                },
+                // when window width is >= 640px
+                1140: {
+                    slidesPerView: 5,
+                    spaceBetween: 30
+                }
+            }
+        });
+
+    const swiper_2 = new Swiper('.swiper-2', {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        loop: true,
+        breakpoints: {
+            // when window width is >= 320px
+            750: {
+                slidesPerView: 2
+            },
+            1032: {
+                slidesPerView: 2.5
+            },
+            // when window width is >= 640px
+            1140: {
+                slidesPerView: 3,
+                spaceBetween: 30
+            }
+        }
+    })
+</script>
 {% endblock js %}

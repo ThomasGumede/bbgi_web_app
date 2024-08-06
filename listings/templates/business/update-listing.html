@@ -193,7 +193,7 @@
                                         Phone*
                                     </label>
                                     <input value="{% if form.phone.value %}{{form.phone.value}}{% endif %}" id="id_phone" name="phone" required maxlength="15" type="tel"
-                                        class="block p-2 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary placeholder:text-gray-400 focus:border-custom-primary ease-linear transition-all duration-150">
+                                        class="block p-3 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary placeholder:text-gray-400 focus:border-custom-primary ease-linear transition-all duration-150">
                                     <span
                                         class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.phone.help_text}}</span>
                                 </div>
@@ -232,7 +232,7 @@
                             <input type="hidden" name="form-INITIAL_FORMS" value="0" id="id_form-INITIAL_FORMS">
                             <input type="hidden" name="form-MIN_NUM_FORMS" value="0" id="id_form-MIN_NUM_FORMS">
                             <input type="hidden" name="form-MAX_NUM_FORMS" value="6" id="id_form-MAX_NUM_FORMS">
-                            <div data-hours-url="{% url 'listings:get-business-hours-api' listing.id %}" id="business_hours_container" class="relative block space-y-2">
+                            <div data-hours-url="{% url 'listings:get-business-hours-api' listing.id %}" id="business_hours_container" class="relative flex flex-wrap">
                                 
                             
                             </div>
@@ -242,60 +242,58 @@
                         <h6 class="text-custom-h text-base mt-3 mb-6 font-bold uppercase">
                             Office Address
                         </h6>
-                        <div class="flex flex-wrap gap-7">
-                            <div class="address_input w-full lg:w-5/12">
-                            
-                                <div class="w-full lg:w-12/12 px-4">
-                                    <div class="relative w-full mb-3">
-                                        <label for="id_title">
-                                            Address Line one*
-                                        </label>
-                                        {{form.address_one}}
-                                        <span
-                                            class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.address_one.help_text}}</span>
-                                    </div>
+                        <div class="flex flex-wrap">
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_title">
+                                        Address Line one*
+                                    </label>
+                                    {{form.address_one}}
+                                    <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.address_one.help_text}}</span>
                                 </div>
-                                <div class="w-full lg:w-12/12 px-4">
-                                    <div class="relative w-full mb-3">
-                                        <label for="id_title">
-                                            Address Line two
-                                        </label>
-                                        {{form.address_two}}
-                                        <span
-                                            class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.address_two.help_text}}</span>
-                                    </div>
-                                </div>
-                                <div class="w-full lg:w-12/12 px-4">
-                                    <div class="relative w-full mb-3">
-                                        <label for="id_title">
-                                            City*
-                                        </label>
-                                        {{form.city}}
-                                        <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.city.help_text}}</span>
-                                    </div>
-                                </div>
-                                <div class="w-full lg:w-12/12 px-4">
-                                    <div class="relative w-full mb-3">
-                                        <label for="id_title">
-                                            Province*
-                                        </label>
-                                        {{form.province}}
-                                        <span
-                                            class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.province.help_text}}</span>
-                                    </div>
-                                </div>
-                                <div class="w-full lg:w-12/12 px-4">
-                                    <div class="relative w-full mb-3">
-                                        <label for="id_title">
-                                            Zipcode*
-                                        </label>
-                                        {{form.zipcode}}
-                                        <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.zipcode.help_text}}</span>
-                                    </div>
-                                </div>
-                            
                             </div>
-                            <div class="map w-full lg:w-6/12 h-96" id="gmp-map-listing"></div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_title">
+                                        Address Line two
+                                    </label>
+                                    {{form.address_two}}
+                                    <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.address_two.help_text}}</span>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_title">
+                                        City*
+                                    </label>
+                                    {{form.city}}
+                                    <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.city.help_text}}</span>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_title">
+                                        Province*
+                                    </label>
+                                    {{form.province}}
+                                    <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.province.help_text}}</span>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-12/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_title">
+                                        Zipcode*
+                                    </label>
+                                    {{form.zipcode}}
+                                    <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.zipcode.help_text}}</span>
+                                </div>
+                            </div>
+                            <!-- <div class="address_input w-full lg:w-5/12">
+                            
+                                
+                            
+                            </div> -->
+                            <!-- <div class="map w-full lg:w-6/12 h-96" id="gmp-map-listing"></div> -->
                         </div>
                         
                     </div>
@@ -501,7 +499,7 @@
         };
     
 </script>
-<script onerror="mapApiErrorHandler">
+<!-- <script onerror="mapApiErrorHandler">
     "use strict";
     const coordinatesInput = document.getElementById('id_map_coordinates');
     const latitude = -33.918861;
@@ -679,7 +677,7 @@
     window.gm_authFailure = () => {
         mapApiErrorHandler()
     }
-</script>
+</script> -->
 {% if request.user.is_authenticated %}
 <script>
     const business_hours_container = document.querySelector("#business_hours_container")
@@ -710,7 +708,7 @@
                             let day = DAYCHOICES[hour.fields.day]
                             
                             business_hours_container.innerHTML += `
-                            <div class="flex flex-wrap items-center w-full rounded-md border border-solid justify-between gap-4 bg-white p-2">
+                            <div class="grid w-fit lg:w-6/12 border border-solid justify-between gap-4 bg-white p-2">
                                     <div>
                                         <input id="id_form-${index}-day" type="text" name="form-${index}-day" value="${hour.fields.day}" class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
                                         <p class="text-xl font-normal text-custom-h">${day}</p>
@@ -763,7 +761,7 @@
         }
 </script>
 {% endif %}
-<script
+<!-- <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1vMyd0KzU7mTn_AkMW3zd2V4cJC9w31I&libraries=places&callback=initMap&solution_channel=GMP_QB_addressselection_v1_cAC"
-    async defer onerror="mapApiErrorHandler"></script>
+    async defer onerror="mapApiErrorHandler"></script> -->
 {% endblock js %}

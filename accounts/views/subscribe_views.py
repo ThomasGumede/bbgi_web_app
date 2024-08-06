@@ -17,6 +17,10 @@ def choose_package(request):
         messages.warning(request, "Sorry there are currently no subscription packages")
         return redirect("bbgi_home:bbgi-home")
     
+    if request.user.subscription != None:
+        messages.info(request, "You are already subscribed to our business listing package")
+        return redirect("bbgi_home:bbgi-home")
+    
     if request.method == "POST":
         package_id = request.POST.get("package_id", None)
         
