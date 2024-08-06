@@ -1,6 +1,7 @@
 from celery import shared_task
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from accounts.utilities.company import COMPANY
 from listings.models import Business
 from markets.models import Service, Qoutation
 import logging, base64
@@ -10,7 +11,7 @@ email_logger = logging.getLogger("emails")
 
  
 
-@shared_task
+
 def send_email_to_owner(domain, protocol, qoute_id):
     try:
         qoute = Qoutation.objects.filter(id=qoute_id).first()
@@ -19,12 +20,11 @@ def send_email_to_owner(domain, protocol, qoute_id):
                     "domain": domain,
                     "owner": qoute.service.business.owner.get_full_name(),
                     "quote": qoute,
-                    # "facebook": COMPANY.facebook,
-                    # "twitter": COMPANY.twitter,
-                    # "linkedIn": COMPANY.linkedIn,
-                    # "instagram": COMPANY.phone,
-                    # "youtube": COMPANY.support_email, 
-                    # "tiktok": COMPANY.address_one,
+                    "facebook": COMPANY.facebook,
+                    "linkedin": COMPANY.linkedIn,
+                    "instagram": COMPANY.instagram,
+                    "youtube": COMPANY.youtube, 
+                    "tiktok": COMPANY.tiktok,
                     
                 }
         message = render_to_string("emails/quotation_request_email.html", context,
@@ -42,8 +42,7 @@ def send_email_to_owner(domain, protocol, qoute_id):
             email.attach_file(qoute.file.path)
 
         if not email.send():
-            return f"Email not sent to {qoute.service.business.email} for qoute {qoute.id}"
-        else:
-            return "Email sent"
+            logger.error(f"Email not sent to {qoute.service.business.email} for qoute {qoute.id}")
+        
     except Exception as ex:
         logger.error(ex)

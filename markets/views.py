@@ -86,7 +86,7 @@ def create_quotation(request, service_id):
             quote.save()
             domain = get_current_site(request).domain
             protocol = "https" if request.is_secure() else "http"
-            send_email_to_owner.delay(domain, protocol, quote.id)
+            send_email_to_owner(domain, protocol, quote.id)
             messages.success(request, "Quote was successfully sent to business owners")
             return redirect("listings:get-listing", service.business.slug)
         else:
