@@ -128,10 +128,13 @@
     <!-- End Header -->
 
     <!-- Main -->
-    <main class="main relative block pt-24">
-        {% include "includes/messages.html" %}
-        {% block content %}
-        {% endblock content %}
+    <main class="main relative block ">
+        <article class="mt-10">
+            {% include "includes/messages.html" %}
+            {% block content %}
+            {% endblock content %}
+        </article>
+        
         
     </main>
     <!-- End Main -->

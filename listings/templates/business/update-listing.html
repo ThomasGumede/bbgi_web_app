@@ -172,7 +172,9 @@
                                         Details about the listing*
                                     </label>
                             
-                                    {{form.details}}
+                                    <textarea name="details" id="id_details"
+                                        class="block p-3 md:text-base w-full text-sm text-custom-h outline-none placeholder:text-gray-400 bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-custom-primary ease-linear transition-all duration-150"
+                                        rows="6"> {{form.details.value}}</textarea>
                                     <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.details.help_text}}</span>
                                     {% if form.details.errors %}
                                     <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.details.errors.as_text}}</span>

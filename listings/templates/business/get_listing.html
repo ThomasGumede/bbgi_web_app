@@ -29,13 +29,13 @@
 {% endblock seo_tags %}
 
 {% block content %}
-<section class="w-full font-sans relative block bg-white mb-20">
+<section class="w-full font-sans relative block bg-custom-h mt-10 mb-20">
     <div class="group overflow-hidden relative">
         <div class="w-full h-full absolute top-0 left-0 bg-custom-h z-50 opacity-50"></div>
         <div class="relative overflow-hidden block">
             <div class="img_box overflow-hidden relative block">
                 <div
-                    class="overflow-hidden h-96 md:h-[460px] bg-custom-h relative block transition-all duration-500 ease-in">
+                    class="overflow-hidden h-[600px] md:h-[560px] bg-custom-h relative block transition-all duration-500 ease-in">
                     {% if listing.background_image %}
                     <img src="{{listing.background_image.url}}"
                         alt="{{listing.title}} background_image by {{listing.owner.get_full_name}}"
@@ -45,8 +45,8 @@
                         class="absolute top-1/2 left-1/2 h-full -translate-x-1/2 -translate-y-1/2 w-full transition-all duration-500 ease-in group-hover:scale-105 opacity-50 object-cover">
                     {% endif %}
                 </div>
-                <div class="absolute bottom-8 z-50 w-8/12 left-1/2 -translate-y-8 -translate-x-1/2">
-                    <div class="w-full h-full">
+                <div class="absolute  z-50 w-full h-fit md:w-8/12 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                    <div class="w-full h-full px-4">
                         <div class="flex items-center w-full flex-wrap gap-4 justify-between">
                             <div class="space-y-1 ">
                                 <div class="w-20 h-20 md:h-36 md:w-36 rounded-lg relative overflow-hidden">
@@ -59,7 +59,7 @@
                                         class="absolute top-1/2 left-1/2 h-full -translate-x-1/2 -translate-y-1/2 w-full transition-all duration-500 ease-in object-cover">
                                     {% endif %}
                                 </div>
-                                <div class="text-white w-max">
+                                <div class="text-white w-fit">
                                     <h1 class="text-xl md:text-3xl font-bold">{{listing.title}}</h1>
                                     <p class="text-xs md:text-base">{{listing.slogan}}</p>
                                     <div class="py-2 space-y-1">
@@ -177,7 +177,7 @@
                         <div id="full_description"
                             class="w-12/12 relative block campaign_data transition-all duration-500">
                             <div class="relative block">
-                                {{listing.details|safe}}
+                                <div class="text-custom-text font-medium text-base">{{listing.details|safe}}</div>
                             </div>
                         </div>
                         
