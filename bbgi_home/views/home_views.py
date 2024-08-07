@@ -13,8 +13,9 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 def bbgi_home(request):
     blogs = Blog.objects.all()[:3]
-    listings = Business.objects.all()[:4]
-    return render(request, "home/home.html", {"posts": blogs, "listings": listings})
+    listings = Business.objects.all()[:3]
+    popular_services = Service.objects.filter(is_popular=True, on_discount=True)[:3]
+    return render(request, "home/home.html", {"posts": blogs, "listings": listings, "popular_services": popular_services})
 
 def about_bbgi(request):
     members = Member.objects.all()

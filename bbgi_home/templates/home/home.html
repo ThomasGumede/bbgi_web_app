@@ -216,18 +216,18 @@
             <h4 class="text-4xl text-custom-h font-bold">Our Top Listings</h4>
         </div>
         <div class="relative">
-            <div class="grid gap-6 w-full mx-auto md:grid-cols-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7 flex-wrap">
                 {% for listing in listings %}
                 <div class="group overflow-hidden shadow-[0px_10px_30px_0px_rgba(0,_0,_0,_0.07)] rounded-lg">
                     <div class="relative overflow-hidden block">
                         <div class="img_box overflow-hidden relative block">
-                            <div class="overflow-hidden h-44 bg-custom-h relative block transition-all duration-500 ease-in">
+                            <div class="overflow-hidden h-52 bg-custom-h relative block transition-all duration-500 ease-in">
                                 {% if listing.background_image %}
                                 <img src="{{listing.background_image.url}}"
                                     alt="{{listing.title}} background_image by {{listing.owner.get_full_name}}"
                                     class="w-full transition-all duration-500 ease-in group-hover:scale-105 group-hover:opacity-50 h-full object-cover">
                                 {% else %}
-                                <img src="{% static 'imgs/no-image.png' %}" alt="{{listing.title}}"
+                                <img src="{% static 'images/no-image.png' %}" alt="{{listing.title}}"
                                     class="w-full transition-all duration-500 ease-in group-hover:scale-105 group-hover:opacity-50 h-full object-cover">
                                 {% endif %}
                             </div>
@@ -237,7 +237,7 @@
                                         <i class="fa-regular text-white fa-xs fa-star"></i>
                                         <p class="text-white text-xs p-0 font-semibold">{{listing.get_average_rating|safe}}</p>
                                     </div>
-                
+            
                                 </div>
                             </div>
                         </div>
@@ -251,7 +251,7 @@
                                     {{listing.slogan}}
                                 </p>
                             </div>
-                
+            
                             <div class="relative px-5 flex justify-between items-center">
                                 <div class="">
                                     <p class="text-xs text-gray-500 font-normal">{{listing.get_location}}</p>
@@ -262,17 +262,17 @@
                             </div>
                             <div class="relative block border-t py-2 px-5  border-solid">
                                 <div class="relative flex justify-between items-center">
-                                    <div class="relative space-x-2 flex justify-center w-min items-center">
+                                    <div class="relative space-x-2 flex justify-center w-fit items-center">
                                         <div
-                                            class="text-sm  h-7 w-7 grid items-center justify-center text-custom-primary">
-                                            <i class="fa-solid fa-tag font-bold p-0 m-0 fa-sm"></i>
+                                            class="text-sm rounded-full  h-7 w-7 grid items-center justify-center text-custom-primary">
+                                            <i class="fa-solid fa-tag font-bold p-0 m-0 text-sm"></i>
                                         </div>
                                         <div class="w-full">
                                             <a href="{% url 'listings:get-listings-by-category' category=listing.category.slug %}"
                                                 class="text-xs text-gray-500 font-normal">{{listing.category.label|truncatewords:1}}</a>
                                         </div>
                                         <div
-                                            class="text-sm  h-7 w-7 grid items-center justify-center text-custom-primary">
+                                            class="text-sm rounded-full  h-7 w-7 grid items-center justify-center text-custom-primary">
                                             <p class="font-light p-0 m-0 text-xs">+{{listing.category.businesses.count}}</p>
                                         </div>
                                     </div>
@@ -283,12 +283,11 @@
                                     </div>
                                 </div>
                             </div>
-                
+            
                         </div>
                     </div>
                 </div>
                 {% endfor %}
-                
             </div>
         </div>
     </div>
@@ -329,6 +328,77 @@
         
     </div>
 </section>
+{% if popular_services %}
+<section class="w-full overflow-hidden font-sans relative py-20 block bg-white">
+    <div class="container">
+        <div class="text-center mb-8">
+            <p class="text-custom-primary mb-3 font-semibold text-lg">Trending Services</p>
+            <h4 class="text-4xl text-custom-h font-bold">This week's popular deals</h4>
+        </div>
+        <div class="relative">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+                {% for service in popular_services %}
+                <div class="w-full h-96 sm:w-72">
+                    <div class="relative w-full h-full rounded-3xl overflow-hidden">
+                        <div class="w-full border h-full">
+                            {% if service.image %}
+                            <img src="{{service.image.url}}" alt="{{service.title}}"
+                                class="w-full h-full object-cover object-top" />
+                            {% else %}
+                            <img src="{% static 'imgs/about/About-1.png' %}" class="w-full h-full object-cover object-top" />
+                            {% endif %}
+                        </div>
+                        <div class="absolute bg-gradient-to-t from-custom-h to-[#f8fafc55]  w-full h-full top-0 left-0 z-20 p-8">
+                            <div class="space-y-6 z-30">
+                                <div class="business space-y-2">
+                                    <div class="w-16 h-16  rounded-full overflow-hidden">
+                                        {% if service.business.logo %}
+                                        <img src="{{service.business.logo.url}}" alt="{{service.business.title}}"
+                                            class="w-full h-full object-cover" />
+                                        {% else %}
+                                        <div class="w-full h-full text-center rounded-full">
+                                            <p class="text-white font-bold text-lg">
+                                                {{service.business.title.0}}{{service.business.title.1}}</p>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <h4 class="font-bold text-xl text-white">{{service.business.title}}</h4>
+                                    <div class="relative gap-2 flex items-center">
+                                        <div class="text-sm text-custom-primary">
+                                            <i class="fa-solid fa-location-dot fa-lg font-bold"></i>
+                                        </div>
+                                        <div class="">
+                                            <p class="text-sm font-medium text-white">{{service.business.city}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <h5 class="font-bold text-2xl text-white">{{service.discount_percentage}}% Off</h5>
+                                    <p class="text-sm font-medium text-white">{{service.discount_description}}</p>
+                                    <p class="text-sm font-normal text-white underline">T's & C's apply</p>
+                                </div>
+                                <div>
+                                    <a href="{% url 'markets:create-quotation' service.id %}" id="add-listing w-full"
+                                        class="rounded-sm">
+            
+                                        <span
+                                            class="rounded-xl w-36 h-12 font-semibold md:grid justify-center items-center text-white bg-custom-h">
+            
+                                            Get a qoute
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
 <section class="w-full font-sans relative py-20 block bg-custom-bg">
     <div class="container">
         <div class="overflow-hidden rounded-lg shadow-2xl md:grid md:grid-cols-3">
@@ -340,7 +410,7 @@
                 <p class="text-sm font-semibold text-custom-primary uppercase tracking-widest">Join Us Today</p>
         
                 <h2 class="mt-6 font-black uppercase">
-                    <span class="text-4xl font-black text-custom-h sm:text-5xl lg:text-6xl"> Get 100% off </span>
+                    <span class="text-4xl font-black text-custom-h sm:text-5xl lg:text-6xl"> Get 80% off </span>
         
                     <span class="mt-2 block text-custom-text text-sm">On your first year subscription</span>
                 </h2>
@@ -351,14 +421,13 @@
                 </a>
         
                 <p class="mt-8 text-xs font-medium uppercase text-gray-400">
-                    Offer valid until we reach 100 listings*
+                    Offer valid until we reach 50 listings*
                 </p>
             </div>
         </div>
     </div>
     
 </section>
-
 <section class="w-full font-sans relative py-20 block bg-white">
     <div class="container">
         <div class="text-center mb-8">
@@ -421,8 +490,6 @@
         </div>
     </div>
 </section>
-
-
 {% endblock content %}
 
 {% block js %}
