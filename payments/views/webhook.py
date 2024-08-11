@@ -66,7 +66,11 @@ def create_webhook(request):
             return render(request, "payments/timeout.html", {"err": err})
             
         except requests.HTTPError as err:
-            print(err)
+            logger.error(f"Webhook Yoco - HTTP Error - {err}")
+            return render(request, "payments/error.html", {"message": "Your payment was not processed due to internal error from our payment system, Please try again later"})
+        
+        except Exception as err:
+            logger.error(f"Webhook Yoco - Exception Error - {err}")
             return render(request, "payments/error.html", {"message": "Your payment was not processed due to internal error from our payment system, Please try again later"})
         
     else:

@@ -3,12 +3,11 @@ import requests
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from accounts.models import SubscriptionOrder
-from campaigns.models import ContributionModel
 from payments.models import PaymentInformation
-from payments.tasks import check_payment_update_contribution, check_payment_update_subscription
+from payments.tasks import check_payment_update_subscription
 from django.contrib import messages
 from campaigns.utils import PaymentStatus
-from payments.utils import headers, decimal_to_str, update_payment_status_contribution_order, update_payment_status_subscription_order
+from payments.utils import headers, decimal_to_str, update_payment_status_subscription_order
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 
@@ -43,18 +42,19 @@ def subscription_payment(request, subscription_id):
             response_data = response.json()
             subscription_order.checkout_id = response_data["id"]
             subscription_order.payment_status = PaymentStatus.PENDING
-            subscription_order.save(update_fields=["paid", "checkout_id"])
+            subscription_order.save(update_fields=["payment_status", "checkout_id"])
             return redirect(response_data["redirectUrl"])
 
         except requests.ConnectionError as err:
+            logger.error(f"Yoco - Connection Error - {err}")
             return render(request, "payments/timeout.html", {"err": err})
         
         except requests.HTTPError as err:
-            logger.error(f"Yoco - {err}")
+            logger.error(f"Yoco - HTTP Error - {err}")
             return render(request, "payments/error.html", {"message": "Your payment was not processed due to internal error from our payment system, Please try again later"})
         
         except Exception as err:
-            logger.error(f"Yoco - {err}")
+            logger.error(f"Yoco - Exception - {err}")
             return render(request, "payments/error.html", {"message": "Your payment was not processed due to internal error from our payment system, Please try again later"})
 
     return render(request, "payments/subscriptions/payment.html", {"subscription_order": subscription_order})
@@ -62,8 +62,8 @@ def subscription_payment(request, subscription_id):
 
 def subscription_payment_failed(request, subscription_id):
     subscription = get_object_or_404(SubscriptionOrder, id=subscription_id)
-    subscription.paid = PaymentStatus.NOT_PAID
-    subscription.save(update_fields=["paid"])
+    subscription.payment_status = PaymentStatus.NOT_PAID
+    subscription.save(update_fields=["payment_status"])
     return render(request, "payments/subscriptions/failed.html")
 
 
