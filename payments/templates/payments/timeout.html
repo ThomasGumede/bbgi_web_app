@@ -12,7 +12,7 @@
                 <div class="space-y-6">
                     <h3 class="text-custom-h text-2xl md:text-4xl font-extrabold">Payment not processed</h3>
                     <div>
-                        <i class="fa-solid fa-satellite-dish text-8xl font-extralight text-custom-h"></i>
+                        <i class="fa-regular fa-satellite-dish text-8xl font-extralight text-custom-h"></i>
                     </div>
 
                     <p class="text-custom-h text-lg font-medium">
@@ -23,9 +23,9 @@
                     </p>
                     <form method="post">
                         {% csrf_token %}
-                        <button value="submit" type="submit"
-                            class="w-full px-4 py-2 outline-none text-custom-primary border border-custom-primary rounded-md md:w-auto hover:text-gray-100 hover:bg-blue-600 dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-300">
-                            Re-try
+                        <button type="submit" value="submit"
+                            class="w-36 lg:w-40 h-12 border-2 border-custom-h bg-custom-h hover:bg-white hover:text-custom-h text-white font-medium text-sm focus-within:outline-none focus:outline-none lg:text-base duration-500 rounded-md">
+                            try again
                         </button>
                     </form>
                 </div>

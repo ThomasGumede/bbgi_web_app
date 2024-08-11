@@ -63,7 +63,7 @@ class Business(AbstractProfile, AbstractCreate):
     slug = models.SlugField(max_length=250, blank=True)
     owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=None, related_name="businesses")
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="businesses")
-    details = HTMLField(help_text=_("Enter additional details about your company/business"))
+    details = models.TextField(help_text=_("Enter additional details about your company/business"))
     map_coordinates  = models.CharField(max_length=300, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
     email = models.EmailField(_("Enter your business email"), max_length=250, blank=True, null=True)
@@ -157,3 +157,11 @@ class BusinessHour(AbstractCreate):
         verbose_name = 'Business Hour'
         verbose_name_plural = 'Business Hours'
 
+class BusinessLocation(AbstractCreate):
+    address_one = models.CharField(max_length=300, blank=True, null=True)
+    address_two = models.CharField(max_length=300, blank=True, null=True)
+    city = models.CharField(max_length=300, blank=True, null=True)
+    province = models.CharField(max_length=300, blank=True, null=True)
+    country = models.CharField(max_length=300, default="South Africa")
+    zipcode = models.BigIntegerField(blank=True, null=True)
+    address_id = models.CharField(max_length=300, null=True, blank=True)

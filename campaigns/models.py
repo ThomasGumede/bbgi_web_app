@@ -2,6 +2,7 @@ from datetime import timedelta
 import decimal
 from django.urls import reverse
 from django.core.validators import MinValueValidator
+from accounts.custom_models.abstracts import AbstractPayment
 from accounts.models import AbstractCreate
 from campaigns.utils import handle_campaign_file_upload, PaymentStatus, Tip
 from django.db import models
@@ -22,16 +23,6 @@ def in_fourteen_days():
 
 def five_days():
     return timezone.now() + timedelta(days=5)
-
-class AbstractPayment(models.Model):
-    payment_method_type = models.CharField(max_length=50, null=True, blank=True)
-    payment_method_card_holder = models.CharField(max_length=50, null=True, blank=True)
-    payment_method_masked_card = models.CharField(max_length=50, null=True, blank=True)
-    payment_method_scheme = models.CharField(max_length=50, null=True, blank=True)
-    payment_date = models.CharField(max_length=50, null=True, blank=True)
-
-    class Meta:
-        abstract = True
 
 class CampaignModel(AbstractCreate):
     image = models.ImageField(help_text=_("Upload campaign image."), upload_to=handle_campaign_file_upload, blank=True, null=True)

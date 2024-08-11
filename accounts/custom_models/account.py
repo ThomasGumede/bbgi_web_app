@@ -8,7 +8,7 @@ from django.utils.translation import gettext as _
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import pre_delete, post_save
 
-from accounts.custom_models.abstracts import AbstractCreate, AbstractProfile
+from accounts.custom_models.abstracts import AbstractCreate, AbstractPayment, AbstractProfile
 from accounts.custom_models.choices import TITLE_CHOICES, WALLET_STATUS, PaymentStatus
 from accounts.utilities.file_handlers import handle_profile_upload
 
@@ -57,6 +57,8 @@ class Account(AbstractUser, AbstractProfile):
     is_technical = models.BooleanField(default=False)
     is_email_activated = models.BooleanField(default=False)
     is_paid = models.CharField(max_length=40, choices=PaymentStatus.choices, default=PaymentStatus.NOT_PAID)
+    subscription_starts = models.DateTimeField(null=True, blank=True)
+    subscription_ends = models.DateTimeField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -65,3 +67,20 @@ class Account(AbstractUser, AbstractProfile):
         verbose_name_plural = _("Accounts")
         ordering = ["-created"]
 
+    def __str__(self):
+        return self.get_full_name()
+
+class SubscriptionOrder(AbstractCreate, AbstractPayment):
+    package = models.ForeignKey(SubscriptionPackage, null=True, blank=True, on_delete=models.SET_NULL, related_name="subscription_orders")
+    subscriber = models.OneToOneField(Account, null=True, blank=True, on_delete=models.SET_NULL, related_name="subscription_order")
+    order_id = models.CharField(max_length=150, editable=False, unique=True)
+    vat = models.DecimalField(max_digits=1000, decimal_places=2)
+    total_amount = models.DecimalField(max_digits=1000, decimal_places=2)
+    checkout_id = models.CharField(max_length=200, unique=True, null=True, blank=True, db_index=True)
+    payment_status = models.CharField(max_length=40, choices=PaymentStatus.choices, default=PaymentStatus.NOT_PAID)
+    
+
+    class Meta:
+        verbose_name = _("Subscription Order")
+        verbose_name_plural = _("Subscription Orders")
+        ordering = ["-created"]

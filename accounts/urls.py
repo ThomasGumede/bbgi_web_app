@@ -1,7 +1,7 @@
 from django.urls import path
 from accounts.views.account_views import account_update, activate, activation_sent, add_social_links, confirm_email, custom_login, custom_logout, general, register, user_details
 from accounts.views.password_views import password_change, password_reset_request, password_reset_sent, passwordResetConfirm
-from accounts.views.subscribe_views import choose_package
+from accounts.views.subscribe_views import cancel_subscription_order, choose_package, subscribe
 app_name = "accounts"
 urlpatterns = [
     path("login", custom_login, name="login"),
@@ -22,5 +22,7 @@ urlpatterns = [
     path('update/contact', general, name="contact-update"),
     path('update/password', password_change, name="password-update"),
     path('update/social', add_social_links, name="update-social-links"),
-    path('subscribe', choose_package, name="choose-package")
+    path('subscribe', choose_package, name="choose-package"),
+    path('subscribe/<uuid:package_id>', subscribe, name="subscribe"),
+    path('subscribe/cancel/<uuid:subscription_order_id>', cancel_subscription_order, name="cancel-subscription-order")
 ]

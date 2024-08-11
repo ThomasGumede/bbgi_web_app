@@ -26,13 +26,13 @@ def handle_business_file_upload(instance, filename):
     return f"business/{filename}"
 
 def generate_order_number(model) -> str:
-    order_id_start = f'NFRF{timezone.now().year}{timezone.now().month}'
+    order_id_start = f'BBGI{timezone.now().year}{timezone.now().month}'
     queryset = model.objects.filter(order_number__iexact=order_id_start).count()
       
     count = 1
     order_number = order_id_start
     while(queryset):
-        order_number = f'NFRF{timezone.now().year}{timezone.now().month}{count}'
+        order_number = f'BBGI{timezone.now().year}{timezone.now().month}{count}'
         count += 1
         queryset = model.objects.all().filter(order_number__iexact=order_number).count()
 

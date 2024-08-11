@@ -31,3 +31,13 @@ class AbstractCreate(models.Model):
 
     class Meta:
         abstract = True
+
+class AbstractPayment(models.Model):
+    payment_method_type = models.CharField(max_length=50, null=True, blank=True)
+    payment_method_card_holder = models.CharField(max_length=50, null=True, blank=True)
+    payment_method_masked_card = models.CharField(max_length=50, null=True, blank=True)
+    payment_method_scheme = models.CharField(max_length=50, null=True, blank=True)
+    payment_date = models.CharField(max_length=50, null=True, blank=True)
+
+    class Meta:
+        abstract = True

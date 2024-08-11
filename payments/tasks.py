@@ -1,6 +1,8 @@
 import logging, json, base64
 from celery import shared_task
-from accounts.custom_models.account import WalletModel
+from accounts.custom_models.account import SubscriptionOrder, WalletModel
+from django.utils import timezone
+from dateutil.relativedelta import relativedelta
 from accounts.utilities.custom_email import send_html_email_with_attachments
 from payments.models import BBGIBankModel, PaymentInformation
 from events.models import TicketOrderModel, reservation_time
@@ -12,6 +14,7 @@ from weasyprint import HTML
 from django.core.mail import EmailMessage
 from django.conf import settings
 
+from payments.utils import send_subscription_confirm_email
 
 logger = logging.getLogger("tasks")
 event_logger = logging.getLogger("events")
@@ -181,6 +184,47 @@ def update_payment_details(order, data, payment_status: PaymentStatus):
     order.payment_date = str(payload.get("createdDate", "-"))
     order.save(update_fields=["paid", "payment_method_card_holder", "payment_method_type","payment_method_masked_card", "payment_method_scheme"])
 
+def send_subscription_confirm_email(order: SubscriptionOrder, protocol, domain, status):
+    try:
+        
+        context = {
+                        "protocol": protocol,
+                        "domain": domain,
+                        "user": order.contributor.get_full_name(),
+                        "order": order,
+                        # "facebook": COMPANY.facebook,
+                        # "twitter": COMPANY.twitter,
+                        # "linkedIn": COMPANY.linkedIn,
+                        # "instagram": COMPANY.phone,
+                        # "youtube": COMPANY.support_email, 
+                        # "tiktok": COMPANY.address_one,
+                    }
+
+        if status == "payment.succeeded" or status == PaymentStatus.PAID:
+            mail_subject = F"BBGI Payment Received"
+            message = render_to_string("emails/subscriptions/payment_received.html",
+                        context
+                    )
+        else:
+            mail_subject = F"Your contribution payment {order.campaign.title} campaign was unsuccessful"
+            message = render_to_string("emails/subscriptions/payment_cancelled.html",
+                        context,
+                    )
+
+
+        sent = send_html_email_with_attachments(order.subscriber.email, mail_subject, message, "BBGI <bbgiorders@bbgi.co.za>")
+          
+        if not sent:
+            email_logger.error(f"confirmation email not sent for {order.order_id} to {order.subscriber.email}")
+            return False
+                
+        return True
+
+    except Exception as ex:
+        logger.error(ex)
+        return False  
+
+
 @shared_task
 def update_payment_status(data, protocol, domain):
     payload = data["payload"]
@@ -265,6 +309,55 @@ def check_payment_update_contribution(checkout_id, protocol, domain):
         except ContributionModel.DoesNotExist:
             campaign_logger.error("Contribution not found")
             return f"Contribution {checkout_id} was not found"
+        
+    except PaymentInformation.DoesNotExist:
+        pass
+
+@shared_task
+def check_payment_update_subscription(checkout_id, protocol, domain):
+    try:
+        payment_information = PaymentInformation.objects.get(id=checkout_id)
+        data = json.loads(payment_information.data)
+        try:
+            subscription = SubscriptionOrder.objects.get(checkout_id=checkout_id)
+            payment_status = PaymentStatus.NOT_PAID
+            if data["type"] == "payment.succeeded":
+                payment_status = PaymentStatus.PAID
+                if subscription.subscriber:
+                    subscription.subscriber.subscription = subscription.package
+                    subscription.subscriber.is_paid = True
+                    subscription.subscriber.subscription_starts = timezone.now()
+                    subscription.subscriber.subscription_ends = timezone.now() + relativedelta(months=12)
+                    subscription.subscriber.save(update_fields=["subscription", "is_paid", "subscription_starts", "subscription_ends"])
+                
+                
+
+            payload = data["payload"]
+            payment_method_details = payload["paymentMethodDetails"]
+            card_details = payment_method_details.get("card", None)
+            subscription.payment_status = payment_status
+            if card_details:
+                subscription.payment_method_type = card_details.get("type", "-")
+                subscription.payment_method_card_holder = card_details.get("cardHolder", "-")
+                subscription.payment_method_masked_card = card_details.get("maskedCard", "-")
+                subscription.payment_method_scheme = card_details.get("scheme", "-")
+
+            subscription.payment_date = str(payload.get("createdDate", "-"))
+            subscription.save(update_fields=["payment_status", "payment_method_card_holder", "payment_method_type","payment_method_masked_card", "payment_method_scheme"])
+
+            sent = send_subscription_confirm_email(subscription, protocol, domain, data["type"])
+            
+            if sent:
+                payment_information.order_number = subscription.order_id
+                payment_information.order_updated = True
+                payment_information.save(update_fields=["order_number", "order_updated"])
+                return f"subscription confirmation email - email was sent to {subscription.subscriber.get_full_name()}"
+            else:
+                return f"subscription confirmation email - email was not sent to {subscription.subscriber.get_full_name()}"
+            
+        except SubscriptionOrder.DoesNotExist:
+            campaign_logger.error("subscription not found")
+            return f"subscription {checkout_id} was not found"
         
     except PaymentInformation.DoesNotExist:
         pass

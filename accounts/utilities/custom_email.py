@@ -179,7 +179,7 @@ def send_password_reset_email(user, request):
         logger.error(f"Failed to send send_password_reset_email to {user.email}. Error: {err}")
         return False
 
-def send_html_email_with_attachments(to_email:str, subject: str, html_content, from_email:str, pdf_attachments:list):
+def send_html_email_with_attachments(to_email:str, subject: str, html_content, from_email:str, pdf_attachments:list = None):
     try:
         email = EmailMessage(
             subject=subject,

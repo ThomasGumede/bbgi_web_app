@@ -3,7 +3,7 @@ from decimal import Decimal
 from accounts.custom_models.choices import StatusChoices
 from accounts.models import AbstractCreate
 from accounts.utilities.validators import verify_rsa_phone
-from campaigns.models import AbstractPayment
+from accounts.custom_models.abstracts import AbstractPayment
 from campaigns.utils import generate_order_number, PaymentStatus , Tip
 from bbgi_home.models import BlogCategory
 from django.core.validators import MinValueValidator

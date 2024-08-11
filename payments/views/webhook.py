@@ -66,8 +66,9 @@ def create_webhook(request):
             return render(request, "payments/timeout.html", {"err": err})
             
         except requests.HTTPError as err:
+            print(err)
             return render(request, "payments/error.html", {"message": "Your payment was not processed due to internal error from our payment system, Please try again later"})
         
     else:
-        return redirect("home:home")
+        return redirect("bbgi_home:bbgi-home")
     
