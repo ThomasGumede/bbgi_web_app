@@ -25,7 +25,7 @@ def choose_package(request):
     if is_price_droped: 
         amount = decimal.Decimal(package.amount) - (decimal.Decimal(package.amount) * decimal.Decimal((80/100)))
     
-    return render(request, "accounts/subscriptions/subscribe.html", {"package": package,"price_drop": is_price_droped, "amount": amount})
+    return render(request, "accounts/subscriptions/subscribe.html", {"package": package,"price_drop": is_price_droped, "amount": round(amount, 2)})
 
 @login_required
 def subscribe(request, package_id):
