@@ -33,8 +33,8 @@ if DEBUG:
     ALLOWED_HOSTS=['*']
 
 else:
-    YOCO_WEBHOOK_KEY = config('YOCO_LIVE_WEBHOOK_KEY')
-    YOCO_API_KEY = config('YOCO_LIVE_API_KEY')
+    YOCO_WEBHOOK_KEY = "sk_test_b0d0f98f34r4Gxg9a12418dacf0d"
+    YOCO_API_KEY = "whsec_RDNEMTc0NEY3Q0UwQzM1RjE5NTlDNDgwQzRCRTMzMUU="
     
 
     # SSL SETTINGS
