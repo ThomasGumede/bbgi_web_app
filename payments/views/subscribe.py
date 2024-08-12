@@ -1,5 +1,6 @@
 import json, logging
 import requests
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from accounts.models import SubscriptionOrder
@@ -15,7 +16,8 @@ logger = logging.getLogger("payments")
 
 @login_required
 def subscription_payment(request, subscription_id):
-    subscription_order = get_object_or_404(SubscriptionOrder, id=subscription_id, subscriber=request.user, payment_status=PaymentStatus.NOT_PAID)
+    subscription_orders = SubscriptionOrder.objects.filter(Q(payment_status=PaymentStatus.NOT_PAID) | Q(payment_status=PaymentStatus.PENDING))
+    subscription_order = get_object_or_404(subscription_orders, id=subscription_id, subscriber=request.user)
 
     
     if request.method == 'POST':

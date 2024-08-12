@@ -6,6 +6,7 @@ from accounts.models import SubscriptionPackage, SubscriptionOrder
 from accounts.utilities.company import generate_order_number
 from listings.models import Business
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 @login_required
 def choose_package(request):
@@ -21,6 +22,11 @@ def choose_package(request):
     if request.user.subscription != None:
         messages.info(request, "You are already subscribed to our business listing package")
         return redirect("bbgi_home:bbgi-home")
+    
+    available_order = SubscriptionOrder.objects.filter(Q(payment_status=PaymentStatus.NOT_PAID) | Q(payment_status=PaymentStatus.PENDING) & Q(subscriber=request.user)).first()
+    if available_order != None:
+        messages.info(request, "To complete your subscription, we require payment.")
+        return redirect("payments:subscription-payment", available_order.id)
     
     if is_price_droped: 
         amount = decimal.Decimal(package.amount) - (decimal.Decimal(package.amount) * decimal.Decimal((80/100)))
