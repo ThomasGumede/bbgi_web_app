@@ -287,12 +287,9 @@
                                 </p>
                             </div>
             
-                            <div class="relative px-5 flex justify-between items-center">
+                            <div class="relative">
                                 <div class="">
-                                    <p class="text-xs text-gray-500 font-normal">{{listing.get_location}}</p>
-                                </div>
-                                <div class="">
-                                    <p class="text-xs text-gray-500 font-normal">{{listing.phone}}</p>
+                                    <p class="text-xs text-gray-500 font-normal">{{listing.get_location|truncatewords:5}}</p>
                                 </div>
                             </div>
                             <div class="relative block border-t py-2 px-5  border-solid">
