@@ -7,6 +7,9 @@ from listings.models import Business, Category, BusinessHour
 from django.core import serializers
 from django.http import JsonResponse
 from django.contrib import messages
+from django.db.models import Avg
+
+from listings.utilities.custom_methods import sort_listing
 
 class BaseBusinessHourFormSet(BaseModelFormSet):
     def __init__(self, *args, **kwargs):
@@ -52,16 +55,22 @@ def manage_listing(request, listing_slug):
 
 def get_listings(request, category=None):
     query = request.GET.get("query", None)
-    listings = Business.objects.all()
-    categories = Category.objects.all()
-    if category:
-        category = get_object_or_404(categories, slug=category)
-        listings = listings.filter(category=category)
+    place = request.GET.get("place", None)
+    sort_by = request.GET.get("sort_by", None)
+    province = request.GET.get("province", None)
+    bbee_level = request.GET.get("bbee", None)
     
-    if query:
-        listings = listings.filter(Q(title__icontains=query) | Q(category__label__icontains=query) | Q(slogan__icontains=query))
-
-    return render(request, "business/listings.html", {"listings": listings, "lcategories": categories})
+    listings = sort_listing(sort_by, province, bbee_level, query, place, category)
+    
+    
+    context = {
+        "listings": listings,
+        "query": query, 
+        "place": place, 
+        "sort_by": sort_by,
+        "province": province,
+        "bbee_level": bbee_level, "category": category}
+    return render(request, "business/listings.html", context)
 
 def get_listing(request, listing_slug):
     queryset = Business.objects.all().select_related("category").prefetch_related("business_hours", "reviews", "images")
@@ -129,17 +138,15 @@ def update_listing(request, listing_id):
         form = BusinessForm(instance=listing, data=request.POST, files=request.FILES)
         forms = business_hour_formset(request.POST, queryset=listing.business_hours.all(), business=listing)
         if form.is_valid() and form.is_multipart() and forms.is_valid():
-            email = form.cleaned_data["email"]
-            
             form.save()
             forms.save()
             messages.success(request, "Listing updated successfully")
-            return redirect("listings:update-listing", listing_id=listing.id)
+            return redirect("listings:manage-listings")
         else:
             messages.error(request, "Something went wrong while trying to update your business")
-            return render(request, "business/update-listing.html", {"form": form, "forms": forms})
-        
-    return render(request, "business/update-listing.html", {"listing": listing, "form": buniness_form, "forms": business_hour_forms})
+            return render(request, "business/update-listing.html", {"listing": listing, "form": form, "forms": forms})
+    else:   
+        return render(request, "business/update-listing.html", {"listing": listing, "form": buniness_form, "forms": business_hour_forms})
 
 @login_required
 def update_listing_content(request, listing_id):
@@ -166,7 +173,6 @@ def delete_listing_content(request, listing_id, content_id):
     content.delete()
     messages.success(request, "Image removed successfully")
     return redirect("listings:update-listing-content", listing.id)
-
 
 @login_required
 def delete_listing(request, listing_id):

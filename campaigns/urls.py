@@ -8,7 +8,7 @@ from campaigns.views.campaign_update import create_campaign_update, delete_campa
 
 app_name = "campaigns"
 urlpatterns = [
-    path("", campaigns, name="campaigns"),
+    path("campaigns", campaigns, name="campaigns"),
     path("campaign/manage", manage_campaigns, name="manage-campaigns"),
     path("campaign/create", create_campaign, name="create-campaign"),
     path("<slug:category_slug>", campaigns, name="campaign-by-category"),

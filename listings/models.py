@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Avg, Count
 from django.urls import reverse
+from accounts.custom_models.abstracts import PHONE_VALIDATOR
 from accounts.custom_models.choices import StatusChoices
 from accounts.models import AbstractCreate, AbstractProfile, SubscriptionPackage
 from django.utils.translation import gettext as _
@@ -9,6 +10,7 @@ from django.contrib.auth import get_user_model
 from tinymce.models import HTMLField
 from django.template.defaultfilters import slugify
 from django.core.validators import MinValueValidator, MaxValueValidator
+from accounts.utilities.validators import validate_fcbk_link, validate_in_link, validate_insta_link, validate_twitter_link
 from listings.utilities.file_handlers import handle_business_file_upload, handle_business_verification_file_upload
 
 DAYCHOICES = [
@@ -33,6 +35,18 @@ BBBEE_RATINGS = [
     ("NC", "Non-compliance")
     ]
 
+PROVINCES = [
+    ("kzn", "KwaZulu-Natal"),
+    ("mp", "Mpumalanga"),
+    ("nw", "North-West"),
+    ("fs", "Free-State"),
+    ("wc", "Western Cape"),
+    ("lp", "Limpopo"),
+    ("gp", "Gauteng"),
+    ("ec", "Eastern Cape"),
+    ("nc", "Northern Cape"),
+]
+
 class OperatingChoices(models.TextChoices):
     CUSTOM = ("CUSTOM", "Custom")
     CLOSED = ("CLOSED", "Closed")
@@ -55,7 +69,7 @@ class Category(AbstractCreate):
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
 
-class Business(AbstractProfile, AbstractCreate):
+class Business(AbstractCreate):
     background_image = models.ImageField(help_text=_("Upload company/business background image."), upload_to=handle_business_file_upload, blank=True, null=True)
     logo = models.ImageField(help_text=_("Upload company/business logo."), upload_to=handle_business_file_upload, blank=True, null=True)
     title = models.CharField(help_text=_("Enter title for your company/business"), max_length=150, unique=True)
@@ -63,12 +77,20 @@ class Business(AbstractProfile, AbstractCreate):
     slug = models.SlugField(max_length=250, blank=True)
     owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=None, related_name="businesses")
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="businesses")
-    details = models.TextField(help_text=_("Enter additional details about your company/business"))
+    details = models.TextField(help_text=_("Enter additional details about your company/business"), null=True, blank=True)
+    main_address = models.CharField(max_length=300, help_text=_("Enter main office address seperated by comma"), null=True, blank=True)
     map_coordinates  = models.CharField(max_length=300, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
     email = models.EmailField(_("Enter your business email"), max_length=250, blank=True, null=True)
-    bbbee_level = models.CharField(max_length=100, choices=BBBEE_RATINGS, default=BBBEE_RATINGS[1])
+    bbbee_level = models.CharField(max_length=100, choices=BBBEE_RATINGS)
+    province = models.CharField(max_length=100, choices=PROVINCES)
+    phone = models.CharField(help_text=_("Enter your business number"), max_length=15, validators=[PHONE_VALIDATOR], unique=True, null=True, blank=True)
+    facebook = models.URLField(validators=[validate_fcbk_link], blank=True, null=True)
+    twitter = models.URLField(validators=[validate_twitter_link], blank=True, null=True)
+    instagram = models.URLField(validators=[validate_insta_link], blank=True, null=True)
+    linkedIn = models.URLField(validators=[validate_in_link], blank=True, null=True)
     status = models.CharField(max_length=50, choices=StatusChoices.choices, default=StatusChoices.NOT_APPROVED)
+    is_completed = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Business'
@@ -85,27 +107,21 @@ class Business(AbstractProfile, AbstractCreate):
         return reverse("listings:get-listing", kwargs={"listing_slug": self.slug})
     
     def get_full_location(self):
-        if self.address_one and self.city and self.province and self.country:
-            if self.address_two:
-                return f"{self.address_one}, {self.address_two}, {self.city}, {self.province}, {self.country}"
-            else:
-                return f"{self.address_one}, {self.city}, {self.province}, {self.country}"
-        else:
-            return "No address"
+        return self.main_address
 
     def get_average_rating(self):
         reviews = self.reviews.all()
         average_rating = reviews.aggregate(Avg('rating_value'))['rating_value__avg'] or 0
-        text = f"<span>{round(average_rating, 1)}</span>"
+        text = round(average_rating, 1)
         
         return text
+    
+    def get_avg_rating(self):
+        return self.reviews.aggregate(avg_rating_value=Avg('rating_value'))['avg_rating_value']
         
     
     def get_location(self):
-        if self.address_one and self.city and self.province and self.country:
-            return f"{self.city}, {self.province}"
-        else:
-            return "No address"
+        return self.main_address
 
     def is_open(self):
             now = timezone.now()
@@ -122,6 +138,16 @@ class Business(AbstractProfile, AbstractCreate):
                 else:
                     return False
 
+class BusinessAddress(AbstractCreate):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name="addresses")
+    address = models.CharField(max_length=250, unique=True)
+    map_coordinates  = models.CharField(max_length=300, blank=True, null=True)
+    email = models.EmailField(_("Enter your business branch email"), max_length=250, blank=True, null=True)
+    phone = models.CharField(help_text=_("Enter your business branch number"), max_length=15, validators=[PHONE_VALIDATOR], unique=True, null=True, blank=True)
+
+    def __str__(self):
+        return self.address
+    
 class BusinessContent(AbstractCreate):
     image = models.ImageField(help_text=_("Upload company/business images."), upload_to=handle_business_file_upload, blank=True, null=True)
     business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name="images")

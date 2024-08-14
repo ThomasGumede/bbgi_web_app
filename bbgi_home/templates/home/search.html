@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="w-full h-fit mx-auto  md:w-6/12 relative block">
-            <form method="get" class="w-full">
+            <!-- <form method="get" class="w-full">
                 <div class="flex flex-col lg:flex-row  gap-5 w-full justify-between">
                     <div class="relative w-full">
                         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -60,7 +60,40 @@
                     </div>
                     {{form.search_by}}
                 </div>
-            </form>
+            </form> -->
+            <div class="mx-auto mt-5  relative leading-6">
+                <form method="get"
+                    class="relative flex w-full flex-col justify-between rounded-lg border p-2 sm:flex-row sm:items-center sm:p-0">
+                    <div class="flex">
+                        <label class="border-none outline-none h-14 rounded-md bg-gray-200 px-2 focus:ring-0" for="search_by">
+                            <select  class="bg-transparent px-6 py-4 outline-none focus:ring-0 border-none" name="search_by" id="search_by">
+                                <option value="campaigns" {% if results_type == "campaigns" %}selected{% endif %}>Campaigns</option>
+                                <option value="listings" {% if results_type == "listings" %}selected{% endif %}>Listings</option>
+                                <option value="events" {% if results_type == "events" %}selected{% endif %}>Events</option>
+                                <!-- <option value="campaigns">campaigns</option> -->
+                            </select>
+                        </label>
+                        <input type="text" name="query" value="{% if query %}{{query}}{% else %}{% endif %}"
+                            class="ml-1 h-14 w-full cursor-text rounded-md border py-4 pl-6 outline-none focus:ring-0 sm:border-0 sm:pr-40 sm:pl-12"
+                            placeholder="Address, Title, Service" />
+                    </div>
+                    <button type="submit"
+                        class="mt-2 inline-flex h-12 w-full items-center justify-center rounded-md bg-custom-h px-10 text-center align-middle text-base font-medium normal-case text-white outline-none focus:ring-0 ring-offset-1 sm:absolute sm:right-0 sm:mt-0 sm:mr-1 sm:w-32">Search</button>
+                </form>
+                <div class="mt-4 divide-y absolute top-full left-0 w-full z-[70] bg-white hidden rounded-b-xl border px-4 shadow-lg sm:mr-32 sm:ml-28">
+                    <div class="cursor-pointer px-4 py-2 text-gray-600 hover:bg-emerald-400 hover:text-white"><span
+                            class="m-0 font-medium">Ca</span> <span>lifornia</span></div>
+                    <div class="cursor-pointer px-4 py-2 text-gray-600 hover:bg-emerald-400 hover:text-white"><span
+                            class="m-0 font-medium">Ca</span> <span>nada</span></div>
+                    <div class="cursor-pointer px-4 py-2 text-gray-600 hover:bg-emerald-400 hover:text-white"><span
+                            class="m-0 font-medium">Ca</span> <span>mbodia</span></div>
+                    <div class="cursor-pointer px-4 py-2 text-gray-600 hover:bg-emerald-400 hover:text-white"><span
+                            class="m-0 font-medium">Ca</span> <span>meo</span></div>
+                    <div class="cursor-pointer px-4 py-2 text-gray-600 hover:bg-emerald-400 hover:text-white"><span
+                            class="m-0 font-medium">Ca</span> <span>rsville</span></div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>

@@ -211,6 +211,17 @@
                                     <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.bbbee_level.help_text}}</span>
                                 </div>
                             </div>
+                            <div class="w-full lg:w-12/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_main_address">
+                                        Main Address*
+                                    </label>
+                                    {{form.main_address}}
+                                    <span class="text-[11px] text-custom-tertiary block font-normal lowercase">Provide a physical business
+                                        address so customers can find you when searching for services in your area</span>
+                                </div>
+                            </div>
+                            
                             <div class="w-full px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="id_details">
@@ -550,60 +561,7 @@
                         </div>
                     </div>
                     {{form.operation}}
-                    <div class="w-full p-4  border border-solid  rounded-lg relative">
-                        <h6 class="text-custom-h text-base mt-3 mb-6 font-bold uppercase">
-                            Office Address
-                        </h6>
-                        <div class="flex flex-wrap">
-                            <div class="w-full lg:w-6/12 px-4">
-                                <div class="relative w-full mb-3">
-                                    <label for="id_title">
-                                        Address Line one*
-                                    </label>
-                                    {{form.address_one}}
-                                    <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.address_one.help_text}}</span>
-                                </div>
-                            </div>
-                            <div class="w-full lg:w-6/12 px-4">
-                                <div class="relative w-full mb-3">
-                                    <label for="id_title">
-                                        Address Line two
-                                    </label>
-                                    {{form.address_two}}
-                                    <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.address_two.help_text}}</span>
-                                </div>
-                            </div>
-                            <div class="w-full lg:w-6/12 px-4">
-                                <div class="relative w-full mb-3">
-                                    <label for="id_title">
-                                        City*
-                                    </label>
-                                    {{form.city}}
-                                    <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.city.help_text}}</span>
-                                </div>
-                            </div>
-                            <div class="w-full lg:w-6/12 px-4">
-                                <div class="relative w-full mb-3">
-                                    <label for="id_title">
-                                        Province*
-                                    </label>
-                                    {{form.province}}
-                                    <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.province.help_text}}</span>
-                                </div>
-                            </div>
-                            <div class="w-full lg:w-12/12 px-4">
-                                <div class="relative w-full mb-3">
-                                    <label for="id_title">
-                                        Zipcode*
-                                    </label>
-                                    {{form.zipcode}}
-                                    <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.zipcode.help_text}}</span>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        
-                    </div>
+                    
                     <div class="w-full p-4 border border-solid  rounded-lg relative">
                         <h6 class="text-custom-h text-sm mt-3 mb-6 font-bold uppercase">
                             Social Links

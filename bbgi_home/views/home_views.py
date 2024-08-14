@@ -48,14 +48,15 @@ def search(request):
     form = SearchForm()
     query = request.GET.get("query", None)
     query_by = request.GET.get("search_by", None)
+    place = request.GET.get("place", None)
     if not query:
         return render(request, "home/search.html")
     
     results_dic = {
         "campaigns" : CampaignModel.objects.filter(Q(title__icontains=query)| Q(organiser__first_name__icontains=query)),
-        "events": EventModel.objects.filter(Q(title__icontains=query)| Q(organiser__first_name__icontains=query)),
+        "events": EventModel.objects.filter(Q(title__icontains=query)| Q(organiser__first_name__icontains=query) | Q(event_address__icontains=place or query)),
         "news": Blog.objects.filter(Q(title__icontains=query)),
-        "listings": Business.objects.filter(Q(title__icontains=query)),
+        "listings": Business.objects.filter(Q(title__icontains=query) | Q(main_address__icontains=place or query) | Q(bbbee_level__icontains=query)),
     }
     context = {}
     if query and query_by:

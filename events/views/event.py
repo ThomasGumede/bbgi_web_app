@@ -11,11 +11,12 @@ from django.db.models import Q
 
 def events(request, category_slug=None):
     query = request.GET.get("query", None)
+    place = request.GET.get("place", None)
     queryset = EventModel.objects.filter(Q(status = StatusChoices.APPROVED) | Q(status = StatusChoices.COMPLETED))
     if category_slug:
         category = get_object_or_404(BlogCategory, slug=category_slug)
         if query:
-            events = queryset.filter(Q(category = category) & Q(title__icontains=query)| Q(organiser__first_name__icontains=query))
+            events = queryset.filter(Q(category = category) & Q(title__icontains=query)| Q(organiser__first_name__icontains=query) | Q(event_address__icontains=place or query))
         else:
             events = queryset.filter(category = category)
     else:
@@ -23,6 +24,13 @@ def events(request, category_slug=None):
             events = queryset.filter(Q(title__icontains=query)| Q(organiser__first_name__icontains=query))
         else:
             events = queryset
+
+    context = {
+        "events": events, 
+        "query": query,
+        "place": place,
+        "category": category_slug
+    }
 
     return render(request, "events/event/list.html", {"events": events, "query": query})
 

@@ -101,14 +101,14 @@
     <meta name="robots" content="index, nofollow">
 
     {% block seo_tags %}
-    <title>BBGI - Black Business Growth Initiative</title>
+    <title>BBGI - Empowering Black Business</title>
     <meta name="description"
         content="The Black Business Growth Initiative supports Black African businesses and careers by providing a unified platform for entrepreneurs and professionals to showcase their expertise and promote unity and cooperation.">
-    <meta name="title" content="BBGI -  Black Business Growth Initiative" />
+    <meta name="title" content="BBGI -  Empowering Black Business" />
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://bbgi.co.za" />
-    <meta property="og:title" content="BBGI - Black Business Growth Initiative" />
+    <meta property="og:title" content="BBGI - Empowering Black Business" />
     <meta property="og:description"
         content="The Black Business Growth Initiative supports Black African businesses and careers by providing a unified platform for entrepreneurs and professionals to showcase their expertise and promote unity and cooperation." />
     <meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
@@ -116,13 +116,13 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://bbgi.co.za" />
-    <meta property="twitter:title" content="BBGI - Black Business Growth Initiative" />
+    <meta property="twitter:title" content="BBGI - Empowering Black Business" />
     <meta property="twitter:description"
         content="The Black Business Growth Initiative supports Black African businesses and careers by providing a unified platform for entrepreneurs and professionals to showcase their expertise and promote unity and cooperation." />
     <meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
     {% endblock seo_tags %}
 </head>
-<body class="">
+<body class="relative">
     <!-- Header -->
     {% include "includes/header.html" %}
     <!-- End Header -->
@@ -134,8 +134,6 @@
             {% block content %}
             {% endblock content %}
         </article>
-        
-        
     </main>
     <!-- End Main -->
     
@@ -190,5 +188,7 @@
     </script>
     <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
     {% block js %}{% endblock js %}
+    {% block modal %}{% endblock modal %}
+        
 </body>
 </html>

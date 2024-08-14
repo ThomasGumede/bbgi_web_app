@@ -6,8 +6,8 @@ from events.views.manage import manage_event, manage_events, manage_ticket_order
 
 app_name = "events"
 urlpatterns = [
-    path("", events, name="events"),
-    path("<slug:category_slug>", events, name="events-by-category"),
+    path("events/", events, name="events"),
+    path("events/<slug:category_slug>", events, name="events-by-category"),
     path("event/create", create_event, name="create-event"),
     path("event/details/<slug:event_slug>", event_details, name="event-details"),
     path("event/update/<slug:event_slug>", update_event, name="update-event"),

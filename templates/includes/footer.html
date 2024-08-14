@@ -1,102 +1,54 @@
 {% load static %}
-<footer class="w-full mb-11 mt-10 bg-white overflow-hidden ">
-    <div class="container grid overflow-hidden">
-        <div class="w-full bg-custom-h p-4 rounded-xl md:p-7 text-white">
-            <div class="grid items-start md:grid-cols-4 gap-9 justify-between w-full">
-                <div class="space-y-5">
-                    <a href="{% url 'bbgi_home:bbgi-home' %}" class="logo w-36 overflow-hidden h-full">
-                        <img src="{% static 'imgs/logo_1.png' %}" alt="BBGI logo" class="object-cover">
-                    </a>
-                    <div class="space-y-5">
-                        <p class="text-xs font-normal font-poppins">
-                            We serves as a unified community of Black enterpreneurs and professionals, providing a space to showcase businesses and
-                            expertise
-                        </p>
-                        <div class="flex items-center space-x-5">
-                            
-                            <a rel="nofollow" target="_blank" href="{{facebook}}"
-                                class="bg-white text-custom-h p-2 grid items-center justify-center rounded-full text-center">
-                                <i class="fa-brands fa-facebook fa-xl"></i>
-                            </a>
-                            <a rel="nofollow" target="_blank" href="{{youtube}}" class="bg-white text-custom-h p-2 grid items-center justify-center rounded-full text-center">
-                                <i class="fa-brands fa-youtube fa-xl"></i>
-                            </a>
-                            <a rel="nofollow" target="_blank" href="{{linkedin}}" class="bg-white text-custom-h p-2 grid items-center justify-center rounded-full text-center">
-                                <i class="fa-brands fa-linkedin fa-xl"></i>
-                            </a>
-                            <a rel="nofollow" target="_blank" href="{{instagram}}" class="bg-white text-custom-h p-2 grid items-center justify-center rounded-full text-center">
-                                <i class="fa-brands fa-instagram fa-xl"></i>
-                            </a>
-                            <a rel="nofollow" target="_blank" href="{{tiktok}}"
-                                class="bg-white text-custom-h p-2 grid items-center justify-center rounded-full text-center">
-                                <i class="fa-brands fa-tiktok fa-xl"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="space-y-5">
-                    <h6 class="font-bold font-roboto text-base">USEFULL LINKS</h6>
-                    <ul class="space-y-3">
-                        <li><a href="{% url 'bbgi_home:bbgi-home' %}" class="text-sm font-bold font-roboto">Home</a></li>
-                        <li><a href="{% url 'bbgi_home:about-bbgi' %}" class="text-sm font-bold font-roboto">About</a></li>
-                        <li><a href="{% url 'listings:listings' %}" class="text-sm font-bold font-roboto">Listings</a></li>
-                        <li><a href="{% url 'bbgi_home:blogs' %}" class="text-sm font-bold font-roboto">Blogs</a></li>
-                        <li><a href="{% url 'bbgi_home:contact' %}" class="text-sm font-bold font-roboto">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="space-y-5">
-                    <h6 class="font-bold font-roboto text-base">QUICK LINKS</h6>
-                    <ul class="space-y-3">
-                        <li><a href="{% url 'listings:add-listing' %}" class="text-sm font-bold font-roboto">Add Listing</a>
-                        </li>
-                        <li><a href="{% url 'events:create-event' %}" class="text-sm font-bold font-roboto">Add Event</a>
-                        </li>
-                        <li><a href="{% url 'campaigns:create-campaign' %}" class="text-sm font-bold font-roboto">Add Campaign</a>
-                        </li>
-                        <li><a href="" class="text-sm font-bold font-roboto">Terms & Conditions</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="space-y-5">
-                    <h6 class="font-bold font-roboto text-base">COMMUNITY</h6>
-                    <ul class="space-y-3">
-                        <li class="flex items-start w-fit space-x-4  justify-center">
-                            <div class="mx-auto text-white my-auto text-center">
-                                <i class="fa-solid fa-phone text-3xl"></i>
-                            </div>
-                            <div>
-
-                                <a href="" class="text-sm block phone_number font-poppins font-normal">+27765591525</a>
-                                <a href="" class="text-sm block phone_number_2 font-poppins font-normal">+27812528412</a>
-                            </div>
-                        </li>
-                        <li class="flex items-start w-fit space-x-4  justify-center">
-                            <div class="mx-auto text-white my-auto text-center">
-                                <i class="fa-solid fa-envelope text-3xl"></i>
-                            </div>
-                            <div>
-                                <a href="mailto:info@bbgi.co.za"
-                                    class="text-sm contact_email font-poppins font-normal">info@bbgi.co.za</a>
-                                <a href="mailto:support@bbgi.co.za"
-                                    class="text-sm contact_email_2 font-poppins font-normal">support@bbgi.co.za</a>
-                            </div>
-                        </li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="self-center mt-7 justify-self-center text-black text-base font-normal font-poppins inline-flex">
-            <p class="inline-block md:text-center">
-                &copy;
-                <script>document.write(new Date().getFullYear());</script> BBGI All Rights
-                Reserved
-                by <a href="#" rel="nofollow" class="">wedodev.</a> | <a rel="nofollow" href="./privacy/terms.html"
-                    nofollow>Terms & Conditions</a> | <a href="./privacy/privacy.html" rel="nofollow">Privacy
-                    Policy</a>
-            </p>
-
-        </div>
+<footer class="relative mt-20 bg-custom-h px-4 pt-20">
+    <div class="absolute -top-10 left-1/2 h-16 w-36 -translate-x-1/2 rounded-xl border-4  bg-custom-h p-2">
+        <a href="{% url 'bbgi_home:bbgi-home' %}" class="logo w-36 overflow-hidden h-full">
+            <img src="{% static 'imgs/logo_1.png' %}" alt="BBGI logo" class="object-cover">
+        </a></div>
+    <nav aria-label="Footer Navigation"
+        class="mx-auto mb-10 flex max-w-lg flex-col gap-10 text-center sm:flex-row sm:text-left">
+        <a href="{% url 'bbgi_home:about-bbgi' %}" class="font-medium text-white">About</a>
+        <a href="{% url 'bbgi_home:blogs' %}" class="font-medium text-white">Support</a>
+        <a href="#" class="font-medium text-white">Privacy Policy</a>
+        <a href="#" class="font-medium text-white">Terms & Conditions</a>
+    </nav>
+    <div class="mt-8 flex justify-center space-x-6">
+        <a rel="nofollow" target="_blank" href="{{facebook}}" class="text-white hover:text-gray-500">
+            <span class="sr-only">Facebook</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd"
+                    d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                    clip-rule="evenodd" />
+            </svg>
+        </a>
+    
+        <a rel="nofollow" target="_blank" href="{{instagram}}" class="text-white hover:text-gray-500">
+            <span class="sr-only">Instagram</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd"
+                    d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                    clip-rule="evenodd" />
+            </svg>
+        </a>
+    
+        <a rel="nofollow" target="_blank" href="{{youtube}}" class="text-white hover:text-gray-500">
+            <span class="sr-only">Youtube</span>
+            <i class="fa-brands fa-youtube fa-xl"></i>
+        </a>
+    
+        <a rel="nofollow" target="_blank" href="{{linkedin}}" class="text-white hover:text-gray-500">
+            <span class="sr-only">linkedin</span>
+            <i class="fa-brands fa-linkedin fa-xl"></i>
+        </a>
+    
+        <a rel="nofollow" target="_blank" href="{{tiktok}}" class="text-white hover:text-gray-500">
+            <span class="sr-only">tiktok</span>
+            <i class="fa-brands fa-tiktok fa-xl"></i>
+        </a>
     </div>
+    <p class="py-10 text-center text-gray-300">&copy;
+    <script>document.write(new Date().getFullYear());</script> BBGI All Rights
+    Reserved
+    by <a href="#" rel="nofollow" class="">wedodev.</a> | <a rel="nofollow" href="" nofollow>Terms &
+        Conditions</a> | <a href="" rel="nofollow">Privacy
+        Policy</a></p>
 </footer>

@@ -4,51 +4,86 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 {% endblock styles %}
 {% block content %}
-<section class="w-full font-sans relative py-20 block bg-custom-bg">
-    <div class="container">
-        <div class="relative block h-full w-full">
-            <div class="font-sans mx-auto md:w-9/12  w-fit z-40">
-                <div class="w-full space-y-9 mx-auto">
-                    <div class="space-y-6 w-full leading-7">
-                        <h1 class="text-custom-primary text-base font-semibold">BBGI - Black Business Growth Initiative</h1>
-                        <h4 class="text-3xl md:text-6xl text-custom-h font-bold">
-                            Empowering Black African Entrepreneurs
-                        </h4>
-                        <p class="text-custom-text text-base font-normal">
-                            We are your partner in building a stronger, more connected community.
-                        </p>
-                    </div>
-
-                    <div class=" w-full mx-auto">
-                        <div class="relative block w-full">
-                            <form method="get" action="{% url 'bbgi_home:search' %}">
-                                <label for="default-search"
-                                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
-                                <div class="relative w-full">
-                                    <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
-                                            stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                        </svg>
+<section class="w-full font-sans relative pt-20 block bg-custom-bg">
+    <div class="relative">
+        <div class="absolute inset-x-0 bottom-0 h-1/2 "></div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
+                <div class="absolute inset-0">
+                    <img class="h-full w-full object-cover"
+                        src="{% static 'imgs/about/About-1.png' %}"
+                        alt="People working on laptops">
+                    <div class="absolute inset-0 bg-gradient-to-r from-purple-800 to-indigo-700 mix-blend-multiply"></div>
+                </div>
+                <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
+                    <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                        <span class="block text-white">BBGI</span>
+                        <span class="block text-indigo-200">Empowering Black Business</span>
+                    </h1>
+                    <p class="mt-6 max-w-lg mx-auto text-center text-base text-indigo-200 sm:max-w-3xl">The Black Business Growth Initiative supports Black African businesses and careers by providing a unified platform for
+                    entrepreneurs and professionals to showcase their expertise and promote unity and cooperation.</p>
+                    <div class="mt-10 w-full overflow-hidden mx-auto sm:flex sm:justify-center relative">
+                        <form method="get" action="{% url 'bbgi_home:search' %}" class="flex flex-wrap overflow-hidden bg-white p-3 shadow-lg rounded-xl gap-2 items-center">
+                            <div class="relative">
+                                <div class="flex bg-white items-center gap-1 text-custom-h">
+                                    <div>
+                                        <i class="fa-solid text-custom-h fa-search fa-xl"></i>
                                     </div>
-                                    <input type="search" id="default-search" name="query"
-                                        class="block p-4 pl-10 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-custring-custom-primary"
-                                        placeholder="Search Listings, Events..." required>
-                                    <button type="submit"
-                                        class="text-white absolute right-2.5 bottom-2.5 bg-custom-primary hover:bg-custom-primary focus:ring-4 focus:outline-none focus:ring-custom-primary font-medium rounded-lg text-sm px-4 py-2">Search</button>
-                                </div>
-                            </form>
+                                    <input id="search-service-input" class="border-none w-full h-14 font-medium focus:ring-0 text-custom-h outline-none focus:outline-none focus:border-none"
+                                        style="padding-right:50px" type="text" name="query"
+                                        placeholder="Doctors,  plumbers,  beauty salons..." value=""></div>
+                            </div>
+                            <div class="w-[1px] h-full bg-custom-h mx-1 hidden md:block"></div>
+                            <div class="relative">
+                                <div class="flex bg-white items-center gap-1 text-custom-h">
+                                    <div>
+                                        <i class="fa-solid text-custom-h fa-location-dot fa-xl"></i>
+                                    </div><input placeholder="eg. Southdowns" class="border-none w-full h-14 font-medium focus:ring-0 text-custom-h outline-none focus:outline-none focus:border-none" style="padding-right:50px" type="text"
+                                        name="place" value=""></div>
+                            </div>
+                            <button type="submit" value="submit" class="text-white bg-custom-h h-12 w-full md:w-fit p-4 text-center grid items-center justify-center rounded-md mt-2 md:mt-0">
+                                <svg width="13" height="15"
+                                    viewBox="0 0 13 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M1 6.68359C1 8.00968 1.52678 9.28145 2.46447 10.2191C3.40215 11.1568 4.67392 11.6836 6 11.6836C7.32608 11.6836 8.59785 11.1568 9.53553 10.2191C10.4732 9.28145 11 8.00968 11 6.68359C11 5.35751 10.4732 4.08574 9.53553 3.14806C8.59785 2.21038 7.32608 1.68359 6 1.68359C4.67392 1.68359 3.40215 2.21038 2.46447 3.14806C1.52678 4.08574 1 5.35751 1 6.68359V6.68359Z"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M12 13.6836L9 10.6836" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                </svg>
+                            </button>
+                        </form>
+                        <div class="absolute hidden top-full left-0 w-full bg-white shadow-lg rounded-xl p-4">
+                            <button class="text-custom-h font-medium">
+                                Use my current location</button>
                         </div>
                     </div>
-                   
                 </div>
             </div>
         </div>
     </div>
+    <div class="bg-custom-bg">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-sm font-semibold uppercase text-gray-500 tracking-wide">Trusted by over 5 very
+                average small businesses</p>
+            <div class="mt-6 grid grid-cols-2 justify-center gap-8 md:grid-cols-6 lg:grid-cols-5">
+                <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
+                    <img class="h-12" src="{% static 'imgs/team/img1.png' %}" alt="Tuple">
+                </div>
+                <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
+                    <img class="h-12" src="{% static 'imgs/team/img2.png' %}" alt="Mirage">
+                </div>
+                <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
+                    <img class="h-12" src="{% static 'imgs/team/img3.png' %}" alt="StaticKit">
+                </div>
+                <div class="col-span-1 flex justify-center md:col-span-2 md:col-start-2 lg:col-span-1">
+                    <img class="h-12" src="{% static 'imgs/team/img4.png' %}" alt="Transistor">
+                </div>
+                
+            </div>
+        </div>
+    </div>
 </section>
-<section class="w-full py-20 relative block font-sans">
+<section class="w-full py-20 relative block font-sans bg-white">
     <div class="container grid md:grid-cols-2 gap-16 items-center">
         <figure class="h-full w-full md:w-[400px] lg:w-[500px] rounded-md relative">
             <img src="{% static 'imgs/about/Abur-2.png' %}" alt="BBGI Team" class="w-full h-full rounded-2xl object-cover">
@@ -399,36 +434,89 @@
     </div>
 </section>
 {% endif %}
+
+
+<section class="w-full font-sans relative py-20 block bg-white">
+    <div class="container">
+        <div class="relative">
+            <div class="text-center mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
+                <h2 class="text-base font-semibold tracking-wider text-custom-primary uppercase">News & Blogs</h2>
+                <p class="mt-2 text-3xl font-extrabold text-custom-h tracking-tight sm:text-4xl">Helpful Resources</p>
+                
+            </div>
+            <div class="mt-12 mx-auto max-w-md px-4 grid gap-8 sm:max-w-lg sm:px-6 lg:px-8 lg:grid-cols-3 lg:max-w-7xl">
+                {% for post in posts %}
+                <div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
+                    <div class="flex-shrink-0">
+                        <img class="h-48 w-full object-cover"
+                            src="{% if post.image %}{{post.image.url}}{% else %}{% static 'imgs/no-image.png'  %}{% endif %}"
+                            alt="{{post.title}}">
+                    </div>
+                    <div class="flex-1 bg-white p-6 flex flex-col justify-between">
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-custom-primary">
+                                <a href="#" class="hover:underline"> {{post.category.label}} </a>
+                            </p>
+                            <a href="{{post.get_absolute_url}}" class="block mt-2">
+                                <p class="text-xl font-semibold text-gray-900">{{post.title}}</p>
+                                <!-- <p class="mt-3 text-base text-gray-500">{{post.description|safe}}</p> -->
+                            </a>
+                        </div>
+                        <div class="mt-6 flex items-center">
+                            <div class="flex-shrink-0">
+                                <a href="#">
+                                    <img class="h-10 w-10 rounded-full"
+                                        src="{% if post.author.profile_image %}{{post.author.profile_image.url}}{% else %}{% static 'imgs/R.png'  %}{% endif %}"
+                                        alt="{{post.author.get_full_name}} banner">
+                                </a>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm font-medium text-gray-900">
+                                    <a href="#" class="hover:underline"> {{post.author.get_full_name}}</a>
+                                </p>
+                                <div class="flex space-x-1 text-sm text-gray-500">
+                                    <time datetime="2020-03-16">{{post.created|date:"M"}} {{post.created.date.day}}, {{post.created|date:"Y"}} </time>
+                                    <!-- <span aria-hidden="true"> &middot; </span>
+                                    <span> 6 min read </span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </div>
+</section>
 <section class="w-full font-sans relative py-20 block bg-custom-bg">
     <div class="container">
         <div class="overflow-hidden rounded-lg shadow-2xl md:grid md:grid-cols-3">
-            <img alt=""
-                src="{% static 'imgs/about/about-3.png' %}"
-                class="h-32 w-full object-cover md:h-full" />
-        
+            <img alt="" src="{% static 'imgs/about/about-3.png' %}" class="h-32 w-full object-cover md:h-full" />
+
             <div class="p-4 text-center sm:p-6 md:col-span-2 lg:p-8">
                 <p class="text-sm font-semibold text-custom-primary uppercase tracking-widest">Join Us Today</p>
-        
+
                 <h2 class="mt-6 font-black uppercase">
                     <span class="text-4xl font-black text-custom-h sm:text-5xl lg:text-6xl"> Get 80% off </span>
-        
+
                     <span class="mt-2 block text-custom-text text-sm">On your first year subscription</span>
                 </h2>
-        
+
                 <a class="mt-8 inline-block w-full bg-custom-h py-4 text-sm font-bold uppercase tracking-widest text-white"
                     href="{% url 'accounts:choose-package' %}">
                     Get Discount
                 </a>
-        
+
                 <p class="mt-8 text-xs font-medium uppercase text-gray-400">
                     Offer valid until we reach 50 listings*
                 </p>
             </div>
         </div>
     </div>
-    
+
 </section>
-<section class="w-full font-sans relative py-20 block bg-white">
+<!-- <section class="w-full font-sans relative py-20 block bg-white">
     <div class="container">
         <div class="text-center mb-8">
             <p class="text-custom-primary mb-3 font-semibold text-lg">News & Blogs</p>
@@ -489,7 +577,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 {% endblock content %}
 
 {% block js %}
@@ -545,5 +633,24 @@
             }
         }
     })
+    const swiper_3 = new Swiper('.swiper-3', {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            loop: true,
+            breakpoints: {
+                // when window width is >= 320px
+                750: {
+                    slidesPerView: 2
+                },
+                1032: {
+                    slidesPerView: 2.5
+                },
+                // when window width is >= 640px
+                1140: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                }
+            }
+        })
 </script>
 {% endblock js %}

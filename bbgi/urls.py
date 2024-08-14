@@ -9,9 +9,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("bbgi_home.urls", namespace="bbgi_home")),
     path("accounts/", include("accounts.urls", namespace="accounts")),
-    path("listings/", include("listings.urls", namespace="listings")),
-    path("campaigns/", include("campaigns.urls", namespace="campaigns")),
-    path("events/", include("events.urls", namespace="events")),
+    path("", include("listings.urls", namespace="listings")),
+    path("", include("campaigns.urls", namespace="campaigns")),
+    path("", include("events.urls", namespace="events")),
     path("markets/", include("markets.urls", namespace="markets")),
     path("payments/", include("payments.urls", namespace="payments")),
     
