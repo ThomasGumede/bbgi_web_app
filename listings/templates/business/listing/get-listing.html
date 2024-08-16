@@ -506,6 +506,7 @@
             </div>
             <div class="w-full max-w-full flex-shrink-0 px-4 md:w-5/12 lg:w-4/12">
                 <div class="relative space-y-5">
+                    {% if listing.business_locations.count > 0 %}
                     <div class="relative block overflow-hidden p-[46px_30px_30px] bg-[#f2f7f7]">
                         <div class="space-y-5">
                             <h3 class="text-base md:text-lg font-bold">Listing Locations</h3>
@@ -516,10 +517,12 @@
                                 <span>{{location.address}}</span>
                             </div>
                     
-                            
+                    
                             {% endfor %}
                         </div>
                     </div>
+                    {% endif %}
+                    
                     
                     <div class="relative block overflow-hidden p-[46px_30px_30px] bg-[#f2f7f7]">
                         <div class="space-y-5">

@@ -3,11 +3,12 @@ from django.db.models import Avg, Count
 from django.urls import reverse
 from accounts.custom_models.abstracts import PHONE_VALIDATOR
 from accounts.custom_models.choices import StatusChoices
-from accounts.models import AbstractCreate, AbstractProfile, SubscriptionPackage
+from accounts.models import AbstractCreate
+from django.dispatch import receiver
+from django.db.models.signals import pre_delete
 from django.utils.translation import gettext as _
 from django.utils import timezone
 from django.contrib.auth import get_user_model
-from tinymce.models import HTMLField
 from django.template.defaultfilters import slugify
 from django.core.validators import MinValueValidator, MaxValueValidator
 from accounts.utilities.validators import validate_fcbk_link, validate_in_link, validate_insta_link, validate_twitter_link
@@ -188,3 +189,16 @@ class BusinessLocation(AbstractCreate):
     address = models.CharField(max_length=400, help_text=_("Enter office address seperated by comma"))
     map_coordinates  = models.CharField(max_length=300, blank=True, null=True)
     address_id = models.CharField(max_length=300, null=True, blank=True)
+
+
+@receiver(pre_delete, sender=Business)
+def delete_business_images_hook(sender, instance, using, **kwargs):
+    if instance.background_image:
+        instance.background_image.delete()
+    if instance.logo:
+        instance.logo.delete()
+
+@receiver(pre_delete, sender=BusinessContent)
+def delete_business_content_images_hook(sender, instance, using, **kwargs):
+    if instance.image:
+        instance.image.delete()
