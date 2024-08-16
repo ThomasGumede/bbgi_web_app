@@ -177,7 +177,7 @@
                         <div id="full_description"
                             class="w-12/12 relative block campaign_data transition-all duration-500">
                             <div class="relative block">
-                                <div class="text-custom-text font-medium text-base">{{listing.details|safe}}</div>
+                                <div class="text-gray-800 font-normal text-base">{{listing.details|safe}}</div>
                             </div>
                             <div class="relative block mt-3 overflow-hidden space-y-2 p-[46px_30px_30px] bg-[#f2f7f7]">
                                 <h3 class="text-lg mb-1 font-extrabold">Business Hours</h3>
@@ -479,15 +479,13 @@
                                                         <span class="ml-2 text-xs uppercase">{{service.price_decription}}</span>
                                                     </div>
                                                     <div class="mt-8">
-                                                        <button
-                                                            class="mr-2 mb-4 flex cursor-pointer items-center justify-center rounded-md bg-emerald-400 py-2 px-8 text-center text-white transition duration-150 ease-in-out hover:translate-y-1 hover:bg-emerald-500">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                                                stroke="currentColor" stroke-width="2">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                                            </svg>
-                                                            Request quote
-                                                        </button>
+                                                        <a href="{% url 'markets:create-quotation' service.id %}">
+                                                            <button
+                                                                class="mr-2 mb-4 flex cursor-pointer items-center justify-center rounded-md bg-custom-h py-2 px-8 text-center text-white transition duration-150 ease-in-out hover:translate-y-1 hover:bg-custom-primary">
+                                                                
+                                                                Request quote
+                                                            </button>
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div class="mx-auto flex items-center md:w-2/6 px-5 pt-1 md:p-8">
@@ -508,7 +506,20 @@
             </div>
             <div class="w-full max-w-full flex-shrink-0 px-4 md:w-5/12 lg:w-4/12">
                 <div class="relative space-y-5">
+                    <div class="relative block overflow-hidden p-[46px_30px_30px] bg-[#f2f7f7]">
+                        <div class="space-y-5">
+                            <h3 class="text-base md:text-lg font-bold">Listing Locations</h3>
+                            {% for location in listing.business_locations.all %}
+                            <div class="text-sm text-gray-500 md:text-base font-medium flex items-center gap-4">
+                                <span class="w-8 h-8 grid items-center justify-center rounded-full border border-solid"><i
+                                        class="fa-solid fa-sm text-custom-primary fa-location-dot"></i></span>
+                                <span>{{location.address}}</span>
+                            </div>
                     
+                            
+                            {% endfor %}
+                        </div>
+                    </div>
                     
                     <div class="relative block overflow-hidden p-[46px_30px_30px] bg-[#f2f7f7]">
                         <div class="space-y-5">

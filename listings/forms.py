@@ -1,5 +1,5 @@
 from django import forms
-from listings.models import Business, BusinessContent, BusinessHour, BusinessReview
+from listings.models import Business, BusinessContent, BusinessHour, BusinessLocation, BusinessReview
 from tinymce.widgets import TinyMCE
 
 class BusinessForm(forms.ModelForm):
@@ -26,6 +26,17 @@ class BusinessForm(forms.ModelForm):
             'main_address': forms.TextInput(attrs={"class": "block p-3 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary placeholder:text-gray-400 focus:border-custom-primary ease-linear transition-all duration-150"}),
             'details': forms.Textarea(attrs={"class": "border-0 px-3 py-3 {% if form.details.errors %} h-44 border-2 border-red-500{% endif %} placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", "rows": 8}),
             'zipcode': forms.NumberInput(attrs={"class": "block p-3 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary placeholder:text-gray-400 focus:border-custom-primary ease-linear transition-all duration-150"})
+            
+        }
+
+class BusinessLocationForm(forms.ModelForm):
+    class Meta:
+        model = BusinessLocation
+        fields = ("address", "map_coordinates")
+
+        widgets = {
+            'map_coordinates': forms.HiddenInput(),
+            'address': forms.TextInput(attrs={"class": "block p-3 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary placeholder:text-gray-400 focus:border-custom-primary ease-linear transition-all duration-150"}),
             
         }
 

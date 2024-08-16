@@ -25,7 +25,7 @@
 {% endblock seo_tags %}
 
 {% block content %}
-<div x-data="{ mobileFilterOpen: false, sortMenuOpen: false, searchBarOpen: false, bbeeMenuOpen: false, provinceMenuOpen: false }" class="bg-gray-50">
+<div x-data="{ mobileFilterOpen: false, sortMenuOpen: false, searchBarOpen: false, bbeeMenuOpen: false, provinceMenuOpen: false, category: false }" class="bg-gray-50">
     <!-- Mobile filter dialog -->
     <div x-cloak x-show="mobileFilterOpen" class="fixed inset-0 flex mt-20 z-[70]" role="dialog" aria-modal="true">
         
@@ -264,14 +264,14 @@
         
         <section aria-labelledby="filter-heading" class="mb-20">
             <div class="flex items-center px-4 md:px-0 justify-between">
-                <div class="gap-4">
+                <div class="gap-8 flex items-center">
                     
                     <div class="text-left">
                         <div>
                             <button @click="searchBarOpen = !searchBarOpen" type="button"
-                                class="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900"
+                                class="group inline-flex justify-center text-sm font-medium text-custom-h hover:text-gray-900"
                                 id="mobile-menu-button" aria-expanded="false" aria-haspopup="true">
-                                <i class="fa-solid fa-search fa-2xl"></i>
+                                <i class="fa-solid fa-search fa-xl"></i>
                                 
                             </button>
                         </div>
@@ -339,14 +339,119 @@
                             </div>
                         </div>
                     </div>
+                    <div class="text-left md:hidden">
+                        <div>
+                            <button @click="category = !category" type="button"
+                                class="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900"
+                                id="mobile-menu-button" aria-expanded="false" aria-haspopup="true">
+                                <svg width="30px" height="30px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="#071a1d" stroke="#071a1d"
+                                    stroke-width="0.00048000000000000007">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                    
+                                        <g id="Layer_2" data-name="Layer 2">
+                                            <g id="invisible_box" data-name="invisible box">
+                                                <rect width="48" height="48" fill="none"></rect>
+                                            </g>
+                                            <g id="icons_Q2" data-name="icons Q2">
+                                                <path d="M24,10h0a2,2,0,0,1,2-2H42a2,2,0,0,1,2,2h0a2,2,0,0,1-2,2H26A2,2,0,0,1,24,10Z"></path>
+                                                <path d="M24,24h0a2,2,0,0,1,2-2H42a2,2,0,0,1,2,2h0a2,2,0,0,1-2,2H26A2,2,0,0,1,24,24Z"></path>
+                                                <path d="M24,38h0a2,2,0,0,1,2-2H42a2,2,0,0,1,2,2h0a2,2,0,0,1-2,2H26A2,2,0,0,1,24,38Z"></path>
+                                                <path
+                                                    d="M12,2a2.1,2.1,0,0,0-1.7,1L4.2,13a2.3,2.3,0,0,0,0,2,1.9,1.9,0,0,0,1.7,1H18a2.1,2.1,0,0,0,1.7-1,1.8,1.8,0,0,0,0-2l-6-10A1.9,1.9,0,0,0,12,2Z">
+                                                </path>
+                                                <path d="M12,30a6,6,0,1,1,6-6A6,6,0,0,1,12,30Z"></path>
+                                                <path d="M16,44H8a2,2,0,0,1-2-2V34a2,2,0,0,1,2-2h8a2,2,0,0,1,2,2v8A2,2,0,0,1,16,44Z"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                    
+                            </button>
+                        </div>
+                    
+                    
+                        <!-- Dropdown menu -->
+                        <div x-cloak  x-show="category"
+                            x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-100"
+                            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-90"
+                            class="fixed z-[80] h-screen left-0 overflow-y-auto top-0 bg-white w-full">
+                            <div @click="iscategories = false" class=" relative w-full mb-8 h-full bg-white overflow-y-auto mt-24">
+                                <div class="text-center mb-8">
+                                    <p class="text-custom-primary mb-3 font-semibold text-lg">Categories</p>
+                                    <h4 class="text-4xl text-custom-h font-bold">Our Top Categories</h4>
+                                </div>
+                                <div class="flex items-center justify-center mb-8 overflow-y-auto text-center w-full flex-wrap gap-4">
+                                    <div>
+                                        <div class="w-full sm:w-48 relative bg-white  rounded-md shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
+                                            <a href="{% url 'listings:listings' %}"
+                                                class="features-card text-center flex flex-col items-center py-4 justify-center">
+                        
+                                                <div class="card-icon w-16 mb-3 h-16 overflow-hidden">
+                        
+                                                    <img src="{% static 'imgs/no-image.png' %}" alt="Medical Category"
+                                                        class="w-full  h-full object-cover">
+                        
+                                                </div>
+                                                <div>
+                                                    <h3 class="card-title text-lg font-bold text-custom-h">
+                                                        All
+                                                    </h3>
+                                                    <p class="text-sm text-custom-text">{{listings.count}}+ listings</p>
+                                                </div>
+                        
+                        
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% for category in listing_categories %}
+                                    <div>
+                                        <div class="w-full sm:w-48 relative bg-white  rounded-md shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
+                                            <a href="{% url 'listings:get-listings-by-category' category.slug %}"
+                                                class="features-card text-center flex flex-col items-center py-4 justify-center">
+                        
+                                                <div class="card-icon w-16 mb-3 h-16 overflow-hidden">
+                                                    {% if category.thumbnail %}
+                                                    <img src="{{category.thumbnail.url}}" alt="Medical Category"
+                                                        class="w-full  h-full object-cover">
+                                                    {% else %}
+                                                    <img src="{% static 'imgs/categories/Medical.png' %}" alt="Medical Category"
+                                                        class="w-full  h-full object-cover">
+                                                    {% endif %}
+                                                </div>
+                                                <div>
+                                                    <h3 class="card-title text-lg font-bold text-custom-h">{{category.label|truncatechars:10}}
+                                                    </h3>
+                                                    <p class="text-sm text-custom-text">{{category.businesses.count}}+ listings</p>
+                                                </div>
+                        
+                        
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <button @click="category = false" id="add-listing w-full"
+                                    class="focus:ring-0 w-36 h-12  font-semibold grid justify-center items-center rounded-sm text-white bg-custom-h outline-none border-none mx-auto">
+                        
+                                    <span class="">
+                        
+                                        close
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 
                 
 
                 <button @click="mobileFilterOpen = true" type="button"
-                    class="inline-block text-sm font-medium text-gray-700 hover:text-gray-900">
-                    <span class="hidden md:block">Filters</span>
+                    class="inline-block text-sm font-medium text-custom-h hover:text-gray-900">
+                    <span class="hidden md:block">Filters & Sort</span>
                     <span class=" md:hidden"><i class="fa-solid fa-filter fa-2xl"></i></span>
                 </button>
             </div>

@@ -10,26 +10,24 @@ Update Listing
     <div class="w-full h-full space-y-5">
         <div class="relative block">
             <div class="py-3 ml-4 mr-4 border-b border-b-custom-h">
-                <div class="flex flex-wrap lg:items-center lg:space-x-5">
-                    <div class="text-custom-h w-fit text-base font-normal px-3 py-2 lg:px-0 lg:py-0">
+                <div class="flex flex-wrap gap-4">
+                    <div class="text-custom-h w-fit text-base font-normal px-3 py-2 rounded-md bg-custom-h">
                         <a href="{% url 'listings:update-listing' listing.id %}"
-                            class="font-normal py-2 px-3 duration-500 hover:bg-gray-50 rounded ">Details</a>
+                            class="font-normal  duration-500 text-white rounded ">Details</a>
                     </div>
-                    <div class="text-custom-h w-fit text-base font-normal px-3 py-2 lg:px-0 lg:py-0">
+                    <div class="text-custom-h w-fit text-base font-normal px-3 py-2 rounded-md bg-custom-h">
                         <a href="{% url 'listings:update-listing-content' listing.id %}"
-                            class="font-normal py-2 px-3 duration-500 hover:bg-gray-50 rounded ">Content</a>
+                            class="font-normal  duration-500 text-white rounded ">Content</a>
                     </div>
-                    <div class="h-full w-1 bg-gray-50"></div>
-                    <div class="text-custom-h w-fit text-base font-normal px-3 py-2 lg:px-0 lg:py-0">
-                        <a href=""
-                            class="font-normal py-2 px-3 duration-500 hover:bg-gray-50 rounded ">Business verify</a>
+                    
+                    <div class="text-custom-h w-fit text-base font-normal px-3 py-2 rounded-md bg-custom-h">
+                        <a href="{% url 'listings:get-locations' listing.id %}"
+                            class="font-normal  duration-500 text-white rounded ">Locations</a>
                     </div>
-                    <div class="text-custom-h w-fit text-base font-normal px-3 py-2 lg:px-0 lg:py-0">
-                        <a href="{% url 'markets:get-services' listing.id %}" class="font-normal py-2 px-3 duration-500 hover:bg-gray-50 rounded ">Services</a>
+                    <div class="text-custom-h w-fit text-base font-normal px-3 py-2 rounded-md bg-custom-h">
+                        <a href="{% url 'markets:get-services' listing.id %}" class="font-normal  duration-500 text-white rounded ">Services</a>
                     </div>
-                    <div class="text-custom-h w-fit text-base font-normal px-3 py-2 lg:px-0 lg:py-0">
-                        <a href="" class="font-normal py-2 px-3 duration-500 hover:bg-gray-50 rounded ">Products</a>
-                    </div>
+                    
                 </div>
             </div>
         </div>

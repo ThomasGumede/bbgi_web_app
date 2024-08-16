@@ -184,10 +184,7 @@ class BusinessHour(AbstractCreate):
         verbose_name_plural = 'Business Hours'
 
 class BusinessLocation(AbstractCreate):
-    address_one = models.CharField(max_length=300, blank=True, null=True)
-    address_two = models.CharField(max_length=300, blank=True, null=True)
-    city = models.CharField(max_length=300, blank=True, null=True)
-    province = models.CharField(max_length=300, blank=True, null=True)
-    country = models.CharField(max_length=300, default="South Africa")
-    zipcode = models.BigIntegerField(blank=True, null=True)
+    business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name="business_locations", null=True)
+    address = models.CharField(max_length=400, help_text=_("Enter office address seperated by comma"))
+    map_coordinates  = models.CharField(max_length=300, blank=True, null=True)
     address_id = models.CharField(max_length=300, null=True, blank=True)

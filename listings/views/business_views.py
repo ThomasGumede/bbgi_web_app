@@ -7,7 +7,6 @@ from listings.models import Business, Category, BusinessHour
 from django.core import serializers
 from django.http import JsonResponse
 from django.contrib import messages
-from django.db.models import Avg
 
 from listings.utilities.custom_methods import sort_listing
 
@@ -45,13 +44,13 @@ def manage_listings(request):
     if query:
         listings = listings.filter(Q(title__icontains=query)| Q(owner__first_name__icontains=query))
         
-    return render(request, "business/manage/manage-listings.html", {"listings": listings})
+    return render(request, "business/listing/manage/manage-listings.html", {"listings": listings})
 
 @login_required
 def manage_listing(request, listing_slug):
     queryset = Business.objects.all().select_related("category").prefetch_related("business_hours", "reviews", "images")
     listing = get_object_or_404(queryset, slug=listing_slug, owner=request.user)
-    return render(request, "business/get_listing.html", {"listing": listing})
+    return render(request, "business/listing/get_listing.html", {"listing": listing})
 
 def get_listings(request, category=None):
     query = request.GET.get("query", None)
@@ -70,7 +69,7 @@ def get_listings(request, category=None):
         "sort_by": sort_by,
         "province": province,
         "bbee_level": bbee_level, "category": category}
-    return render(request, "business/listings.html", context)
+    return render(request, "business/listing/get-listings.html", context)
 
 def get_listing(request, listing_slug):
     queryset = Business.objects.all().select_related("category").prefetch_related("business_hours", "reviews", "images")
@@ -90,9 +89,9 @@ def get_listing(request, listing_slug):
             return redirect("listings:get-listing", listing_slug=listing.slug)
         
         messages.error(request, "Error trying to add your review")
-        return render(request, "business/get_listing.html", {"listing": listing, "form": form})
+        return render(request, "business/listing/get-listing.html", {"listing": listing, "form": form})
 
-    return render(request, "business/get_listing.html", {"listing": listing, "form": form, "lcategories": categories})
+    return render(request, "business/listing/get-listing.html", {"listing": listing, "form": form, "lcategories": categories})
 
 @login_required
 def add_listing(request):
@@ -122,9 +121,9 @@ def add_listing(request):
         else:
             messages.error(request, "Something went wrong while trying to add your business")
             
-            return render(request, "business/add_listing.html", {"form": form, "forms": forms})
+            return render(request, "business/listing/add-listing.html", {"form": form, "forms": forms})
     
-    return render(request, "business/add_listing.html", {"form": buniness_form, "forms": business_hour_forms})
+    return render(request, "business/listing/add-listing.html", {"form": buniness_form, "forms": business_hour_forms})
 
 @login_required
 def update_listing(request, listing_id):
@@ -144,9 +143,9 @@ def update_listing(request, listing_id):
             return redirect("listings:manage-listings")
         else:
             messages.error(request, "Something went wrong while trying to update your business")
-            return render(request, "business/update-listing.html", {"listing": listing, "form": form, "forms": forms})
+            return render(request, "business/listing/update-listing.html", {"listing": listing, "form": form, "forms": forms})
     else:   
-        return render(request, "business/update-listing.html", {"listing": listing, "form": buniness_form, "forms": business_hour_forms})
+        return render(request, "business/listing/update-listing.html", {"listing": listing, "form": buniness_form, "forms": business_hour_forms})
 
 @login_required
 def update_listing_content(request, listing_id):
@@ -162,8 +161,8 @@ def update_listing_content(request, listing_id):
             return redirect("listings:update-listing-content", listing.id)
         else:
             messages.error(request, "Please select atleast one image before submiting form")
-            return render(request, "business/update-listing-content.html", {"listing": listing})
-    return render(request, "business/update-listing-content.html", {"listing": listing})
+            return render(request, "business/listing/update-listing-content.html", {"listing": listing})
+    return render(request, "business/listing/update-listing-content.html", {"listing": listing})
 
 @login_required
 def delete_listing_content(request, listing_id, content_id):
@@ -182,7 +181,7 @@ def delete_listing(request, listing_id):
         messages.success(request, "Listing was deleted successfully")
         return redirect("listings:manage-listings")
     else:
-        return render(request, "business/delete-listing.html", {"message": f"Are you sure you want to delete this listing ({listing.title})?", "title": "Delete listing"})
+        return render(request, "business/listing/delete-listing.html", {"message": f"Are you sure you want to delete this listing ({listing.title})?", "title": "Delete listing"})
 
 @login_required
 def get_business_hours_api(request, listing_id):

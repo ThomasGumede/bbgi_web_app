@@ -1,6 +1,7 @@
 from django.urls import path
 
-from listings.views import add_listing, delete_listing, delete_listing_content, get_business_hours_api, get_listing, get_listings, manage_listing, manage_listings, update_listing, update_listing_content
+from listings.views.business_lcation import create_location, delete_location, get_locations, update_location
+from listings.views.business_views import add_listing, delete_listing, delete_listing_content, get_business_hours_api, get_listing, get_listings, manage_listing, manage_listings, update_listing, update_listing_content
 
 
 app_name = "listings"
@@ -13,9 +14,13 @@ urlpatterns = [
     path("listing/delete/<uuid:listing_id>", delete_listing, name="delete-listing"),
     path("listing/update/<uuid:listing_id>", update_listing, name="update-listing"),
     path("listing/update/content/<uuid:listing_id>", update_listing_content, name="update-listing-content"),
+    path("listing/update/locations/<uuid:listing_id>", get_locations, name="get-locations"),
+    path("listing/update/locations/create/<uuid:listing_id>", create_location, name="create-location"),
+    path("listing/update/locations/update/<uuid:location_id>", update_location, name="update-location"),
+    path("listing/update/locations/delete/<uuid:location_id>", delete_location, name="delete-location"),
     path("delete/content/<uuid:listing_id>/<uuid:content_id>", delete_listing_content, name="delete-listing-content"),
     path("manage/<slug:listing_slug>", manage_listing, name="manage-listing"),
-    path("add", add_listing, name = "add-listing"),
+    path("listing/create", add_listing, name = "add-listing"),
 
     # API URLS
     path("api/hours/<uuid:listing_id>", get_business_hours_api, name="get-business-hours-api")

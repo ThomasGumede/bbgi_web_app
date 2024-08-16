@@ -1,0 +1,242 @@
+{% extends '_business_update.html' %}
+{% load static %}
+
+{% block seo_tags %}
+<title>BBGI - Create Listing</title>
+<meta name="description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
+                            to showcase businesses and expertise">
+<meta name="title" content="BBGI - Create Listing" />
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://bbgi.co.za/listings/add" />
+<meta property="og:title" content="BBGI - Create Listing" />
+<meta property="og:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
+                            to showcase businesses and expertise" />
+<meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://bbgi.co.za/listings/add" />
+<meta property="twitter:title" content="BBGI - Create Listing" />
+<meta property="twitter:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
+                            to showcase businesses and expertise" />
+<meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+{% endblock seo_tags %}
+
+{% block businessblock %}
+
+<section class="w-full  font-sans py-10 h-full">
+    <div class="">
+        <div class="px-4">
+            {% if form.errors %}
+            <div class="w-full mx-auto">
+                <div class="bg-red-50 border-l-8 border-red-900">
+                    <div class="flex items-center">
+                        <div class="p-2">
+                            <div class="flex items-center">
+                                <div class="ml-2">
+                                    <svg class="h-8 w-8 text-red-900 mr-2 cursor-pointer"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <p class="px-6 py-4 text-red-900 font-semibold text-lg">Please fix the
+                                    following
+                                    errors.</p>
+                            </div>
+
+                            <ul class="px-16 mb-4">
+                                {% for field in form %}
+                                {% if field.errors %}
+                                <li class="text-md font-bold text-red-500 text-sm">{{field.label}}:
+                                    {{field.errors.as_text}}</li>
+                                {% endif %}
+                                {% endfor %}
+                                {% if form.non_field_errors %}
+
+                                <li class="text-md font-bold text-red-500 text-sm">Form error:
+                                    {{form.non_field_errors.as_text}}
+                                </li>
+
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <form method="post" enctype="multipart/form-data" class="w-full md:w-6/12 mx-auto text-center">
+                {% csrf_token %}
+                <div class="grid items-start gap-7">
+                    <div class="p-4 rounded-lg w-full">
+                        <h6 class="text-custom-h text-xl md:text-2xl mt-3 mb-6 font-bold uppercase">
+                            Where do you run your business from?
+                        </h6>
+                        <div class="mb-6">
+                            <p class="text-sm text-custom-text">
+                                Provide a physical business address so customers can find you when searching for
+                                services in your area
+                            </p>
+                            <p class="text-sm text-custom-text">
+                                This can be your other office, a retail store, a co-working space or even your street
+                                address if you run your
+                                business
+                                from home.
+                            </p>
+                        </div>
+
+                        <div class="flex flex-wrap">
+
+
+                            <div class="w-full lg:w-12/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_title">
+                                        Search or Type Your Address*
+                                    </label>
+                                    {{form.address}}
+                                    <span
+                                        class="text-[11px] text-custom-text block font-normal lowercase">{{form.main_address.help_text}}</span>
+
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-12/12 px-4 h-96" id="gmp-map">
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    {{form.map_coordinates}}
+                </div>
+                <div class="mt-3">
+                    <div class="text-center inline-block h-12 bg-custom-primary w-[150px] rounded-md cursor-pointer">
+                        <input type="submit" value="submit"
+                            class="text-white w-full h-full cursor-pointer text-sm font-semibold" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock businessblock %}
+{% block js %}
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1vMyd0KzU7mTn_AkMW3zd2V4cJC9w31I&libraries=places&callback=initMap&solution_channel=GMP_QB_addressselection_v1_cAC"
+    async defer></script>
+<script>
+    "use strict";
+
+    function initMap() {
+        const CONFIGURATION = {
+            "ctaTitle": "Checkout",
+            "mapOptions": {"center": {"lat": -33.918861, "lng": 18.423300}, "fullscreenControl": true, "mapTypeControl": true, "streetViewControl": true, "zoom": 11, "zoomControl": true, "maxZoom": 22, "mapId": ""},
+            "capabilities": {"addressAutocompleteControl": true, "mapDisplayControl": true, "ctaControl": true}
+        };
+
+
+        const map = new google.maps.Map(document.getElementById("gmp-map"), {
+            zoom: CONFIGURATION.mapOptions.zoom,
+            center: {lat: -33.918861, lng: 18.423300},
+            mapTypeControl: true,
+            fullscreenControl: CONFIGURATION.mapOptions.fullscreenControl,
+            zoomControl: CONFIGURATION.mapOptions.zoomControl,
+            streetViewControl: CONFIGURATION.mapOptions.streetViewControl
+        });
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    const clientLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    map.setCenter(clientLocation);
+                    const marker = new google.maps.Marker({position: clientLocation, map: map, draggable: false});
+                    const geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({location: clientLocation}, (results, status) => {
+                        if (status === 'OK') {
+                            fillInAddress(results[0]);
+                        } else {
+                            alert("Sorry, we couldn't find address suggestion for your current location")
+                        }
+                    })
+                },
+                () => {
+
+                }
+            )
+        }
+        const marker = new google.maps.Marker({map: map, draggable: false});
+        google.maps.event.addListener(map, 'click', (event) => {
+            marker.setPosition(event.latLng);
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({location: event.latLng}, (results, status) => {
+                if (status === 'OK') {
+                    console.log(results)
+                    fillInAddress(results[0]);
+                } else {
+                    alert("Sorry, we couldn't find address suggestions for your location")
+                }
+            })
+        })
+
+        const autocompleteInput = document.getElementById('id_address');
+
+
+        const autocomplete = new google.maps.places.Autocomplete(autocompleteInput, {
+            fields: ["place_id", "address_components", "geometry", "name"],
+            types: ["address"],
+        });
+
+        autocomplete.setComponentRestrictions(
+            {'country': ['za']});
+        autocomplete.addListener('place_changed', function () {
+
+            const place = autocomplete.getPlace();
+            if (!place.geometry) {
+                // User entered the name of a Place that was not suggested and
+                // pressed the Enter key, or the Place Details request failed.
+                window.alert('No details available for input: \'' + place.name + '\'');
+                return;
+            }
+            const latitude = place.geometry.location.lat();
+            const longitude = place.geometry.location.lng();
+            if (latitude && longitude) {
+                document.getElementById('id_map_coordinates').value = latitude + ',' + longitude;
+            }
+            renderAddress(place)
+            fillInAddress(place);
+        });
+
+        function fillInAddress(place) {
+            const addressNameFormat = {
+                'street_number': 'short_name',
+                'route': 'long_name',
+                'locality': 'long_name',
+                'administrative_area_level_1': 'short_name',
+                'country': 'long_name',
+                'postal_code': 'short_name',
+            };
+            const getAddressComp = function (type) {
+                for (const component of place.address_components) {
+                    if (component.types[0] === type) {
+                        return component[addressNameFormat[type]];
+                    }
+                }
+                return '';
+            };
+
+            autocompleteInput.value = `${getAddressComp('route')}, ${getAddressComp('locality')}, ${getAddressComp('administrative_area_level_1')}, ${getAddressComp('postal_code')}, South Africa`
+        }
+
+        function renderAddress(place) {
+            map.setCenter(place.geometry.location);
+            marker.setPosition(place.geometry.location);
+            marker.setVisible(true);
+        }
+    }
+</script>
+{% endblock js %}
