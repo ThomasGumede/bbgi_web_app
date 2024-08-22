@@ -51,26 +51,31 @@ def validate_tickets_quantity(forms, request: HttpRequest):
     
 
 def create_ticket(forms, order: TicketOrderModel, request: HttpRequest) -> bool:
-    for form in forms:
-        quantity = form.cleaned_data["quantity"]
-        ticket_type: EventTicketTypeModel = form.cleaned_data["ticket_type"]
-        
-        if ticket_type.sale_end == timezone.now():
-            messages.error(request, f"Sorry this ticket <b>{ticket_type.title}</b> sale has ended")
-            return False
-        
-        if quantity > 0:
-            for i in range(int(quantity)):
-                TicketModel.objects.create(quantity=1, ticket_order=order, ticket_type=ticket_type)
-
-        update_order_transaction_cost_subtotal(order.id)
+    try:
+        for form in forms:
+            quantity = form.cleaned_data["quantity"]
+            ticket_type: EventTicketTypeModel = form.cleaned_data["ticket_type"]
             
-        generated = generate_qr_and_bacode(order, request)
-        if not generated:
-            logger.error(f"Couldn't generate tickets for {order.order_number}")
+            if ticket_type.sale_end == timezone.now():
+                messages.error(request, f"Sorry this ticket <b>{ticket_type.title}</b> sale has ended")
+                return False
+            
+            if quantity > 0:
+                for i in range(int(quantity)):
+                    TicketModel.objects.create(quantity=1, ticket_order=order, ticket_type=ticket_type)
 
-    messages.success(request, "Ticket reserved successfully was created successfully")       
-    return True
+            update_order_transaction_cost_subtotal(order.id)
+                
+            generated = generate_qr_and_bacode(order, request)
+            if not generated:
+                logger.error(f"Couldn't generate tickets for {order.order_number}")
+
+        messages.success(request, "Ticket reserved successfully was created successfully")       
+        return True
+    except Exception as ex:
+        messages.error(request, "Unable to generate tickets")
+        logger.error(ex)
+        return False
 
 @login_required
 def ticket_order(request, order_id, event_slug):
