@@ -1,4 +1,4 @@
-from wsgiref import headers
+from payments.utilities.yoco_func import headers
 import requests, logging, json
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
