@@ -14,8 +14,6 @@ from weasyprint import HTML
 from django.core.mail import EmailMessage
 from django.conf import settings
 
-from payments.utils import send_subscription_confirm_email
-
 logger = logging.getLogger("tasks")
 event_logger = logging.getLogger("events")
 campaign_logger = logging.getLogger("campaigns")
