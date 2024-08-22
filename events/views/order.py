@@ -16,12 +16,17 @@ from django.db.models import Q
 
 logger = logging.getLogger("utils")
 
-def update_order_transaction_cost_subtotal(order_id) -> None:
-    order = get_object_or_404(TicketOrderModel.objects.prefetch_related("tickets"), id=order_id)
-    order.accepted_laws = True
-    order.subtotal = sum([ticket.ticket_type.price for ticket in order.tickets.all()])
-    order.total_transaction_costs = sum([ticket.ticket_type.transaction_cost for ticket in order.tickets.all()])
-    order.save(update_fields=["total_transaction_costs", "subtotal", "accepted_laws"])
+def update_order_transaction_cost_subtotal(order_id) -> bool:
+    try:
+        order = get_object_or_404(TicketOrderModel.objects.prefetch_related("tickets"), id=order_id)
+        order.accepted_laws = True
+        order.subtotal = sum([ticket.ticket_type.price for ticket in order.tickets.all()])
+        order.total_transaction_costs = sum([ticket.ticket_type.transaction_cost for ticket in order.tickets.all()])
+        order.save(update_fields=["total_transaction_costs", "subtotal", "accepted_laws"])
+        return True
+    except Exception as ex:
+        logger.error(ex)
+        return False
 
 def create_order(order_form: TicketOrderForm, request: HttpRequest, event: EventModel) -> TicketOrderModel:
     order = order_form.save(commit=False)
