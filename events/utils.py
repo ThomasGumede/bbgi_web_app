@@ -10,7 +10,7 @@ from weasyprint import HTML
 from barcode.writer import ImageWriter
 from django.http import HttpResponse
 
-logger = logging.getLogger("utils")
+logger = logging.getLogger("tasks")
 
 def create_new_barcode_number():
     not_unique = True
