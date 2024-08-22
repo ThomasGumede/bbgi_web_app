@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 import random, barcode, logging, qrcode
 from celery import shared_task
 from events.models import TicketModel, TicketOrderModel, EventModel
@@ -20,8 +21,9 @@ def create_new_barcode_number():
     return str(unique_ref)
 
 @shared_task
-def generate_qr_and_bacode(order: TicketOrderModel, order_url):
+def generate_qr_and_bacode(order_id, order_url):
     try:
+        order = TicketOrderModel.objects.get(id=order_id)
         # order_url = request.build_absolute_uri(reverse("events:manage-ticket-order", kwargs={"order_id": order.id}))
         for ticket in TicketModel.objects.filter(ticket_order=order):
             
@@ -73,10 +75,11 @@ def generate_guests_list(orders, event:EventModel, domain, protocol):
         return False
 
 @shared_task
-def generate_tickets_in_pdf(order: TicketOrderModel, request = None):
+def generate_tickets_in_pdf(order_id, request = None):
     try:
         # domain = get_current_site(request).domain
         # protocol = "https" if request.is_secure() else "http"
+        order = TicketOrderModel.objects.get(id=order_id)
         template = get_template("ticket/tickets.html")
         context = {"tickets": TicketModel.objects.filter(ticket_order=order), 
                     "event": order.event, 

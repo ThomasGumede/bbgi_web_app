@@ -71,7 +71,7 @@ def create_ticket(forms, order: TicketOrderModel, request: HttpRequest) -> bool:
             update_order_transaction_cost_subtotal(order.id)
             
             order_url = request.build_absolute_uri(reverse("events:manage-ticket-order", kwargs={"order_id": order.id}))
-            generated = generate_qr_and_bacode.delay(order, order_url)
+            generated = generate_qr_and_bacode.delay(order.id, order_url)
             if not generated:
                 logger.error(f"Couldn't generate tickets for {order.order_number}")
 
