@@ -1,4 +1,5 @@
 import json, logging
+from wsgiref import headers
 import requests
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -7,9 +8,11 @@ from payments.models import PaymentInformation
 from payments.tasks import check_payment_update_contribution
 from django.contrib import messages
 from campaigns.utils import PaymentStatus
-from payments.utils import headers, decimal_to_str, update_payment_status_contribution_order
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
+
+from payments.utilities.contribution_func import update_payment_status_contribution_order
+from payments.utilities.yoco_func import decimal_to_str
 
 logger = logging.getLogger("payments")
 
@@ -70,7 +73,8 @@ def contributions_payment_failed(request, contribution_id):
 def contributions_payment_cancelled(request, contribution_id):
     contribution = get_object_or_404(ContributionModel, id=contribution_id)
     contribution.delete()
-    return render(request, "payments/contributions/cancelled.html")
+    messages.success(request, "Payment cancelled successfully")
+    return redirect("bbgi_home:bbgi-home")
 
 
 def contributions_payment_success(request, contribution_id):

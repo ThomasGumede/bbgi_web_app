@@ -1,3 +1,4 @@
+from wsgiref import headers
 import requests, logging, json
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -5,10 +6,12 @@ from events.models import TicketOrderModel
 from campaigns.utils import PaymentStatus
 from payments.models import PaymentInformation
 from django.contrib import messages
-from payments.utils import headers, decimal_to_str, update_payment_status_ticket_order
 from django.contrib.auth.decorators import login_required
 from payments.tasks import resend_tickets_task, check_payment_update_ticket_order
 from django.contrib.sites.shortcuts import get_current_site
+
+from payments.utilities.ticket_func import update_payment_status_ticket_order
+from payments.utilities.yoco_func import decimal_to_str
 
 logger = logging.getLogger("payments")
 
@@ -97,7 +100,8 @@ def tickets_payment_success(request, ticket_order_id):
 def tickets_payment_cancelled(request, ticket_order_id):
     ticket_order = get_object_or_404(TicketOrderModel, id=ticket_order_id)
     ticket_order.delete()
-    return render(request, "payments/tickets/cancelled.html")
+    messages.success(request,"Payment cancelled successfully")
+    return redirect("events:events")
 
 def tickets_payment_failed(request, ticket_order_id):
     ticket_order = get_object_or_404(TicketOrderModel, id=ticket_order_id)

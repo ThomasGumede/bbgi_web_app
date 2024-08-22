@@ -4,7 +4,7 @@ from payments.models import PaymentInformation
 from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 from django.urls import reverse
-from payments.utils import headers
+from payments.utilities.yoco_func import headers
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 

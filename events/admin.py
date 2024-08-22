@@ -18,7 +18,7 @@ def make_pending(modeladmin, request, querset):
 
 class EventTicketTypeInline(admin.TabularInline):
     model = EventTicketTypeModel
-    readonly_fields = ("id", "available_seats", "price", "title")
+    
     extra = 0
 
 class TicketOrderInline(admin.TabularInline):
@@ -38,7 +38,6 @@ class TicketOrderAdmin(admin.ModelAdmin):
     empty_value_display = "Empty"
     list_editable = ("paid", )
     search_fields = ("order_number", "checkout_id", "payment_date")
-    readonly_fields = ("id","order_number", "checkout_id", "payment_date", "quantity", "total_price", "buyer", "reservation_time", "accepted_laws", "subtotal", "total_transaction_costs", "tip", "paid", "event")
     inlines = [TicketInline]
 
 @admin.register(EventModel)
@@ -48,11 +47,7 @@ class EventAdmin(admin.ModelAdmin):
     list_per_page = 10
     search_fields = ("title",)
     list_filter = ("category", "created")
-    exclude = ("image", "content", "slug", "event_startdate", "event_enddate", "map_coordinates")
     actions = [make_approve, make_pending]
-    readonly_fields = ("title", "image_tag", "category", "date_time_formatter",  
-                       "total_seats_sold", 
-                        "organiser", "venue_name", "event_address", "content_safe", "event_link", "tip")
     inlines = [EventTicketTypeInline]
 
     def save_model(self, request, obj, form, change):

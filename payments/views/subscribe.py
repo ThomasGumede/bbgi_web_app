@@ -1,4 +1,5 @@
 import json, logging
+from wsgiref import headers
 import requests
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
@@ -8,9 +9,11 @@ from payments.models import PaymentInformation
 from payments.tasks import check_payment_update_subscription
 from django.contrib import messages
 from campaigns.utils import PaymentStatus
-from payments.utils import headers, decimal_to_str, update_payment_status_subscription_order
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
+
+from payments.utilities.subscription_func import update_payment_status_subscription_order
+from payments.utilities.yoco_func import decimal_to_str
 
 logger = logging.getLogger("payments")
 
@@ -72,7 +75,8 @@ def subscription_payment_failed(request, subscription_id):
 def subscription_payment_cancelled(request, subscription_id):
     subscription = get_object_or_404(SubscriptionOrder, id=subscription_id)
     subscription.delete()
-    return render(request, "payments/subscriptions/cancelled.html")
+    messages.success(request, "Payment cancelled successfully")
+    return redirect("campaigns:campaigns")
 
 
 def subscription_payment_success(request, subscription_id):
