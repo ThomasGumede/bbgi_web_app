@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from listings.models import Business, Category, BusinessHour
 from django.core import serializers
 from django.http import JsonResponse
+from markets.forms import ServiceForm, QoutationForm
 from django.contrib import messages
 
 from listings.utilities.custom_methods import sort_listing
@@ -76,7 +77,7 @@ def get_listing(request, listing_slug):
     listing = get_object_or_404(queryset, slug=listing_slug)
     categories = Category.objects.all()
     form = BusinessReviewForm()
-
+    form2 = QoutationForm()
     if request.method == "POST":
         form = BusinessReviewForm(request.POST)
         if form.is_valid():
@@ -91,7 +92,7 @@ def get_listing(request, listing_slug):
         messages.error(request, "Error trying to add your review")
         return render(request, "business/listing/get-listing.html", {"listing": listing, "form": form})
 
-    return render(request, "business/listing/get-listing.html", {"listing": listing, "form": form, "lcategories": categories})
+    return render(request, "business/listing/get-listing.html", {"listing": listing, "form": form, "lcategories": categories, "form2": form2})
 
 @login_required
 def add_listing(request):

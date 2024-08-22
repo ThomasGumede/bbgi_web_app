@@ -46,7 +46,10 @@
         
         <div class="relative block font-sans bg-custom-bg">
             <div x-data="{dashboard : false}" class="w-full h-full bg-white">
-                <div :class="dashboard ? 'left-0' : '-left-full' "
+                <div x-cloak :class="dashboard ? 'left-0' : '-left-full' " x-transition:enter="transition ease-out duration-100"
+                                                x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                                                x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 scale-100"
+                                                x-transition:leave-end="opacity-0 scale-90"
                     class="fixed lg:left-0 top-0 z-50 bg-custom-h h-screen w-full lg:w-2/12">
                     <div class="relative block overflow-auto">
                         <div @click="dashboard = false" class="absolute top-4 right-4 lg:hidden">
@@ -274,11 +277,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="cart">
+                                    <!-- <div id="cart">
                                         <a href="" class="text-white">
                                             <i class="fa-solid fa-cart-shopping fa-lg"></i>
                                         </a>
-                                    </div>
+                                    </div> -->
                                     <a href="{% url 'listings:add-listing' %}" id="add-listing w-full">
                                         <span href="" class="text-white md:hidden  w-full">
                                             <i class="fa-solid fa-plus fa-lg"></i>
@@ -296,7 +299,67 @@
                             </div>
                         </nav>
                         <div class=" bg-custom-bg py-10 relative block w-full h-full">
-                            {% include "includes/messages.html" %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if message.tags == 'success' %}
+                                    <div class="flex bg-green-100 rounded-lg p-4 mb-4 text-sm text-green-700" role="alert">
+                                        <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        <div>
+                                            {{ message|safe|escape }}
+                                        </div>
+                                    </div>
+                                    {% elif message.tags == 'error' %}
+                                    <div class="flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700" role="alert">
+                                        <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        <div>
+                                            {{ message|safe|escape }}
+                                        </div>
+                                    </div>
+                                    {% elif message.tags == 'info' %}
+                                    <div class="flex bg-blue-100 rounded-lg p-4 mb-4 text-sm text-blue-700" role="alert">
+                                        <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        <div>
+                                            {{ message|safe|escape }}
+                                        </div>
+                                    </div>
+                                    {% elif message.tags == 'warning' %}
+                                    <div class="flex bg-yellow-100 rounded-lg p-4 mb-4 text-sm text-yellow-700" role="alert">
+                                        <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        <div>
+                                            {{ message|safe|escape }}
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <div class="flex bg-green-100 rounded-lg p-4 mb-4 text-sm text-green-700" role="alert">
+                                        <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        <div>
+                                            {{ message|safe|escape }}
+                                        </div>
+                                    </div>
+                                    
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                             {% block content %}
                             {% endblock content %}
                         </div>

@@ -123,7 +123,7 @@ def resend_tickets(request, order_uuid):
     if order.paid == PaymentStatus.NOT_PAID:
         messages.error(request, "You have not paid for your tickets, if you did pay for them, please contact us <b>support@ndwandwafam.co.za</b>")
         return redirect("events:manage-ticket-order", id=order_uuid)
-    
+
     protocol = "https" if request.is_secure() else "http"
     domain = get_current_site(request).domain
     resend_tickets_task.delay(order.checkout_id, protocol, domain)

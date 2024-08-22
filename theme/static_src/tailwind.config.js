@@ -51,6 +51,7 @@ module.exports = {
         "custom-text": "hsl(200, 15%, 43%)",
         "custom-bg": "hsl(225, 33%, 98%)",
         "custom-h": "hsl(188, 63%, 7%)",
+        "custom-tertiary": "hsl(200, 15%, 43%)",
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],

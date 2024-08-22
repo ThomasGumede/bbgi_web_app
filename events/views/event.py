@@ -12,6 +12,7 @@ from django.db.models import Q
 def events(request, category_slug=None):
     query = request.GET.get("query", None)
     place = request.GET.get("place", None)
+    sort_by = request.GET.get("sort_by", None)
     queryset = EventModel.objects.filter(Q(status = StatusChoices.APPROVED) | Q(status = StatusChoices.COMPLETED))
     if category_slug:
         category = get_object_or_404(BlogCategory, slug=category_slug)

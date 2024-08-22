@@ -59,7 +59,7 @@ def generate_ticket(request, order_id, ticket_id):
             
         response = HttpResponse(pdf_file, content_type='application/pdf')
         response['Content-Disposition'] = f'attachment; filename="{order.order_number}_ticket.pdf"'
-
+        
         return response
     
     except Exception as ex:

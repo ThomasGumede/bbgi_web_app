@@ -162,7 +162,13 @@ def add_guest_details(request, ticket_order_id):
             generated = generate_tickets_in_pdf(ticket_order, request)
             if not generated:
                 logger.error(f"Failed to generate tickets for {ticket_order.order_number}")
-                
+
+            if ticket_order.total_price == 0.00:
+                ticket_order.paid = PaymentStatus.PAID
+                ticket_order.save()
+                messages.success(request, "Ticket holders added successfully")
+                return redirect("events:order", event_slug=ticket_order.event.slug, order_id=ticket_order.id)
+            
             messages.success(request, "Ticket holders added successfully")
             return redirect("payments:ticket-payment", ticket_order_id=ticket_order.id)
         else:

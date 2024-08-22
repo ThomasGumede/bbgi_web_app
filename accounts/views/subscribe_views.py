@@ -28,8 +28,8 @@ def choose_package(request):
         messages.info(request, "To complete your subscription, we require payment.")
         return redirect("payments:subscription-payment", available_order.id)
     
-    if is_price_droped: 
-        amount = decimal.Decimal(package.amount) - (decimal.Decimal(package.amount) * decimal.Decimal((80/100)))
+    if is_price_droped:
+        amount = decimal.Decimal(package.amount) - (decimal.Decimal(package.amount) * decimal.Decimal((50/100)))
     
     return render(request, "accounts/subscriptions/subscribe.html", {"package": package,"price_drop": is_price_droped, "amount": round(amount, 2)})
 
@@ -50,7 +50,7 @@ def subscribe(request, package_id):
         else:
             amount = package.amount
             if is_price_droped: 
-                amount = decimal.Decimal(package.amount) - (decimal.Decimal(package.amount) * decimal.Decimal((80/100)))
+                amount = decimal.Decimal(package.amount) - (decimal.Decimal(package.amount) * decimal.Decimal((50/100)))
             messages.info(request, "To complete your subscription, we require payment.")
             vat = decimal.Decimal(amount) * decimal.Decimal((15/100))
             order = SubscriptionOrder.objects.create(package=package, subscriber=request.user, total_amount=amount, vat=vat, order_id=generate_order_number(SubscriptionOrder))

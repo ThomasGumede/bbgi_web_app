@@ -169,6 +169,7 @@
                 }
             )
         }
+        
         const marker = new google.maps.Marker({map: map, draggable: false});
         google.maps.event.addListener(map, 'click', (event) => {
             marker.setPosition(event.latLng);
