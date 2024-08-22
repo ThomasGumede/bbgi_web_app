@@ -37,7 +37,7 @@ def check_events_status():
     f"{events.count()} events were marked at completed"
 
 @shared_task
-def notify_organiser_event_of_status_change(event_id, domain = 'ndwandwa.africa', protocol = 'https'):
+def notify_organiser_event_of_status_change(event_id, domain = 'bbgi.co.za', protocol = 'https'):
     try:
         
         event = EventModel.objects.select_related("organiser").get(id=event_id)

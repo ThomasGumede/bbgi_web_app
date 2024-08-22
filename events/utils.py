@@ -1,4 +1,5 @@
 import random, barcode, logging, qrcode
+from celery import shared_task
 from events.models import TicketModel, TicketOrderModel, EventModel
 from io import BytesIO
 from django.urls import reverse
@@ -18,9 +19,10 @@ def create_new_barcode_number():
             not_unique = False
     return str(unique_ref)
 
-def generate_qr_and_bacode(order: TicketOrderModel, request):
+@shared_task
+def generate_qr_and_bacode(order: TicketOrderModel, order_url):
     try:
-        order_url = request.build_absolute_uri(reverse("events:manage-ticket-order", kwargs={"order_id": order.id}))
+        # order_url = request.build_absolute_uri(reverse("events:manage-ticket-order", kwargs={"order_id": order.id}))
         for ticket in TicketModel.objects.filter(ticket_order=order):
             
             barcode_value = create_new_barcode_number()
@@ -70,18 +72,19 @@ def generate_guests_list(orders, event:EventModel, domain, protocol):
         logger.error(ex)
         return False
 
-def generate_tickets_in_pdf(order: TicketOrderModel, request):
+@shared_task
+def generate_tickets_in_pdf(order: TicketOrderModel, request = None):
     try:
-        domain = get_current_site(request).domain
-        protocol = "https" if request.is_secure() else "http"
+        # domain = get_current_site(request).domain
+        # protocol = "https" if request.is_secure() else "http"
         template = get_template("ticket/tickets.html")
         context = {"tickets": TicketModel.objects.filter(ticket_order=order), 
                     "event": order.event, 
                     "buyer_full_name": order.buyer.get_full_name(),
                     "order_number": order.order_number,
                     "created": order.created,
-                    "domain": domain, 
-                    "protocol": protocol}
+                    "domain": "bbgi.co.za", 
+                    "protocol": "https"}
         
         render_template = template.render(context)
         pdf_file = HTML(string=render_template).write_pdf()

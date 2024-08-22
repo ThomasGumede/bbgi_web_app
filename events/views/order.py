@@ -2,6 +2,7 @@ import logging
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest, HttpResponseServerError
 from django.forms import formset_factory
+from django.urls import reverse
 from accounts.custom_models.choices import StatusChoices
 from campaigns.utils import PaymentStatus
 from django.contrib.auth.decorators import login_required
@@ -68,12 +69,13 @@ def create_ticket(forms, order: TicketOrderModel, request: HttpRequest) -> bool:
                     TicketModel.objects.create(quantity=1, ticket_order=order, ticket_type=ticket_type)
 
             update_order_transaction_cost_subtotal(order.id)
-                
-            generated = generate_qr_and_bacode(order, request)
+            
+            order_url = request.build_absolute_uri(reverse("events:manage-ticket-order", kwargs={"order_id": order.id}))
+            generated = generate_qr_and_bacode.delay(order, order_url)
             if not generated:
                 logger.error(f"Couldn't generate tickets for {order.order_number}")
 
-        messages.success(request, "Ticket reserved successfully was created successfully")       
+        messages.success(request, "Ticket reserved successfully was created successfully")    
         return True
     except Exception as ex:
         messages.error(request, "Unable to generate tickets")
@@ -171,7 +173,7 @@ def add_guest_details(request, ticket_order_id):
                 ticket.guest_email = form.cleaned_data["guest_email"]
                 ticket.save(update_fields=["guest_email", "guest_full_name"])
 
-            generated = generate_tickets_in_pdf(ticket_order, request)
+            generated = generate_tickets_in_pdf.delay(ticket_order)
             if not generated:
                 logger.error(f"Failed to generate tickets for {ticket_order.order_number}")
 
