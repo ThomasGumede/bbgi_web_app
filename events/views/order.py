@@ -1,6 +1,6 @@
 import logging
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseServerError
 from django.forms import formset_factory
 from accounts.custom_models.choices import StatusChoices
 from campaigns.utils import PaymentStatus
@@ -53,8 +53,6 @@ def validate_tickets_quantity(forms, request: HttpRequest):
     else:
         return True
         
-    
-
 def create_ticket(forms, order: TicketOrderModel, request: HttpRequest) -> bool:
     try:
         for form in forms:
@@ -107,51 +105,55 @@ def ticket_orders(request, event_id = None):
 
 @login_required
 def create_ticket_order(request, event_slug):
-    queryset = EventModel.objects.filter(status = StatusChoices.APPROVED).prefetch_related(Prefetch("tickettypes", queryset=EventTicketTypeModel.objects.filter(available_seats__gte=1)))
-    event = get_object_or_404(queryset, slug = event_slug)
-    date = event.event_enddate  - timezone.now()
+    try:
+        queryset = EventModel.objects.filter(status = StatusChoices.APPROVED).prefetch_related(Prefetch("tickettypes", queryset=EventTicketTypeModel.objects.filter(available_seats__gte=1)))
+        event = get_object_or_404(queryset, slug = event_slug)
+        date = event.event_enddate  - timezone.now()
 
-    if date.days <= 0:
-        messages.error(request, "Sorry, this event is closed and no longer sells tickets, Thank you")
-        event.status = StatusChoices.COMPLETED
-        event.save(update_fields=["status"])
-        return redirect("events:event-details", event_slug=event.slug)
-    
-    if event.get_total_seats() == 0 or event.tickettypes.count() == 0:
-        messages.info(request, "Sorry this event has ran out of tickets")
-        return redirect("events:event-details", event_slug=event.slug)
-    
-    formset = formset_factory(TicketForm, extra=event.tickettypes.count(), max_num=event.tickettypes.count(), absolute_max=event.tickettypes.count())
-    
-    if request.method == "POST":
-        order_form = TicketOrderForm(request.POST)
-        forms = formset(request.POST)
-   
-        if order_form.is_valid() and forms.is_valid():
-            total_reserved_seats = sum([form.cleaned_data["quantity"] for form in forms])
-            if total_reserved_seats == 0:
-                messages.error(request, "Please select at least one ticket")
-                return redirect("events:create-ticket-order", event_slug=event.slug)
-            
-            valid_tickets_quantity = validate_tickets_quantity(forms, request)
-            
-            if not valid_tickets_quantity:
-                return redirect("events:create-ticket-order", event_slug=event.slug)
-
-            order = create_order(order_form, request, event)
-            created = create_ticket(forms, order, request)
-            if not created:
-                return redirect("events:create-ticket-order", event_slug=event.slug)
-            
-            check_ticket_order_payment.apply_async((order.id,), countdown=25*60)
-            return redirect("events:add-guests", ticket_order_id=order.id)
-        else:  
-            messages.error(request, f"Something went wrong, please fix error below")
-            return render(request, "events/orders/create.html", {"forms": forms, "order_form": order_form, "event": event, "mode": "create"})
+        if date.days <= 0:
+            messages.error(request, "Sorry, this event is closed and no longer sells tickets, Thank you")
+            event.status = StatusChoices.COMPLETED
+            event.save(update_fields=["status"])
+            return redirect("events:event-details", event_slug=event.slug)
         
-    forms = formset()
-    order_form = TicketOrderForm()
-    return render(request, "events/orders/create.html", {"forms": forms, "order_form": order_form, "event": event, "mode": "create"})
+        if event.get_total_seats() == 0 or event.tickettypes.count() == 0:
+            messages.info(request, "Sorry this event has ran out of tickets")
+            return redirect("events:event-details", event_slug=event.slug)
+        
+        formset = formset_factory(TicketForm, extra=event.tickettypes.count(), max_num=event.tickettypes.count(), absolute_max=event.tickettypes.count())
+        
+        if request.method == "POST":
+            order_form = TicketOrderForm(request.POST)
+            forms = formset(request.POST)
+    
+            if order_form.is_valid() and forms.is_valid():
+                total_reserved_seats = sum([form.cleaned_data["quantity"] for form in forms])
+                if total_reserved_seats == 0:
+                    messages.error(request, "Please select at least one ticket")
+                    return redirect("events:create-ticket-order", event_slug=event.slug)
+                
+                valid_tickets_quantity = validate_tickets_quantity(forms, request)
+                
+                if not valid_tickets_quantity:
+                    return redirect("events:create-ticket-order", event_slug=event.slug)
+
+                order = create_order(order_form, request, event)
+                created = create_ticket(forms, order, request)
+                if not created:
+                    return redirect("events:create-ticket-order", event_slug=event.slug)
+                
+                check_ticket_order_payment.apply_async((order.id,), countdown=25*60)
+                return redirect("events:add-guests", ticket_order_id=order.id)
+            else:  
+                messages.error(request, f"Something went wrong, please fix error below")
+                return render(request, "events/orders/create.html", {"forms": forms, "order_form": order_form, "event": event, "mode": "create"})
+            
+        forms = formset()
+        order_form = TicketOrderForm()
+        return render(request, "events/orders/create.html", {"forms": forms, "order_form": order_form, "event": event, "mode": "create"})
+    except Exception as ex:
+        logger.error(ex)
+        return HttpResponseServerError("Internal server error")
 
 @login_required
 def add_guest_details(request, ticket_order_id):
