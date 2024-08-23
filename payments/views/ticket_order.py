@@ -7,7 +7,7 @@ from campaigns.utils import PaymentStatus
 from payments.models import PaymentInformation
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from payments.tasks import resend_tickets_task, check_payment_update_ticket_order
+from payments.tasks import resend_tickets_2_task, check_payment_update_2_ticket_order
 from django.contrib.sites.shortcuts import get_current_site
 
 from payments.utilities.ticket_func import update_payment_status_ticket_order
@@ -88,11 +88,11 @@ def tickets_payment_success(request, ticket_order_id):
                 payment_information.order_updated = True
                 payment_information.save(update_fields=["order_number", "order_updated"])
             else:
-                check_payment_update_ticket_order.apply_async((ticket_order.checkout_id, protocol, domain), countdown=25*60)
+               check_payment_update_2_ticket_order.apply_async((ticket_order.checkout_id, protocol, domain), countdown=25*60)
 
         except PaymentInformation.DoesNotExist as ex:
             logger.error(ex)
-            check_payment_update_ticket_order.apply_async((ticket_order.checkout_id, protocol, domain), countdown=25*60)
+            check_payment_update_2_ticket_order.apply_async((ticket_order.checkout_id, protocol, domain), countdown=25*60)
     else:
         pass
     
@@ -131,7 +131,7 @@ def resend_tickets(request, order_uuid):
 
     protocol = "https" if request.is_secure() else "http"
     domain = get_current_site(request).domain
-    resend_tickets_task.delay(order.checkout_id, protocol, domain)
+    resend_tickets_2_task.delay(order.checkout_id, protocol, domain)
     messages.success(request, "Your tickets were successfully sent, if you don't receive them, please contact us <b>support@ndwandwafam.co.za</b>")
     return redirect("events:manage-ticket-order", order_id=order.id)
 

@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from campaigns.models import ContributionModel
 from payments.models import PaymentInformation
-from payments.tasks import check_payment_update_contribution
+from payments.tasks import check_payment_update_2_contribution
 from django.contrib import messages
 from campaigns.utils import PaymentStatus
 from django.contrib.auth.decorators import login_required
@@ -92,9 +92,9 @@ def contributions_payment_success(request, contribution_id):
             payment_information.save(update_fields=["order_number", "order_updated"])
 
         else:
-            check_payment_update_contribution.apply_async((contribution.checkout_id, domain, protocol), countdown=25*60)
+            check_payment_update_2_contribution.apply_async((contribution.checkout_id, domain, protocol), countdown=25*60)
 
     except PaymentInformation.DoesNotExist:
-        check_payment_update_contribution.apply_async((contribution.checkout_id, protocol, domain), countdown=25*60)
+        check_payment_update_2_contribution.apply_async((contribution.checkout_id, protocol, domain), countdown=25*60)
 
     return render(request, "payments/contributions/success.html", {"contribution": contribution})

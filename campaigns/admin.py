@@ -1,5 +1,5 @@
 from django.contrib import admin
-from campaigns.tasks import notify_organiser_of_status_change
+from campaigns.tasks import notify_2_organiser_of_status_change
 from django.contrib.sites.shortcuts import get_current_site
 from campaigns.models import CampaignModel, ContributionModel, CampaignUpdateModel
 
@@ -8,13 +8,13 @@ from campaigns.models import CampaignModel, ContributionModel, CampaignUpdateMod
 def make_approve(modeladmin, request, querset):
     querset.update(status="APPROVED")
     for campaign in querset:
-        notify_organiser_of_status_change.delay(campaign.id)
+        notify_2_organiser_of_status_change.delay(campaign.id)
 
 @admin.action(description="Pending selected campaigns")
 def make_pending(modeladmin, request, querset):
     querset.update(status="PENDING")
     for campaign in querset:
-        notify_organiser_of_status_change.delay(campaign.id)
+        notify_2_organiser_of_status_change.delay(campaign.id)
 
 
 class ContributionInline(admin.TabularInline):
@@ -48,7 +48,7 @@ class CampaignAdmin(admin.ModelAdmin):
         if change:
             protocol = "https" if request.is_secure() else "http"
             domain = get_current_site(request).domain
-            notify_organiser_of_status_change.delay(obj.id, domain, protocol)
+            notify_2_organiser_of_status_change.delay(obj.id, domain, protocol)
 
 @admin.register(ContributionModel)
 class ContributionAdmin(admin.ModelAdmin):

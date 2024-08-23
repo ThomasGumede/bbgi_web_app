@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.db.models import Prefetch, Q
 from events.models import EventModel, TicketModel, TicketOrderModel, EventTicketTypeModel
 from events.forms import TicketOrderForm, TicketForm
-from events.tasks import check_ticket_order_payment
+# from events.tasks import check_2_ticket_order_payment
 from events.utils import generate_qr_and_bacode, generate_tickets_in_pdf
 from accounts.custom_models.choices import StatusChoices
 from campaigns.utils import PaymentStatus

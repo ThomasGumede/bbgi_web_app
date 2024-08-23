@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from campaigns.forms import CampaignUpdateForm
-from campaigns.tasks import update_contributors
+from campaigns.tasks import update_2_contributors
 from django.contrib.sites.shortcuts import get_current_site
 
 
@@ -19,7 +19,7 @@ def create_campaign_update(request, campaign_slug):
             messages.success(request, "Campaign update was successfully added")
             protocol = "https" if request.is_secure() else "http"
             domain = get_current_site(request).domain
-            update_contributors.delay(update.id, domain, protocol)
+            update_2_contributors.delay(update.id, domain, protocol)
             return redirect("campaigns:manage-campaign", campaign_id=campaign.id)
         else:
             messages.error(request, "Something went wrong, please fix errors below")
