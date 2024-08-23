@@ -25,7 +25,7 @@ def send_tickets_email(status, order: TicketOrderModel, request):
         
     pdf_file = HTML(string=render_invoice).write_pdf()
     files = [
-            {"file_content": base64.b64encode(pdf_file).decode(), "name": f'{order.order_number}_invoice.pdf'}
+            {"file_content": base64.b64encode(pdf_file).decode(), "filename": f'{order.order_number}_invoice.pdf'}
         ]
         
     context = {
@@ -43,7 +43,7 @@ def send_tickets_email(status, order: TicketOrderModel, request):
 
             encoded_content = base64.b64encode(pdf_content).decode()
             
-            files.append({"file_content": encoded_content, "name": f'{order.order_number}_tickets.pdf'})
+            files.append({"file_content": encoded_content, "filename": f'{order.order_number}_tickets.pdf'})
 
     else:
         mail_subject = f"Your tickets order for {order.event.title} on {order.event.date_time_formatter()} was cancelled"
@@ -70,7 +70,7 @@ def send_contribution_confirm_email(order: ContributionModel, request, status):
     pdf_file = HTML(string=rendered_template).write_pdf()
     buffer = BytesIO(pdf_file)
     files = [
-            {"file_content": base64.b64encode(pdf_file).decode(), "name": f'{order.order_number}_invoice.pdf'}
+            {"file_content": base64.b64encode(pdf_file).decode(), "filename": f'{order.order_number}_invoice.pdf'}
         ]
     context = {
                 "user": order.contributor.get_full_name(),
