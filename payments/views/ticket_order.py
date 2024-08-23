@@ -90,7 +90,8 @@ def tickets_payment_success(request, ticket_order_id):
             else:
                 check_payment_update_ticket_order.apply_async((ticket_order.checkout_id, protocol, domain), countdown=25*60)
 
-        except PaymentInformation.DoesNotExist:
+        except PaymentInformation.DoesNotExist as ex:
+            logger.error(ex)
             check_payment_update_ticket_order.apply_async((ticket_order.checkout_id, protocol, domain), countdown=25*60)
     else:
         pass

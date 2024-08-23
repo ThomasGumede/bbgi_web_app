@@ -36,5 +36,6 @@ def update_payment_status_subscription_order(data, request, subscription: Subscr
         send_subscription_confirm_email(subscription, request, payment_status)
         return True
     except Exception as ex:
+        logger.error(ex)
         return False
 

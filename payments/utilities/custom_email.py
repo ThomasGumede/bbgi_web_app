@@ -41,9 +41,9 @@ def send_tickets_email(status, order: TicketOrderModel, request):
         with open(order.tickets_pdf_file.path, 'rb') as pdf_file:
             pdf_content = pdf_file.read()
 
-        encoded_content = base64.b64encode(pdf_content).decode()
-        
-        files.append({"file_content": encoded_content, "name": f'{order.order_number}_tickets.pdf'})
+            encoded_content = base64.b64encode(pdf_content).decode()
+            
+            files.append({"file_content": encoded_content, "name": f'{order.order_number}_tickets.pdf'})
 
     else:
         mail_subject = f"Your tickets order for {order.event.title} on {order.event.date_time_formatter()} was cancelled"
