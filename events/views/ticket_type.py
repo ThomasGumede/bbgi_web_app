@@ -1,12 +1,26 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.forms import formset_factory
+from django.db.models import Prefetch, Q
 from django.core import serializers
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from events.models import EventModel, EventTicketTypeModel, TicketModel
+from accounts.custom_models.choices import PaymentStatus
+from events.models import EventModel, EventTicketTypeModel, TicketModel, TicketOrderModel
 from events.forms import EventTicketTypeForm, EventTicketTypeUpdateForm
 from django.contrib import messages
 from django.utils import timezone
+
+def confirm_attandance(request, order_number, ticket_id):
+    order = get_object_or_404(TicketOrderModel.objects.filter(Q(paid = PaymentStatus.PAID)), order_number=order_number)
+    ticket = get_object_or_404(TicketModel, id=ticket_id, ticket_order=order)
+    if ticket.scanned == False:
+        ticket.scanned = True
+        ticket.scanned_at = timezone.now()
+        ticket.save(update_fields=["scanned", "scanned_at"])
+        messages.success(request, "Ticket valid and verified")
+        return render(request, "events/ticket/confirm-attandee.html", {"ticket": ticket})
+    else:
+        messages.warning(request, f"Ticket already verified at {ticket.scanned_at}")
+        return render(request, "events/ticket/already-verified.html", {"ticket": ticket})
 
 @login_required
 def get_event_ticket_types(request, event_id):

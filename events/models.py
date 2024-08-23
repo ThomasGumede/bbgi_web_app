@@ -192,6 +192,8 @@ class TicketModel(AbstractCreate):
     qrcode_url = models.URLField(null=True, blank=True)
     qrcode_image = models.ImageField(upload_to='tickets/qrcodes/', null=True, blank=True)
     ticket_order = models.ForeignKey(TicketOrderModel, related_name="tickets", on_delete=models.CASCADE)
+    scanned = models.BooleanField(default=False)
+    scanned_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         verbose_name = 'Ticket'

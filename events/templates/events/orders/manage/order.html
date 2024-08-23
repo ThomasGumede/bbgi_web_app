@@ -33,29 +33,30 @@
                 <div class="mb-5 w-full">
                     <div class="mb-5 w-full">
                         <div class="py-7 mb-4 border-y">
-                            <div class="flex flex-col w-full gap-4 lg:flex-row lg:gap-7 h-full lg:h-60">
-                                <div id="image_container" class="w-full lg:w-4/12 h-full rounded-md overflow-hidden">
-                                    <img src="{{order.event.image.url}}"
-                                        class="w-full h-full object-cover object-center" />
+                            <article class="mx-auto space-y-4 w-fit">
+                                <div id="image_container" class="w-full mx-auto h-96 rounded-md overflow-hidden">
+                                    {% if order.event.image %}
+                                    <img src="{{order.event.image.url}}" class="w-full h-full object-cover object-center" />
+                                    {% else %}
+                                    <img src="{% static 'images/global/image-no.jpg' %}" class="w-full h-full object-cover object-center" />
+                                    {% endif %}
+                            
                                 </div>
-                                <div id="order_content" class="w-full lg:w-8/12 h-full grid">
-                                    <div class="">
-                                        <h2 class="text-lg lg:text-xl mb-1 font-normal">{{order.event.title}}</h2>
-                                        <div class="flex flex-wrap lg:items-center mb-4 gap-2 lg:gap-4">
+                                <div id="order_content" class="w-full mx-auto items-center justify-center h-full grid">
+                                    <div class="mb-4 text-center">
+                                        <h2 class="text-xl lg:text-3xl mb-1 font-normal">{{order.event.title}}</h2>
+                                        <div class="space-y-1">
                                             <p class="text-sm text-gray-600"><i
-                                                    class="fa-solid fa-clock text-sm lg:text-base mr-1"></i>{{order.event.event_startdate}}
-                                                - {{order.event.event_enddate}}</p>
-                                            <p class="text-sm text-gray-600"><i
-                                                    class="fa-solid fa-user text-sm lg:text-base mr-1"></i>By
+                                                    class="fa-solid fa-calendar fa-lg mr-1"></i>{{order.event.date_time_formatter}}</p>
+                                            <p class="text-sm text-gray-600"><i class="fa-solid fa-user text-sm lg:text-base mr-1"></i>By
                                                 {{order.event.organiser.get_full_name}}</p>
                                         </div>
-                                        <div class="text-sm lg:text-base font-light">
-                                            {{order.event.content|safe|truncatewords:40}}
+                                        <div>
+                                            <p class="text-sm text-custom-text">{{order.event.small_description}}</p>
                                         </div>
                                     </div>
-
                                 </div>
-                            </div>
+                            </article>
                         </div>
                         <div class="w-full lg:pl-14">
 

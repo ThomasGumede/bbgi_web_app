@@ -23,14 +23,14 @@
                 <div class="flex w-full items-center justify-between">
                     <div>
                         <a href="{% url 'events:cancel-ticket-order' ticketorder.id %}"
-                            class="w-full px-4 py-3 outline-none text-custom-primary border border-custom-primary rounded-md md:w-auto hover:text-gray-100 hover:bg-blue-600 ">
+                            class="w-full px-4 py-3 outline-none text-custom-h border border-custom-h rounded-md md:w-auto hover:text-gray-100 hover:bg-custom-h ">
                             Cancel order
                         </a>
                     </div>
                     <form method="post">
                         {% csrf_token %}
                         <button value="submit" type="submit"
-                            class="w-full px-4 py-2 outline-none text-white border border-custom-primary bg-custom-primary rounded-md md:w-auto hover:text-custom-primary hover:bg-white ">
+                            class="w-full px-4 py-2 outline-none text-white border border-custom-h bg-custom-h rounded-md md:w-auto hover:text-custom-h hover:bg-white ">
                             Pay now
                         </button>
                     </form>

@@ -19,13 +19,12 @@ def create_new_barcode_number():
     return str(unique_ref)
 
 def generate_qr_and_bacode(order: TicketOrderModel, request):
-
-        order_url = request.build_absolute_uri(reverse("events:manage-ticket-order", kwargs={"order_id": order.id}))
+    try:
         for ticket in TicketModel.objects.filter(ticket_order=order):
-            
-            # barcode_value = create_new_barcode_number()
-            # barcode_image = barcode.Code128(barcode_value, writer=ImageWriter())
-            # barcode_image.save(f'media/tickets/barcodes/' + order.order_number)
+            ticket_url = request.build_absolute_uri(reverse("events:confirm-attandance", kwargs={"order_number": order.order_number,"ticket_id": ticket.id}))
+            barcode_value = create_new_barcode_number()
+            barcode_image = barcode.Code128(barcode_value, writer=ImageWriter())
+            barcode_image.save(f'media/tickets/barcodes/' + order.order_number)
                     
             qr = qrcode.QRCode(
                         version=1,
@@ -34,18 +33,22 @@ def generate_qr_and_bacode(order: TicketOrderModel, request):
                         border=4,
                     )
             
-            qr.add_data(order_url)
+            qr.add_data(ticket_url)
             qr.make(fit=True)
             qr_image = qr.make_image(fill_color="black", back_color="white")
             qr_image.save(f'media/tickets/qrcodes/' + order.order_number + '_qrcode.png')
             
-            ticket.qrcode_url = order_url
-            # ticket.barcode_value = barcode_value
+            ticket.qrcode_url = ticket_url
+            ticket.barcode_value = barcode_value
             ticket.qrcode_image = f'tickets/qrcodes/' + order.order_number + '_qrcode.png'
-            # ticket.barcode_image = f'tickets/barcodes/' + order.order_number + '.png'
+            ticket.barcode_image = f'tickets/barcodes/' + order.order_number + '.png'
             ticket.save(update_fields=["qrcode_url", "qrcode_image"])
         
         return True
+
+    except Exception as ex:
+        logger.error(ex)
+        return False
 
 def generate_guests_list(orders, event:EventModel, domain, protocol):
     try:
@@ -68,7 +71,7 @@ def generate_guests_list(orders, event:EventModel, domain, protocol):
 
 def generate_tickets_in_pdf(order: TicketOrderModel, request):
     try:
-        generate_qr_and_bacode(order, request)
+        # generate_qr_and_bacode(order, request)
         domain = get_current_site(request).domain
         protocol = "https" if request.is_secure() else "http"
         template = get_template("ticket/tickets_new.html")

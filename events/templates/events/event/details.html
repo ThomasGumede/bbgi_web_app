@@ -5,13 +5,13 @@
 
 {% block seo_tags %}
 <title>{{event.title}}</title>
-<meta name="description" content="{{event.content|truncatechars:157}}">
+<meta name="description" content="{{event.small_description|truncatechars:157}}">
 <meta name="title" content="{{event.title}}" />
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://bbgi.co.za/events/add" />
 <meta property="og:title" content="{{event.title}}" />
-<meta property="og:description" content="{{event.content|truncatechars:157}}" />
+<meta property="og:description" content="{{event.small_description|truncatechars:157}}" />
 {% if event.image %}
 <meta property="og:image" content="https://bbgi.co.za{{event.image.url}}" />
 {% else %}
@@ -21,7 +21,7 @@
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content="https://bbgi.co.za/events/add" />
 <meta property="twitter:title" content="{{event.title}}" />
-<meta property="twitter:description" content="{{event.content|truncatechars:157}}" />
+<meta property="twitter:description" content="{{event.small_description|truncatechars:157}}" />
 {% if event.image %}
 <meta property="twitter:image" content="https://bbgi.co.za{{event.image.url}}" />
 {% else %}
@@ -48,7 +48,7 @@
                         <ul class="relative flex items-center pl-0">
                             <li>
                                 <a href="" class="text-sm font-normal text-custom-h">
-                                    <i class="fa-solid fa-clock text-custom-primary pr-1"></i>
+                                    <i class="fa-solid fa-calendar text-custom-primary pr-1"></i>
                                     {{event.date_time_formatter}}
                                 </a>
                             </li>
@@ -62,9 +62,17 @@
                         <div class="text-base font-bold text-custom-h">
                             <p>from R{{event.tickettypes.all.0.price}} per ticket</p>
                         </div>
-                        <div class="w-full group duration-150 hover:bg-white border border-custom-h rounded-md h-14 grid items-center bg-custom-h ">
+                        {% if event.status == "Completed" %}
+                        <div
+                            class="px-4 group duration-150 w-fit  border-custom-h rounded-md h-14 grid items-center bg-custom-h ">
+                            <p
+                                class="text-white text-base grid  duration-150 items-center justify-center w-full h-full font-semibold">Event completed</p>
+                        </div>
+                        {% else %}
+                        <div class="px-4 group duration-150 w-fit hover:bg-white border border-custom-h rounded-md h-14 grid items-center bg-custom-h ">
                             <a href="{% url 'events:create-ticket-order' event_slug=event.slug %}" class="text-white text-base grid group-hover:text-custom-h duration-150 items-center justify-center w-full h-full font-semibold">Book ticket</a>
                         </div>
+                        {% endif %}
 
                     </div>
 
@@ -88,7 +96,7 @@
                             class="relative text-white text-sm h-8 w-8 rounded-full grid items-center justify-center font-bold bg-custom-primary">
                             <i class="fa-brands fa-lg fa-whatsapp"></i>
                         </a>
-                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ event.title }}&summary={{event.title}}"
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ event.title }}&summary={{event.small_description|truncatechars:157}}"
                             class="relative text-white text-sm h-8 w-8 rounded-full grid items-center justify-center font-bold bg-custom-primary">
                             <i class="fa-brands fa-lg fa-linkedin"></i>
                         </a>

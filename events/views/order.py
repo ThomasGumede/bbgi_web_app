@@ -9,7 +9,7 @@ from django.db.models import Prefetch, Q
 from events.models import EventModel, TicketModel, TicketOrderModel, EventTicketTypeModel
 from events.forms import TicketOrderForm, TicketForm
 from events.tasks import check_ticket_order_payment
-from events.utils import generate_tickets_in_pdf
+from events.utils import generate_qr_and_bacode, generate_tickets_in_pdf
 from accounts.custom_models.choices import StatusChoices
 from campaigns.utils import PaymentStatus
 
@@ -79,6 +79,7 @@ def create_ticket(forms, order: TicketOrderModel, request: HttpRequest) -> bool:
                 ])
 
         update_order_transaction_cost_subtotal(order.id)
+        generate_qr_and_bacode(order, request)
         messages.success(request, "Tickets were reserved successfully")
         return True
     except Exception as ex:
