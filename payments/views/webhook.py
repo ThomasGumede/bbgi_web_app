@@ -21,7 +21,7 @@ def webhook(request):
 
             # signatures = request.META["webhook-signature"]
             signed_content = str(id) + '.' + str(timestamp) + '.' + str(request.body.decode('utf-8'))
-            secret = settings.YOCO_WEBHOOK_KEY
+            secret = "whsec_RjRGOEZDQ0ExNEUzRDlBOTJDRTNBNkVBQjVDQjU0QzI="
             secret_bytes = base64.b64decode(secret.split('_')[1])
             hmac_signature = hmac.new(secret_bytes, signed_content.encode(), hashlib.sha256).digest()
             expected_signature = base64.b64encode(hmac_signature).decode()

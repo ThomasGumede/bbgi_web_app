@@ -20,11 +20,11 @@ def send_email_to_owner(domain, protocol, qoute_id):
                     "domain": domain,
                     "owner": qoute.service.business.owner.get_full_name(),
                     "quote": qoute,
-                    "facebook": COMPANY.facebook,
-                    "linkedin": COMPANY.linkedIn,
-                    "instagram": COMPANY.instagram,
-                    "youtube": COMPANY.youtube, 
-                    "tiktok": COMPANY.tiktok,
+                    "facebook": COMPANY["facebook"],
+                    "linkedin": COMPANY["linkedIn"],
+                    "instagram": COMPANY["instagram"],
+                    "youtube": COMPANY["youtube"], 
+                    "tiktok": COMPANY["tiktok"],
                     
                 }
         message = render_to_string("emails/quotation_request_email.html", context,
@@ -32,7 +32,7 @@ def send_email_to_owner(domain, protocol, qoute_id):
         email = EmailMessage(
             subject="BBGI | Quote Request",
             body=message,
-            from_email="BBGI Quotes <noreply@bbgi.co.za>",
+            from_email="BBGI Quotes <orders@bbgi.co.za>",
             to=[qoute.service.business.email, qoute.service.business.owner.email]
         )
         email.content_subtype = 'html'

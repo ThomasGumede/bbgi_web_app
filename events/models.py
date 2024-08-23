@@ -152,6 +152,7 @@ class TicketOrderModel(AbstractCreate, AbstractPayment):
     event = models.ForeignKey(EventModel, related_name="ticket_orders", on_delete=models.CASCADE)
     reservation_time = models.TimeField(default=reservation_time)
     paid = models.CharField(max_length=300, choices=PaymentStatus.choices, default=PaymentStatus.NOT_PAID)
+    receipt = models.FileField(null=True, upload_to="tickets/invoice/")
     tickets_pdf_file = models.FileField(null=True, upload_to="tickets/pdf/")
 
 

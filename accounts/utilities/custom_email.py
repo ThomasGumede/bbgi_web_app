@@ -1,4 +1,4 @@
-import logging
+import logging, base64
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from accounts.utilities.tokens import account_activation_token, generate_activation_token
@@ -179,27 +179,36 @@ def send_password_reset_email(user, request):
         logger.error(f"Failed to send send_password_reset_email to {user.email}. Error: {err}")
         return False
 
-def send_html_email_with_attachments(to_email:str, subject: str, html_content, from_email:str, pdf_attachments:list = None):
+def send_html_email_with_attachments(to_email: str, subject: str, html_content: str, from_email: str, attachments: list = None) -> bool:
+    """
+    Sends an HTML email with optional attachments.
+
+    Args:
+        to_email (str): The recipient's email address.
+        subject (str): The email subject.
+        html_content (str): The HTML content of the email.
+        from_email (str): The sender's email address.
+        attachments (list): A list of attachments where each is a dictionary with 'file_content' and 'filename'.
+
+    Returns:
+        bool: True if the email is sent successfully, False otherwise.
+    """
     try:
-        email = EmailMessage(
-            subject=subject,
-            body=html_content,
-            from_email= from_email or settings.DEFAULT_FROM_EMAIL,
-            to=[to_email],
-        )
+        email = EmailMessage(subject=subject, body=html_content, from_email=from_email, to=[to_email])
         email.content_subtype = 'html'
 
-        # Attach the file
-        if pdf_attachments:
-            for file_content, filename in pdf_attachments:
-                email.attach(filename, file_content, "application/pdf")
+        # Attach files if provided
+        if attachments:
+            for attachment in attachments:
+                email.attach(attachment['filename'], base64.b64decode(attachment['file_content']), 'application/pdf')
 
-        # Send the email
         email.send()
-        logger.info(f"Email sent to {to_email} with attachment.")
+        logger.info(f"Email sent to {to_email} with attachments.")
         return True
+
     except Exception as e:
         logger.error(f"Failed to send email to {to_email}. Error: {e}")
         return False
+
  
 
