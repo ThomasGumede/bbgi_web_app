@@ -26,7 +26,7 @@ def contact(request):
         form = EmailForm(request.POST)
         if form.is_valid():
             form.save()
-            send_email_to_admin.delay(form.cleaned_data["subject"], form.cleaned_data["message"], form.cleaned_data["from_email"], form.cleaned_data["name"])
+            send_email_to_admin(form.cleaned_data["subject"], form.cleaned_data["message"], form.cleaned_data["from_email"], form.cleaned_data["name"])
             messages.success(request, "We have successfully receive your email, will be in touch shortly")
             return redirect("bbgi_home:contact")
         else:

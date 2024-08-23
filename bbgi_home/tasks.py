@@ -8,7 +8,7 @@ email_logger = logging.getLogger("emails")
 
  
 
-@shared_task
+
 def send_email_to_admin(subject, message, from_email, name):
     try:
         email = EmailMessage(

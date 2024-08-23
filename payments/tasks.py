@@ -224,7 +224,7 @@ def send_subscription_confirm_email(order: SubscriptionOrder, protocol, domain, 
 
 
 @shared_task
-def update_payment_status(data, protocol, domain):
+def update_payment_2_status(data, protocol, domain):
     payload = data["payload"]
     metadata = payload["metadata"]
     try:
@@ -276,7 +276,7 @@ def update_payment_status(data, protocol, domain):
             # return f"Tickets email - email was not sent to {ticket_order.buyer.get_full_name()}"
 
 @shared_task
-def check_payment_update_contribution(checkout_id, protocol, domain):
+def check_payment_update_2_contribution(checkout_id, protocol, domain):
     try:
         payment_information = PaymentInformation.objects.get(id=checkout_id)
         data = json.loads(payment_information.data)
@@ -312,7 +312,7 @@ def check_payment_update_contribution(checkout_id, protocol, domain):
         pass
 
 @shared_task
-def check_payment_update_subscription(checkout_id, protocol, domain):
+def check_payment_update_2_subscription(checkout_id, protocol, domain):
     try:
         payment_information = PaymentInformation.objects.get(id=checkout_id)
         data = json.loads(payment_information.data)
@@ -361,7 +361,7 @@ def check_payment_update_subscription(checkout_id, protocol, domain):
         pass
 
 @shared_task
-def check_payment_update_ticket_order(checkout_id, protocol, domain):
+def check_payment_update_2_ticket_order(checkout_id, protocol, domain):
     try:
         payment_information = PaymentInformation.objects.get(id=checkout_id)
         data = json.loads(payment_information.data)
@@ -396,7 +396,7 @@ def check_payment_update_ticket_order(checkout_id, protocol, domain):
         pass
 
 @shared_task
-def resend_tickets_task(order_checkout, protocol, domain):
+def resend_tickets_2_task(order_checkout, protocol, domain):
     try:
         order = TicketOrderModel.objects.get(checkout_id = order_checkout)
         sent = send_tickets_email(order.paid, order, protocol, domain)

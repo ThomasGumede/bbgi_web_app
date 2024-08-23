@@ -14,7 +14,7 @@ task_logger = logging.getLogger("tasks")
 campaigns_logger = logging.getLogger("campaigns")
 
 
-def update_status_email(model_name, model, domain = 'ndwandwa.africa', protocol = 'https'):
+def update_status_email(model_name, model, domain = 'bbgi.co.za', protocol = 'https'):
     message = render_to_string("global/emails/status_change_email.html", {
         "domain": domain,
         "protocol": protocol,
@@ -29,7 +29,7 @@ def update_status_email(model_name, model, domain = 'ndwandwa.africa', protocol 
     return sent
 
 @shared_task
-def check_campaigns_status():
+def check_2_campaigns_status():
     now = timezone.now()
     campaigns = CampaignModel.objects.select_related("organiser").filter(end_date__lte=now)
     
@@ -44,7 +44,7 @@ def check_campaigns_status():
     return f"{campaigns.count()} were marked at completed"
 
 @shared_task
-def notify_organiser_of_status_change(campaign_id, domain = 'ndwandwa.africa', protocol = 'https'):
+def notify_2_organiser_of_status_change(campaign_id, domain = 'bbgi.co.za', protocol = 'https'):
     try:
         
         campaign = CampaignModel.objects.select_related("organiser").get(id=campaign_id)
@@ -56,7 +56,7 @@ def notify_organiser_of_status_change(campaign_id, domain = 'ndwandwa.africa', p
     except CampaignModel.DoesNotExist:
         pass
 
-def send_campaign_created_email(campaign_id, domain, protocol):
+def send_2_campaign_created_email(campaign_id, domain, protocol):
     try:
         
         campaign = CampaignModel.objects.select_related("organiser").get(id=campaign_id)
@@ -66,7 +66,7 @@ def send_campaign_created_email(campaign_id, domain, protocol):
         return f"Campaign created confirmation email was not sent because campaign id={campaign_id} was not found"
 
 @shared_task
-def update_contributors(update_id, domain, protocol):
+def update_2_contributors(update_id, domain, protocol):
     try:
         update = CampaignUpdateModel.objects.get(id = update_id)
         contributions=ContributionModel.objects.filter(Q(paid=PaymentStatus.PAID) | Q(paid=PaymentStatus.PENDING))
