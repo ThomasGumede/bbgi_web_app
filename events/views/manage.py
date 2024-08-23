@@ -45,7 +45,7 @@ def generate_ticket(request, order_id, ticket_id):
     protocol = "https" if request.is_secure() else "http"
 
     try:
-        template = get_template("ticket/ticket.html")
+        template = get_template("ticket/ticket_new.html")
         context = {"ticket": ticket, 
                     "event": order.event, 
                     "buyer_full_name": order.buyer.get_full_name(),

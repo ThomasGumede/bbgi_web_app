@@ -46,6 +46,18 @@
                                             {% endif %}
                                         </div>
                                     </div>
+                                    <div class="w-full lg:w-12/12 md:px-4">
+                                        <div class="relative w-full mb-3">
+                                            <label for="id_small_description">
+                                                Add small description about this event*
+                                            </label>
+                                            {{form.small_description}}
+                                    
+                                            <span
+                                                class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.small_description.help_text}}</span>
+                                    
+                                        </div>
+                                    </div>
                                     <div class="w-full lg:w-6/12 md:px-4">
                                         <div class="relative w-full mb-3">
                                             <label for="id_event_startdate">
@@ -130,29 +142,7 @@
                                 <h6 class="text-custom-h text-base mt-3 mb-6 font-bold uppercase">
                                     Event Time And Date
                                 </h6>
-                                <div class="flex flex-wrap">
-                                    <div class="mt-6 p-4 bg-gray-50 w-full flex flex-col gap-2">
-                                        <label for="id_tip" class="text-lg">Please, select your tip choice:</label>
-                                        {{form.tip}}
-                                        <div class="self-end w-fit justify-self-end">
-                                            <p id="tip_amount" class="font-normal text-black">
-                                                This tip will apply for every ticket sold
-                                            </p>
-                                        </div>
-                                        <div class="w-full flex items-center justify-between">
-                                            <p class="font-normal text-base text-gray-500">
-                                                BBGI does not receive any fees from the tickets
-                                                buyers. We only receive a
-                                                transaction fee from the buyers. To keep the website running, we collect
-                                                tips from event organisers. Thank you very much for understanding.
-                                            </p>
-                                            <div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
+                                
                                 <hr class="mt-6 border-b-1 border-gray-300">
                                 <h6 class="text-base mt-3 mb-6 font-bold uppercase">
                                     Event Address

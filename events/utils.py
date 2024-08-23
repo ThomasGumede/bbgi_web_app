@@ -1,6 +1,4 @@
-from django.shortcuts import get_object_or_404
 import random, barcode, logging, qrcode
-from celery import shared_task
 from events.models import TicketModel, TicketOrderModel, EventModel
 from io import BytesIO
 from django.urls import reverse
@@ -10,7 +8,7 @@ from weasyprint import HTML
 from barcode.writer import ImageWriter
 from django.http import HttpResponse
 
-logger = logging.getLogger("tasks")
+logger = logging.getLogger("utils")
 
 def create_new_barcode_number():
     not_unique = True
@@ -20,16 +18,14 @@ def create_new_barcode_number():
             not_unique = False
     return str(unique_ref)
 
-@shared_task
-def generate_qr_and_bacode(order_id, order_url):
+def generate_qr_and_bacode(order: TicketOrderModel, request):
     try:
-        order = TicketOrderModel.objects.get(id=order_id)
-        # order_url = request.build_absolute_uri(reverse("events:manage-ticket-order", kwargs={"order_id": order.id}))
+        order_url = request.build_absolute_uri(reverse("events:manage-ticket-order", kwargs={"order_id": order.id}))
         for ticket in TicketModel.objects.filter(ticket_order=order):
             
-            barcode_value = create_new_barcode_number()
-            barcode_image = barcode.Code128(barcode_value, writer=ImageWriter())
-            barcode_image.save(f'media/tickets/barcodes/' + order.order_number)
+            # barcode_value = create_new_barcode_number()
+            # barcode_image = barcode.Code128(barcode_value, writer=ImageWriter())
+            # barcode_image.save(f'media/tickets/barcodes/' + order.order_number)
                     
             qr = qrcode.QRCode(
                         version=1,
@@ -44,10 +40,10 @@ def generate_qr_and_bacode(order_id, order_url):
             qr_image.save(f'media/tickets/qrcodes/' + order.order_number + '_qrcode.png')
             
             ticket.qrcode_url = order_url
-            ticket.barcode_value = barcode_value
+            # ticket.barcode_value = barcode_value
             ticket.qrcode_image = f'tickets/qrcodes/' + order.order_number + '_qrcode.png'
-            ticket.barcode_image = f'tickets/barcodes/' + order.order_number + '.png'
-            ticket.save(update_fields=["qrcode_url", "barcode_value", "qrcode_image", "barcode_image"])
+            # ticket.barcode_image = f'tickets/barcodes/' + order.order_number + '.png'
+            ticket.save(update_fields=["qrcode_url", "qrcode_image"])
         
         return True
 
@@ -74,20 +70,18 @@ def generate_guests_list(orders, event:EventModel, domain, protocol):
         logger.error(ex)
         return False
 
-@shared_task
-def generate_tickets_in_pdf(order_id, request = None):
+def generate_tickets_in_pdf(order: TicketOrderModel, request):
     try:
-        # domain = get_current_site(request).domain
-        # protocol = "https" if request.is_secure() else "http"
-        order = TicketOrderModel.objects.get(id=order_id)
-        template = get_template("ticket/tickets.html")
+        domain = get_current_site(request).domain
+        protocol = "https" if request.is_secure() else "http"
+        template = get_template("ticket/tickets_new.html")
         context = {"tickets": TicketModel.objects.filter(ticket_order=order), 
                     "event": order.event, 
                     "buyer_full_name": order.buyer.get_full_name(),
                     "order_number": order.order_number,
                     "created": order.created,
-                    "domain": "bbgi.co.za", 
-                    "protocol": "https"}
+                    "domain": domain, 
+                    "protocol": protocol}
         
         render_template = template.render(context)
         pdf_file = HTML(string=render_template).write_pdf()

@@ -52,6 +52,7 @@ class EventModel(AbstractCreate):
     title = models.CharField(help_text=_("Enter title for your event"), max_length=150)
     slug = models.SlugField(max_length=250, blank=True, unique=True)
     organiser = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=None, related_name="events")
+    small_description = models.TextField(help_text=_("Small description about your event for search"), null=True, blank=True)
     content = HTMLField()
     venue_name = models.CharField(max_length=400,help_text=_("Enter event venue name"))
     event_address = models.CharField(max_length=300, help_text=_("Enter event address seperated by comma"))
@@ -59,7 +60,6 @@ class EventModel(AbstractCreate):
     total_seats_sold = models.PositiveIntegerField(default=0)
     event_link = models.URLField(blank=True, null=True)
     event_startdate = models.DateTimeField(validators = [MinValueValidator(timezone.now(), "Event start date and time cannot be in the past")])
-    tip = models.CharField(default=Tip.TEN, max_length=25, choices=Tip.choices)
     event_enddate = models.DateTimeField(validators = [MinValueValidator(timezone.now(), "Event end date and time cannot be in the past")])
     status = models.CharField(max_length=50, choices=StatusChoices.choices, default=StatusChoices.NOT_APPROVED)
 
@@ -159,24 +159,12 @@ class TicketOrderModel(AbstractCreate, AbstractPayment):
         verbose_name = 'Ticker order'
         verbose_name_plural = 'Ticker orders'
 
-    def calculate_total_tip(self):
-        if self.event.tip == "10%":
-            tip = Decimal(self.total_price) * Decimal((10 / 100))
-        elif self.event.tip == "15%":
-            tip = Decimal(self.total_price) * Decimal((15 / 100))
-        elif self.event.tip == "20%":
-            tip = Decimal(self.total_price) * Decimal((20 / 100))
-        else:
-            tip = Decimal(self.total_price) * Decimal((25 / 100))
-        return tip
-    
-
     def calculate_transaction_costs(self):
         cost = sum([ticket.ticket_type.transaction_cost for ticket in self.tickets.all()])
         return cost
 
     def calculate_total_admin_cost(self):
-        cost = self.calculate_total_tip() + self.calculate_transaction_costs()
+        cost = self.calculate_transaction_costs()
         return cost
     
     def calculate_actual_profit(self):
@@ -189,9 +177,7 @@ class TicketOrderModel(AbstractCreate, AbstractPayment):
     def get_absolute_url(self):
         return reverse("events:order", kwargs={"order_id": self.id, "event_slug": self.event.slug})
     
-
     def save(self, *args, **kwargs):
-        self.tip = self.calculate_total_tip()
         self.order_number = generate_order_number(TicketOrderModel)
         super(TicketOrderModel, self).save(*args, **kwargs)
 
