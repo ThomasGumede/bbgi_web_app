@@ -23,15 +23,17 @@
                     </p>
                     <div class="flex w-full items-center justify-between">
                         <div
-                            class="w-36 lg:w-40 h-12 border-2 border-custom-h bg-white hover:bg-custom-h group duration-500 rounded-md">
+                            class="w-36 lg:w-40 text-center grid items-center justify-center h-12 border-2 border-custom-h bg-custom-h hover:bg-white hover:text-custom-h text-white font-medium text-sm focus-within:outline-none focus:outline-none lg:text-base duration-500 rounded-md">
                             <a href="{% url 'accounts:cancel-subscription-order' subscription_order.id %}"
-                                class="w-full h-full grid items-center justify-center duration-500 group-hover:text-white text-custom-h font-medium text-sm lg:text-base">cancel</a>
+                                class="">cancel</a>
                         </div>
                         <form method="post">
                             {% csrf_token %}
-                            <button type="submit" value="submit"
+                            <button value="submit" type="submit"
                                 class="w-36 lg:w-40 h-12 border-2 border-custom-h bg-custom-h hover:bg-white hover:text-custom-h text-white font-medium text-sm focus-within:outline-none focus:outline-none lg:text-base duration-500 rounded-md">
-                                pay now
+                                
+                                    Pay
+                                
                             </button>
                         </form>
                     </div>
