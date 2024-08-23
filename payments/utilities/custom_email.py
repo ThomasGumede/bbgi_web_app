@@ -50,7 +50,7 @@ def send_tickets_email(status, order: TicketOrderModel, request):
         message = render_to_string("emails/tickets/order-cancelled.html", context,
             )
 
-    sent = send_html_email_with_attachments(order.buyer.email, mail_subject, message, "Ndwandwa Fam Events <events@ndwandwa.africa>", files)
+    sent = send_html_email_with_attachments(order.buyer.email, mail_subject, message, "BBGI Events <events@bbgi.co.za>", files)
             
     if not sent:
         email_logger.error(f"Trouble sending tickets email to {order.buyer.email} order number {order.order_number}")
@@ -88,7 +88,7 @@ def send_contribution_confirm_email(order: ContributionModel, request, status):
                     context,
                 )
 
-    sent = send_html_email_with_attachments(order.contributor.email, mail_subject, message, "Ndwandwa Campaigns <campaigns@ndwandwa.africa>", files)
+    sent = send_html_email_with_attachments(order.contributor.email, mail_subject, message, "BBGI Campaigns <campaigns@bbgi.co.za>", files)
           
     if not sent:
         email_logger.error(f"confirmation email not sent for {order.order_number} to {order.contributor.email}")
