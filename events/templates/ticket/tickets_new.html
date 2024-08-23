@@ -28,8 +28,8 @@
     {% for ticket in tickets %}
 
     <div style=" margin: 30px auto;
-            max-height: 430px;
-            max-width: 245px;
+            max-height: 500px;
+            max-width: 270px;
             overflow: hidden;
             box-shadow: 0 0 10px rgb(202, 202, 204); color: white;
             background-color: hsl(188, 63%, 7%);
@@ -112,7 +112,7 @@
                         {{event.date_time_formatter}}
                     </div>
                 </div>
-                <div style="width:49%;
+                <div style="width:100%;
             display:inline-table;">
                     <div style="font-size: 0.5em;
             font-weight: 300;
@@ -127,8 +127,24 @@
             font-weight: 400;
             font-family: 'Roboto', sans-serif;
             letter-spacing: 0.5px;
-            margin:7px 0; letter-spacing: 0px;">
+            margin:7px 0; letter-spacing: 0px; width: 100%;">
                         {{event.event_address}}
+                    </div>
+                    <div style="font-size: 0.5em;
+                                font-weight: 300;
+                                color: #c3c3c3;
+                                font-family: 'Roboto', sans-serif;
+                                text-transform: uppercase;
+                                letter-spacing: 1px;
+                                margin:7px 0;">
+                        venue
+                    </div>
+                    <div style="font-size: 0.7em;
+                                font-weight: 400;
+                                font-family: 'Roboto', sans-serif;
+                                letter-spacing: 0.5px;
+                                margin:7px 0; letter-spacing: 0px; width: 100%;">
+                        {{event.venue_name}}
                     </div>
                 </div>
             </div>

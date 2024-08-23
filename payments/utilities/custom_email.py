@@ -106,12 +106,12 @@ def send_subscription_confirm_email(order: SubscriptionOrder, request, status):
 
         if status == "payment.succeeded" or status == PaymentStatus.PAID:
             mail_subject = F"BBGI Payment Received"
-            message = render_to_string("emails/subscriptions/payment_received.html",
+            message = render_to_string("emails/subscription/payment_received.html",
                         context, request=request
                     )
         else:
             mail_subject = F"Your contribution payment {order.campaign.title} campaign was unsuccessful"
-            message = render_to_string("emails/subscriptions/payment_cancelled.html",
+            message = render_to_string("emails/subscription/payment_cancelled.html",
                         context,
                     )
 
