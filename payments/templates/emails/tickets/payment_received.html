@@ -187,7 +187,7 @@
                                                                         {{order.subscriber.get_full_name}}</p>
                                                                     <p style="margin: 0;">This email serves as
                                                                         confirmation that payment for Order
-                                                                        {{order.order_id}}.has been received.</p>
+                                                                        {{order.order_number}} has been received.</p>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -224,7 +224,7 @@
                                                                     <p style="margin: 0; margin-bottom: 1px;"><span
                                                                             style="word-break: break-word; color: #071a1d;"><strong>ORDER
                                                                                 DETAILS</strong></span></p>
-                                                                    <p style="margin: 0;">There is "1" item in
+                                                                    <p style="margin: 0;">There is "{{order.ti}}" item in
                                                                         this order.</p>
                                                                 </div>
                                                             </td>
@@ -266,8 +266,12 @@
                                                                             <th width="25%"
                                                                                 style="padding: 10px; word-break: break-word; font-weight: 700; border-top: 1px solid #dddddd; border-right: 1px solid #dddddd; border-bottom: 1px solid #dddddd; border-left: 1px solid #dddddd;">
                                                                                 ITEM</th>
-                                                                            
-                                                                            
+                                                                            <th width="25%"
+                                                                                style="padding: 10px; word-break: break-word; font-weight: 700; border-top: 1px solid #dddddd; border-right: 1px solid #dddddd; border-bottom: 1px solid #dddddd; border-left: 1px solid #dddddd;">
+                                                                                UNIT PRICE</th>
+                                                                            <th width="25%"
+                                                                                style="padding: 10px; word-break: break-word; font-weight: 700; border-top: 1px solid #dddddd; border-right: 1px solid #dddddd; border-bottom: 1px solid #dddddd; border-left: 1px solid #dddddd;">
+                                                                                QTY</th>
                                                                             <th width="25%"
                                                                                 style="padding: 10px; word-break: break-word; font-weight: 700; border-top: 1px solid #dddddd; border-right: 1px solid #dddddd; border-bottom: 1px solid #dddddd; border-left: 1px solid #dddddd;">
                                                                                 TOTAL PRICE</th>
@@ -279,8 +283,12 @@
                                                                             <td width="25%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 1px solid #dddddd; border-right: 1px solid #dddddd; border-bottom: 1px solid #dddddd; border-left: 1px solid #dddddd;">
                                                                                 {{order.package.title}}</td>
-                                                                            
-                                                                            
+                                                                            <td width="25%"
+                                                                                style="padding: 10px; word-break: break-word; border-top: 1px solid #dddddd; border-right: 1px solid #dddddd; border-bottom: 1px solid #dddddd; border-left: 1px solid #dddddd;">
+                                                                                R{{order.total_amount}}</td>
+                                                                            <td width="25%"
+                                                                                style="padding: 10px; word-break: break-word; border-top: 1px solid #dddddd; border-right: 1px solid #dddddd; border-bottom: 1px solid #dddddd; border-left: 1px solid #dddddd;">
+                                                                                1</td>
                                                                             <td width="25%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 1px solid #dddddd; border-right: 1px solid #dddddd; border-bottom: 1px solid #dddddd; border-left: 1px solid #dddddd;">
                                                                                 R{{order.total_amount}}</td>
