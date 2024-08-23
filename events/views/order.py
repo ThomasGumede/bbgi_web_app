@@ -152,7 +152,7 @@ def add_guest_details(request, ticket_order_id):
     """
     Add guest details to a ticket order.
     """
-    check_ticket_order_payment.apply_async((ticket_order_id,), countdown=25 * 60)
+    # check_ticket_order_payment.apply_async((ticket_order_id,), countdown=25 * 60)
     ticket_order = get_object_or_404(TicketOrderModel, buyer=request.user, id=ticket_order_id)
     tickets = TicketModel.objects.filter(ticket_order=ticket_order).select_related("ticket_type")
     formset = formset_factory(form=TicketForm, extra=tickets.count(), max_num=tickets.count())
