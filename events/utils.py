@@ -19,7 +19,7 @@ def create_new_barcode_number():
     return str(unique_ref)
 
 def generate_qr_and_bacode(order: TicketOrderModel, request):
-    try:
+
         order_url = request.build_absolute_uri(reverse("events:manage-ticket-order", kwargs={"order_id": order.id}))
         for ticket in TicketModel.objects.filter(ticket_order=order):
             
@@ -47,10 +47,6 @@ def generate_qr_and_bacode(order: TicketOrderModel, request):
         
         return True
 
-    except Exception as ex:
-        logger.error(ex)
-        return False
-
 def generate_guests_list(orders, event:EventModel, domain, protocol):
     try:
         template = get_template("ticket/guests.html")
@@ -72,6 +68,7 @@ def generate_guests_list(orders, event:EventModel, domain, protocol):
 
 def generate_tickets_in_pdf(order: TicketOrderModel, request):
     try:
+        generate_qr_and_bacode(order, request)
         domain = get_current_site(request).domain
         protocol = "https" if request.is_secure() else "http"
         template = get_template("ticket/tickets_new.html")

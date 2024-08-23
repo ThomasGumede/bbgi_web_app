@@ -65,11 +65,6 @@ def create_ticket(forms, order: TicketOrderModel, request: HttpRequest) -> bool:
                     TicketModel.objects.create(quantity=1, ticket_order=order, ticket_type=ticket_type)
 
             update_order_transaction_cost_subtotal(order.id)
-                
-            generated = generate_qr_and_bacode(order, request)
-            if not generated:
-                logger.error(f"Couldn't generate tickets for {order.order_number}")
-
         messages.success(request, "Ticket reserved successfully was created successfully")       
         return True
     except Exception as ex:
