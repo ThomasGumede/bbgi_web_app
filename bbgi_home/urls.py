@@ -43,5 +43,5 @@ urlpatterns = [
     path("dashboard/ticket-orders/<order_id>", ticket_order_details, name="order"),
     path("dashboard/ticket-orders/delete/<uuid:order_id>", delete_ticket_order, name="cancel-ticket-order"),
 
-    path("dashboard/quotations", all_quotations, name="all-quotations"),
+    path("dashboard/quotations/manage", all_quotations, name="all-quotations"),
 ]

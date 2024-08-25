@@ -28,9 +28,9 @@ urlpatterns = [
     path("order/create/<slug:event_slug>", create_ticket_order, name="create-ticket-order"),
     path("order/cancel/<uuid:order_id>", cancel_ticket_order, name="cancel-ticket-order"),
     path("order/guest/<uuid:ticket_order_id>", add_guest_details, name="add-guests"),
-    path("order/manage", manage_ticket_orders, name="manage-ticket-orders"),
-    path("order/manage/<uuid:order_id>", manage_ticket_order, name="manage-ticket-order"),
-    path("order/generate/ticket/<uuid:order_id>/<uuid:ticket_id>", generate_ticket, name="generate-ticket")
+    path("dashboard/order/manage", manage_ticket_orders, name="manage-ticket-orders"),
+    path("dashboard/order/manage/<uuid:order_id>", manage_ticket_order, name="manage-ticket-order"),
+    path("dashboard/order/generate/ticket/<uuid:order_id>/<uuid:ticket_id>", generate_ticket, name="generate-ticket")
 
     
     
