@@ -10,17 +10,21 @@ from django.contrib import messages
 from django.utils import timezone
 
 def confirm_attandance(request, order_number, ticket_id):
-    order = get_object_or_404(TicketOrderModel.objects.filter(Q(paid = PaymentStatus.PAID)), order_number=order_number)
-    ticket = get_object_or_404(TicketModel, id=ticket_id, ticket_order=order)
-    if ticket.scanned == False:
-        ticket.scanned = True
-        ticket.scanned_at = timezone.now()
-        ticket.save(update_fields=["scanned", "scanned_at"])
-        messages.success(request, "Ticket valid and verified")
-        return render(request, "events/ticket/confirm-attandee.html", {"ticket": ticket})
+    order = get_object_or_404(TicketOrderModel, order_number=order_number)
+    if order.paid == PaymentStatus.PAID:
+        ticket = get_object_or_404(TicketModel, id=ticket_id, ticket_order=order)
+        if ticket.scanned == False:
+            ticket.scanned = True
+            ticket.scanned_at = timezone.now()
+            ticket.save(update_fields=["scanned", "scanned_at"])
+            messages.success(request, "Ticket valid and verified")
+            return render(request, "events/ticket/confirm-attandee.html", {"ticket": ticket})
+        else:
+            messages.warning(request, f"Ticket already verified at {ticket.scanned_at}")
+            return render(request, "events/ticket/already-verified.html", {"ticket": ticket})
     else:
-        messages.warning(request, f"Ticket already verified at {ticket.scanned_at}")
-        return render(request, "events/ticket/already-verified.html", {"ticket": ticket})
+        messages.error(request, "Unknown ticket")
+        return redirect("bbgi_home:bbgi-home")
 
 @login_required
 def get_event_ticket_types(request, event_id):

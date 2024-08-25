@@ -35,7 +35,7 @@
 
             @bottom-right {
                 color: #9f939f;
-                content: 'contact@ndwandwafam.org | ndwandwafam.org';
+                content: 'contact@bbgi.co.za | bbgi.co.za';
                 font-size: 9pt;
             }
         }
@@ -191,7 +191,7 @@
             {% for order in orders %}
                 {% for ticket in order.tickets.all %}
                     <tr>
-                        <td>{{ticket.barcode_value}}</td>
+                        <td>{{ticket.order_number}}</td>
                         <td>{{ticket.ticket_type.title}}</td>
                         <td>{{ticket.guest_full_name}}</td>
                         <td>{{ticket.guest_email}}</td>
