@@ -1,20 +1,20 @@
 from django.contrib import admin
-from events.tasks import notify_2_organiser_event_of_status_change
-from django.contrib.sites.shortcuts import get_current_site
+# from events.tasks import notify_2_organiser_event_of_status_change
+# from django.contrib.sites.shortcuts import get_current_site
 from events.models import EventModel, TicketModel, TicketOrderModel, EventTicketTypeModel
 
 # Actions
 @admin.action(description="Approve selected events")
 def make_approve(modeladmin, request, querset):
     querset.update(status="APPROVED")
-    for campaign in querset:
-        notify_2_organiser_event_of_status_change.delay(campaign.id)
+    # for campaign in querset:
+    #     notify_2_organiser_event_of_status_change.delay(campaign.id)
 
 @admin.action(description="Pending selected events")
 def make_pending(modeladmin, request, querset):
     querset.update(status="PENDING")
-    for campaign in querset:
-        notify_2_organiser_event_of_status_change.delay(campaign.id)
+    # for campaign in querset:
+    #     notify_2_organiser_event_of_status_change.delay(campaign.id)
 
 class EventTicketTypeInline(admin.TabularInline):
     model = EventTicketTypeModel
@@ -49,11 +49,3 @@ class EventAdmin(admin.ModelAdmin):
     list_filter = ("category", "created")
     actions = [make_approve, make_pending]
     inlines = [EventTicketTypeInline]
-
-    def save_model(self, request, obj, form, change):
-
-        obj.save()
-        if change:
-            protocol = "https" if request.is_secure() else "http"
-            domain = get_current_site(request).domain
-            notify_2_organiser_event_of_status_change.delay(obj.id, domain, protocol)
