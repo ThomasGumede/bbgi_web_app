@@ -1,54 +1,138 @@
 {% load static %}
-<footer class="relative mt-20 bg-custom-h px-4 pt-20">
-    <div class="absolute -top-10 left-1/2 h-16 w-36 -translate-x-1/2 rounded-xl border-4  bg-white p-2">
-        <a href="{% url 'bbgi_home:bbgi-home' %}" class="logo w-36 overflow-hidden h-full">
-            <img src="{% static 'imgs/logo_3.png' %}" alt="BBGI logo" class="object-cover">
-        </a></div>
-    <nav aria-label="Footer Navigation"
-        class="mx-auto mb-10 flex max-w-lg flex-col gap-10 text-center sm:flex-row sm:text-left">
-        <a href="{% url 'bbgi_home:about-bbgi' %}" class="font-medium text-white">About</a>
-        <a href="{% url 'bbgi_home:contact' %}" class="font-medium text-white">Support</a>
-        <a href="{% url 'bbgi_home:blogs' %}" class="font-medium text-white">Blogs</a>
-        <a href="{% url 'bbgi_home:contact' %}" class="font-medium text-white">contact</a>
-    </nav>
-    <div class="mt-8 flex justify-center space-x-6">
-        <a rel="nofollow" target="_blank" href="{{facebook}}" class="text-white hover:text-gray-500">
-            <span class="sr-only">Facebook</span>
-            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill-rule="evenodd"
-                    d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-                    clip-rule="evenodd" />
-            </svg>
-        </a>
-    
-        <a rel="nofollow" target="_blank" href="{{instagram}}" class="text-white hover:text-gray-500">
-            <span class="sr-only">Instagram</span>
-            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill-rule="evenodd"
-                    d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
-                    clip-rule="evenodd" />
-            </svg>
-        </a>
-    
-        <a rel="nofollow" target="_blank" href="{{youtube}}" class="text-white hover:text-gray-500">
-            <span class="sr-only">Youtube</span>
-            <i class="fa-brands fa-youtube fa-xl"></i>
-        </a>
-    
-        <a rel="nofollow" target="_blank" href="{{linkedin}}" class="text-white hover:text-gray-500">
-            <span class="sr-only">linkedin</span>
-            <i class="fa-brands fa-linkedin fa-xl"></i>
-        </a>
-    
-        <a rel="nofollow" target="_blank" href="{{tiktok}}" class="text-white hover:text-gray-500">
-            <span class="sr-only">tiktok</span>
-            <i class="fa-brands fa-tiktok fa-xl"></i>
-        </a>
+<footer class="pt-20 bg-custom-h">
+    <div class="mx-auto container">
+        <div class="footer-top-section pb-20">
+            <div class="flex flex-wrap -mb-6 w-full">
+                <div class="lg:w-1/4 md:w-1/2 w-full px-3 mb-6 lg:order-[1] order-[2]">
+                    <div class="lh-footer-cols-contain">
+                        <div class="lg:pb-5 pb-3 text-white">
+                            <h4 class="text-lg leading-[1.25] font-medium">Explore</h4>
+                        </div>
+                        <ul>
+                            <li class="py-1">
+                                <code class="text-base text-custom-primary">*</code>
+                                <a href="{% url 'bbgi_home:bbgi-home' %}" class="text-sm text-custom-text-2 hover:text-custom-text-2">Home</a>
+                            </li>
+                            <li class="py-1">
+                                <code class="text-base text-custom-primary">*</code>
+                                <a href="{% url 'bbgi_home:about-bbgi' %}" class="text-sm text-custom-text-2 hover:text-custom-text-2">About</a>
+                            </li>
+                            <li class="py-1">
+                                <code class="text-base text-custom-primary">*</code>
+                                <a href="{% url 'listings:listings' %}"
+                                    class="text-sm text-custom-text-2 hover:text-custom-text-2">Listings</a>
+                            </li>
+                            <li class="py-1">
+                                <code class="text-base text-custom-primary">*</code>
+                                <a href="{% url 'events:events' %}" class="text-sm text-custom-text-2 hover:text-custom-text-2">Events</a>
+                            </li>
+                            <li class="py-1">
+                                <code class="text-base text-custom-primary">*</code>
+                                <a href="{% url 'campaigns:campaigns' %}"
+                                    class="text-sm text-custom-text-2 hover:text-custom-text-2">Campaigns</a>
+                            </li>
+                            
+                            <li class="pt-[5px]">
+                                <code class="text-base text-custom-primary">*</code>
+                                <a href="{% url 'bbgi_home:contact' %}"
+                                    class="text-sm text-custom-text-2 hover:text-custom-text-2">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 w-full px-3 mb-[24px] lg:order-[2] order-[1]">
+                    <div
+                        class="lh-social-media h-full lg:border-x-[1px] lg:border-b-[0] md:border-b-[1px] border-b-[0] lg:pb-[0] md:pb-[30px] pb-[0] border-solid border-[#808384]">
+                        <div class="footer-logos flex md:justify-center justify-start">
+                            <img src="{% static 'imgs/logo_1.png' %}" alt="logo" class="w-[180px]">
+                        </div>
+                        <div class="lh-footer-social lg:p-[24px] py-[24px] lg:border-b border-solid border-custom-text">
+                            <p
+                                class="md:m-auto md:text-center text-left text-sm max-w-[400px] text-custom-text-2 leading-[22px]">
+                                This is the dolor sit amet consectetur adipisicing elit. Libero voluptatem soluta
+                                eaque ullam accusantium animi!</p>
+                            
+                        </div>
+                        <div
+                            class="lh-follow-social md:block flex-col justify-self-center items-center xl:pt-[24px] xl:pb-0 lg:pt-[22px] pt-[0] lg:pb-[30px] pb-0">
+                            <h4 class="heading text-[18px] font-medium md:text-center text-left text-white">Follow On Social</h4>
+                            <div class="footer-logo-image flex md:justify-center pt-[15px] md:text-center text-left">
+                                
+                                <a rel="nofollow" target="_blank" href="{{facebook}}" class="text-white hover:text-gray-500 mx-[4px] duration-[0.3s] ease-in-out hover:scale-[1.3]">
+                                    <span class="sr-only">Facebook</span>
+                                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                            d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                                <a rel="nofollow" target="_blank" href="{{instagram}}" class="text-white hover:text-gray-500 mx-[4px] duration-[0.3s] ease-in-out hover:scale-[1.3]">
+                                    <span class="sr-only">Instagram</span>
+                                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                            d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                                
+                                <a rel="nofollow" target="_blank" href="{{youtube}}" class="text-white hover:text-gray-500 mx-[4px] duration-[0.3s] ease-in-out hover:scale-[1.3]">
+                                    <span class="sr-only">Youtube</span>
+                                    <i class="fa-brands fa-youtube fa-xl"></i>
+                                </a>
+                                
+                                <a rel="nofollow" target="_blank" href="{{linkedin}}" class="text-white hover:text-gray-500 mx-[4px] duration-[0.3s] ease-in-out hover:scale-[1.3]">
+                                    <span class="sr-only">linkedin</span>
+                                    <i class="fa-brands fa-linkedin fa-xl"></i>
+                                </a>
+                                
+                                <a rel="nofollow" target="_blank" href="{{tiktok}}" class="text-white hover:text-gray-500 mx-[4px] duration-[0.3s] ease-in-out hover:scale-[1.3]">
+                                    <span class="sr-only">tiktok</span>
+                                    <i class="fa-brands fa-tiktok fa-xl"></i>
+                                </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/4 md:w-1/2 w-full text-white px-3 mb-[24px] lg:order-[3] order-[3]">
+                    <div class="lh-footer-cols-contain ">
+                        <div class="lg:pb-5 pb-3 text-white">
+                            <h4 class="text-lg leading-[1.25] font-medium">Contact Information</h4>
+                        </div>
+                        <div class="lh-footer-contact-infoemation">
+                            <ul>
+                                <li class="lh-information xl:py-[14px] lg:py-[8px] md:py-[13px] py-[8px]">
+                                    <h5 class="heading mb-[5px] md:text-base text-[15px] font-medium tracking-wider">
+                                        Location</h5>
+                                    <span class="text-sm text-custom-text-2">5 Green st.Huntington stati on, Ny 11746,
+                                        Libero voluptatem soluta Bharat.</span>
+                                </li>
+                                <li class="lh-information xl:py-[14px] lg:py-[8px] md:py-[13px] py-[8px]">
+                                    <h5 class="heading mb-[5px] md:text-base text-[15px] font-medium tracking-wider">
+                                        Email</h5>
+                                    <span class="text-sm text-custom-text-2">example@ec-email.com</span>
+                                </li>
+                                <li class="lh-information xl:py-[14px] lg:py-[8px] md:py-[13px] py-[8px] pb-0">
+                                    <h5 class="heading mb-[5px] md:text-base text-[15px] font-medium tracking-wider">
+                                        Phone No</h5>
+                                    <span class="text-sm text-custom-text-2">+91(1234)(567)(890)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom-copy px-3">
+            <div class="flex justify-center border-t-[1px] border-solid border-[#808384]">
+                <p class="py-10 text-center text-gray-300">&copy;
+                    <script>document.write(new Date().getFullYear());</script> BBGI All Rights
+                    Reserved
+                    by <a href="#" rel="nofollow" class="">wedodev.</a> | <a rel="nofollow" href="" nofollow>Terms &
+                        Conditions</a> | <a href="" rel="nofollow">Privacy
+                        Policy</a>
+                </p>
+            </div>
+        </div>
     </div>
-    <p class="py-10 text-center text-gray-300">&copy;
-    <script>document.write(new Date().getFullYear());</script> BBGI All Rights
-    Reserved
-    by <a href="#" rel="nofollow" class="">wedodev.</a> | <a rel="nofollow" href="" nofollow>Terms &
-        Conditions</a> | <a href="" rel="nofollow">Privacy
-        Policy</a></p>
 </footer>

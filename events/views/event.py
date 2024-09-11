@@ -2,9 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from accounts.custom_models.choices import StatusChoices
 from bbgi_home.models import BlogCategory
-from events.models import EventModel
+from events.models import EventModel, EventOrganisor
 from campaigns.utils import generate_slug, PaymentStatus
-from events.forms import EventForm
+from events.forms import EventForm, EventOrganisorForm
 from django.contrib import messages
 from django.db.models import Q
 
@@ -90,3 +90,54 @@ def delete_event(request, event_slug):
         messages.success(request, "Event deleted successfully")
         return redirect("events:manage-events")
     return render(request, "events/event/delete.html", {"message": f"Are you sure you want to delete this event ({event.title})?", "title": "Delete event"})
+
+@login_required
+def add_event_organisor(request, event_slug):
+    event = get_object_or_404(EventModel, slug=event_slug, organiser=request.user)
+    if request.method == "POST":
+        form = EventOrganisorForm(data=request.POST)
+        if form.is_valid():
+            add_another = form.cleaned_data.get("add_another", None)
+            organisor = form.save(commit=False)
+            organisor.event = event
+            organisor.save()
+            messages.success(request, "Event organisor added successfully")
+            if add_another:
+                return redirect("events:add-event-organisor", event_slug=event.slug)
+            
+            return redirect("events:manage-event", event_slug=event.slug)
+        else:
+            return render(request, "events/event/manage/add-event-organisor.html", {"form": form, "event": event})
+        
+    form = EventOrganisorForm()
+    return render(request, "events/event/manage/add-event-organisor.html", {"form": form, "event": event})
+
+@login_required
+def update_event_organisor(request, event_slug, organisor_id):
+    event = get_object_or_404(EventModel, slug=event_slug, organiser=request.user)
+    organisor = get_object_or_404(EventOrganisor, id=organisor_id)
+    if request.method == "POST":
+        form = EventOrganisorForm(instance=organisor, data=request.POST)
+        if form.is_valid():
+            add_another = form.cleaned_data.get("add_another", None)
+            form.save()
+            messages.success(request, "Event organisor updated successfully")
+            if add_another:
+                return redirect("events:add-event-organisor", event_slug=event.slug)
+            
+            return redirect("events:manage-event", event_slug=event.slug)
+        else:
+            return render(request, "events/event/manage/add-event-organisor.html", {"form": form, "event": event})
+        
+    form = EventOrganisorForm(instance=organisor)
+    return render(request, "events/event/manage/add-event-organisor.html", {"form": form, "event": event})
+
+
+@login_required
+def delete_event_organisor(request, event_slug, organisor_id):
+    event = get_object_or_404(EventModel, slug=event_slug, organiser=request.user)
+    organisor = get_object_or_404(EventOrganisor, id=organisor_id)
+    
+    organisor.delete()
+    messages.success(request, "Event organisor deleted successfully")
+    return redirect("events:manage-event", event_slug=event.slug)

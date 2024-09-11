@@ -35,7 +35,7 @@ def all_blogs(request):
         blogs = blogs.filter(title__icontains=query)
     return render(request, 'dashboard/blogs/blogs.html', {"blogs": blogs})
 
-@login_required
+
 def blog_details(request, post_slug):
     
     blog = get_object_or_404(Blog.objects.select_related("category").prefetch_related("comments"), slug=post_slug)
@@ -45,14 +45,17 @@ def blog_details(request, post_slug):
         form = CommentForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
-            instance.commenter = request.user
+            if request.user.is_authenticated:
+                instance.commenter = request.user
+            else:
+                instance.commenter = None
             instance.post = blog
             instance.save()
             messages.success(request, "Comment added successfully")
-            return redirect('bbgi_home:news-details', post_slug=blog.slug)
+            return redirect('bbgi_home:details-blog', post_slug=blog.slug)
         else:
             messages.error(request, "Comment not added, fix errors below")
-            return redirect('bbgi_home:news-details', post_slug=blog.slug)
+            return redirect('bbgi_home:details-blog', post_slug=blog.slug)
         
     form = CommentForm()
     return render(request, 'blogs/blog-details.html', {"post": blog, "recent_posts": recent_posts, "form": form})

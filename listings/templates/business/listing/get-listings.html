@@ -27,7 +27,7 @@
 {% block content %}
 <div x-data="{ mobileFilterOpen: false, sortMenuOpen: false, searchBarOpen: false, bbeeMenuOpen: false, provinceMenuOpen: false, category: false }" class="bg-gray-50">
     <!-- Mobile filter dialog -->
-    <div x-cloak x-show="mobileFilterOpen" class="fixed inset-0 flex mt-20 z-[70]" role="dialog" aria-modal="true">
+    <div x-cloak x-show="mobileFilterOpen" class="fixed inset-0 flex  z-[800]" role="dialog" aria-modal="true">
         
         <div x-show="mobileFilterOpen" x-transition:enter="transition-opacity ease-linear duration-300"
             x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
@@ -271,7 +271,7 @@
                             <button @click="searchBarOpen = !searchBarOpen" type="button"
                                 class="group inline-flex justify-center text-sm font-medium text-custom-h hover:text-gray-900"
                                 id="mobile-menu-button" aria-expanded="false" aria-haspopup="true">
-                                <i class="fa-solid fa-search fa-xl"></i>
+                                <i class="fa-solid fa-search fa-lg"></i>
                                 
                             </button>
                         </div>
@@ -294,7 +294,7 @@
                                         <div class="relative">
                                             <div class="flex bg-white items-center gap-1 text-custom-h">
                                                 <div>
-                                                    <i class="fa-solid text-custom-h fa-search fa-xl"></i>
+                                                    <i class="fa-solid text-custom-h fa-search fa-lg"></i>
                                                 </div>
                                                 <input id="search-service-input"
                                                     class="border-none font-medium h-14 focus:ring-0 text-custom-h outline-none focus:outline-none focus:border-none"
@@ -306,7 +306,7 @@
                                         <div class="relative">
                                             <div class="flex bg-white items-center gap-1 text-custom-h">
                                                 <div>
-                                                    <i class="fa-solid text-custom-h fa-location-dot fa-xl"></i>
+                                                    <i class="fa-solid text-custom-h fa-location-dot fa-lg"></i>
                                                 </div><input placeholder="eg. Southdowns"
                                                     class="border-none font-medium h-14 focus:ring-0 text-custom-h outline-none focus:outline-none focus:border-none"
                                                     style="padding-right:50px" type="text" name="place" value="{% if place %}{{place}}{% endif %}">
@@ -452,7 +452,7 @@
                 <button @click="mobileFilterOpen = true" type="button"
                     class="inline-block text-sm font-medium text-custom-h hover:text-gray-900">
                     <span class="hidden md:block">Filters & Sort</span>
-                    <span class=" md:hidden"><i class="fa-solid fa-filter fa-2xl"></i></span>
+                    <span class=" md:hidden"><i class="fa-solid fa-filter fa-lg"></i></span>
                 </button>
             </div>
 

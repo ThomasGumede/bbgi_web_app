@@ -1,5 +1,5 @@
 from django.urls import path
-from events.views.event import create_event, event_details, events, update_event, delete_event
+from events.views.event import create_event, event_details, events, update_event, delete_event, add_event_organisor, update_event_organisor, delete_event_organisor
 from events.views.order import create_ticket_order, add_guest_details, ticket_order, ticket_orders, cancel_ticket_order
 from events.views.ticket_type import confirm_attandance, create_ticket_types, update_ticket_type, get_event_ticket_types, delete_ticket_type
 from events.views.manage import manage_event, manage_events, manage_ticket_order, manage_ticket_orders, generate_guest_list, generate_ticket
@@ -8,12 +8,15 @@ app_name = "events"
 urlpatterns = [
     path("events/", events, name="events"),
     path("events/<slug:category_slug>", events, name="events-by-category"),
-    path("event/create", create_event, name="create-event"),
+    path("event/get-started", create_event, name="create-event"),
     path("event/details/<slug:event_slug>", event_details, name="event-details"),
     path("event/update/<slug:event_slug>", update_event, name="update-event"),
     path("event/delete/<slug:event_slug>", delete_event, name="delete-event"),
-    path("event/manage", manage_events, name="manage-events"),
-    path("event/manage/<slug:event_slug>", manage_event, name="manage-event"),
+    path("dashboard/my-events", manage_events, name="manage-events"),
+    path("dashboard/my-event/<slug:event_slug>", manage_event, name="manage-event"),
+    path("dashboard/event/add-event-organisor/<slug:event_slug>", add_event_organisor, name="add-event-organisor"),
+    path("dashboard/event/update-event-organisor/<slug:event_slug>/<uuid:organisor_id>", update_event_organisor, name="update-event-organisor"),
+    path("dashboard/event/delete-event-organisor/<slug:event_slug>/<uuid:organisor_id>", delete_event_organisor, name="delete-event-organisor"),
 
     path("ticket-types/<event_id>", get_event_ticket_types, name="event-ticket-types"),
     path("ticket-types/verify/<order_number>/<ticket_id>", confirm_attandance, name="confirm-attandance"),

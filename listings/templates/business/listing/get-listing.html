@@ -27,6 +27,22 @@
 <meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 {% endif %}
 {% endblock seo_tags %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/slick.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
+<style>
+    .lh-room-details .slick-slider {
+        overflow: hidden;
+    }
+    .lh-room-details .slider-nav .slick-list {
+        margin: 0 -12px;
+        width: calc(100% + 24px);
+    }
+    .lh-room-details .slider-nav .slick-slide {
+        padding: 0 12px;
+    }
+</style>
+{% endblock styles %}
 
 {% block content %}
 <section class="w-full font-sans relative block bg-custom-h mt-10 mb-20">
@@ -594,38 +610,11 @@
 </section>
 
 
+
 {% endblock content %}
 
 {% block js %}
-<script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1vMyd0KzU7mTn_AkMW3zd2V4cJC9w31I&libraries=places&callback=initMap&solution_channel=GMP_QB_addressselection_v1_cAC"
-    async defer></script>
-<script>
 
-
-    function initMap() {
-        // Retrieve the coordinates from the hidden input field on the previous page
-        const coordinatesInput = '{{listing.map_coordinates}}';
-        const coordinates = coordinatesInput.split(',');
-        const latitude = parseFloat(coordinates[0]);
-        const longitude = parseFloat(coordinates[1]);
-
-        // Create a map centered on the stored coordinates
-        const map = new google.maps.Map(document.getElementById('gmp-map'), {
-            center: {lat: latitude, lng: longitude},
-            zoom: 12,  // You can adjust the zoom level as needed
-        });
-
-        // Optionally, you can add a marker at the stored coordinates
-        new google.maps.Marker({
-            position: {lat: latitude, lng: longitude},
-            map: map
-        });
-    }
-
-
-
-</script>
 <script>
     let navbarcampaign_toggler = document.querySelectorAll(".campaign_navbar");
     let campaign_data = document.querySelectorAll(".campaign_data")

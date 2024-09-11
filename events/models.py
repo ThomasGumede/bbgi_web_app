@@ -105,7 +105,21 @@ class EventModel(AbstractCreate):
     def request_payout_details(self):
         if self.status == StatusChoices.COMPLETED:
             pass
-    
+
+class EventOrganisor(AbstractCreate):
+    event = models.ForeignKey(EventModel, on_delete=models.CASCADE, related_name="organisors")
+    full_name = models.CharField(max_length=350)
+    organisor_phone_one = models.CharField(max_length=15, validators=[PHONE_REGEX], unique=True, null=True, blank=True)
+    organisor_email = models.EmailField(max_length=254)
+
+    def __str__(self):
+        return self.full_name
+
+    class Meta:
+        verbose_name = 'Event Organisor'
+        verbose_name_plural = 'Event Organisors'
+        unique_together = ['full_name', 'organisor_phone_one', 'organisor_email']
+
 class EventTicketTypeModel(AbstractCreate):
     title = models.CharField(max_length=250, help_text=_("Enter ticket type"))
     available_seats = models.PositiveIntegerField(default=0)

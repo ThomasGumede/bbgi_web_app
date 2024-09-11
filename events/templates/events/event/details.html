@@ -36,7 +36,7 @@
         <div class="flex flex-col md:flex-row items-start -mx-4">
             <div class="w-full max-w-full px-4 flex-shrink-0 md:w-7/12 lg:w-8/12 h-full">
                 <div class="relative block ">
-                    <div class="relativ block lg:h-96 overflow-hidden">
+                    <div class="relativ block lg:h-96 rounded-md overflow-hidden">
                         {% if event.image %}
                         <img src="{{event.image.url}}" alt="{{event.title}}" class="w-full h-full object-cover" />
                         {% else %}
@@ -127,41 +127,56 @@
                     {% endif %}
                     <div class="relative block overflow-hidden p-[46px_30px_30px] bg-[#f2f7f7]">
                         <div class="space-y-5">
-                            <h3 class="text-base md:text-lg font-bold">Event Organiser</h3>
-                            <p class="text-base text-custom-h md:text-lg font-medium">{{event.organiser.get_full_name}}</p>
-                            <p class="text-sm text-gray-500 md:text-base font-medium space-x-2"><i class="fa-solid text-lg fa-phone"></i>
-                                <span>{% if event.organiser.phone %}{{event.organiser.phone}}{% else %}-{% endif %}</span>
-                            </p>
-                            <p class="text-sm text-gray-500 md:text-base font-medium space-x-2"><i class="fa-solid text-lg fa-envelope"></i>
-                                <span>{{event.organiser.email}}</span>
-                            </p>
-                            <div class="flex items-center w-full justify-between">
-                                {% if event.organiser.sociallinks.facebook %}
-                                <div>
-                                    <a href="{{event.organiser.sociallinks.facebook}}"><i
-                                            class="fa-brands text-4xl text-gray-600 fa-facebook"></i></a>
+                            <h3 class="text-base md:text-lg font-bold">Event Organisers</h3>
+                            <div>
+                                <p class="text-base text-custom-h md:text-lg font-medium">{{event.organiser.get_full_name}}</p>
+                                <p class="text-sm text-gray-500 md:text-base font-medium space-x-2"><i class="fa-solid text-lg fa-phone"></i>
+                                    <span>{% if event.organiser.phone %}{{event.organiser.phone}}{% else %}-{% endif %}</span>
+                                </p>
+                                <p class="text-sm text-gray-500 md:text-base font-medium space-x-2"><i class="fa-solid text-lg fa-envelope"></i>
+                                    <span>{{event.organiser.email}}</span>
+                                </p>
+                                <div class="flex items-center w-full justify-between">
+                                    {% if event.organiser.sociallinks.facebook %}
+                                    <div>
+                                        <a href="{{event.organiser.sociallinks.facebook}}"><i
+                                                class="fa-brands text-4xl text-gray-600 fa-facebook"></i></a>
+                                    </div>
+                                    {% endif %}
+                                    {% if event.organiser.sociallinks.twitter %}
+                                    <div>
+                                        <a href="{{event.organiser.sociallinks.twitter}}"><i
+                                                class="fa-brands text-4xl text-gray-600 fa-twitter"></i></a>
+                                    </div>
+                                    {% endif %}
+                                    {% if event.organiser.sociallinks.instagram %}
+                                    <div>
+                                        <a href="{{event.organiser.sociallinks.instagram}}"><i
+                                                class="fa-brands text-4xl text-gray-600 fa-instagram"></i></a>
+                                    </div>
+                                    {% endif %}
+                                    {% if event.organiser.sociallinks.linkedin %}
+                                    <div>
+                                        <a href="{{event.organiser.sociallinks.linkedin}}"><i
+                                                class="fa-brands text-4xl text-gray-600 fa-linkedin"></i></a>
+                                    </div>
+                                    {% endif %}
+                                
                                 </div>
-                                {% endif %}
-                                {% if event.organiser.sociallinks.twitter %}
-                                <div>
-                                    <a href="{{event.organiser.sociallinks.twitter}}"><i
-                                            class="fa-brands text-4xl text-gray-600 fa-twitter"></i></a>
-                                </div>
-                                {% endif %}
-                                {% if event.organiser.sociallinks.instagram %}
-                                <div>
-                                    <a href="{{event.organiser.sociallinks.instagram}}"><i
-                                            class="fa-brands text-4xl text-gray-600 fa-instagram"></i></a>
-                                </div>
-                                {% endif %}
-                                {% if event.organiser.sociallinks.linkedin %}
-                                <div>
-                                    <a href="{{event.organiser.sociallinks.linkedin}}"><i
-                                            class="fa-brands text-4xl text-gray-600 fa-linkedin"></i></a>
-                                </div>
-                                {% endif %}
-                    
                             </div>
+                            {% for organisor in event.organisors.all %}
+                            <div>
+                                <p class="text-base text-custom-h md:text-lg font-medium">{{organisor.full_name}}</p>
+                                {% if organisor.organisor_phone_one %}
+                                <p class="text-sm text-gray-500 md:text-base font-medium space-x-2"><i class="fa-solid text-lg fa-phone"></i>
+                                    <span>{{organisor.organisor_phone_one}}</span>
+                                </p>
+                                {% endif %}
+                                <p class="text-sm text-gray-500 md:text-base font-medium space-x-2"><i class="fa-solid text-lg fa-envelope"></i>
+                                    <span>{{organisor.organisor_email}}</span>
+                                </p>
+                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="relative block overflow-hidden p-[46px_30px_30px] bg-[#f2f7f7]">

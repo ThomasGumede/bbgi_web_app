@@ -1,5 +1,5 @@
 from django import forms
-from events.models import EventModel, TicketOrderModel, EventTicketTypeModel, TicketModel
+from events.models import EventModel, TicketOrderModel, EventTicketTypeModel, TicketModel, EventOrganisor
 from tinymce.widgets import TinyMCE
 
 class EventForm(forms.ModelForm):
@@ -40,7 +40,36 @@ class EventForm(forms.ModelForm):
             raise forms.ValidationError("Start date cannot be greater than end date")
         
         return cleaned_data
-        
+
+class EventOrganisorForm(forms.ModelForm):
+    add_another = forms.CharField(max_length=100, required=False)
+    class Meta:
+        model = EventOrganisor
+        fields = ("full_name", "organisor_phone_one", "organisor_email")
+
+        widgets = {
+            'full_name': forms.TextInput(
+                attrs={
+                    'type': 'text', 
+                    'class': 'block p-3 md:text-base w-full text-sm text-custom-h outline-none placeholder:text-gray-400 bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-custom-primary ease-linear transition-all duration-150'
+                    }
+                ),
+            'organisor_phone_one': forms.TextInput(
+                attrs={
+                    'type': 'text', 
+                    'class': 'block p-3 md:text-base w-full text-sm text-custom-h outline-none placeholder:text-gray-400 bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-custom-primary ease-linear transition-all duration-150'
+                    }
+                ),
+            'organisor_email': forms.EmailInput(
+                attrs={
+                    'type': 'email',
+                    'class': 'block p-3 md:text-base w-full text-sm text-custom-h outline-none placeholder:text-gray-400 bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-custom-primary ease-linear transition-all duration-150'
+                    }
+                ),
+            
+                        
+        }
+
         
 class EventTicketTypeForm(forms.ModelForm):
     add_another = forms.CharField(max_length=100, required=False)
