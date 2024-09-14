@@ -20,7 +20,7 @@ def global_context(request):
         "tiktok": COMPANY["tiktok"],
         "company_support": COMPANY["phone"],
         "company_support_mail": COMPANY["company_support_mail"], 
-        "company_street_address_1": COMPANY["company_street_address_1"],
+        "address": COMPANY["address"],
         "company_city": COMPANY["company_city"],
         "company_state": COMPANY["company_state"],
         "company_zipcode": COMPANY["company_zipcode"],

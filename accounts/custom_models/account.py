@@ -33,6 +33,18 @@ class WalletModel(AbstractCreate):
     def __str__(self):
         return self.name
 
+class AboutCompany(AbstractCreate, AbstractProfile):
+    title = models.CharField(max_length=300, null=True, blank=True, unique=True)
+    slug = models.SlugField(max_length=300, default="about-bbgi-model", unique=True)
+    email = models.EmailField(null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = 'About Company'
+        verbose_name_plural = 'About Companys'
+
 class SubscriptionPackage(AbstractCreate):
     title = models.CharField(max_length=250, help_text=_("Enter subscription package title"))
     amount = models.DecimalField(default=0.0, max_digits=1000, decimal_places=2, help_text=_("Enter package price"))

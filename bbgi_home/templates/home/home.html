@@ -151,13 +151,13 @@
             <h4 class="text-4xl text-custom-h font-bold">Our Main Goal</h4>
         </div>
         <div class="swiper-2 overflow-hidden">
-            <di class="service-list swiper-wrapper">
+            <di class="service-list bg-custom-bg swiper-wrapper">
                 <div class="swiper-slide">
-                    <div class="w-full sm:w-72 md:w-[350px]">
+                    <div class="w-full sm:w-72 md:w-[350px] h-80">
                         <div
                             class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
                 
-                            <div class="w-32 mx-auto overflow-hidden">
+                            <div class="w-32 h-32 border mx-auto overflow-hidden">
                                 <img src="{% static 'imgs/services/service-1.png' %}" alt="Service icon"
                                     class="w-full h-full object-cover">
                             </div>
@@ -166,10 +166,7 @@
                                 <a href="#">Find Verified & Reliable Businesses</a>
                             </h3>
                 
-                            <p class="text-sm text-custom-text">
-                                over 1 million+ businesses available on the website, we can match you with a house you will want
-                                to call home.
-                            </p>
+                            
                 
                             <a href="{% url 'listings:listings' %}"
                                 class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
@@ -183,11 +180,11 @@
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="w-full sm:w-72 md:w-[350px]">
+                    <div class="w-full sm:w-72 md:w-[350px] h-80">
                         <div
                             class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
                 
-                            <div class="w-32 mx-auto overflow-hidden">
+                            <div class="w-32 h-32 border mx-auto overflow-hidden">
                                 <img src="{% static 'imgs/services/service-2.png' %}" alt="Service icon"
                                     class="w-full h-full object-cover">
                             </div>
@@ -196,10 +193,7 @@
                                 <a href="#">Get Support For Your Business</a>
                             </h3>
                 
-                            <p class="text-sm text-custom-text">
-                                over 1 million+ homes for sale available on the website, we can match you with a house you will want
-                                to call home.
-                            </p>
+                            
                 
                             <a href="{% url 'campaigns:create-campaign' %}"
                                 class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
@@ -213,11 +207,11 @@
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="w-full sm:w-72 md:w-[350px]">
+                    <div class="w-full sm:w-72 md:w-[350px] h-80">
                         <div
                             class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
                 
-                            <div class="w-32 mx-auto overflow-hidden">
+                            <div class="w-32 h-32 border mx-auto overflow-hidden">
                                 <img src="{% static 'imgs/services/service-3.png' %}" alt="Service icon"
                                     class="w-full h-full object-cover">
                             </div>
@@ -226,17 +220,11 @@
                                 <a href="#">Connect With More Customers</a>
                             </h3>
                 
-                            <p class="text-sm text-custom-text">
-                                over 1 million+ homes for sale available on the website, we can match you with a house you will want
-                                to call home.
-                            </p>
+                            
                 
                             <a href="{% url 'listings:add-listing' %}"
                                 class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
                                 <span>Add Listing</span>
-                
-                                <ion-icon name="arrow-forward-outline" role="img" class="md hydrated"
-                                    aria-label="arrow forward outline"></ion-icon>
                             </a>
                 
                         </div>
@@ -364,77 +352,33 @@
         
     </div>
 </section>
-{% if popular_services %}
-<section class="w-full overflow-hidden font-sans relative py-20 block bg-white">
+<section class="w-full font-sans relative py-20 block bg-custom-bg">
     <div class="container">
-        <div class="text-center mb-8">
-            <p class="text-custom-primary mb-3 font-semibold text-lg">Trending Services</p>
-            <h4 class="text-4xl text-custom-h font-bold">This week's popular deals</h4>
-        </div>
-        <div class="relative">
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-                {% for service in popular_services %}
-                <div class="w-full h-96 sm:w-72">
-                    <div class="relative w-full h-full rounded-3xl overflow-hidden">
-                        <div class="w-full border h-full">
-                            {% if service.image %}
-                            <img src="{{service.image.url}}" alt="{{service.title}}"
-                                class="w-full h-full object-cover object-top" />
-                            {% else %}
-                            <img src="{% static 'imgs/about/About-1.png' %}" class="w-full h-full object-cover object-top" />
-                            {% endif %}
-                        </div>
-                        <div class="absolute bg-gradient-to-t from-custom-h to-[#f8fafc55]  w-full h-full top-0 left-0 z-20 p-8">
-                            <div class="space-y-6 z-30">
-                                <div class="business space-y-2">
-                                    <div class="w-16 h-16  rounded-full overflow-hidden">
-                                        {% if service.business.logo %}
-                                        <img src="{{service.business.logo.url}}" alt="{{service.business.title}}"
-                                            class="w-full h-full object-cover" />
-                                        {% else %}
-                                        <div class="w-full h-full text-center rounded-full">
-                                            <p class="text-white font-bold text-lg">
-                                                {{service.business.title.0}}{{service.business.title.1}}</p>
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                    <h4 class="font-bold text-xl text-white">{{service.business.title}}</h4>
-                                    <div class="relative gap-2 flex items-center">
-                                        <div class="text-sm text-custom-primary">
-                                            <i class="fa-solid fa-location-dot fa-lg font-bold"></i>
-                                        </div>
-                                        <div class="">
-                                            <p class="text-sm font-medium text-white">{{service.business.city}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="space-y-2">
-                                    <h5 class="font-bold text-2xl text-white">{{service.discount_percentage}}% Off</h5>
-                                    <p class="text-sm font-medium text-white">{{service.discount_description}}</p>
-                                    <p class="text-sm font-normal text-white underline">T's & C's apply</p>
-                                </div>
-                                <div>
-                                    <a href="{% url 'markets:create-quotation' service.id %}" id="add-listing w-full"
-                                        class="rounded-sm">
-            
-                                        <span
-                                            class="rounded-xl w-36 h-12 font-semibold md:grid justify-center items-center text-white bg-custom-h">
-            
-                                            Get a qoute
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
+        <div class="overflow-hidden rounded-lg shadow-2xl md:grid md:grid-cols-3">
+            <img alt="" src="{% static 'imgs/about/about-3.png' %}" class="h-32 w-full object-cover md:h-full" />
+
+            <div class="p-4 text-center sm:p-6 md:col-span-2 lg:p-8">
+                <p class="text-sm font-semibold text-custom-primary uppercase tracking-widest">Join Us Today</p>
+
+                <h2 class="mt-6 font-black uppercase">
+                    <span class="text-4xl font-black text-custom-h sm:text-5xl lg:text-6xl"> Get 50% off </span>
+
+                    <span class="mt-2 block text-custom-text text-sm">On your first year subscription</span>
+                </h2>
+
+                <a class="mt-8 inline-block w-full bg-custom-h py-4 text-sm font-bold uppercase tracking-widest text-white"
+                    href="{% url 'accounts:choose-package' %}">
+                    Get Discount
+                </a>
+
+                <p class="mt-8 text-xs font-medium uppercase text-gray-400">
+                    Offer valid until we reach 50 listings*
+                </p>
             </div>
         </div>
     </div>
+
 </section>
-{% endif %}
 <section class="section-blog bg-custom-bg py-20">
     <div
         class="container">
@@ -463,33 +407,7 @@
     </div>
 </section>
 
-<section class="w-full font-sans relative py-20 block bg-custom-bg">
-    <div class="container">
-        <div class="overflow-hidden rounded-lg shadow-2xl md:grid md:grid-cols-3">
-            <img alt="" src="{% static 'imgs/about/about-3.png' %}" class="h-32 w-full object-cover md:h-full" />
 
-            <div class="p-4 text-center sm:p-6 md:col-span-2 lg:p-8">
-                <p class="text-sm font-semibold text-custom-primary uppercase tracking-widest">Join Us Today</p>
-
-                <h2 class="mt-6 font-black uppercase">
-                    <span class="text-4xl font-black text-custom-h sm:text-5xl lg:text-6xl"> Get 50% off </span>
-
-                    <span class="mt-2 block text-custom-text text-sm">On your first year subscription</span>
-                </h2>
-
-                <a class="mt-8 inline-block w-full bg-custom-h py-4 text-sm font-bold uppercase tracking-widest text-white"
-                    href="{% url 'accounts:choose-package' %}">
-                    Get Discount
-                </a>
-
-                <p class="mt-8 text-xs font-medium uppercase text-gray-400">
-                    Offer valid until we reach 50 listings*
-                </p>
-            </div>
-        </div>
-    </div>
-
-</section>
 <div x-float x-show="announcement" class="fixed inset-x-0 bottom-0 p-4 z-[600]">
     <div
         class="relative flex items-center justify-between gap-4 rounded-lg bg-custom-primary px-4 py-3 text-white shadow-lg">

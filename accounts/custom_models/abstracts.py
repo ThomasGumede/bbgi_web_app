@@ -5,17 +5,28 @@ from accounts.utilities.validators import validate_fcbk_link, validate_in_link, 
 
 PHONE_VALIDATOR = verify_rsa_phone()
 
+PROVINCES = [
+    ("kzn", "KwaZulu-Natal"),
+    ("mp", "Mpumalanga"),
+    ("nw", "North-West"),
+    ("fs", "Free-State"),
+    ("wc", "Western Cape"),
+    ("lp", "Limpopo"),
+    ("gp", "Gauteng"),
+    ("ec", "Eastern Cape"),
+    ("nc", "Northern Cape"),
+]
 
 class AbstractProfile(models.Model):
     address_one = models.CharField(max_length=300, blank=True, null=True)
     address_two = models.CharField(max_length=300, blank=True, null=True)
     city = models.CharField(max_length=300, blank=True, null=True)
-    province = models.CharField(max_length=300, blank=True, null=True)
+    province = models.CharField(max_length=300, blank=True, null=True, choices=PROVINCES)
     country = models.CharField(max_length=300, default="South Africa")
     zipcode = models.BigIntegerField(blank=True, null=True)
     address_id = models.CharField(max_length=300, null=True, blank=True)
 
-    phone = models.CharField(help_text=_("Enter your cellphone number"), max_length=15, validators=[PHONE_VALIDATOR], unique=True, null=True, blank=True)
+    phone = models.CharField(help_text=_("Enter cellphone number"), max_length=15, validators=[PHONE_VALIDATOR], unique=True, null=True, blank=True)
     facebook = models.URLField(validators=[validate_fcbk_link], blank=True, null=True)
     twitter = models.URLField(validators=[validate_twitter_link], blank=True, null=True)
     instagram = models.URLField(validators=[validate_insta_link], blank=True, null=True)
@@ -23,6 +34,8 @@ class AbstractProfile(models.Model):
 
     class Meta:
         abstract = True
+
+
 
 class AbstractCreate(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, unique=True, editable=False, db_index=True)

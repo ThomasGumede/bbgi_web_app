@@ -1,20 +1,40 @@
 from django.utils import timezone
+from accounts.models import AboutCompany
 
-COMPANY = {
-    "facebook": "https://www.facebook.com/blackbusinessgrowthinitiave",
-    "tiktok": "https://wwww.tiktok.com/@BBGInitiative",
-    "instagram": "https://www.instagram.com/blackbusinessgrowthinitiave",
-    "linkedIn": "https://www.linkedin.com/company/black-business-growth-initiative/posts/",
-    "website": "https://bbgi.co.za",
-    "company_support_mail": "info@bbgi.co.za",
-    "phone": "021 830 5415",
-    "youtube": "https://www.youtube.com/@blackbusinessgrowthinitiat6153",
-    "company_street_address_1": "COMPANY.address_one",
-    "company_city": "COMPANY.city",
-    "company_state": "COMPANY.province",
-    "company_zipcode": "zipcode"
+try:
+    company = AboutCompany.objects.get(slug="about-bbgi-model")
+    COMPANY = {
+        "facebook": company.facebook,
+        "tiktok": "https://wwww.tiktok.com/@BBGInitiative",
+        "instagram": company.instagram,
+        "linkedIn": "https://www.linkedin.com/company/black-business-growth-initiative/posts/",
+        "website": "https://bbgi.co.za",
+        "company_support_mail": company.email,
+        "phone": company.phone,
+        "youtube": "https://www.youtube.com/@blackbusinessgrowthinitiat6153",
+        "address": f"{company.address_one}, {company.city}, {company.province}, {company.zipcode}, RSA",
+        "company_city": company.city,
+        "company_state": company.province,
+        "company_zipcode": company.zipcode
 
-}
+    }
+except:
+
+    COMPANY = {
+        "facebook": "https://www.facebook.com/blackbusinessgrowthinitiave",
+        "tiktok": "https://wwww.tiktok.com/@BBGInitiative",
+        "instagram": "https://www.instagram.com/blackbusinessgrowthinitiave",
+        "linkedIn": "https://www.linkedin.com/company/black-business-growth-initiative/posts/",
+        "website": "https://bbgi.co.za",
+        "company_support_mail": "info@bbgi.co.za",
+        "phone": "021 830 5415",
+        "youtube": "https://www.youtube.com/@blackbusinessgrowthinitiat6153",
+        "address": "COMPANY.address_one",
+        "company_city": "COMPANY.city",
+        "company_state": "COMPANY.province",
+        "company_zipcode": "zipcode"
+
+    }
 
 def generate_order_number(model) -> str:
     order_id_start = f'BBGI{timezone.now().year}{timezone.now().month}'
