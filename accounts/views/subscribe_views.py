@@ -25,8 +25,7 @@ def choose_package(request):
     
     available_order = SubscriptionOrder.objects.filter(Q(payment_status=PaymentStatus.NOT_PAID) | Q(payment_status=PaymentStatus.PENDING) & Q(subscriber=request.user)).first()
     if available_order != None:
-        messages.info(request, "To complete your subscription, we require payment.")
-        return redirect("payments:subscription-payment", available_order.id)
+        available_order.delete()
     
     if is_price_droped:
         amount = decimal.Decimal(package.amount) - (decimal.Decimal(package.amount) * decimal.Decimal((50/100)))
