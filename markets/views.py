@@ -9,14 +9,14 @@ from django.contrib.sites.shortcuts import get_current_site
 from markets.tasks import send_email_to_owner
 
 @login_required
-def get_services(request, listing_id):
-    listing = get_object_or_404(Business, id=listing_id, owner=request.user)
+def get_services(request, listing_slug):
+    listing = get_object_or_404(Business, slug=listing_slug, owner=request.user)
     services = Service.objects.filter(business = listing)
     return render(request, "markets/services/services.html", {"listing": listing, "services": services})
 
 @login_required
-def create_service(request, listing_id):
-    listing = get_object_or_404(Business, id=listing_id, owner=request.user)
+def create_service(request, listing_slug):
+    listing = get_object_or_404(Business, slug=listing_slug, owner=request.user)
     form = ServiceForm()
 
     if request.method == "POST":
@@ -26,7 +26,7 @@ def create_service(request, listing_id):
             service.business = listing
             service.save()
             messages.success(request, "Service added successfully")
-            return redirect("markets:get-services", listing.id)
+            return redirect("markets:get-services", listing.slug)
         else:
             messages.error(request, "Error trying to create service")
             return render(request, "markets/services/create-service.html", {"form": form})
@@ -34,8 +34,8 @@ def create_service(request, listing_id):
     return render(request, "markets/services/create-service.html", {"form": form, "listing": listing})
 
 @login_required
-def update_service(request, listing_id, service_id):
-    listing = get_object_or_404(Business, id=listing_id, owner=request.user)
+def update_service(request, listing_slug, service_id):
+    listing = get_object_or_404(Business, slug=listing_slug, owner=request.user)
     service = get_object_or_404(Service, id=service_id, business=listing)
     form = ServiceForm(instance=service)
 
@@ -52,8 +52,8 @@ def update_service(request, listing_id, service_id):
     return render(request, "markets/services/update-service.html", {"form": form, "listing": listing})
 
 @login_required
-def delete_service(request, listing_id, service_id):
-    listing = get_object_or_404(Business, id=listing_id, owner=request.user)
+def delete_service(request, listing_slug, service_id):
+    listing = get_object_or_404(Business, slug=listing_slug, owner=request.user)
     service = get_object_or_404(Service, id=service_id, business=listing)
     if request.method == "POST":
         service.delete()

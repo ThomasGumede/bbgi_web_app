@@ -184,6 +184,15 @@ class BusinessHour(AbstractCreate):
         verbose_name = 'Business Hour'
         verbose_name_plural = 'Business Hours'
 
+    def get_open_time(self):
+        return self.open_time
+
+    def get_close_time(self):
+        return self.close_time
+
+    def get_operating_hours(self):
+        return f"{self.open_time} - {self.close_time}"
+
 class BusinessLocation(AbstractCreate):
     business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name="business_locations", null=True)
     address = models.CharField(max_length=400, help_text=_("Enter office address seperated by comma"))

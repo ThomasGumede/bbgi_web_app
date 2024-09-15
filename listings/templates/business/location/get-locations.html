@@ -12,14 +12,14 @@
                     <div class="flex items-center flex-wrap gap-7">
                         
                         <div>
-                            <a href="{% url 'listings:create-location' listing.id %}"
+                            <a href="{% url 'listings:create-location' listing.slug %}"
                                 class="text-base font-normal px-3 py-2 border border-solid text-center">Add location</a>
                         </div>
                     </div>
 
                     <div class="flex w-full gap-2 shrink-0 md:w-max">
                         <div class="w-full md:w-72">
-                            <form method="get" action="{% url 'listings:get-locations' listing.id %}"
+                            <form method="get" action="{% url 'listings:get-locations' listing.slug %}"
                                 class="relative h-10 w-full min-w-[200px]">
                                 <div
                                     class="absolute grid w-5 h-5 top-2/4 right-3 -translate-y-2/4 place-items-center text-customborder-custom-text0">

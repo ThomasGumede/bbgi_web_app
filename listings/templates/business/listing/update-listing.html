@@ -234,22 +234,7 @@
                         </div>
                     </div>
                     {{form.operation}}
-                    <div class="w-full p-4 border border-solid  rounded-lg relative">
-                        <h6 class="text-custom-h text-base mt-3 mb-6 font-bold uppercase">
-                            Operating Hours
-                        </h6>
-                        <div class="space-y-2">
-                            
-                            <input type="hidden" name="form-TOTAL_FORMS" value="6" id="id_form-TOTAL_FORMS">
-                            <input type="hidden" name="form-INITIAL_FORMS" value="0" id="id_form-INITIAL_FORMS">
-                            <input type="hidden" name="form-MIN_NUM_FORMS" value="0" id="id_form-MIN_NUM_FORMS">
-                            <input type="hidden" name="form-MAX_NUM_FORMS" value="6" id="id_form-MAX_NUM_FORMS">
-                            <div data-hours-url="{% url 'listings:get-business-hours-api' listing.id %}" id="business_hours_container" class="relative flex flex-wrap">
-                                
-                            
-                            </div>
-                        </div>
-                    </div>
+                    
                     
                     <div class="w-full p-4 border border-solid  rounded-lg relative">
                         <h6 class="text-custom-h text-sm mt-3 mb-6 font-bold uppercase">
@@ -453,87 +438,4 @@
         };
     
 </script>
-{% if request.user.is_authenticated %}
-<script>
-    const business_hours_container = document.querySelector("#business_hours_container")
-    function get_hours() {
-            $.ajax({
-                type: "GET",
-                url: $("#business_hours_container").data("hours-url"),
-                contentType: "application/json; charset=utf-8",
-                cache: false,
-                success: function (data) {
-                    const DAYCHOICES = {
-                        "MO": "Monday",
-                        "TU": "Tuesday",
-                        "WE": "Wednesday",
-                        "TH": "Thursday",
-                        "FR": "Friday",
-                        "SA": "Saturday",
-                        "SU": "Sunday"
-                    }
-                    
-                    if (data.success) {
-                        let hours = JSON.parse(data.hours);
-                        
-                        business_hours_container.innerHTML = ''
-                        hours.forEach((hour, index) => {
-                        let checked = hour.fields.operating ? "checked" : "";
-                            let pointer_event = hour.fields.operating ? "" : "pointer-events-none";
-                            let day = DAYCHOICES[hour.fields.day]
-
-                                business_hours_container.innerHTML += `
-                                    <div class="grid w-fit lg:w-6/12 border border-solid justify-between gap-4 bg-white p-2">
-                                            <div>
-                                                <input id="id_form-${index}-day" type="text" name="form-${index}-day" value="${hour.fields.day}" class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
-                                                <p class="text-xl font-normal text-custom-h">${day}</p>
-                                            </div>
-                                            <div class="space-y-1 flex gap-4 md:gap-7 items-center flex-wrap">
-                                                <label for="id_form-${index}-operating" class="inline-flex gap-4 items-center cursor-pointer">
-                                                    <span class=" text-sm font-medium text-gray-900 dark:text-gray-300">Closed</span>
-                                                    <input type="checkbox" onchange="toddleCheckboxes(event)" data-container="${day}_container" id="id_form-${index}-operating" name="form-${index}-operating" class="sr-only peer checkboxes" ${checked}>
-                                                    <div
-                                                        class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-                                                    </div>
-                                                    <span class=" text-sm font-medium text-gray-900 dark:text-gray-300">Open</span>
-                                                </label>
-                                                <div id="${day}_container" class="max-w-[16rem] ${pointer_event} grid grid-cols-2 gap-4">
-                                                    <div>
-                                                        <label for="id_form-${index}-open_time" class="text-xs">Open time:</label>
-                                                        <div class="relative">
-
-                                                            <input type="time" id="id_form-${index}-open_time" name="form-${index}-open_time"
-                                                                class="bg-gray-50 border leading-none outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
-                                                                value="${hour.fields.open_time}" />
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <label for="id_form-${index}-close_time" class="text-xs">Close time:</label>
-                                                        <div class="relative">
-
-                                                            <input type="time" id="id_form-${index}-close_time" name="form-${index}-close_time"
-                                                                class="bg-gray-50 border outline-none leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
-                                                                value="${hour.fields.close_time}" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                `;
-                            });
-
-                    } else {
-                        let hours = data;
-                    }
-                },
-                error: function (error) {
-                    alert("Something went wrong");
-                },
-            });
-        }
-        window.onload = () => {
-            get_hours()
-        }
-</script>
-{% endif %}
 {% endblock js %}
