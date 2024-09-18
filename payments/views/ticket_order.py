@@ -1,5 +1,5 @@
 from payments.utilities.yoco_func import headers
-import requests, logging, json
+import requests, logging, json, decimal
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from coupons.models import Coupon
@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from payments.tasks import resend_tickets_2_task, check_payment_update_2_ticket_order
 from django.contrib.sites.shortcuts import get_current_site
 
-from payments.utilities.ticket_func import update_payment_status_ticket_order
+from payments.utilities.ticket_func import update_payment_status_ticket_order, update_payment_status_zero_balance_ticket_order
 from payments.utilities.yoco_func import decimal_to_str
 
 logger = logging.getLogger("payments")
@@ -30,10 +30,14 @@ def payment(request, ticket_order_id):
     ticket_order = get_object_or_404(ticket_orders_queryset, id=ticket_order_id)
     
     if request.method == 'POST':
+        
         success_url = request.build_absolute_uri(reverse("payments:ticket-payment-success", kwargs={"ticket_order_id": ticket_order.id}))
         cancel_url = request.build_absolute_uri(reverse("payments:ticket-payment-cancelled", kwargs={"ticket_order_id": ticket_order.id}))
         fail_url = request.build_absolute_uri(reverse("payments:ticket-payment-failed", kwargs={"ticket_order_id": ticket_order.id}))
         str_amount = decimal_to_str(ticket_order.total_price)
+
+        if ticket_order.total_price == decimal.Decimal(0.00):
+            return redirect("payments:ticket-payment-success", ticket_order.id)
         
         lineitems = []
         for ticket in ticket_order.tickets.all():
@@ -87,6 +91,11 @@ def tickets_payment_success(request, ticket_order_id):
     domain = get_current_site(request).domain
     protocol = "https" if request.is_secure() else "http"
     ticket_order = get_object_or_404(TicketOrderModel, id=ticket_order_id, buyer=request.user)
+
+    if ticket_order.total_price == decimal.Decimal(0.00):
+        updated = update_payment_status_zero_balance_ticket_order(request, ticket_order)
+        return render(request, "payments/tickets/success.html", {"ticketorder": ticket_order})
+    
     if ticket_order.paid == PaymentStatus.PENDING:
         try:
             payment_information = PaymentInformation.objects.get(id = ticket_order.checkout_id)

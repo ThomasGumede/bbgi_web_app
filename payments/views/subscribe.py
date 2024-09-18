@@ -1,6 +1,5 @@
-import json, logging
+import json, logging, decimal, requests
 from payments.utilities.yoco_func import headers
-import requests
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -13,7 +12,7 @@ from campaigns.utils import PaymentStatus
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 
-from payments.utilities.subscription_func import update_payment_status_subscription_order
+from payments.utilities.subscription_func import update_payment_status_subscription_order, update_payment_status_zero_balance_subscription_order
 from payments.utilities.yoco_func import decimal_to_str
 
 logger = logging.getLogger("payments")
@@ -37,6 +36,9 @@ def subscription_payment(request, subscription_id):
         cancel_url = request.build_absolute_uri(reverse("payments:subscription-payment-cancelled", kwargs={"subscription_id": subscription_order.id}))
         fail_url = request.build_absolute_uri(reverse("payments:subscription-payment-failed", kwargs={"subscription_id": subscription_order.id}))
         str_amount = decimal_to_str(subscription_order.total_amount)
+
+        if subscription_order.total_amount == decimal.Decimal(0.00):
+            return redirect("payments:subscription-payment-success", subscription_order.id)
 
         session_data = {
             'successUrl': success_url,
@@ -85,12 +87,16 @@ def subscription_payment_cancelled(request, subscription_id):
     messages.success(request, "Payment cancelled successfully")
     return redirect("campaigns:campaigns")
 
-
+@login_required
 def subscription_payment_success(request, subscription_id):
     domain = get_current_site(request).domain
     protocol = "https" if request.is_secure() else "http"
     
     subscription = get_object_or_404(SubscriptionOrder, id=subscription_id)
+    if subscription.total_amount == decimal.Decimal(0.00):
+        update_payment_status_zero_balance_subscription_order(request, subscription)
+        return render(request, "payments/subscriptions/success.html", {"subscription": subscription})
+
     try:
         payment_information = PaymentInformation.objects.get(id = subscription.checkout_id)
         updated = update_payment_status_subscription_order(json.loads(payment_information.data), request, subscription)

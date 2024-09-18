@@ -31,7 +31,7 @@ def update_payment_status_subscription_order(data, request, subscription: Subscr
             subscription.payment_method_scheme = card_details.get("scheme", "-")
 
         subscription.payment_date = str(payload.get("createdDate", "-"))
-        subscription.save(update_fields=["payment_status", "payment_method_card_holder", "payment_method_type","payment_method_masked_card", "payment_method_scheme"])
+        subscription.save(update_fields=["payment_status", "payment_date", "payment_method_card_holder", "payment_method_type","payment_method_masked_card", "payment_method_scheme"])
 
         send_subscription_confirm_email(subscription, request, payment_status)
         return True
@@ -39,3 +39,24 @@ def update_payment_status_subscription_order(data, request, subscription: Subscr
         logger.error(ex)
         return False
 
+
+def update_payment_status_zero_balance_subscription_order(request, subscription: SubscriptionOrder):
+    try:
+        
+        payment_status = PaymentStatus.PAID
+        if subscription.subscriber:
+            subscription.subscriber.subscription = subscription.package
+            subscription.subscriber.is_paid = True
+            subscription.subscriber.subscription_starts = timezone.now()
+            subscription.subscriber.subscription_ends = timezone.now() + relativedelta(months=12)
+            subscription.subscriber.save(update_fields=["subscription", "is_paid", "subscription_starts", "subscription_ends"])
+        
+        subscription.payment_status = payment_status
+        subscription.payment_date = str(timezone.now())
+        subscription.save(update_fields=["payment_status", "payment_date"])
+
+        send_subscription_confirm_email(subscription, request, payment_status)
+        return True
+    except Exception as ex:
+        logger.error(ex)
+        return False

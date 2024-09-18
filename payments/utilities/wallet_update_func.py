@@ -45,4 +45,4 @@ def update_payment_details(order, data, payment_status: PaymentStatus):
         order.payment_method_scheme = card_details.get("scheme", "-")
 
     order.payment_date = str(payload.get("createdDate", "-"))
-    order.save(update_fields=["paid", "payment_method_card_holder", "payment_method_type","payment_method_masked_card", "payment_method_scheme"])
+    order.save(update_fields=["paid", "payment_date", "payment_method_card_holder", "payment_method_type","payment_method_masked_card", "payment_method_scheme"])
