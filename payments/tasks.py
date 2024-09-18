@@ -88,10 +88,10 @@ def send_tickets_email(status, order: TicketOrderModel, protocol, domain):
             message = render_to_string("emails/tickets/order-cancelled.html", context,
             )
            
-        sent = send_html_email_with_attachments(order.buyer.email, mail_subject, message, "BBGI Events <events@bbgi.co.za>", files)
+        sent = send_html_email_with_attachments(order.client_email, mail_subject, message, "BBGI Events <events@bbgi.co.za>", files)
             
         if not sent:
-            email_logger.error(f"Trouble sending tickets email to {order.buyer.email} order number {order.order_number}")
+            email_logger.error(f"Trouble sending tickets email to {order.client_email} order number {order.order_number}")
 
             return False
             
@@ -371,6 +371,7 @@ def check_payment_update_2_ticket_order(checkout_id, protocol, domain):
                 payment_status = PaymentStatus.PAID
                 admin_cost = ticket_order.calculate_total_admin_cost()
                 organiser_profit = ticket_order.calculate_actual_profit()
+                
                 wallet_updated = update_wallet(ticket_order.event.organiser, organiser_profit, admin_cost, ticket_order.order_number, ticket_order.id)
                 if not wallet_updated:
                     logger.error("Failed to update wallet")
