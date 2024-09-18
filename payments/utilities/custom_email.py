@@ -53,10 +53,10 @@ def send_tickets_email(status, order: TicketOrderModel, request):
         message = render_to_string(message_template, context, request=request)
 
         # Send email with attachments
-        sent = send_html_email_with_attachments(order.buyer.email, mail_subject, message, "BBGI Events <events@bbgi.co.za>", files)
+        sent = send_html_email_with_attachments(order.client_email, mail_subject, message, "BBGI Events <events@bbgi.co.za>", files)
         
         if not sent:
-            email_logger.error(f"Failed to send tickets email to {order.buyer.email} for order number {order.order_number}")
+            email_logger.error(f"Failed to send tickets email to {order.client_email} for order number {order.order_number}")
             return False
 
         return True

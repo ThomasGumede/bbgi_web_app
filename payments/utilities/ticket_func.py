@@ -12,9 +12,10 @@ def update_payment_status_ticket_order(data, request,  ticket_order: TicketOrder
             payment_status = PaymentStatus.PAID
             admin_cost = ticket_order.calculate_total_admin_cost()
             organiser_profit = ticket_order.calculate_actual_profit()
-            wallet_updated = update_wallet(ticket_order.event.organiser, organiser_profit, admin_cost, ticket_order.order_number, ticket_order.id)
-            if not wallet_updated:
-                logger.error("Failed to update wallet")
+            if ticket_order.event.organiser:
+                wallet_updated = update_wallet(ticket_order.event.organiser, organiser_profit, admin_cost, ticket_order.order_number, ticket_order.id)
+                if not wallet_updated:
+                    logger.error("Failed to update wallet")
         else:
                 payment_status = PaymentStatus.NOT_PAID
             
