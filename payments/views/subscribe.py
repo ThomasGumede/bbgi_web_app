@@ -95,6 +95,7 @@ def subscription_payment_success(request, subscription_id):
     subscription = get_object_or_404(SubscriptionOrder, id=subscription_id)
     if subscription.total_amount == decimal.Decimal(0.00):
         update_payment_status_zero_balance_subscription_order(request, subscription)
+        update_coupon(subscription.id)
         return render(request, "payments/subscriptions/success.html", {"subscription": subscription})
 
     try:

@@ -207,9 +207,9 @@
       {% for ticket in order.tickets.all %}
       <tr>
         <td>{{ticket.ticket_type.title}} - {{order.event.title}}</td>
-        <td>R{{ticket.ticket_type.price}}</td>
+        <td>R{{ticket.ticket_type.price|floatformat:2}}</td>
         <td>{{ticket.quantity}}</td>
-        <td>R{{ticket.ticket_type.price}}<span style="font-size: 15px; font-weight: 400; color: #a9a;">(incl. VAT)</span></td>
+        <td>R{{ticket.ticket_type.price|floatformat:2}}<span style="font-size: 15px; font-weight: 400; color: #a9a;">(incl. VAT)</span></td>
       </tr>
       
       {% endfor %}
@@ -217,19 +217,19 @@
         <td></td>
         <td></td>
         <td style="text-align: start; font-weight: bold; color: #071a1d;">Subtotal</td>
-        <td>R{{order.subtotal}}</td>
+        <td>R{{order.subtotal|floatformat:2}}</td>
       </tr>
       <tr>
         <td></td>
         <td></td>
         <td style="text-align: start; font-weight: bold; color: #071a1d;">Transaction fees</td>
-        <td>R{{order.total_transaction_costs}}</td>
+        <td>R{{order.total_transaction_costs|floatformat:2}}</td>
       </tr>
       <tr>
         <td></td>
         <td></td>
         <td style="text-align: start; font-weight: bold; color: #071a1d;">Total</td>
-        <td>R{{order.total_price}}</td>
+        <td>R{{order.total_price|floatformat:2}}</td>
       </tr>
     </tbody>
   </table>
