@@ -15,6 +15,19 @@ from campaigns.utils import PaymentStatus
 
 logger = logging.getLogger("utils")
 
+def generate_coupon_number() -> str:
+    order_id_start = f'BBGICP{timezone.now().year}{timezone.now().month}'
+    queryset = Coupon.objects.filter(code__iexact=order_id_start).count()
+      
+    count = 1
+    code = order_id_start
+    while(queryset):
+        code = f'BBGICP{timezone.now().year}{timezone.now().month}{count}'
+        count += 1
+        queryset = Coupon.objects.all().filter(code__iexact=code).count()
+
+    return code
+
 def update_order_transaction_cost_subtotal(order_id) -> None:
     """
     Update the subtotal and transaction costs for a given order.
@@ -39,7 +52,7 @@ def create_order_and_coupon(order_form: TicketOrderForm, request: HttpRequest, e
     else:
         order.buyer = None
     order.save()
-    Coupon.objects.get_or_create(code=order.order_number, discount=decimal.Decimal(50), valid_from=timezone.now(), valid_to=order.event.event_enddate, active=False)
+    Coupon.objects.get_or_create(code=generate_coupon_number(), order_id=order.id, discount=decimal.Decimal(50), valid_from=timezone.now(), valid_to=order.event.event_enddate, active=False)
     return order
 
 def validate_tickets_quantity(forms, request: HttpRequest) -> bool:
