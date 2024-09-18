@@ -79,7 +79,7 @@
                         {% for account in accounts %}
                         <tr>
                             <td class="p-4 border-b border-blue-gray-50">
-                                <a href=""
+                                <a href="{% url 'accounts:user-details' username=account.username %}"
                                     class="flex items-center gap-3">
                                     {% if account.profile_image %}
                                     <img src="{{account.profile_image.url}}" alt="{{account.get_full_names}}"

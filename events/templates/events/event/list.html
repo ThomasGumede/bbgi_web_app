@@ -422,13 +422,11 @@
                                             <p class="text-xs text-white">{{event.category}}</p>
                                         </div>
                 
-                                        {% if event.image %}
-                                        <img src="{{event.image.url}}" alt="{{event.title}} image" srcset="" lazyload
+                                        
+                                        <img src="{% if event.image %}{{event.image.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}" alt="{{event.title}} image" srcset="" lazyload
                                             class="object-cover block h-full w-full duration-500 group-hover:scale-105">
-                                        {% else %}
-                                        <img src="{% static 'images/global/image-no.jpg' %}" alt="no image" srcset=""
-                                            class="object-cover block h-full w-full">
-                                        {% endif %}
+                                        
+                                        
                 
                 
                                         
