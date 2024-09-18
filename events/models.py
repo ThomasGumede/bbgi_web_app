@@ -28,24 +28,7 @@ def handle_event_file_upload(instance, filename):
 def reservation_time():
     return timezone.now() + timedelta(minutes=25)
 
-EVENT_CATEGORIES = (
-        ("Conferences", "Conferences"),
-        ("Trade Shows", "Trade Shows"),
-        ("Family gathering", "Family gathering"),
-        ("Networking", "Networking"),
-        ("WorkShops", "WorkShops"),
-        ("Product Launch", "Product Launch"),
-        ("Charity", "Charity"),
-        ("Music", "Music"),
-        ("Concert", "Concert"),
-        ("Performing & Visual Arts", "Performing & Visual Arts"),
-        ("Food & Drink", "Food & Drink"),
-        ("Party", "Party"),
-        ("Sports & Fitness", "Sports & Fitness"),
-        ("Technology", "Technology"),
-        ("Digital", "Digital"),
-        ("Other", "Other")
-    )
+
 class EventModel(AbstractCreate):
     category = models.ForeignKey(BlogCategory, on_delete=models.PROTECT, related_name="events", null=True, blank=True)
     image = models.ImageField(help_text=_("Upload campaign image."), upload_to=handle_event_file_upload, null=True, blank=True)
@@ -169,6 +152,7 @@ class TicketOrderModel(AbstractCreate, AbstractPayment):
     client_zipcode = models.BigIntegerField(blank=True, null=True)
 
     email = models.EmailField()
+    coupon_code = models.CharField(max_length=300, null=True, blank=True)
     quantity = models.PositiveBigIntegerField(default=1)
     subtotal = models.DecimalField(max_digits=1000, decimal_places=2, default=0.00)
     total_price = models.DecimalField(max_digits=1000, decimal_places=2)

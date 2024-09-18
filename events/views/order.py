@@ -48,8 +48,9 @@ def create_order_and_coupon(order_form: TicketOrderForm, request: HttpRequest, e
     order = order_form.save(commit=False)
     order.event = event
     order.buyer = request.user
+    order.coupon_code = generate_coupon_number()
     order.save()
-    Coupon.objects.get_or_create(code=generate_coupon_number(), order_id=order.id, discount=decimal.Decimal(50), valid_from=timezone.now(), valid_to=order.event.event_enddate, active=False)
+    Coupon.objects.get_or_create(code=order.coupon_code, discount=decimal.Decimal(50), valid_from=timezone.now(), valid_to=order.event.event_enddate, active=False)
     return order
 
 def validate_tickets_quantity(forms, request: HttpRequest) -> bool:

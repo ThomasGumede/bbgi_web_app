@@ -16,9 +16,9 @@ from payments.utilities.yoco_func import decimal_to_str
 
 logger = logging.getLogger("payments")
 
-def update_coupon(order_id) -> None:
+def update_coupon(coupon_code) -> None:
     try:
-        coupon = Coupon.objects.get(order_id=order_id, active=False)
+        coupon = Coupon.objects.get(code=coupon_code, active=False)
         coupon.active = True
         coupon.save(update_fields=["active"])
     except Coupon.DoesNotExist:
@@ -95,7 +95,7 @@ def tickets_payment_success(request, ticket_order_id):
             if updated:
                 payment_information.order_number = ticket_order.order_number
                 payment_information.order_updated = True
-                update_coupon(ticket_order.id)
+                update_coupon(ticket_order.coupon_code)
                 payment_information.save(update_fields=["order_number", "order_updated"])
             else:
                check_payment_update_2_ticket_order.apply_async((ticket_order.checkout_id, protocol, domain), countdown=25*60)

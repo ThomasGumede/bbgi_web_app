@@ -279,6 +279,12 @@
 																<div style="color:#454647;direction:ltr;font-family:'Roboto Slab', Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:15px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:center;mso-line-height-alt:18px;">
 																	<p style="margin: 0;">Please find tickets attached to this email. Thank you for your order and for choosing BBGI. If not attached, you can download them here <strong><a href="{{protocol}}://{{domain}}{{order.get_absolute_url}}" target="_blank" rel="noopener"
 																			style="text-decoration: underline; color: #071a1d;">{{order.order_number}}</a></strong>.</p>
+																			{% if order.coupon_code %}
+																			<p style="margin: 0;">*For Your Listing, use the coupon <strong
+																					style="text-decoration: underline; color: #071a1d;">{{order.coupon_code}}</strong>to get 50% off on your first
+																				Business listing with us.</p>
+																			{% endif %}
+																			
 																</div>
 															</td>
 														</tr>
