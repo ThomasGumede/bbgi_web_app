@@ -91,12 +91,10 @@
                                     <h6 class="text-base lg:text-lg font-semibold">Billing address</h6>
                                     <div class="relative block">
                                         <p class="text-sm lg:text-base text-gray-500">
-                                            {% if order.buyer %}{{order.buyer.address_one}}{% else
-                                            %}{{order.client_address_one}}{% endif %}
+                                            {% if order.buyer %}{{order.buyer.address_one}}{% else %}{{order.client_address_one}}{% endif %}
                                         </p>
                                         <p class="text-sm lg:text-base text-gray-500">
-                                            {% if order.buyer %}{{order.buyer.address_two}}{% else
-                                            %}{{order.client_address_two}}{% endif %}
+                                            {% if order.buyer %}{{order.buyer.address_two}}{% else %}{{order.client_address_two}}{% endif %}
                                         </p>
                                         <p class="text-sm lg:text-base text-gray-500">
 
