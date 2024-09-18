@@ -47,10 +47,7 @@ def create_order_and_coupon(order_form: TicketOrderForm, request: HttpRequest, e
     """
     order = order_form.save(commit=False)
     order.event = event
-    if request.user.is_authenticated:
-        order.buyer = request.user
-    else:
-        order.buyer = None
+    order.buyer = request.user
     order.save()
     Coupon.objects.get_or_create(code=generate_coupon_number(), order_id=order.id, discount=decimal.Decimal(50), valid_from=timezone.now(), valid_to=order.event.event_enddate, active=False)
     return order
@@ -128,6 +125,7 @@ def ticket_orders(request, event_id=None):
 
     return render(request, "events/orders/orders.html", {"orders": ticket_orders})
 
+@login_required
 def create_ticket_order(request, event_slug):
     """
     Create a ticket order for an event.
@@ -163,12 +161,13 @@ def create_ticket_order(request, event_slug):
     
     return render(request, "events/orders/create.html", {"forms": formset(), "order_form": TicketOrderForm(), "event": event})
 
+@login_required
 def add_guest_details(request, ticket_order_id):
     """
     Add guest details to a ticket order.
     """
     # check_ticket_order_payment.apply_async((ticket_order_id,), countdown=25 * 60)
-    ticket_order = get_object_or_404(TicketOrderModel, id=ticket_order_id)
+    ticket_order = get_object_or_404(TicketOrderModel, buyer=request.user, id=ticket_order_id)
     tickets = TicketModel.objects.filter(ticket_order=ticket_order).select_related("ticket_type")
     formset = formset_factory(form=TicketForm, extra=tickets.count(), max_num=tickets.count())
 
@@ -195,8 +194,9 @@ def add_guest_details(request, ticket_order_id):
     
     return render(request, "events/orders/add_guest_details.html", {"forms": formset(initial=tickets.values("ticket_type", "quantity")), "order": ticket_order})
 
+@login_required
 def order_checkout(request, ticket_order_id):
-    ticket_order = get_object_or_404(TicketOrderModel, id=ticket_order_id)
+    ticket_order = get_object_or_404(TicketOrderModel, buyer=request.user, id=ticket_order_id)
     form = TicketOrderUpdateForm(instance=ticket_order)
     if request.method == "POST":
         form = TicketOrderUpdateForm(instance=ticket_order, data=request.POST)
@@ -213,18 +213,14 @@ def order_checkout(request, ticket_order_id):
             return render(request, "events/orders/checkout.html", {"ticketorder": ticket_order, "form": form})
     return render(request, "events/orders/checkout.html", {"ticketorder": ticket_order, "form": form})
 
-
+@login_required
 def cancel_ticket_order(request, order_id):
     """
     Cancel a ticket order.
     """
-    if request.user.is_authenticated:
-        order = get_object_or_404(TicketOrderModel, buyer=request.user, id=order_id)
-        return_url = "events:manage-ticket-orders"
-    else:
-        order  = get_object_or_404(TicketOrderModel, id=order_id)
-        return_url = "events:events"
-
+    order = get_object_or_404(TicketOrderModel, buyer=request.user, id=order_id)
+    return_url = "events:manage-ticket-orders"
+    
     if order.paid in [PaymentStatus.PAID, PaymentStatus.PENDING]:
         messages.error(request, "You cannot delete an order that is already paid or pending.")
     else:

@@ -88,10 +88,10 @@ def send_tickets_email(status, order: TicketOrderModel, protocol, domain):
             message = render_to_string("emails/tickets/order-cancelled.html", context,
             )
            
-        sent = send_html_email_with_attachments(order.client_email, mail_subject, message, "BBGI Events <events@bbgi.co.za>", files)
+        sent = send_html_email_with_attachments(order.email, mail_subject, message, "BBGI Events <events@bbgi.co.za>", files)
             
         if not sent:
-            email_logger.error(f"Trouble sending tickets email to {order.client_email} order number {order.order_number}")
+            email_logger.error(f"Trouble sending tickets email to {order.email} order number {order.order_number}")
 
             return False
             

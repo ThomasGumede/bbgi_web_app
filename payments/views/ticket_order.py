@@ -24,8 +24,9 @@ def update_coupon(order_id) -> None:
     except Coupon.DoesNotExist:
         pass
 
+@login_required
 def payment(request, ticket_order_id):
-    ticket_orders_queryset = TicketOrderModel.objects.filter(paid = PaymentStatus.NOT_PAID)
+    ticket_orders_queryset = TicketOrderModel.objects.filter(paid = PaymentStatus.NOT_PAID, buyer=request.user)
     ticket_order = get_object_or_404(ticket_orders_queryset, id=ticket_order_id)
     
     if request.method == 'POST':
@@ -81,10 +82,11 @@ def payment(request, ticket_order_id):
 
     return render(request, "payments/tickets/payment.html", {"ticketorder": ticket_order, "mode": "payment"})
 
+@login_required
 def tickets_payment_success(request, ticket_order_id):
     domain = get_current_site(request).domain
     protocol = "https" if request.is_secure() else "http"
-    ticket_order = get_object_or_404(TicketOrderModel, id=ticket_order_id)
+    ticket_order = get_object_or_404(TicketOrderModel, id=ticket_order_id, buyer=request.user)
     if ticket_order.paid == PaymentStatus.PENDING:
         try:
             payment_information = PaymentInformation.objects.get(id = ticket_order.checkout_id)
@@ -101,17 +103,20 @@ def tickets_payment_success(request, ticket_order_id):
         except PaymentInformation.DoesNotExist as ex:
             logger.error(f"Payment error - {ex}")
             check_payment_update_2_ticket_order.apply_async((ticket_order.checkout_id, protocol, domain), countdown=25*60)
+            return render(request, "payments/tickets/success.html", {"ticketorder": ticket_order})
     else:
         pass
     
     return render(request, "payments/tickets/success.html", {"ticketorder": ticket_order})
 
+@login_required
 def tickets_payment_cancelled(request, ticket_order_id):
     ticket_order = get_object_or_404(TicketOrderModel, id=ticket_order_id)
     ticket_order.delete()
     messages.success(request,"Payment cancelled successfully")
     return redirect("events:events")
 
+@login_required
 def tickets_payment_failed(request, ticket_order_id):
     ticket_order = get_object_or_404(TicketOrderModel, id=ticket_order_id)
 
