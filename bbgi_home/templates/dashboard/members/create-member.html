@@ -1,9 +1,9 @@
-{% extends '_dashboard.html' %}
+{% extends '_company.html' %}
 {% load static %}
 
 {% block title %}Add member{% endblock title %}
 
-{% block content %}
+{% block businessblock %}
 
 <div class="w-full pb-20 h-full bg-white">
     <div class="space-y-4 bg-white w-full relative">
@@ -122,7 +122,7 @@
     </div>
 </div>
 
-{% endblock content %}
+{% endblock businessblock %}
 {% block js %}
 <script>
     window.onload = () => {

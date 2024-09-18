@@ -7,6 +7,7 @@ from django.urls import reverse
 from accounts.models import SubscriptionOrder
 from payments.models import PaymentInformation
 from payments.tasks import check_payment_update_2_subscription
+from coupons.models import Coupon
 from django.contrib import messages
 from campaigns.utils import PaymentStatus
 from django.contrib.auth.decorators import login_required
@@ -16,6 +17,14 @@ from payments.utilities.subscription_func import update_payment_status_subscript
 from payments.utilities.yoco_func import decimal_to_str
 
 logger = logging.getLogger("payments")
+
+def update_coupon(order_id):
+    try:
+        coupon = Coupon.objects.get(order_id=order_id, active=True)
+        coupon.active = False
+        coupon.save(update_fields=["active"])
+    except Coupon.DoesNotExist:
+        pass
 
 @login_required
 def subscription_payment(request, subscription_id):
@@ -64,13 +73,11 @@ def subscription_payment(request, subscription_id):
 
     return render(request, "payments/subscriptions/payment.html", {"subscription_order": subscription_order})
 
-
 def subscription_payment_failed(request, subscription_id):
     subscription = get_object_or_404(SubscriptionOrder, id=subscription_id)
     subscription.payment_status = PaymentStatus.NOT_PAID
     subscription.save(update_fields=["payment_status"])
     return render(request, "payments/subscriptions/failed.html")
-
 
 def subscription_payment_cancelled(request, subscription_id):
     subscription = get_object_or_404(SubscriptionOrder, id=subscription_id)
@@ -91,6 +98,7 @@ def subscription_payment_success(request, subscription_id):
         if updated:
             payment_information.order_number = subscription.order_id
             payment_information.order_updated = True
+            update_coupon(subscription.id)
             payment_information.save(update_fields=["order_number", "order_updated"])
 
         else:

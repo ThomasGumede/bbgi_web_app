@@ -1,6 +1,6 @@
 from django.urls import path
 from events.views.event import create_event, event_details, events, update_event, delete_event, add_event_organisor, update_event_organisor, delete_event_organisor
-from events.views.order import create_ticket_order, add_guest_details, ticket_order, ticket_orders, cancel_ticket_order
+from events.views.order import create_ticket_order, add_guest_details, ticket_order, ticket_orders, cancel_ticket_order, order_checkout
 from events.views.ticket_type import confirm_attandance, create_ticket_types, update_ticket_type, get_event_ticket_types, delete_ticket_type
 from events.views.manage import manage_event, manage_events, manage_ticket_order, manage_ticket_orders, generate_guest_list, generate_ticket
 
@@ -31,6 +31,7 @@ urlpatterns = [
     path("order/create/<slug:event_slug>", create_ticket_order, name="create-ticket-order"),
     path("order/cancel/<uuid:order_id>", cancel_ticket_order, name="cancel-ticket-order"),
     path("order/guest/<uuid:ticket_order_id>", add_guest_details, name="add-guests"),
+    path("order/checkout/<uuid:ticket_order_id>", order_checkout, name="order-checkout"),
     path("dashboard/order/manage", manage_ticket_orders, name="manage-ticket-orders"),
     path("dashboard/order/manage/<uuid:order_id>", manage_ticket_order, name="manage-ticket-order"),
     path("dashboard/order/generate/ticket/<uuid:order_id>/<uuid:ticket_id>", generate_ticket, name="generate-ticket")

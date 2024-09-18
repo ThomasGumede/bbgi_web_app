@@ -88,13 +88,13 @@
                                     {% for campaign in request.user.campaigns.all %}
                                     <tr>
                                         <td class="p-2 border-b border-blue-gray-50">
-                                            <a href=""
+                                            <a href="{% url 'campaigns:campaign' campaign.slug %}"
                                                 class="flex items-center gap-3">
                                                 {% if campaign.image %}
                                                 <img src="{{campaign.image.url}}" alt="{{campaign.title}}"
                                                     class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" />
                                                 {% else %}
-                                                <img src="{% static 'images/global/no-image-available.webp' %}"
+                                                <img src="{% static 'imgs/no-image.png' %}"
                                                     alt="{{campaign.title}}"
                                                     class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" />
                                                 {% endif %}
@@ -114,7 +114,7 @@
                                             </div>
                                         </td>
                                         <td class="p-2 border-b border-blue-gray-50">
-                                            <a href=""
+                                            <a href="{% url 'campaigns:manage-campaign' campaign.id %}"
                                                 class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                                 type="button">
                                                 <span
@@ -173,13 +173,13 @@
                                     {% for event in request.user.events.all %}
                                     <tr>
                                         <td class="p-2 border-b border-blue-gray-50">
-                                            <a href=""
+                                            <a href="{% url 'events:event-details' event.slug %}"
                                                 class="flex items-center gap-3">
                                                 {% if event.image %}
                                                 <img src="{{event.image.url}}" alt="{{event.title}}"
                                                     class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" />
                                                 {% else %}
-                                                <img src="{% static 'images/global/no-image-available.webp' %}"
+                                                <img src="{% static 'imgs/no-image.png' %}"
                                                     alt="{{event.title}}"
                                                     class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" />
                                                 {% endif %}
@@ -199,7 +199,7 @@
                                             </div>
                                         </td>
                                         <td class="p-2 border-b border-blue-gray-50">
-                                            <a href=""
+                                            <a href="{% url 'events:manage-event' event.slug %}"
                                                 class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                                 type="button">
                                                 <span

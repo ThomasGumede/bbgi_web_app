@@ -1,0 +1,1426 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block seo_tags %}
+<title>BBGI - Create Listing</title>
+<meta name="description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
+                            to showcase businesses and expertise">
+<meta name="title" content="BBGI - Create Listing" />
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://bbgi.co.za/listings/add" />
+<meta property="og:title" content="BBGI - Create Listing" />
+<meta property="og:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
+                            to showcase businesses and expertise" />
+<meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://bbgi.co.za/listings/add" />
+<meta property="twitter:title" content="BBGI - Create Listing" />
+<meta property="twitter:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
+                            to showcase businesses and expertise" />
+<meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+{% endblock seo_tags %}
+{% block css %}
+  <style>
+    .nice-select {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    background-color: #fff;
+    border-radius: 5px;
+    border: solid 1px #e8e8e8;
+    box-sizing: border-box;
+    clear: both;
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: normal;
+    height: 38px;
+    line-height: 36px;
+    outline: none;
+    padding-left: 18px;
+    padding-right: 30px;
+    position: relative;
+    text-align: left !important;
+    transition: all 0.2s ease-in-out;
+    user-select: none;
+    white-space: nowrap;
+    width: auto;
+    }
+    .nice-select:hover {
+    border-color: #dbdbdb;
+    }
+    .nice-select:active,
+    .nice-select.open,
+    .nice-select:focus {
+    border-color: #999;
+    }
+    .nice-select:after {
+    border-bottom: 2px solid #999;
+    border-right: 2px solid #999;
+    content: "";
+    display: block;
+    height: 5px;
+    margin-top: -4px;
+    pointer-events: none;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform-origin: 66% 66%;
+    transform: rotate(45deg);
+    transition: all 0.15s ease-in-out;
+    width: 5px;
+    }
+    .nice-select.open:after {
+    transform: rotate(-135deg);
+    }
+    .nice-select.open .nice-select-dropdown {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1) translateY(0);
+    width: 100%;
+    }
+    .nice-select.disabled {
+    border-color: #ededed;
+    color: #999;
+    pointer-events: none;
+    }
+    .nice-select.disabled:after {
+    border-color: #ccc;
+    }
+    .nice-select.wide {
+    width: 100%;
+    }
+    .nice-select.wide .nice-select-dropdown {
+    left: 0 !important;
+    right: 0 !important;
+    }
+    .nice-select.right {
+    float: right;
+    }
+    .nice-select.right .nice-select-dropdown {
+    left: auto;
+    right: 0;
+    }
+    .nice-select.small {
+    font-size: 12px;
+    height: 36px;
+    line-height: 34px;
+    }
+    .nice-select.small:after {
+    height: 4px;
+    width: 4px;
+    }
+    .nice-select.small .option {
+    line-height: 34px;
+    min-height: 34px;
+    }
+    .nice-select .nice-select-dropdown {
+    margin-top: 4px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 0 1px rgba(68, 68, 68, 0.11);
+    pointer-events: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    transform-origin: 50% 0;
+    transform: scale(0.75) translateY(19px);
+    transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
+    z-index: 9;
+    opacity: 0;
+    }
+    .nice-select .list {
+    border-radius: 5px;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 0;
+    max-height: 210px;
+    overflow-y: auto;
+    }
+    .nice-select .list:hover .option:not(:hover) {
+    background-color: rgba(0, 0, 0, 0) !important;
+    }
+    .nice-select .option {
+    cursor: pointer;
+    font-weight: 400;
+    line-height: 40px;
+    list-style: none;
+    outline: none;
+    padding-left: 18px;
+    padding-right: 29px;
+    text-align: left;
+    transition: all 0.2s;
+    }
+    .nice-select .option:hover,
+    .nice-select .option.focus,
+    .nice-select .option.selected.focus {
+    background-color: #f6f6f6;
+    }
+    .nice-select .option.selected {
+    font-weight: bold;
+    }
+    .nice-select .option.disabled {
+    background-color: rgba(0, 0, 0, 0);
+    color: #999;
+    cursor: default;
+    }
+    .nice-select .optgroup {
+    font-weight: bold;
+    }
+    .no-csspointerevents .nice-select .nice-select-dropdown {
+    display: none;
+    }
+    .no-csspointerevents .nice-select.open .nice-select-dropdown {
+    display: block;
+    }
+
+    .nice-select .has-multiple {
+    white-space: inherit;
+    height: auto;
+    padding: 7px 12px;
+    min-height: 36px;
+    line-height: 22px;
+    }
+    .nice-select .has-multiple span.current {
+    border: 1px solid #ccc;
+    background: #eee;
+    padding: 0 10px;
+    border-radius: 3px;
+    display: inline-block;
+    line-height: 24px;
+    font-size: 14px;
+    margin-bottom: 3px;
+    margin-right: 3px;
+    }
+    .nice-select .has-multiple .multiple-options {
+    display: block;
+    line-height: 24px;
+    padding: 0;
+    }
+    .nice-select .nice-select-search-box {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px;
+    pointer-events: none;
+    border-radius: 5px 5px 0 0;
+    }
+    .nice-select .nice-select-search {
+    box-sizing: border-box;
+    background-color: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+    color: #444;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 7px 12px;
+    margin: 0 10px 0 0;
+    width: 100%;
+    min-height: 36px;
+    line-height: 22px;
+    height: auto;
+    outline: 0 !important;
+    font-size: 14px;
+    }
+
+  </style>
+{% endblock css %}
+
+{% block content %}
+<section class="w-full font-sans relative py-20 block bg-custom-bg">
+    <div class="container">
+        <div class="relative block h-full w-full">
+
+            <div class="font-sans mx-auto md:w-7/12  w-fit z-40">
+                <div class="w-full space-y-9 mx-auto">
+                    <div class="space-y-6 text-center w-full">
+                        <h1 class="text-custom-primary text-base font-semibold">BBGI - Add Listing
+                        </h1>
+                        <h4 class="text-3xl md:text-5xl text-custom-h font-bold">
+                            Ensuring Future For All
+                        </h4>
+                        <p class="text-custom-text text-base font-normal">
+                            We serves as a unified community of Black enterpreneurs and professionals, providing a space
+                            to showcase businesses and expertise
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container py-20">
+        <!-- plan tab -->
+        <div class="tab plan-tab">
+            <div
+                class="tab-links flex flex-wrap items-center justify-center gap-x-5 lg:gap-x-[30px] xl:gap-x-[50px] gap-y-[10px] text-sm lg:text-lg xl:text-xl text-custom-h mb-[50px]">
+                <button
+                    class="p-[1px] border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:translate-y-1/2 after:z-10 after:rounded-full active">
+                    1. Description
+                </button>
+
+                <button
+                    class="p-[1px] border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:translate-y-1/2 after:z-10 after:rounded-full">
+                    2. Media
+                </button>
+
+                <button
+                    class="p-[1px] border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:translate-y-1/2 after:z-10 after:rounded-full">
+                    3. Location
+                </button>
+
+                <button
+                    class="p-[1px] border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:translate-y-1/2 after:z-10 after:rounded-full">
+                    4. Details
+                </button>
+
+                <button
+                    class="p-[1px] border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:translate-y-1/2 after:z-10 after:rounded-full">
+                    5. Amenities
+                </button>
+            </div>
+
+            <div class="tab-contents">
+                <!-- content 1 -->
+                <div class="transition-all duration-300">
+                    <form class="form-primary add-property-form bg-white text-sm lg:text-base">
+                        <!-- Property Description -->
+                        <div>
+                            <h5
+                                class="text-sm md:text-[15px] lg:text-base font-bold leading-[1.3] text-custom-h mb-[15px]">
+                                <span class="leading-[1.3] md:leading-[1.3] lg:leading-[1.3]">
+                                    Business Description</span>
+                            </h5>
+
+                            <div class="grid grid-cols-1 gap-[30px] mb-[35px]">
+                                <div class="relative">
+                                    <input type="text" placeholder="*Title (mandatory)" required name="title"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <!-- message -->
+                                <div class="relative">
+                                    <textarea placeholder="Description" name="description"
+                                        class="min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm"></textarea>
+                                    <span class="absolute top-[30px] -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Property Price -->
+                        <div>
+                            <h5
+                                class="text-sm md:text-[15px] lg:text-base font-bold leading-[1.3] text-custom-h mb-[15px]">
+                                <span class="leading-[1.3] md:leading-[1.3] lg:leading-[1.3]">
+                                    Property Price</span>
+                            </h5>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-[30px] mb-[35px]">
+                                <div class="relative">
+                                    <input type="text" placeholder="Price in $ (only numbers)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+
+                                <div class="relative">
+                                    <input type="text" placeholder="After Price Label (ex: /month)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+
+                                <div class="relative">
+                                    <input type="text" placeholder="Before Price Label (ex: from)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+
+                                <div class="relative">
+                                    <input type="text" placeholder="Yearly Tax Rate"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+
+                                <div class="relative">
+                                    <input type="text" placeholder="*Homeowners Association Fee(monthly)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Select Categories -->
+                        <div>
+                            <h5
+                                class="text-sm md:text-[15px] lg:text-base font-bold leading-[1.3] text-custom-h mb-[15px]">
+                                <span class="leading-[1.3] md:leading-[1.3] lg:leading-[1.3]">
+                                    Select Categories</span>
+                            </h5>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[30px] mb-[35px]">
+                                <div class="relative block">
+                                    <select class="selectize">
+                                        <option>None</option>
+                                        <option>Apartments</option>
+                                        <option>Condos</option>
+                                        <option>Duplexes</option>
+                                        <option>Houses</option>
+                                        <option>Industrial</option>
+                                        <option>Land</option>
+                                        <option>Offices</option>
+                                        <option>Retail</option>
+                                        <option>Villas</option>
+                                    </select>
+                                </div>
+                                <div class="relative block">
+                                    <select class="selectize">
+                                        <option>None</option>
+                                        <option>Rentals</option>
+                                        <option>Sales</option>
+                                    </select>
+                                </div>
+                                <div class="relative block">
+                                    <select class="selectize">
+                                        <option>no status</option>
+                                        <option>Active</option>
+                                        <option>hot offer</option>
+                                        <option>new offer</option>
+                                        <option>open house</option>
+                                        <option>sold</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- submit -->
+                        <div class="flex gap-5 justify-start">
+                            <h5
+                                class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                                <span
+                                    class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                <a href="#"
+                                    class="relative z-1 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                    Next Step
+                                </a>
+                            </h5>
+                        </div>
+                    </form>
+                </div>
+                <!-- content 2 -->
+                <div class="hidden opacity-0 transition-all duration-300">
+                    <form class="form-primary add-property-form bg-white text-sm lg:text-base">
+                        <!-- Listing Media -->
+                        <div>
+                            <h5
+                                class="text-sm md:text-[15px] lg:text-base font-bold leading-[1.3] text-custom-h mb-[15px]">
+                                <span class="leading-[1.3] md:leading-[1.3] lg:leading-[1.3]">
+                                    Listing Media</span>
+                            </h5>
+                            <div class="mb-[30px]">
+                                <div class="mb-[10px]">
+                                    <input type="file"
+                                        class="w-[426px] max-w-full border-2 border-[#e4ecf2] px-5 md:px-[25px] lg:px-10 py-2 md:py-[10px] lg:py-[15px] transition-all duration-300 hover:bg-custom-primary hover:border-custom-primary hover:text-white cursor-pointer">
+                                </div>
+                                <p class="p-5 mb-5 lg:mb-6 text-sm space-y-1">
+                                    <span class="block leading-1.8 lg:leading-1.8">* At least 1 image is required for a
+                                        valid
+                                        submission.Minimum size is 500/500px.
+                                    </span>
+                                    <span class="block leading-1.8 lg:leading-1.8">
+                                        * PDF files upload supported as well.
+                                    </span>
+                                    <span class="block leading-1.8 lg:leading-1.8">
+                                        * Images might take longer to be processed.
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Video Option -->
+                        <div>
+                            <h5
+                                class="text-sm md:text-[15px] lg:text-base font-bold leading-[1.3] text-custom-h mb-[15px]">
+                                <span class="leading-[1.3] md:leading-[1.3] lg:leading-[1.3]">
+                                    Video Option</span>
+                            </h5>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-[30px] mb-[35px]">
+                                <div class="relative block">
+                                    <select class="selectize">
+                                        <option>Video from</option>
+                                        <option>vimeo</option>
+                                        <option>youtube</option>
+                                    </select>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Embed Video ID"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Virtual Tour -->
+                        <div>
+                            <h5
+                                class="text-sm md:text-[15px] lg:text-base font-bold leading-[1.3] text-custom-h mb-[15px]">
+                                <span class="leading-[1.3] md:leading-[1.3] lg:leading-[1.3]">
+                                    Virtual Tour</span>
+                            </h5>
+
+                            <div class="grid grid-cols-1 gap-[30px] mb-[35px]">
+                                <!-- message -->
+                                <div class="relative">
+                                    <textarea placeholder="Virtual Tour:"
+                                        class="min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm"></textarea>
+                                    <span class="absolute top-[30px] -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- submit -->
+                        <div class="flex gap-5 justify-start">
+                            <h5
+                                class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                                <span
+                                    class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                <a href="#"
+                                    class="relative z-1 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                    Prev Step
+                                </a>
+                            </h5>
+                            <h5
+                                class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                                <span
+                                    class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                <a href="#"
+                                    class="relative z-1 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                    Next Step
+                                </a>
+                            </h5>
+                        </div>
+                    </form>
+                </div>
+                <!-- content 3 -->
+                <div class="hidden opacity-0 transition-all duration-300">
+                    <form class="form-primary add-property-form bg-white text-sm lg:text-base">
+                        <!-- Listing Location -->
+                        <div>
+                            <h5
+                                class="text-sm md:text-[15px] lg:text-base font-bold leading-[1.3] text-custom-h mb-[15px]">
+                                <span class="leading-[1.3] md:leading-[1.3] lg:leading-[1.3]">
+                                    Listing Location</span>
+                            </h5>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-[30px] mb-[30px]">
+                                <div class="relative">
+                                    <input type="text" placeholder="*Address"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Country"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="County / State"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="City"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Neighborhood"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Zip"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- map -->
+                        <div>
+                            <div class="mb-[60px] h-[360px]">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9334.271551495209!2d-73.97198251485975!3d40.668170674982946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25b0456b5a2e7%3A0x68bdf865dda0b669!2sBrooklyn%20Botanic%20Garden%20Shop!5e0!3m2!1sen!2sbd!4v1590597267201!5m2!1sen!2sbd"
+                                    style="height: 100%;width: 100%;border:0px;" allowfullscreen="" aria-hidden="false"
+                                    tabindex="0"></iframe>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-[30px] mb-[35px]">
+                                <div class="relative">
+                                    <input type="text" placeholder="Latitude (for Google Maps)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Longitude (for Google Maps)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <label for="dishwasher-type"
+                                        class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                            type="checkbox" id="dishwasher-type" class="hidden">
+                                        <span
+                                            class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                        Enable Google Street View
+                                    </label>
+                                </div>
+
+                                <div class="relative">
+                                    <input type="text"
+                                        placeholder="Google Street View - Camera Angle (value from 0 to 360)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- submit -->
+                        <div class="flex gap-5 justify-start">
+                            <h5
+                                class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                                <span
+                                    class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                <a href="#"
+                                    class="relative z-1 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                    Prev Step
+                                </a>
+                            </h5>
+                            <h5
+                                class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                                <span
+                                    class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                <a href="#"
+                                    class="relative z-1 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                    Next Step
+                                </a>
+                            </h5>
+                        </div>
+                    </form>
+                </div>
+                <!-- content 4 -->
+                <div class="hidden opacity-0 transition-all duration-300">
+                    <form class="form-primary add-property-form bg-white text-sm lg:text-base">
+                        <!-- Listing Details -->
+                        <div>
+                            <h5
+                                class="text-sm md:text-[15px] lg:text-base font-bold leading-[1.3] text-custom-h mb-[15px]">
+                                <span class="leading-[1.3] md:leading-[1.3] lg:leading-[1.3]">
+                                    Listing Details</span>
+                            </h5>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-[30px] mb-[30px]">
+                                <div class="relative">
+                                    <input type="text" placeholder="Size in ft2 (*only numbers)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Lot Size in ft2 (*only numbers)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Rooms (*only numbers)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Bedrooms (*only numbers)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Bathrooms (*only numbers)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Custom ID (*text)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Garages (*text)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Year Built (*numeric)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Garage Size (*text)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Available from (*date)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Basement (*text)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Extra Details (*text)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Roofing (*text)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Exterior Material (*text)"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+
+                                <div class="relative">
+                                    <select class="selectize">
+                                        <option>Structure Type</option>
+                                        <option>Not Available</option>
+                                        <option>Brick</option>
+                                        <option>Wood</option>
+                                        <option>Cement</option>
+                                    </select>
+                                </div>
+                                <div class="relative">
+                                    <select class="selectize">
+                                        <option>Floors No</option>
+                                        <option>Not Available</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+
+                                <div class="md:col-start-1 md:col-span-2">
+                                    <div class="relative">
+                                        <textarea placeholder="Owner/Agent notes (*not visible on front end)"
+                                            class="min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm"></textarea>
+                                        <span class="absolute top-[30px] -translate-y-1/2 right-4">
+                                            <i
+                                                class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Select Energy Class -->
+                        <div>
+                            <h5
+                                class="text-sm md:text-[15px] lg:text-base font-bold leading-[1.3] text-custom-h mb-[15px]">
+                                <span class="leading-[1.3] md:leading-[1.3] lg:leading-[1.3]">
+                                    Select Energy Class</span>
+                            </h5>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-[30px] mb-[35px]">
+                                <div class="relative">
+                                    <select class="selectize">
+                                        <option>Select Energy Class (EU regulation)</option>
+                                        <option>A+</option>
+                                        <option>A</option>
+                                        <option>B</option>
+                                        <option>C</option>
+                                        <option>D</option>
+                                        <option>E</option>
+                                    </select>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" placeholder="Energy Index in kWh/m2a"
+                                        class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                                        <i
+                                            class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- submit -->
+                        <div class="flex gap-5 justify-start">
+                            <h5
+                                class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                                <span
+                                    class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                <a href="#"
+                                    class="relative z-1 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                    Prev Step
+                                </a>
+                            </h5>
+                            <h5
+                                class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                                <span
+                                    class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                <a href="#"
+                                    class="relative z-1 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                    Next Step
+                                </a>
+                            </h5>
+                        </div>
+                    </form>
+                </div>
+                <!-- content 5 -->
+                <div class="hidden opacity-0 transition-all duration-300">
+                    >
+                    <form class="form-primary add-property-form bg-white text-sm lg:text-base">
+                        <!-- Amenities and Features -->
+                        <div>
+                            <h4
+                                class="text-sm md:text-[15px] lg:text-base font-bold leading-[1.3] text-custom-h mb-[15px]">
+                                <span class="leading-[1.3] md:leading-[1.3] lg:leading-[1.3]">
+                                    Amenities and Features</span>
+                            </h4>
+                            <!-- Interior Details -->
+                            <div>
+                                <h5
+                                    class="text-sm md:text-[15px] lg:text-base font-bold leading-[1.3] text-custom-h mb-[15px]">
+                                    <span class="leading-[1.3] md:leading-[1.3] lg:leading-[1.3]">
+                                        Interior Details</span>
+                                </h5>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[30px] gap-y-1 mb-[35px]">
+                                    <div class="relative">
+                                        <label for="equipped-kitchen-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="equipped-kitchen-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Equipped Kitchen
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="gym-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="gym-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Gym
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="laundry-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="laundry-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Laundry
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="media-room-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="media-room-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Media Room
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Outdoor Details -->
+                            <div>
+                                <h5
+                                    class="text-sm md:text-[15px] lg:text-base font-bold leading-[1.3] text-custom-h mb-[15px]">
+                                    <span class="leading-[1.3] md:leading-[1.3] lg:leading-[1.3]">
+                                        Outdoor Details</span>
+                                </h5>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[30px] gap-y-1 mb-[35px]">
+                                    <div class="relative">
+                                        <label for="back-yard-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="back-yard-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Back yard
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="basketball-court-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="basketball-court-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Basketball court
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="Front-yard-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="Front-yard-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Front yard
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="Garage-Attached-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="Garage-Attached-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Garage Attached
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="Hot-Bath-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="Hot-Bath-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Hot Bath
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="Pool-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="Pool-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Pool
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Utilities -->
+                            <div>
+                                <h5
+                                    class="text-sm md:text-[15px] lg:text-base font-bold leading-[1.3] text-custom-h mb-[15px]">
+                                    <span class="leading-[1.3] md:leading-[1.3] lg:leading-[1.3]">
+                                        Utilities</span>
+                                </h5>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[30px] gap-y-1 mb-[35px]">
+                                    <div class="relative">
+                                        <label for="Central-Air-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="Central-Air-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Central Air
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="Electricity-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="Electricity-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Electricity
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="Heating-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="Heating-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Heating
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="Natural-Gas-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="Natural-Gas-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Natural Gas
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="Ventilation-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="Ventilation-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Ventilation
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="Water-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="Water-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Water
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Other Features -->
+                            <div>
+                                <h5
+                                    class="text-sm md:text-[15px] lg:text-base font-bold leading-[1.3] text-custom-h mb-[15px]">
+                                    <span class="leading-[1.3] md:leading-[1.3] lg:leading-[1.3]">
+                                        Other Features</span>
+                                </h5>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[30px] gap-y-1 mb-[35px]">
+                                    <div class="relative">
+                                        <label for="Chair-Accessible-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="Chair-Accessible-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Chair Accessible
+                                        </label>
+                                    </div>
+                                    <div class="relative">
+                                        <label for="Elevator-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="Elevator-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Elevator
+                                        </label>
+                                    </div>
+                                    <div class="relative">
+                                        <label for="Fireplace-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="Fireplace-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Fireplace
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="Smoke-detectors-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="Smoke-detectors-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Smoke detectors
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="Washer-and-dryer-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="Washer-and-dryer-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            Washer and dryer
+                                        </label>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="WiFi-type"
+                                            class="checkbox-item leading-1.8 group flex items-center cursor-pointer"><input
+                                                type="checkbox" id="WiFi-type" class="hidden">
+                                            <span
+                                                class="checkmark w-4 h-4 bg-white group-hover:bg-custom-primary border border-[#e5eaee]6 transition-all duration-300 relative z-0 after:absolute after:left-1 after:top-0 after:w-[5px] after:h-[10px] after:rotate-[45deg] after:border after:border-t-0 after:opacity-0 after:border-l-0 after:border-white mr-[15px] inline-block leading-1 active"></span>
+                                            WiFi
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- submit -->
+                        <div class="flex gap-5 justify-start">
+                            <h5
+                                class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                                <span
+                                    class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                <a href="#"
+                                    class="relative z-1 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                    Prev Step
+                                </a>
+                            </h5>
+
+                            <h5
+                                class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                                <span
+                                    class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                <button type="submit"
+                                    class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                    Submit listing
+                                </button>
+                            </h5>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+{% block js %}
+<!-- <script>
+    window.onload = () => {
+        const background_image_picker = document.querySelector("#id_background_image")
+        const pick_background_image = document.querySelector("#pick_background_image")
+        const no_background_image = document.querySelector("#no_background_image");
+        const logo_picker = document.querySelector("#id_logo")
+        const pick_logo = document.querySelector("#pick_logo")
+        const no_logo = document.querySelector("#no_logo");
+        const img_container_1 = document.querySelector("#img_container_1")
+        const img_1 = document.querySelector("#img_1")
+        const img_container_2 = document.querySelector("#img_container_2")
+        const img_2 = document.querySelector("#img_2")
+        const checkboxes = document.querySelectorAll(".checkboxes")
+
+        if (img_container_1.getAttribute("data-background-image")) {
+
+            img_container_1.innerHTML = '';
+            img_container_1.innerHTML += `
+                    <img
+                        src="${img_container_1.getAttribute("data-background-image")}"
+                        alt="{{request.user.first_name}}"
+                        class="w-full h-full object-cover"
+                        id="img_1"
+                    />
+                `
+        }
+        pick_background_image.addEventListener('click', () => {
+            background_image_picker.click()
+        })
+
+        background_image_picker.onchange = ({target}) => {
+
+            var file = target.files[0]
+
+            if (file) {
+                // console.log(no_background_image)
+                if (no_background_image) {
+
+                    img_container_1.innerHTML = '';
+                    img_container_1.innerHTML += `
+                    <img
+                        src="${window.URL.createObjectURL(file)}"
+                        alt="{{request.user.first_name}}"
+                        class="w-full h-full object-cover"
+                        id="img_1"
+                    />
+                `
+                } else {
+                    img_1.src = window.URL.createObjectURL(file)
+                }
+
+            } else {
+                alert("no file selected")
+            }
+
+        };
+
+        if (img_container_2.getAttribute("data-logo")) {
+
+            img_container_2.removeChild(no_logo);
+            img_container_2.innerHTML += `
+                    <img
+                        src="${img_container_1.getAttribute("data-logo")}"
+                        alt="{{request.user.first_name}}"
+                        class="w-full h-full object-cover"
+                        id="img_2"
+                    />
+                `
+        }
+        pick_logo.addEventListener('click', () => {
+            logo_picker.click()
+        })
+
+        logo_picker.onchange = ({target}) => {
+
+            var file = target.files[0]
+            if (file) {
+                // console.log(no_background_image)
+                if (no_logo) {
+
+                    img_container_2.removeChild(no_logo);
+                    img_container_2.innerHTML += `
+                    <img
+                        src="${window.URL.createObjectURL(file)}"
+                        alt="{{request.user.first_name}}"
+                        class="w-full h-full object-cover"
+                        id="img_2"
+                    />
+                `
+                } else {
+                    img_2.src = window.URL.createObjectURL(file)
+                }
+
+            } else {
+                alert("no file selected")
+            }
+
+        };
+
+
+        // Monitor change in check boxes
+        checkboxes.forEach(element => {
+            element.addEventListener("change", function (e) {
+                let target_element = e.target
+                const container = document.querySelector(`#${target_element.getAttribute("data-container")}`)
+                if (target_element.value === "on") {
+                    target_element.value = "off"
+                    container.classList.add("pointer-events-none")
+                } else {
+                    target_element.value = "on"
+                    container.classList.remove("pointer-events-none")
+                }
+
+            })
+        });
+    }
+</script> -->
+<script>
+    // handle current tablink style
+    
+
+        const handleCurrentTabLinkStyle = (tabLinks, currentIndex) => {
+            tabLinks.forEach((tabLink, idx) => {
+                const currentTabLink = tabLinks[currentIndex];
+                const tabLinkClasses = tabLink.classList;
+                const currentTabLinkClasses = currentTabLink.classList;
+                const spanClasses = tabLink.querySelector("span")?.classList;
+
+                const currentSpanClasses = currentTabLink.querySelector("span")?.classList;
+
+                if (spanClasses) {
+                    // button default style
+                    tabLinkClasses.remove("bg-white", "shadow-bottom", "active");
+                    tabLinkClasses.add(
+                        "bg-lightGrey7",
+                        "dark:bg-lightGrey7-dark",
+                        "inActive"
+                    );
+                    spanClasses.replace("w-full", "w-0");
+                    tabLink.disabled = false;
+                    // current button style
+                    if (currentIndex === idx) {
+                        currentTabLink.disabled = true;
+                        currentTabLinkClasses.remove(
+                            "bg-lightGrey7",
+                            "dark:bg-lightGrey7-dark",
+                            "inActive"
+                        );
+                        currentTabLinkClasses.add(
+                            "bg-white",
+                            "dark:bg-whiteColor-dark",
+                            "shadow-bottom",
+                            "active"
+                        );
+                        currentSpanClasses.replace("w-0", "w-full");
+                    }
+                } else {
+                    tabLinkClasses.remove("before:w-full", "active");
+                    if (currentIndex === idx) {
+                        tabLinkClasses.add("before:w-full", "active");
+                    }
+                }
+            });
+        };
+
+        // handle tab content
+        const handleTabContents = (tab, currentIndex) => {
+            const nodeListOftabContents = tab.querySelector(".tab-contents").children;
+            const tabContents = [...nodeListOftabContents];
+            const currentTabContentClasses = tabContents[currentIndex].classList;
+            tabContents.forEach((tabContent, idx) => {
+                const tabContentClasses = tabContent.classList;
+
+                // tab contents default style
+                tabContentClasses.remove("block");
+                tabContentClasses.add("hidden");
+
+                if (currentIndex === idx) {
+                    currentTabContentClasses.add("block", "opacity-0");
+                    currentTabContentClasses.remove("hidden", "opacity-100");
+
+                    // add accordion style
+                    const accordion = tab.querySelector(".accordion.active");
+                    if (accordion) {
+                        const contents = accordion.querySelector(".accordion-content");
+                        const contentHeight = contents.children[idx]?.offsetHeight;
+                        if (contentHeight) {
+                            contents.style.height = `${contentHeight}px`;
+                        }
+                    }
+                    setTimeout(() => {
+                        currentTabContentClasses.remove("opacity-0");
+                        currentTabContentClasses.add("opacity-100");
+                    }, 150);
+                }
+            });
+        };
+
+        // get tab links and listen link events
+        const handleTabLinks = (tab) => {
+            const nodeListOfTabLinks = tab.querySelector(".tab-links").children;
+            const tabLinks = [...nodeListOfTabLinks];
+
+            tabLinks.forEach((tabLink, idx) => {
+                tabLink.addEventListener("click", () => {
+                    handleCurrentTabLinkStyle(tabLinks, idx);
+                    handleTabContents(tab, idx);
+                });
+            });
+        };
+
+        // main tab controller
+        const tabsController = () => {
+            const nodeListOfTabs = document.querySelectorAll(".tab");
+            const tabs = [...nodeListOfTabs];
+            tabs.forEach((tab) => handleTabLinks(tab));
+        };
+
+        const nice_checkbox = () => {
+                const allChecboxItems = document.querySelectorAll(".checkbox-item");
+
+                if (allChecboxItems?.length) {
+                    allChecboxItems.forEach((checkboxItem, idx) => {
+                        const checkbox = checkboxItem.querySelector("input[type='checkbox']");
+
+                        if (checkbox) {
+                            const checkmark = checkbox
+                                .closest(".checkbox-item")
+                                .querySelector(".checkmark");
+
+                            if (checkbox.checked) {
+                                checkmark.classList.add("active");
+                            } else {
+                                checkmark.classList.remove("active");
+                            }
+                            checkbox.addEventListener("change", function () {
+                                const value = this.checked;
+                                const checkmark =
+                                    this.closest(".checkbox-item").querySelector(".checkmark");
+                                if (value) {
+                                    checkmark.classList.add("active");
+                                } else {
+                                    checkmark.classList.remove("active");
+                                }
+                            });
+                        }
+                    });
+                }
+            };
+
+        tabsController()
+        nice_checkbox()
+</script>
+{% endblock js %}

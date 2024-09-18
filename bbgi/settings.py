@@ -84,6 +84,7 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     "markets",
     'payments.apps.PaymentsConfig',
+    'coupons',
     
     'tailwind',
     'theme',

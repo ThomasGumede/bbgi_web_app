@@ -78,7 +78,7 @@
                                         </h6>
                                     </div>
                                     <div class=" rounded-md w-fit">
-                                        <input value="{{request.user.email}}" class="block p-3 md:text-base w-full text-sm text-custom-h outline-none placeholder:text-gray-400 bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-custom-primary ease-linear transition-all duration-150" type="email" name="{{order_form.email.html_name}}" id="{{order_form.email.id_for_label}}">
+                                        <input value="{{request.user.email}}" required class="block p-3 md:text-base w-full text-sm text-custom-h outline-none placeholder:text-gray-400 bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-custom-primary ease-linear transition-all duration-150" type="email" name="{{order_form.email.html_name}}" id="{{order_form.email.id_for_label}}">
                                     </div>
                                 </div>
                                 
@@ -120,25 +120,32 @@
                         </div>
                     </div>
                     
-                    <div class="bg-white w-full space-y-3 mt-6 rounded">
-
+                    <div class="bg-white w-full mb-4 pb-10 space-y-3 mt-6 rounded">
                         <div class="flex flex-wrap items-center justify-between gap-4 mt-6 ">
-                            <a href="{% url 'events:event-details' event.slug %}"
-                                class="w-36 lg:w-40 h-12 border-2 border-custom-h bg-custom-h hover:bg-white hover:text-custom-h text-white font-medium text-sm focus-within:outline-none focus:outline-none lg:text-base duration-500 rounded-md">
-                                Go back
+                            <a href="{% url 'events:event-details' event.slug %}">
+                                <h5
+                                    class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                                    <span
+                                        class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                    <div 
+                                        class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                        <p>Cancel order</p>
+                                    </div>
+                                </h5>
                             </a>
                             <div>
-
-                                <button type="submit" value="submit" id="submit_form"
-                                    class="w-36 lg:w-40 h-12 border-2 border-custom-h bg-custom-h hover:bg-white hover:text-custom-h text-white font-medium text-sm focus-within:outline-none focus:outline-none lg:text-base duration-500 rounded-md">
-                                    Reserve tickets
-                                </button>
+                                <h5
+                                    class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-h hover:border-custom-primary inline-block z-0">
+                                    <span
+                                        class="inline-block absolute top-0 left-0 w-full h-full bg-custom-h group-hover:bg-custom-primary -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                    <button type="submit"
+                                        class="relative z-1 px-5 font-sans md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                        Reserve Ticket(s)
+                                    </button>
+                                </h5>
                             </div>
-
                         </div>
-                    </div>
-                    
-                    
+                    </div>   
                 </form>
             </div>
         </div>

@@ -7,10 +7,13 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import pre_delete, post_save
-
+import decimal
 from accounts.custom_models.abstracts import AbstractCreate, AbstractPayment, AbstractProfile
 from accounts.custom_models.choices import TITLE_CHOICES, WALLET_STATUS, PaymentStatus
 from accounts.utilities.file_handlers import handle_profile_upload
+from accounts.utilities.validators import verify_rsa_phone
+
+PHONE_VALIDATOR = verify_rsa_phone()
 
 class WalletModel(AbstractCreate):
     name = models.CharField(max_length=250)
@@ -35,8 +38,10 @@ class WalletModel(AbstractCreate):
 
 class AboutCompany(AbstractCreate, AbstractProfile):
     title = models.CharField(max_length=300, null=True, blank=True, unique=True)
+    slogan = models.CharField(max_length=300, null=True, blank=True, unique=True)
     slug = models.SlugField(max_length=300, default="about-bbgi-model", unique=True)
     email = models.EmailField(null=True, blank=True)
+    small_description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -86,11 +91,39 @@ class SubscriptionOrder(AbstractCreate, AbstractPayment):
     package = models.ForeignKey(SubscriptionPackage, null=True, blank=True, on_delete=models.SET_NULL, related_name="subscription_orders")
     subscriber = models.OneToOneField(Account, null=True, blank=True, on_delete=models.SET_NULL, related_name="subscription_order")
     order_id = models.CharField(max_length=150, editable=False, unique=True)
+
+    client_first_name = models.CharField(max_length=250, null=True, blank=True)
+    client_last_name = models.CharField(max_length=250, null=True, blank=True)
+    client_phone = models.CharField(max_length=15, validators=[PHONE_VALIDATOR], null=True, blank=True)
+    client_email = models.EmailField(null=True, blank=True)
+
+    client_address_one = models.CharField(max_length=300, blank=True, null=True)
+    client_address_two = models.CharField(max_length=300, blank=True, null=True)
+    client_city = models.CharField(max_length=300, blank=True, null=True)
+    client_province = models.CharField(max_length=300, blank=True, null=True)
+    client_country = models.CharField(max_length=300, default="South Africa")
+    client_zipcode = models.BigIntegerField(blank=True, null=True)
+
     vat = models.DecimalField(max_digits=1000, decimal_places=2)
     total_amount = models.DecimalField(max_digits=1000, decimal_places=2)
+    discount = models.DecimalField(max_digits=1000, decimal_places=2, default=0.00)
     checkout_id = models.CharField(max_length=200, unique=True, null=True, blank=True, db_index=True)
     payment_status = models.CharField(max_length=40, choices=PaymentStatus.choices, default=PaymentStatus.NOT_PAID)
+
+    def calculate_total_price(self):
+        initial_amount = self.package.amount
+        discount_amount = decimal.Decimal(initial_amount * decimal.Decimal((self.discount / 100)))
+        discounted_amount = initial_amount - discount_amount
+        self.total_amount = discounted_amount
+        self.vat = decimal.Decimal(discounted_amount * decimal.Decimal((14/100)))
+
+        return self.total_amount
     
+    def save(self, *args, **kwargs):
+        if not self.order_id:
+            self.order_id = f"BBGIS{timezone.now().strftime('%Y%m%dH%M%S')}{self.subscriber.id}"
+        self.calculate_total_price()
+        super(SubscriptionOrder, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = _("Subscription Order")

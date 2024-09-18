@@ -2,6 +2,7 @@ from payments.utilities.yoco_func import headers
 import requests, logging, json
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from coupons.models import Coupon
 from events.models import TicketOrderModel
 from campaigns.utils import PaymentStatus
 from payments.models import PaymentInformation
@@ -15,10 +16,17 @@ from payments.utilities.yoco_func import decimal_to_str
 
 logger = logging.getLogger("payments")
 
-@login_required
+def update_coupon(coupon_code) -> None:
+    try:
+        coupon = Coupon.objects.get(code=coupon_code, active=False)
+        coupon.active = True
+        coupon.save(update_fields=["active"])
+    except Coupon.DoesNotExist:
+        pass
+
 def payment(request, ticket_order_id):
-    ticket_orders_queryset = TicketOrderModel.objects.filter(paid = PaymentStatus.NOT_PAID, buyer=request.user)
-    ticket_order = get_object_or_404(ticket_orders_queryset, buyer=request.user, id=ticket_order_id)
+    ticket_orders_queryset = TicketOrderModel.objects.filter(paid = PaymentStatus.NOT_PAID)
+    ticket_order = get_object_or_404(ticket_orders_queryset, id=ticket_order_id)
     
     if request.method == 'POST':
         success_url = request.build_absolute_uri(reverse("payments:ticket-payment-success", kwargs={"ticket_order_id": ticket_order.id}))
@@ -73,7 +81,6 @@ def payment(request, ticket_order_id):
 
     return render(request, "payments/tickets/payment.html", {"ticketorder": ticket_order, "mode": "payment"})
 
-
 def tickets_payment_success(request, ticket_order_id):
     domain = get_current_site(request).domain
     protocol = "https" if request.is_secure() else "http"
@@ -86,6 +93,7 @@ def tickets_payment_success(request, ticket_order_id):
             if updated:
                 payment_information.order_number = ticket_order.order_number
                 payment_information.order_updated = True
+                update_coupon(ticket_order.order_number)
                 payment_information.save(update_fields=["order_number", "order_updated"])
             else:
                check_payment_update_2_ticket_order.apply_async((ticket_order.checkout_id, protocol, domain), countdown=25*60)

@@ -135,6 +135,11 @@ class TicketOrderForm(forms.ModelForm):
         model = TicketOrderModel
         fields = ("accepted_laws", "email", "quantity", "total_price")
 
+class TicketOrderUpdateForm(forms.ModelForm):
+    class Meta:
+        model = TicketOrderModel
+        fields = ("client_first_name", "client_last_name", "client_phone", "client_email", "client_address_one", "client_address_two", "client_city", "client_zipcode", "client_province")
+
 class TicketForm(forms.ModelForm):
     class Meta:
         model = TicketModel

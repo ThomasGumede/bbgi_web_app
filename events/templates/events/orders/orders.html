@@ -102,7 +102,7 @@
                                     <img src="{{order.event.image.url}}" alt="{{order.event.title}}"
                                         class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" />
                                     {% else %}
-                                    <img src="{% static 'images/global/no-image-available.webp' %}"
+                                    <img src="{% static 'imgs/no-image.png' %}"
                                         alt="{{order.event.title}}"
                                         class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" />
                                     {% endif %}
@@ -133,14 +133,14 @@
                             </td>
                             <td class="p-4 border-b border-blue-gray-50">
                                 <div class="flex items-center gap-3">
-                                    <a href="{% url 'accounts:user-details' username=order.buyer.username %}"
+                                    <a href="{% if order.buyer %}{% url 'accounts:user-details' username=order.buyer.username %} {% endif %}"
                                         class="w-12 p-1 border rounded-md h-9 border-blue-gray-50">
                                         {% if order.buyer.profile_image %}
                                         <img src="{{order.buyer.profile_image.url}}"
                                             alt="{{order.buyer.get_full_name}}"
                                             class="relative inline-block h-full w-full !rounded-none  object-contain object-center p-1" />
                                         {% else %}
-                                        <img src="{% static 'images/global/no-image-available.webp' %}"
+                                        <img src="{% static 'imgs/no-image.png' %}"
                                             alt="{{order.buyer.get_full_name}}"
                                             class="relative inline-block h-full w-full !rounded-none  object-contain object-center p-1" />
                                         {% endif %}
@@ -148,12 +148,9 @@
                                     <div class="flex flex-col">
                                         <p
                                             class="block font-sans text-sm antialiased font-normal leading-normal capitalize text-blue-gray-900">
-                                            {{order.buyer.get_full_name}}
+                                            {% if order.buyer %}{{order.buyer.get_full_name}}{% else %}{{order.get_client_full_name}}{% endif %}
                                         </p>
-                                        <p
-                                            class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900 opacity-70">
-                                            {{order.buyer.occupation}}
-                                        </p>
+                                        
                                     </div>
                                 </div>
                             </td>

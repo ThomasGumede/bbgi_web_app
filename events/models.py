@@ -155,11 +155,25 @@ class EventTicketTypeModel(AbstractCreate):
 class TicketOrderModel(AbstractCreate, AbstractPayment):
     order_number = models.CharField(max_length=300, editable=False, unique=True)
     checkout_id = models.CharField(max_length=200, unique=True, null=True, blank=True, db_index=True)
-    email = models.EmailField(null=True, blank=True)
+
+    client_first_name = models.CharField(max_length=250, null=True, blank=True)
+    client_last_name = models.CharField(max_length=250, null=True, blank=True)
+    client_phone = models.CharField(max_length=15, validators=[PHONE_REGEX], null=True, blank=True)
+    client_email = models.EmailField(null=True, blank=True)
+
+    client_address_one = models.CharField(max_length=300, blank=True, null=True)
+    client_address_two = models.CharField(max_length=300, blank=True, null=True)
+    client_city = models.CharField(max_length=300, blank=True, null=True)
+    client_province = models.CharField(max_length=300, blank=True, null=True)
+    client_country = models.CharField(max_length=300, default="South Africa")
+    client_zipcode = models.BigIntegerField(blank=True, null=True)
+
+    email = models.EmailField()
     quantity = models.PositiveBigIntegerField(default=1)
     subtotal = models.DecimalField(max_digits=1000, decimal_places=2, default=0.00)
     total_price = models.DecimalField(max_digits=1000, decimal_places=2)
     total_transaction_costs = models.DecimalField(max_digits=1000, decimal_places=2, default=0.00)
+    discount = models.DecimalField(max_digits=1000, decimal_places=2, default=0.00)
     tip = models.DecimalField(max_digits=1000, decimal_places=2, default=0.00)
     accepted_laws = models.BooleanField(null=False, default=True)
     buyer = models.ForeignKey(get_user_model(), related_name="ticketorders", null=True, blank=True, on_delete=models.SET_NULL)
@@ -188,6 +202,9 @@ class TicketOrderModel(AbstractCreate, AbstractPayment):
     
     def __str__(self) -> str:
         return self.order_number
+
+    def get_client_full_name(self):
+        return f"{self.client_first_name} {self.client_last_name}"
     
     def get_absolute_url(self):
         return reverse("events:order", kwargs={"order_id": self.id, "event_slug": self.event.slug})

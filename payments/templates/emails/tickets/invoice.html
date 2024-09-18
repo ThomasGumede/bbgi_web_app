@@ -172,11 +172,16 @@
     </address>
 
     <address id="to">
-      {{buyer_full_name}}
-      Email: {{order.buyer.email}}
-      phone: {{order.buyer.phone}}
-      {{order.buyer.address_one}}
-      {{order.buyer.city}}, {{order.buyer.zipcode}}, {{order.buyer.province}}, RSA
+      {% if order.buyer %}{{buyer_full_name}}{% else %}{{order.get_client_full_name}}{% endif %}
+      Email: {% if order.buyer %}{{order.buyer.email}}{% else %}{{order.client_email}}{% endif %}
+      phone: {% if order.buyer %}{{order.buyer.phone}}{% else %}{{order.client_phone}}{% endif %}
+      {% if order.buyer %}
+        {{order.buyer.address_one}}
+        {{order.buyer.city}}, {{order.buyer.zipcode}}, {{order.buyer.province}}, RSA
+      {% else %}
+          {{order.client_address_one}}
+          {{order.client_city}}, {{order.client_zipcode}}, {{order.client_province}}, RSA
+      {% endif %}
     </address>
   </aside>
 

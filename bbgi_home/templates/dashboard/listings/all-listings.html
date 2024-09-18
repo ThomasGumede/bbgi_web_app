@@ -95,7 +95,7 @@
                         <tr>
                             <td class="p-4 border-b border-blue-gray-50">
 
-                                <a href="" class="flex items-center gap-3">
+                                <a href="{% url 'listings:get-listing' listing.slug %}" class="flex items-center gap-3">
                                     {% if listing.logo %}
                                     <img src="{{listing.logo.url}}" alt="{{listing.title}}"
                                         class="relative inline-block h-12 w-12 !rounded-full bg-custom-primary object-cover object-center" />

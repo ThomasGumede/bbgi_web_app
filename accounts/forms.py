@@ -1,4 +1,5 @@
 from django import forms
+from accounts.models import SubscriptionOrder
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import (AuthenticationForm,  UserCreationForm)
 
@@ -8,7 +9,6 @@ class UserLoginForm(AuthenticationForm):
     
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username or Email', 'id': 'id_username'}), label="Username or Email*")
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'id': 'id_password'}))
-
 
 class RegistrationForm(UserCreationForm):
     confirm_email = forms.EmailField(help_text="Confirm your email address", required=True, widget=forms.EmailInput(attrs={"class": "w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"}))
@@ -125,5 +125,10 @@ class SocialLinksForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ("facebook", "twitter", "instagram", "linkedIn")
+
+class SubscriptionOrderForm(forms.ModelForm):
+    class Meta:
+        model = SubscriptionOrder
+        fields = ("client_first_name", "client_last_name", "client_phone", "client_email", "client_address_one", "client_address_two", "client_city", "client_zipcode", "client_province")
 
         

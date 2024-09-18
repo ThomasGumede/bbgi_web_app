@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Update Listing
+ Update Listing
 {% endblock title %}
 
 {% block content %}
@@ -15,19 +15,13 @@ Update Listing
                     <a href="{% url 'bbgi_home:team-members' %}"
                         class="font-normal  duration-500 text-white rounded ">Team members</a>
                 </div>
-                <div class="text-custom-h w-fit text-base font-normal px-3 py-2 rounded-md bg-custom-h">
-                    <a href=""
-                        class="font-normal  duration-500 text-white rounded ">Company Address</a>
-                </div>
+                
 
                 <div class="text-custom-h w-fit text-base font-normal px-3 py-2 rounded-md bg-custom-h">
-                    <a href=""
-                        class="font-normal  duration-500 text-white rounded ">Contact Details</a>
+                    <a href="{% url 'accounts:update-company-details' %}"
+                        class="font-normal  duration-500 text-white rounded ">Company Details</a>
                 </div>
-                <div class="text-custom-h w-fit text-base font-normal px-3 py-2 rounded-md bg-custom-h">
-                    <a href=""
-                        class="font-normal  duration-500 text-white rounded ">Social Media</a>
-                </div>
+                
 
             </div>
         </div>

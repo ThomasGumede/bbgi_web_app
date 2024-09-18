@@ -67,10 +67,10 @@
                                                 Yoco checkout
                                             </p>
                                             <p class="text-sm lg:text-base text-gray-500">
-                                                Card
+                                                {{order.payment_method_type}}
                                             </p>
                                             <p class="text-sm lg:text-base text-gray-500">
-                                                ******1234
+                                                {{order.payment_method_masked_card}}
                                             </p>
                                         </div>
                                     {% else %}
@@ -86,20 +86,27 @@
                                     <h6 class="text-base lg:text-lg font-semibold">Billing address</h6>
                                     <div class="relative block">
                                         <p class="text-sm lg:text-base text-gray-500">
-                                            {{order.buyer.address_one}}
+                                            {% if order.buyer %}{{order.buyer.address_one}}{% else %}{{order.client_address_one}}{% endif %}
                                         </p>
                                         <p class="text-sm lg:text-base text-gray-500">
-                                            {{order.buyer.address_two}}
+                                            {% if order.buyer %}{{order.buyer.address_two}}{% else %}{{order.client_address_two}}{% endif %}
                                         </p>
                                         <p class="text-sm lg:text-base text-gray-500">
-                                            {{order.buyer.city}}, {{order.buyer.province}},
-                                            {{order.buyer.zipcode}}
+                                            
+                                            {% if order.buyer %}
+                                                {{order.buyer.city}}, {{order.buyer.province}},
+                                                {{order.buyer.zipcode}}
+                                            {% else %}
+                                                {{order.client_city}}, {{order.client_province}},
+                                                {{order.client_zipcode}}
+                                            {% endif %}
                                         </p>
                                     </div>
                                 </div>
                                 <div class="space-y-4 relative block w-fit">
                                     <h6 class="text-base lg:text-lg font-semibold">Order holder</h6>
                                     <div class="relative block">
+                                        {% if order.buyer %}
                                         <p class="text-sm lg:text-base text-gray-500">
                                             {{order.buyer.get_full_name}}
                                         </p>
@@ -109,6 +116,17 @@
                                         <p class="text-sm lg:text-base text-gray-500">
                                             {{order.buyer.phone}}
                                         </p>
+                                        {% else %}
+                                        <p class="text-sm lg:text-base text-gray-500">
+                                            {{order.get_client_full_name}}
+                                        </p>
+                                        <p class="text-sm lg:text-base text-gray-500">
+                                            {{order.client_email}}
+                                        </p>
+                                        <p class="text-sm lg:text-base text-gray-500">
+                                            {{order.client_phone}}
+                                        </p>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
