@@ -285,13 +285,13 @@
                                                                                 {{order.package.title}}</td>
                                                                             <td width="25%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 1px solid #dddddd; border-right: 1px solid #dddddd; border-bottom: 1px solid #dddddd; border-left: 1px solid #dddddd;">
-                                                                                R{{order.total_amount}}</td>
+                                                                                R{{order.total_amount|floatformat:2}}</td>
                                                                             <td width="25%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 1px solid #dddddd; border-right: 1px solid #dddddd; border-bottom: 1px solid #dddddd; border-left: 1px solid #dddddd;">
                                                                                 1</td>
                                                                             <td width="25%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 1px solid #dddddd; border-right: 1px solid #dddddd; border-bottom: 1px solid #dddddd; border-left: 1px solid #dddddd;">
-                                                                                R{{order.total_amount}}</td>
+                                                                                R{{order.total_amount|floatformat:2}}</td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
@@ -336,7 +336,7 @@
                                                                                 SUBTOTAL (excl. DISC)</th>
                                                                             <th width="50%"
                                                                                 style="padding: 10px; word-break: break-word; font-weight: 700; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
-                                                                                R{{order.package.mount|floatformat:2}}</th>
+                                                                                R{{order.package.amount|floatformat:2}}</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody
@@ -347,7 +347,7 @@
                                                                                 TOTAL (incl. VAT)</td>
                                                                             <td width="50%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
-                                                                                R{{order.package.mount|floatformat:2}}</td>
+                                                                                R{{order.package.amount|floatformat:2}}</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td width="50%"
