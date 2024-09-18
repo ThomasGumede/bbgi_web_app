@@ -333,10 +333,10 @@
                                                                         <tr>
                                                                             <th width="50%"
                                                                                 style="padding: 10px; word-break: break-word; font-weight: 700; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
-                                                                                SUBTOTAL (excl. VAT)</th>
+                                                                                SUBTOTAL (excl. DISC)</th>
                                                                             <th width="50%"
                                                                                 style="padding: 10px; word-break: break-word; font-weight: 700; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
-                                                                                R{{order.total_amount}}</th>
+                                                                                R{{order.package.mount|floatformat:2}}</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody
@@ -344,10 +344,18 @@
                                                                         <tr>
                                                                             <td width="50%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
-                                                                                TOTAL (excl. VAT)</td>
+                                                                                TOTAL (incl. VAT)</td>
                                                                             <td width="50%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
-                                                                                R{{order.total_amount}}</td>
+                                                                                R{{order.package.mount|floatformat:2}}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td width="50%"
+                                                                                style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
+                                                                                DISCOUNT</td>
+                                                                            <td width="50%"
+                                                                                style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
+                                                                                {{order.discount|floatformat:2}}%</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td width="50%"
@@ -355,15 +363,15 @@
                                                                                 VAT</td>
                                                                             <td width="50%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
-                                                                                R{{order.vat}}</td>
+                                                                                R{{order.vat|floatformat:2}}</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td width="50%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
-                                                                                TOTAL (incl. VAT)</td>
+                                                                                TOTAL (incl. DISC)</td>
                                                                             <td width="50%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
-                                                                                R{{order.total_amount}}</td>
+                                                                                R{{order.total_amount|floatformat:2}}</td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
