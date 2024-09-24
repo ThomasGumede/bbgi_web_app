@@ -8,7 +8,7 @@
 <meta name="title" content="{{listing.title}}" />
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/listings/add" />
+<meta property="og:url" content="{% url 'listings:get-listing' listing.slug %}" />
 <meta property="og:title" content="{{listing.title}}" />
 <meta property="og:description" content="{{listing.details|truncatechars:157}}" />
 {% if listing.background_image %}
@@ -18,7 +18,7 @@
 {% endif %}
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/listings/add" />
+<meta property="twitter:url" content="{% url 'listings:get-listing' listing.slug %}" />
 <meta property="twitter:title" content="{{listing.title}}" />
 <meta property="twitter:description" content="{{listing.details|truncatechars:157}}" />
 {% if listing.background_image %}
@@ -80,7 +80,7 @@
                                     <p class="text-xs md:text-base">{{listing.slogan}}</p>
                                     <div class="py-2 space-y-1">
                                         <div class="relative flex items-center">
-                                            <div class="text-sm text-custom-h">
+                                            <div class="text-sm text-custom-primary">
                                                 <i class="fa-solid fa-location-dot fa-lg font-bold"></i>
                                             </div>
                                             <div class="ml-2">
@@ -89,7 +89,7 @@
                                         </div>
                                         <div class="flex items-center w-full space-x-5">
                                             <div class="relative flex items-center">
-                                                <div class="text-sm text-custom-h">
+                                                <div class="text-sm text-custom-primary">
                                                     <i class="fa-regular fa-star fa-lg font-bold"></i>
                                                 </div>
                                                 <div class="ml-2">
@@ -97,7 +97,7 @@
                                                 </div>
                                             </div>
                                             <div class="relative flex items-center">
-                                                <div class="text-sm text-custom-h">
+                                                <div class="text-sm text-custom-primary">
                                                     <i class="fa-regular fa-comments fa-lg font-bold"></i>
                                                 </div>
                                                 <div class="ml-2">

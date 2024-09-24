@@ -1,4 +1,4 @@
-{% extends '_create_business.html' %}
+{% extends '_business_create.html' %}
 {% load static %}
 
 {% block seo_tags %}
@@ -23,7 +23,7 @@
 <meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 {% endblock seo_tags %}
 
-{% block business %}
+{% block businessblock %}
 
 <section class="w-full  font-sans py-10 h-full">
     <div class="">
@@ -94,7 +94,9 @@
                                     {{form.main_address}}
                                     <span
                                         class="text-[11px] text-custom-text block font-normal lowercase">{{form.main_address.help_text}}</span>
-
+                                    {% if form.main_address.errors %}
+                                        <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.main_address.errors.as_text}}</span>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="w-full lg:w-12/12 px-4 h-96" id="gmp-map">
@@ -106,10 +108,28 @@
                     </div>
                     {{form.map_coordinates}}
                 </div>
-                <div class="mt-3">
-                    <div class="text-center inline-block h-12 bg-custom-primary w-[150px] rounded-md cursor-pointer">
-                        <input type="submit" value="submit"
-                            class="text-white w-full h-full cursor-pointer text-sm font-semibold" />
+                <div class="flex flex-wrap items-center justify-between gap-4 mt-6 ">
+                    <a href="{% url 'listings:add-listing-with-slug' listing.slug %}">
+                        <h5
+                            class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                            <span
+                                class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                            <div
+                                class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                <p>Previous step</p>
+                            </div>
+                        </h5>
+                    </a>
+                    <div>
+                        <h5
+                            class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-h hover:border-custom-primary inline-block z-0">
+                            <span
+                                class="inline-block absolute top-0 left-0 w-full h-full bg-custom-h group-hover:bg-custom-primary -z-1 group-hover:w-0 transition-all duration-300"></span>
+                            <button type="submit"
+                                class="relative z-1 px-5 font-sans md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                Save & Proceed
+                            </button>
+                        </h5>
                     </div>
                 </div>
             </form>
@@ -117,7 +137,7 @@
     </div>
 </section>
 
-{% endblock business %}
+{% endblock businessblock %}
 {% block js %}
 <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1vMyd0KzU7mTn_AkMW3zd2V4cJC9w31I&libraries=places&callback=initMap&solution_channel=GMP_QB_addressselection_v1_cAC"

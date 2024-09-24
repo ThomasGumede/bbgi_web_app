@@ -5,7 +5,7 @@
 @layer base {
     
     label {
-        @apply block text-custom-h text-base font-medium capitalize mb-2
+        @apply block text-custom-text text-sm md:text-base font-normal capitalize mb-1
     }
 }
 

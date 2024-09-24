@@ -1,0 +1,288 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/slick.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
+<style>
+    #cta-bg {
+        background-image: url("{% static 'imgs/home.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-blend-mode: overlay;
+    }
+</style>
+{% endblock styles %}
+{% block content %}
+<section class="w-full font-sans relative pt-20 block bg-custom-bg">
+    <div class="relative">
+        
+        <div class="max-w-7xl  mx-auto sm:px-6 lg:px-8">
+            <div class="relative shadow-xl bg-custom-h sm:rounded-2xl sm:overflow-hidden">
+               
+                <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
+                    <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                        <span class="block text-white">List your business with <span class="text-custom-primary">BBGI</span></span>
+                    </h1>
+                    <p class="mt-6 max-w-lg mx-auto text-center text-base text-indigo-200 sm:max-w-3xl">Whether you have a new or already established business, we can help it thrive through the use of our digitally enabled
+                    marketplace, offering you better customer connection, insights and advertising ability.
+                    </p>
+                    <div class="mt-10 w-full overflow-hidden mx-auto sm:flex sm:justify-center relative">
+                        <a href="{% url 'listings:add-listing' %}">
+                            <h5
+                                class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-primary inline-block z-0">
+                                <span
+                                    class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-transparent -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                <div
+                                    class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px] group-hover:text-custom-primary leading-1.5 uppercase">
+                                    <p>Create listing</p>
+                                </div>
+                            </h5>
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="flex flex-col justify-center">
+    <div class="w-full">
+        <div class="container mx-auto my-32 flex flex-col items-center gap-16">
+            <div class="flex flex-col gap-16">
+                <div class="flex flex-col gap-2 text-center">
+                    <h2 class="mb-2  text-3xl font-extrabold leading-tight text-custom-primary lg:text-4xl">
+                        How It works?
+                    </h2>
+                    <p class="text-lg md:text-2xl font-bold leading-7 text-custom-h">
+                        Set up an online store with BBGI in 3 easy steps.
+                    </p>
+                </div>
+            </div>
+            <div
+                class="flex w-full flex-col items-center justify-between gap-4 lg:flex-row">
+                <div class="flex items-start gap-4">
+                    <div
+                        class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-custom-h border-2 transition hover:bg-purple-blue-600 focus:bg-purple-blue-700">
+                        <span class="text-base font-bold leading-7">1</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h3 class="mb-2 text-base md:text-xl font-bold leading-tight text-custom-primary">
+                            Create your Account
+                        </h3>
+                        <p class="text-base font-medium leading-7 text-custom-text">
+                            If you don't already have an account with us, consider <a href="{% url 'accounts:register' %}" class="text-custom-h">creating</a> one or <a href="{% url 'accounts:login' %}" class="text-custom-h">login</a>.
+                        </p>
+                    </div>
+                </div>
+                <div class="rotate-90 lg:rotate-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="43" height="42" viewBox="0 0 43 42" fill="none">
+                        <g clip-path="url(#clip0_3346_6663)">
+                            <path
+                                d="M16.9242 11.7425C16.2417 12.425 16.2417 13.5275 16.9242 14.21L23.7142 21L16.9242 27.79C16.2417 28.4725 16.2417 29.575 16.9242 30.2575C17.6067 30.94 18.7092 30.94 19.3917 30.2575L27.4242 22.225C28.1067 21.5425 28.1067 20.44 27.4242 19.7575L19.3917 11.725C18.7267 11.06 17.6067 11.06 16.9242 11.7425Z"
+                                fill="#68769F" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_3346_6663">
+                                <rect width="42" height="42" fill="white" transform="translate(0.666748)" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div
+                        class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-solid border-custom-h bg-transparent text-custom-h">
+                        <span class="text-base font-bold leading-7">2</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h3 class="mb-2 text-base md:text-xl font-bold leading-tight text-custom-primary">
+                            Add subscription
+                        </h3>
+                        <p class="text-base font-medium leading-7 text-custom-text">
+                            After successfully login, consider subscribing to our <a href="{% url 'accounts:choose-package' %}" class="text-custom-h">Business Listing Premium package</a> for R1000/year.
+                        </p>
+                    </div>
+                </div>
+                <div class="rotate-90 lg:rotate-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="43" height="42" viewBox="0 0 43 42" fill="none">
+                        <g clip-path="url(#clip0_3346_6663)">
+                            <path
+                                d="M16.9242 11.7425C16.2417 12.425 16.2417 13.5275 16.9242 14.21L23.7142 21L16.9242 27.79C16.2417 28.4725 16.2417 29.575 16.9242 30.2575C17.6067 30.94 18.7092 30.94 19.3917 30.2575L27.4242 22.225C28.1067 21.5425 28.1067 20.44 27.4242 19.7575L19.3917 11.725C18.7267 11.06 17.6067 11.06 16.9242 11.7425Z"
+                                fill="#68769F" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_3346_6663">
+                                <rect width="42" height="42" fill="white" transform="translate(0.666748)" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div
+                        class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-solid border-custom-h bg-transparent text-custom-h">
+                        <span class="text-base font-bold leading-7">3</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h3 class="mb-2 text-base md:text-xl font-bold leading-tight text-custom-primary">
+                            Start opening online store
+                        </h3>
+                        <p class="text-base font-medium leading-7 text-custom-text">
+                            Now you can add your business to our website and start selling your products or services
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="w-fit mx-auto">
+                <p class="text-custom-text text-sm">
+                    If you experience a glitch unexpectedly, simply send a screenshot of the trouble you've run into to <a href="emailto:support@bbgi.co.za" class="font-bold text-custom-h">support@bbgi.co.za</a>
+                    and we'll sort it out.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="">
+    <div class="">
+        <div class="w-full flex font-sans justify-center my-32">
+            <div id="cta-bg" class="bg-custom-h relative rounded-2xl -mx-4 p-8 space-y-8 max-w-5xl text-center">
+                <div class="space-y-4">
+                    <h2 class="text-custom-primary font-heading font-bold text-2xl uppercase">
+                        A new era of helping local businesses thrive.
+                    </h2>
+        
+                    <p class="text-xl text-white">
+                        Hurry! And get 50% off on your first subscription when you purchase ticket to our upcoming heritage day event.
+                    </p>
+                </div>
+                <div>
+                    <a href="{% url 'events:events' %}">
+                        <h5
+                            class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-primary inline-block z-0">
+                            <span
+                                class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-transparent -z-1 group-hover:w-0 transition-all duration-300"></span>
+                            <div
+                                class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px] group-hover:text-custom-primary leading-1.5 uppercase">
+                                <p>Check it out</p>
+                            </div>
+                        </h5>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock content %}
+
+{% block js %}
+<script src='{% static "js/swiper-bundle.min.js" %}'></script>
+<script>
+    // import Swiper from '{% static "js/swiper-bundle.min.js" %}'
+
+    const swiper = new Swiper('.swiper-1', {
+        // Optional parameters
+        slidesPerView: 1,
+        spaceBetween: 10,
+        loop: true,
+
+        breakpoints: {
+            // when window width is >= 320px
+            350: {
+                slidesPerView: 2,
+                spaceBetween: 20
+            },
+            750: {
+                slidesPerView: 3,
+                spaceBetween: 20
+            },
+            // when window width is >= 480px
+            1032: {
+                slidesPerView: 4,
+                spaceBetween: 30
+            },
+            // when window width is >= 640px
+            1140: {
+                slidesPerView: 5,
+                spaceBetween: 30
+            }
+        }
+    });
+
+    const swiper_2 = new Swiper('.swiper-2', {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        loop: true,
+        breakpoints: {
+            // when window width is >= 320px
+            750: {
+                slidesPerView: 2
+            },
+            1032: {
+                slidesPerView: 2.5
+            },
+            // when window width is >= 640px
+            1140: {
+                slidesPerView: 3,
+                spaceBetween: 30
+            }
+        }
+    })
+    const swiper_3 = new Swiper('.swiper-3', {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        loop: true,
+        breakpoints: {
+            // when window width is >= 320px
+            750: {
+                slidesPerView: 2
+            },
+            1032: {
+                slidesPerView: 2.5
+            },
+            // when window width is >= 640px
+            1140: {
+                slidesPerView: 3,
+                spaceBetween: 30
+            }
+        }
+    })
+</script>
+
+<script src="{% static 'js/slick.min.js' %}"></script>
+<script>
+    /* Blog Sider */
+    $(".blog-slider").slick({
+        slidesToShow: 4,
+        infinite: true,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        dots: false,
+        prevArrow: false,
+        nextArrow: false,
+        responsive: [
+            {
+                breakpoint: 1400,
+                settings: {
+                    slidesToShow: 3,
+                }
+            },
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1,
+                }
+            }
+        ]
+    });
+</script>
+{% endblock js %}

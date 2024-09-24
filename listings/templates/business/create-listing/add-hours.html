@@ -1,0 +1,472 @@
+{% extends '_business_create.html' %}
+{% load static %}
+
+{% block seo_tags %}
+<title>BBGI - Create Listing</title>
+<meta name="description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
+                            to showcase businesses and expertise">
+<meta name="title" content="BBGI - Create Listing" />
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://bbgi.co.za/listings/add" />
+<meta property="og:title" content="BBGI - Create Listing" />
+<meta property="og:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
+                            to showcase businesses and expertise" />
+<meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://bbgi.co.za/listings/add" />
+<meta property="twitter:title" content="BBGI - Create Listing" />
+<meta property="twitter:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
+                            to showcase businesses and expertise" />
+<meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+{% endblock seo_tags %}
+
+{% block businessblock %}
+
+<section class="w-full  font-sans py-10 h-full bg-white">
+    <div class="">
+
+        <div class="px-4">
+            {% if forms.errors or form.errors %}
+            <div class="w-full mx-auto">
+                <div class="bg-red-50 border-l-8 border-red-900">
+                    <div class="flex items-center">
+                        <div class="p-2">
+                            <div class="flex items-center">
+                                <div class="ml-2">
+                                    <svg class="h-8 w-8 text-red-900 mr-2 cursor-pointer"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <p class="px-6 py-4 text-red-900 font-semibold text-lg">Please fix the
+                                    following
+                                    errors.</p>
+                            </div>
+
+                            <ul class="px-16 mb-4">
+                                {% if forms.non_field_errors %}
+                                <li class="text-md font-bold p-1 list-none text-red-500 text-sm">
+                                    {{forms.non_field_errors.as_text}}
+                                </li>
+                                {% endif %}
+                                {% if form.non_field_errors %}
+                                <li class="text-md font-bold p-1 list-none text-red-500 text-sm">
+                                    {{form.non_field_errors}}</li>
+                                {% endif %}
+
+                                {% for key, value in form.errors.items %}
+                                <li
+                                    class="text-md font-bold p-1 list-none text-red-500 text-sm flex items-center gap-4">
+                                    {{key|escape}}: {{value|escape}}</li>
+                                {% endfor %}
+
+                                {% for form2 in forms %}
+                                {% for field in form2 %}
+                                {% for err in field.errors %}
+                                <li
+                                    class="text-md font-bold p-1 list-none text-red-500 text-sm flex items-center gap-4">
+                                    {{field.label}}:
+                                    {{err}}</li>
+                                {% endfor%}
+                                {% for err in field.non_field_errors %}
+                                <li
+                                    class="text-md font-bold p-1 list-none text-red-500 text-sm flex items-center gap-4">
+                                    {{err}}</li>
+                                {% endfor%}
+                                {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="grid items-start gap-7">
+                    <div class="w-full p-4 border border-solid  rounded-lg relative">
+                        <h6 class="text-custom-h text-base mt-3 mb-6 font-bold uppercase">
+                            Operating Hours
+                        </h6>
+                        <div class="space-y-2">
+                            <input type="hidden" name="form-TOTAL_FORMS" value="7" id="id_form-TOTAL_FORMS">
+                            <input type="hidden" name="form-INITIAL_FORMS" value="0" id="id_form-INITIAL_FORMS">
+                            <input type="hidden" name="form-MIN_NUM_FORMS" value="0" id="id_form-MIN_NUM_FORMS">
+                            <input type="hidden" name="form-MAX_NUM_FORMS" value="6" id="id_form-MAX_NUM_FORMS">
+                            <div class="relative space-y-5">
+                                <div
+                                    class="grid md:flex items-center w-fit md:w-full  border border-solid justify-between gap-4 bg-white p-2">
+                                    <div>
+                                        <input id="id_form-0-day" type="text" name="form-0-day" value="MO"
+                                            class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
+                                        <p class="text-xl font-normal text-custom-h">Monday</p>
+                                    </div>
+                                    <div class="space-y-1 flex gap-4 md:gap-7 items-center flex-wrap">
+                                        <label for="id_form-0-operating"
+                                            class="inline-flex gap-4 items-center cursor-pointer">
+                                            <span
+                                                class=" text-sm font-medium text-gray-900 dark:text-gray-300">Closed</span>
+                                            <input type="checkbox" data-container="monday_container"
+                                                id="id_form-0-operating" name="form-0-operating"
+                                                class="sr-only peer checkboxes" checked>
+                                            <div
+                                                class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                            </div>
+                                            <span
+                                                class=" text-sm font-medium text-gray-900 dark:text-gray-300">Open</span>
+                                        </label>
+                                        <div id="monday_container" class="max-w-[16rem] grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label for="id_form-0-open_time" class="text-xs">Open time:</label>
+                                                <div class="relative">
+
+                                                    <input type="time" id="id_form-0-open_time" name="form-0-open_time"
+                                                        class="bg-gray-50 border leading-none outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
+                                                        value="00:00" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="id_form-0-close_time" class="text-xs">Close time:</label>
+                                                <div class="relative">
+
+                                                    <input type="time" id="id_form-0-close_time"
+                                                        name="form-0-close_time"
+                                                        class="bg-gray-50 border outline-none leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
+                                                        value="00:00" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="grid md:flex items-center w-fit md:w-full  border border-solid justify-between gap-4 bg-white p-2">
+                                    <div>
+                                        <input id="id_form-1-day" type="text" name="form-1-day" value="TU"
+                                            class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
+                                        <p class="text-xl font-normal text-custom-h">Tuesday</p>
+                                    </div>
+                                    <div class="space-y-1 flex gap-4 md:gap-7 items-center flex-wrap">
+                                        <label for="id_form-1-operating"
+                                            class="inline-flex gap-4 items-center cursor-pointer">
+                                            <span
+                                                class=" text-sm font-medium text-gray-900 dark:text-gray-300">Closed</span>
+                                            <input data-container="tuesday_container" type="checkbox"
+                                                id="id_form-1-operating" name="form-1-operating"
+                                                class="sr-only peer checkboxes" checked>
+                                            <div
+                                                class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300   peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                            </div>
+                                            <span
+                                                class=" text-sm font-medium text-gray-900 dark:text-gray-300">Open</span>
+                                        </label>
+                                        <div id="tuesday_container" class="max-w-[16rem] grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label for="id_form-1-open_time" class="text-xs">Open time:</label>
+                                                <div class="relative">
+
+                                                    <input type="time" id="id_form-1-open_time" name="form-1-open_time"
+                                                        class="bg-gray-50 border leading-none outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
+                                                        value="00:00" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="id_form-1-close_time" class="text-xs">Close time:</label>
+                                                <div class="relative">
+
+                                                    <input type="time" id="id_form-1-close_time"
+                                                        name="form-1-close_time"
+                                                        class="bg-gray-50 border outline-none leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
+                                                        value="00:00" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="grid md:flex items-center w-fit md:w-full  border border-solid justify-between gap-4 bg-white p-2">
+                                    <div>
+                                        <input id="id_form-2-day" type="text" name="form-2-day" value="WE"
+                                            class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
+                                        <p class="text-xl font-normal text-custom-h">Wednesday</p>
+                                    </div>
+                                    <div class="space-y-1 flex gap-4 md:gap-7 items-center flex-wrap">
+                                        <label for="id_form-2-operating"
+                                            class="inline-flex gap-4 items-center cursor-pointer">
+                                            <span
+                                                class=" text-sm font-medium text-gray-900 dark:text-gray-300">Closed</span>
+                                            <input data-container="wednesday_container" type="checkbox"
+                                                id="id_form-2-operating" name="form-2-operating"
+                                                class="sr-only peer checkboxes" checked>
+                                            <div
+                                                class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                            </div>
+                                            <span
+                                                class=" text-sm font-medium text-gray-900 dark:text-gray-300">Open</span>
+                                        </label>
+                                        <div id="wednesday_container" class="max-w-[16rem] grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label for="id_form-2-open_time" class="text-xs">Open time:</label>
+                                                <div class="relative">
+
+                                                    <input type="time" id="id_form-2-open_time" name="form-2-open_time"
+                                                        class="bg-gray-50 border leading-none outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
+                                                        value="00:00" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="id_form-2-close_time" class="text-xs">Close time:</label>
+                                                <div class="relative">
+
+                                                    <input type="time" id="id_form-2-close_time"
+                                                        name="form-2-close_time"
+                                                        class="bg-gray-50 border outline-none leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
+                                                        value="00:00" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div
+                                    class="grid md:flex items-center w-fit md:w-full  border border-solid justify-between gap-4 bg-white p-2">
+                                    <div>
+                                        <input id="id_form-3-day" type="text" name="form-3-day" value="TH"
+                                            class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
+                                        <p class="text-xl font-normal text-custom-h">Thursday</p>
+                                    </div>
+                                    <div class="space-y-1 flex gap-4 md:gap-7 items-center flex-wrap">
+                                        <label for="id_form-3-operating"
+                                            class="inline-flex gap-4 items-center cursor-pointer">
+                                            <span
+                                                class=" text-sm font-medium text-gray-900 dark:text-gray-300">Closed</span>
+                                            <input data-container="thursday_container" type="checkbox"
+                                                id="id_form-3-operating" name="form-3-operating"
+                                                class="sr-only peer checkboxes" checked>
+                                            <div
+                                                class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                            </div>
+                                            <span
+                                                class=" text-sm font-medium text-gray-900 dark:text-gray-300">Open</span>
+                                        </label>
+                                        <div id="thursday_container" class="max-w-[16rem] grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label for="id_form-3-open_time" class="text-xs">Open time:</label>
+                                                <div class="relative">
+
+                                                    <input type="time" id="id_form-3-open_time" name="form-3-open_time"
+                                                        class="bg-gray-50 border leading-none outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
+                                                        value="00:00" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="id_form-3-close_time" class="text-xs">Close time:</label>
+                                                <div class="relative">
+
+                                                    <input type="time" id="id_form-3-close_time"
+                                                        name="form-3-close_time"
+                                                        class="bg-gray-50 border outline-none leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
+                                                        value="00:00" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="grid md:flex items-center w-fit md:w-full  border border-solid justify-between gap-4 bg-white p-2">
+                                    <div>
+                                        <input id="id_form-4-day" type="text" name="form-4-day" value="FR"
+                                            class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
+                                        <p class="text-xl font-normal text-custom-h">Friday</p>
+                                    </div>
+                                    <div class="space-y-1 flex gap-4 md:gap-7 items-center flex-wrap">
+                                        <label for="id_form-4-operating"
+                                            class="inline-flex gap-4 items-center cursor-pointer">
+                                            <span
+                                                class=" text-sm font-medium text-gray-900 dark:text-gray-300">Closed</span>
+                                            <input data-container="friday_container" type="checkbox"
+                                                id="id_form-4-operating" name="form-4-operating"
+                                                class="sr-only peer checkboxes" checked>
+                                            <div
+                                                class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                            </div>
+                                            <span
+                                                class=" text-sm font-medium text-gray-900 dark:text-gray-300">Open</span>
+                                        </label>
+                                        <div id="friday_container" class="max-w-[16rem] grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label for="id_form-4-open_time" class="text-xs">Open time:</label>
+                                                <div class="relative">
+
+                                                    <input type="time" id="id_form-4-open_time" name="form-4-open_time"
+                                                        class="bg-gray-50 border leading-none outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
+                                                        value="00:00" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="id_form-4-close_time" class="text-xs">Close time:</label>
+                                                <div class="relative">
+
+                                                    <input type="time" id="id_form-4-close_time"
+                                                        name="form-4-close_time"
+                                                        class="bg-gray-50 border outline-none leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
+                                                        value="00:00" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="grid md:flex items-center w-fit md:w-full  border border-solid justify-between gap-4 bg-white p-2">
+                                    <div>
+                                        <input id="id_form-5-day" type="text" name="form-5-day" value="SA"
+                                            class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
+                                        <p class="text-xl font-normal text-custom-h">Saturday</p>
+                                    </div>
+                                    <div class="space-y-1 flex gap-4 md:gap-7 items-center flex-wrap">
+                                        <label for="id_form-5-operating"
+                                            class="inline-flex gap-4 items-center cursor-pointer">
+                                            <span
+                                                class=" text-sm font-medium text-gray-900 dark:text-gray-300">Closed</span>
+                                            <input data-container="saturday_container" type="checkbox"
+                                                id="id_form-5-operating" name="form-5-operating"
+                                                class="sr-only peer checkboxes" checked>
+                                            <div
+                                                class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                            </div>
+                                            <span
+                                                class=" text-sm font-medium text-gray-900 dark:text-gray-300">Open</span>
+                                        </label>
+                                        <div id="saturday_container" class="max-w-[16rem] grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label for="id_form-5-open_time" class="text-xs">Open time:</label>
+                                                <div class="relative">
+
+                                                    <input type="time" id="id_form-5-open_time" name="form-5-open_time"
+                                                        class="bg-gray-50 border leading-none outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
+                                                        value="00:00" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="id_form-5-close_time" class="text-xs">Close time:</label>
+                                                <div class="relative">
+
+                                                    <input type="time" id="id_form-5-close_time"
+                                                        name="form-5-close_time"
+                                                        class="bg-gray-50 border outline-none leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
+                                                        value="00:00" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="grid md:flex items-center w-fit md:w-full  border border-solid justify-between gap-4 bg-white p-2">
+                                    <div>
+                                        <input id="id_form-6-day" type="text" name="form-6-day" value="SU"
+                                            class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
+                                        <p class="text-xl font-normal text-custom-h">Sunday</p>
+                                    </div>
+                                    <div class="space-y-1 flex gap-4 md:gap-7 items-center flex-wrap">
+                                        <label for="id_form-6-operating"
+                                            class="inline-flex gap-4 items-center cursor-pointer">
+                                            <span
+                                                class=" text-sm font-medium text-gray-900 dark:text-gray-300">Closed</span>
+                                            <input data-container="sunday_container" type="checkbox"
+                                                id="id_form-6-operating" name="form-6-operating"
+                                                class="sr-only peer checkboxes" checked>
+                                            <div
+                                                class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                            </div>
+                                            <span
+                                                class=" text-sm font-medium text-gray-900 dark:text-gray-300">Open</span>
+                                        </label>
+                                        <div id="sunday_container" class="max-w-[16rem] grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label for="id_form-6-open_time" class="text-xs">Open time:</label>
+                                                <div class="relative">
+
+                                                    <input type="time" id="id_form-6-open_time" name="form-6-open_time"
+                                                        class="bg-gray-50 border leading-none outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
+                                                        value="00:00" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="id_form-6-close_time" class="text-xs">Close time:</label>
+                                                <div class="relative">
+
+                                                    <input type="time" id="id_form-6-close_time"
+                                                        name="form-6-close_time"
+                                                        class="bg-gray-50 border outline-none leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2  "
+                                                        value="00:00" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="flex flex-wrap items-center justify-between gap-4 mt-6 ">
+                    <a href="{% url 'listings:add-business-main-location' listing.slug %}">
+                        <h5
+                            class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                            <span
+                                class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                            <div
+                                class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                <p>Previous step</p>
+                            </div>
+                        </h5>
+                    </a>
+                    <div>
+                        <h5
+                            class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-h hover:border-custom-primary inline-block z-0">
+                            <span
+                                class="inline-block absolute top-0 left-0 w-full h-full bg-custom-h group-hover:bg-custom-primary -z-1 group-hover:w-0 transition-all duration-300"></span>
+                            <button type="submit"
+                                class="relative z-1 px-5 font-sans md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                Save & Proceed
+                            </button>
+                        </h5>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock businessblock %}
+{% block js %}
+<script>
+    const checkboxes = document.querySelectorAll(".checkboxes")
+    checkboxes.forEach(element => {
+            element.addEventListener("change", function (e) {
+                let target_element = e.target
+                const container = document.querySelector(`#${target_element.getAttribute("data-container")}`)
+                if (target_element.value === "on") {
+                    target_element.value = "off"
+                    container.classList.add("pointer-events-none")
+                } else {
+                    target_element.value = "on"
+                    container.classList.remove("pointer-events-none")
+                }
+
+            })
+        });
+</script>
+{% endblock js %}

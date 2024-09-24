@@ -1,0 +1,111 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}
+<style>
+    #f {
+        color: #071a1d;
+    }
+</style>
+{% endblock title %}
+
+{% block content %}
+<section class="w-full font-sans relative pt-20 block bg-custom-bg">
+    <div class="relative">
+
+        <div class="max-w-7xl  mx-auto sm:px-6 lg:px-8">
+            <div class="relative shadow-xl bg-custom-h sm:rounded-2xl sm:overflow-hidden">
+
+                <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
+                    <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                        <span class="block text-white">List your business with <span
+                                class="text-custom-primary">BBGI</span></span>
+                    </h1>
+                    <p class="mt-6 max-w-lg mx-auto text-center text-base text-indigo-200 sm:max-w-3xl">Whether you have
+                        a new or already established business, we can help it thrive through the use of our digitally
+                        enabled
+                        marketplace, offering you better customer connection, insights and advertising ability.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<article class="w-full h-full py-20 space-y-5">
+    <div class="container">
+        <div class="relative block w-fit mx-auto">
+            <div class="py-3 ml-4 mr-4">
+                <div class="flex flex-wrap gap-2">
+                    <div class=" w-fit rounded text-sm md:text-base font-normal px-2 md:px-3 py-2 {% if request.resolver_match.url_name == 'add-listing' or request.resolver_match.url_name == 'add-listing-with-slug' %}bg-custom-h text-white{% else %}text-custom-h bg-custom-text-2{% endif %} ">
+                        <p
+                            class="font-normal  duration-500   ">Details</p>
+                    </div>
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="35" viewBox="0 0 43 35" fill="none">
+                            <g clip-path="url(#clip0_3346_6663)">
+                                <path
+                                    d="M16.9242 11.7425C16.2417 12.425 16.2417 13.5275 16.9242 14.21L23.7142 21L16.9242 27.79C16.2417 28.4725 16.2417 29.575 16.9242 30.2575C17.6067 30.94 18.7092 30.94 19.3917 30.2575L27.4242 22.225C28.1067 21.5425 28.1067 20.44 27.4242 19.7575L19.3917 11.725C18.7267 11.06 17.6067 11.06 16.9242 11.7425Z"
+                                    fill="#68769F" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_3346_6663">
+                                    <rect width="35" height="35" fill="white" transform="translate(0.666748)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class=" w-fit text-sm md:text-base font-normal px-2 md:px-3 py-2 rounded {% if request.resolver_match.url_name == 'add-business-main-location' %}bg-custom-h text-white{% else %}text-custom-h bg-custom-text-2{% endif %}">
+                        <p
+                            class="font-normal  duration-500   ">Main Location</p>
+                    </div>
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="35" viewBox="0 0 43 35" fill="none">
+                            <g clip-path="url(#clip0_3346_6663)">
+                                <path
+                                    d="M16.9242 11.7425C16.2417 12.425 16.2417 13.5275 16.9242 14.21L23.7142 21L16.9242 27.79C16.2417 28.4725 16.2417 29.575 16.9242 30.2575C17.6067 30.94 18.7092 30.94 19.3917 30.2575L27.4242 22.225C28.1067 21.5425 28.1067 20.44 27.4242 19.7575L19.3917 11.725C18.7267 11.06 17.6067 11.06 16.9242 11.7425Z"
+                                    fill="#68769F" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_3346_6663">
+                                    <rect width="35" height="35" fill="white" transform="translate(0.666748)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div
+                        class=" w-fit text-sm md:text-base font-normal px-2 md:px-3 py-2 rounded {% if request.resolver_match.url_name == 'add-business-hours' %}bg-custom-h text-white{% else %}text-custom-h bg-custom-text-2{% endif %}">
+                        <p class="font-normal  duration-500   ">Business Hours</p>
+                    </div>
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="35" viewBox="0 0 43 35" fill="none">
+                            <g clip-path="url(#clip0_3346_6663)">
+                                <path
+                                    d="M16.9242 11.7425C16.2417 12.425 16.2417 13.5275 16.9242 14.21L23.7142 21L16.9242 27.79C16.2417 28.4725 16.2417 29.575 16.9242 30.2575C17.6067 30.94 18.7092 30.94 19.3917 30.2575L27.4242 22.225C28.1067 21.5425 28.1067 20.44 27.4242 19.7575L19.3917 11.725C18.7267 11.06 17.6067 11.06 16.9242 11.7425Z"
+                                    fill="#68769F" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_3346_6663">
+                                    <rect width="35" height="35" fill="white" transform="translate(0.666748)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </div>
+
+                    <div class="w-fit text-sm md:text-base font-normal px-2 md:px-3 py-2 rounded {% if request.resolver_match.url_name == 'add-business-socials' %}bg-custom-h text-white{% else %}text-custom-h bg-custom-text-2{% endif %}">
+                        <p
+                            class="font-normal  duration-500   ">Social Accounts</p>
+                    </div>
+                    
+
+                </div>
+            </div>
+        </div>
+        <div class="relative block ">
+            {% block businessblock %}
+            {% endblock businessblock %}
+        </div>
+    </div>
+</article>
+
+
+{% endblock content %}

@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.forms import formset_factory, modelformset_factory, BaseModelFormSet
-from listings.forms import BusinessForm, BusinessHourForm, BusinessContent, BusinessReviewForm
+from accounts.utilities.custom_email import send_html_email
+from listings.forms import BusinessForm, BusinessSocialForm, BusinessContent, BusinessReviewForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from listings.models import Business, Category, BusinessHour
@@ -11,31 +12,7 @@ from django.contrib import messages
 
 from listings.utilities.custom_methods import sort_listing
 
-class BaseBusinessHourFormSet(BaseModelFormSet):
-    def __init__(self, *args, **kwargs):
-        self.business = kwargs.pop('business', None)
-        super().__init__(*args, **kwargs)
 
-    def save(self, commit=True):
-        instances = super().save(commit=False)
-        for instance in instances:
-            hour = None
-            try:
-                hour = self.queryset.get(day=instance.day)
-                if self.listings:
-                    hour.business = self.business
-                    hour.open_time = instance.open_time
-                    hour.close_time = instance.close_time
-                    hour.operating = instance.operating
-
-                if commit:
-                    hour.save()
-            except Exception:
-                pass
-            
-            
-        self.save_m2m()
-        return instances
 
 @login_required
 def manage_listings(request):
@@ -52,6 +29,9 @@ def manage_listing(request, listing_slug):
     queryset = Business.objects.all().select_related("category").prefetch_related("business_hours", "reviews", "images")
     listing = get_object_or_404(queryset, slug=listing_slug, owner=request.user)
     return render(request, "business/listing/get_listing.html", {"listing": listing})
+
+def get_started_with_listing(request):
+    return render(request, "business/get-started.html")
 
 def get_listings(request, category=None):
     query = request.GET.get("query", None)
@@ -95,36 +75,70 @@ def get_listing(request, listing_slug):
     return render(request, "business/listing/get-listing.html", {"listing": listing, "form": form, "lcategories": categories, "form2": form2})
 
 @login_required
-def add_listing(request):
-    if request.user.subscription == None:
-        messages.warning(request, "Sorry, you cannot add listing without subscription")
-        return redirect("accounts:choose-package")
+def add_listing(request, listing_slug=None):
     
-    buniness_form = BusinessForm()
-    business_hour_forms = formset_factory(BusinessHourForm, extra=7, max_num=7)
+    
+    if listing_slug:
+        listing = get_object_or_404(Business, slug=listing_slug, owner=request.user)
+        buniness_form = BusinessForm(instance=listing)
+        
+        if request.method == "POST":
+            form = BusinessForm(instance=listing, data=request.POST, files=request.FILES)
+
+            if form.is_valid() and form.is_multipart():
+                form.save()
+                
+                messages.success(request, "Listing created successfully")
+                return redirect("listings:add-business-main-location", listing_slug=listing.slug)
+            else:
+                messages.error(request, "Something went wrong while trying to add your business")
+                return render(request, "business/create-listing/add-listing.html", {"listing": listing, "form": form})
+        
+        return render(request, "business/create-listing/add-listing.html", {"listing": listing, "form": buniness_form})
+    
+    else:
+        if request.user.subscription == None:
+            messages.warning(request, "Sorry, you cannot add listing without subscription")
+            return redirect("accounts:choose-package")
+        
+        buniness_form = BusinessForm()
+        
+        if request.method == "POST":
+            form = BusinessForm(request.POST, request.FILES)
+
+            if form.is_valid() and form.is_multipart():
+                
+                business = form.save(commit=False)
+                business.owner = request.user
+                business.save()
+                
+                messages.success(request, "Listing created successfully")
+                return redirect("listings:add-business-main-location", listing_slug=business.slug)
+            else:
+                messages.error(request, "Something went wrong while trying to add your business")
+                return render(request, "business/create-listing/add-listing.html", {"form": form})
+        
+        return render(request, "business/create-listing/add-listing.html", {"form": buniness_form})
+
+@login_required
+def add_listing_socials(request, listing_slug):
+    listing = get_object_or_404(Business, slug=listing_slug, owner=request.user)
+    buniness_form = BusinessSocialForm(instance=listing)
     
     if request.method == "POST":
-        form = BusinessForm(request.POST, request.FILES)
-        forms = business_hour_forms(request.POST)
-        if form.is_valid() and form.is_multipart() and forms.is_valid():
-            
-            business = form.save(commit=False)
-            business.owner = request.user
-            business.save()
+        form = BusinessSocialForm(instance=listing, data=request.POST)
 
-            for hours in forms:
-                business_hours = hours.save(commit=False)
-                business_hours.business = business
-                business_hours.save()
+        if form.is_valid():
+            form.save()
             
+            send_html_email('New Listing Added', 'listings@bbgi.co.za', 'emails/listing-confirmation.html', {"listing": listing})
             messages.success(request, "Listing created successfully")
-            return redirect("listings:update-listing-content", listing_id=business.id)
+            return redirect("listings:get-listing", listing_slug=listing.slug)
         else:
             messages.error(request, "Something went wrong while trying to add your business")
-            
-            return render(request, "business/listing/add-listing.html", {"form": form, "forms": forms})
+            return render(request, "business/create-listing/add-social.html", {"listing": listing, "form": form})
     
-    return render(request, "business/listing/add-listing.html", {"form": buniness_form, "forms": business_hour_forms})
+    return render(request, "business/create-listing/add-social.html", {"listing": listing, "form": buniness_form})
 
 @login_required
 def update_listing(request, listing_slug):

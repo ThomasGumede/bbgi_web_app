@@ -1,9 +1,38 @@
 from listings.forms import BusinessHourForm, BusinessLocationForm
+from django.forms import formset_factory
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from listings.models import Business, BusinessLocation, BusinessHour
 from django.contrib import messages
 
+@login_required
+def add_business_hours(request, listing_slug):
+    listing = get_object_or_404(Business, slug=listing_slug, owner=request.user)
+
+    
+
+    business_hour_forms = formset_factory(BusinessHourForm, extra=7, max_num=7)
+    if request.method == "POST":
+        if listing.business_hours.count() > 0:
+            for hour in listing.business_hours.all():
+                hour.delete()
+                
+        forms = business_hour_forms(request.POST)
+        if forms.is_valid():
+
+            for hours in forms:
+                business_hours = hours.save(commit=False)
+                business_hours.business = listing
+                business_hours.save()
+            
+            messages.success(request, "Business Hours created successfully")
+            return redirect("listings:add-business-socials", listing_slug=listing.slug)
+        else:
+            messages.error(request, "Something went wrong while trying to add your business hours")
+            return render(request, "business/create-listing/add-hours.html", {"listing": listing, "forms": forms})
+        
+    
+    return render(request, "business/create-listing/add-hours.html", {"listing": listing, "forms": business_hour_forms})
 
 @login_required
 def get_business_hours(request, listing_slug):

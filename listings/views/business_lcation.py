@@ -1,4 +1,4 @@
-from listings.forms import BusinessLocationForm
+from listings.forms import BusinessLocationForm, BusinessMainLocationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from listings.models import Business, BusinessLocation
@@ -9,6 +9,23 @@ def get_locations(request, listing_slug):
     queryset = Business.objects.all().prefetch_related("business_locations")
     listing = get_object_or_404(queryset, slug=listing_slug, owner=request.user)
     return render(request, "business/location/get-locations.html", {"listing": listing})
+
+@login_required
+def add_main_location(request, listing_slug):
+    queryset = Business.objects.all().prefetch_related("business_locations")
+    listing = get_object_or_404(queryset, slug=listing_slug, owner=request.user)
+    if request.method == "POST":
+        form = BusinessMainLocationForm(instance=listing, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Successfully added main business location")
+            return redirect("listings:add-business-hours", listing.slug)
+        else:
+            messages.error(request, "Error trying to save your business location")
+            return render(request, "business/create-listing/create-location.html", {"listing": listing, "form": form})
+        
+    form = BusinessMainLocationForm(instance=listing)
+    return render(request, "business/create-listing/create-location.html", {"listing": listing, "form": form})
 
 @login_required
 def create_location(request, listing_slug):

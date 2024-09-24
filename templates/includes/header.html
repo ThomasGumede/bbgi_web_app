@@ -1,23 +1,23 @@
 {% load static %}
-<header x-data="{isMobileNav: false, isdropdownNavbar: false, iscategories: false }" class="w-full  font-sans fixed z-[600] top-0 bg-custom-h left-0">
+<header x-data="{isMobileNav: false, isdropdownNavbar: false, iscategories: false }" class="w-full  font-sans fixed z-[600] top-0 bg-custom-bg left-0">
     <nav class="w-full relative block">
         <div class="flex items-center container justify-between py-2">
             <a href="{% url 'bbgi_home:bbgi-home' %}" class="logo w-36 overflow-hidden h-full">
-                <img src="{% static 'imgs/logo_1.png' %}" alt="BBGI logo" class="object-cover">
+                <img src="{% static 'imgs/logo_3.png' %}" alt="BBGI logo" class="object-cover">
             </a>
             <ul class="items-center w-fit bg-transparent gap-4 hidden md:flex">
                 <li>
                     <a href="{% url 'bbgi_home:bbgi-home' %}"
-                        class="px-3 py-2 mx-3  {% if request.resolver_match.url_name == 'bbgi-home' %}text-custom-primary border-b border-b-custom-primary{% else %}text-white{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">Home</a>
+                        class="px-3 py-2 mx-3  {% if request.resolver_match.url_name == 'bbgi-home' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">Home</a>
                 </li>
                 <li>
                     <a href="{% url 'bbgi_home:about-bbgi' %}"
-                        class="px-3 py-2 mx-3 {% if request.resolver_match.url_name == 'about-bbgi' %}text-custom-primary border-b border-b-custom-primary{% else %}text-white{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">About</a>
+                        class="px-3 py-2 mx-3 {% if request.resolver_match.url_name == 'about-bbgi' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">About</a>
                 </li>
                 {% if request.resolver_match.url_name == 'listings' or request.resolver_match.url_name == 'get-listings-by-category' %}
                     <li>
                         <button @click="iscategories = !iscategories"
-                            class="text-white hover:text-custom-primary hover:border-b focus:right-0 hover:border-b-custom-primary px-3 py-2 mx-3 font-medium flex items-center justify-between w-fit">Browser by category
+                            class="text-custom-h hover:text-custom-primary hover:border-b focus:right-0 hover:border-b-custom-primary px-3 py-2 mx-3 font-medium flex items-center justify-between w-fit">Browser by category
                             <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -97,7 +97,7 @@
                 {% if request.resolver_match.url_name == 'events' or request.resolver_match.url_name == 'events-by-category' %}
                 <li>
                     <button @click="iscategories = !iscategories"
-                        class="text-white hover:text-custom-primary hover:border-b focus:right-0 hover:border-b-custom-primary px-3 py-2 mx-3 font-medium flex items-center justify-between w-fit">Browser
+                        class="text-custom-h hover:text-custom-primary hover:border-b focus:right-0 hover:border-b-custom-primary px-3 py-2 mx-3 font-medium flex items-center justify-between w-fit">Browser
                         by category
                         <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -180,7 +180,7 @@
                 {% if request.resolver_match.url_name == 'campaigns' or request.resolver_match.url_name == 'campaign-by-category' %}
                 <li>
                     <button @click="iscategories = !iscategories"
-                        class="text-white hover:text-custom-primary hover:border-b focus:right-0 hover:border-b-custom-primary px-3 py-2 mx-3 font-medium flex items-center justify-between w-fit">Browser
+                        class="text-custom-h hover:text-custom-primary hover:border-b focus:right-0 hover:border-b-custom-primary px-3 py-2 mx-3 font-medium flex items-center justify-between w-fit">Browser
                         by category
                         <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -263,7 +263,7 @@
 
                 <li class="relative">
                     <button @click="isdropdownNavbar = !isdropdownNavbar" 
-                        class="text-white hover:text-custom-primary hover:border-b focus:right-0 hover:border-b-custom-primary px-3 py-2 mx-3 font-medium flex items-center justify-between w-fit">Explore
+                        class="text-custom-h hover:text-custom-primary hover:border-b focus:right-0 hover:border-b-custom-primary px-3 py-2 mx-3 font-medium flex items-center justify-between w-fit">Explore
                         <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
                                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -295,7 +295,7 @@
                 </li>
                 <li>
                     <a href="{% url 'bbgi_home:contact' %}"
-                        class="px-3 py-2 mx-3 {% if request.resolver_match.url_name == 'contact' %}text-custom-primary border-b border-b-custom-primary{% else %}text-white{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">Contact</a>
+                        class="px-3 py-2 mx-3 {% if request.resolver_match.url_name == 'contact' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">Contact</a>
                 </li>
                 
             </ul>
@@ -423,18 +423,18 @@
                     {% endif %}
                 </div>
                 
-                <a href="{% url 'listings:add-listing' %}" id="add-listing w-full">
-                    <span href="" class="text-white md:hidden  w-full">
+                <a href="{% url 'listings:get-started-with-listing' %}" id="add-listing w-full">
+                    <span href="" class="text-custom-h md:hidden  w-full">
                         <i class="fa-solid fa-plus fa-lg"></i>
                     </span>
-                    <span class="hidden w-36 h-12 font-semibold md:grid justify-center items-center rounded-sm text-white bg-custom-primary">
+                    <span class="hidden w-36 h-12 font-semibold md:grid justify-center items-center rounded-sm text-white bg-custom-h">
                         
                         Add Listing
                     </span>
                 </a>
                 
                 <div @click="isMobileNav = !isMobileNav" class="cursor-pointer block md:hidden">
-                    <i class="fa-solid text-white fa-bars fa-xl"></i>
+                    <i class="fa-solid text-custom-h fa-bars fa-xl"></i>
                 </div>
             </div>
         </div>

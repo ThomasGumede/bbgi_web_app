@@ -1,7 +1,7 @@
 from django.urls import path
-from listings.views.business_hours import get_business_hours, update_business_hour
-from listings.views.business_lcation import create_location, delete_location, get_locations, update_location
-from listings.views.business_views import add_listing, delete_listing, delete_listing_content, get_business_hours_api, get_listing, get_listings, manage_listing, manage_listings, update_listing, update_listing_content
+from listings.views.business_hours import get_business_hours, update_business_hour, add_business_hours
+from listings.views.business_lcation import create_location, delete_location, get_locations, update_location, add_main_location
+from listings.views.business_views import add_listing, add_listing_socials, delete_listing, delete_listing_content, get_business_hours_api, get_listing, get_listings, manage_listing, manage_listings, update_listing, update_listing_content, get_started_with_listing
 
 
 app_name = "listings"
@@ -11,7 +11,14 @@ urlpatterns = [
     path("dashboard/listings/manage", manage_listings, name="manage-listings"),
     path("listings/category=<slug:category>", get_listings, name="get-listings-by-category"),
     path("listing/details/<slug:listing_slug>", get_listing, name="get-listing"),
-    path("listing/get-started", add_listing, name = "add-listing"),
+    path("listing/create-listing", add_listing, name = "add-listing"),
+    path("listing/<slug:listing_slug>/create-listing", add_listing, name = "add-listing-with-slug"),
+    path("listing/<slug:listing_slug>/create-listing-hours", add_business_hours, name = "add-business-hours"),
+    path("listing/<slug:listing_slug>/add-contact-info", add_listing_socials, name = "add-business-socials"),
+    path("listing/<slug:listing_slug>/add-main-location", add_main_location, name = "add-business-main-location"),
+
+    
+    path("listing/get-started", get_started_with_listing, name = "get-started-with-listing"),
     path("dashboard/listing/delete/<slug:listing_slug>", delete_listing, name="delete-listing"),
     path("dashboard/listing/update/<slug:listing_slug>", update_listing, name="update-listing"),
     path("dashboard/listing/update/content/<slug:listing_slug>", update_listing_content, name="update-listing-content"),
