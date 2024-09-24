@@ -137,8 +137,8 @@ def register(request):
     template_name = "accounts/register.html"
     success_url = "accounts:success"
     if request.method == "POST":
-        form = RegistrationForm(request.POST, request.FILES)
-        if form.is_valid() and form.is_multipart():
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
             user.save()
