@@ -1,7 +1,7 @@
 from django.db.models import Q
 from django.forms import formset_factory, modelformset_factory, BaseModelFormSet
 from accounts.utilities.custom_email import send_html_email
-from listings.forms import BusinessForm, BusinessSocialForm, BusinessContent, BusinessReviewForm
+from listings.forms import BusinessForm, BusinessSocialForm, BusinessContent, BusinessReviewForm, BusinessUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from listings.models import Business, Category, BusinessHour
@@ -144,11 +144,11 @@ def add_listing_socials(request, listing_slug):
 def update_listing(request, listing_slug):
     queryset = Business.objects.all().select_related("category").prefetch_related("business_hours", "reviews", "images")
     listing = get_object_or_404(queryset, slug=listing_slug, owner=request.user)
-    buniness_form = BusinessForm(instance=listing)
+    buniness_form = BusinessUpdateForm(instance=listing)
     
 
     if request.method == "POST":
-        form = BusinessForm(instance=listing, data=request.POST, files=request.FILES)
+        form = BusinessUpdateForm(instance=listing, data=request.POST, files=request.FILES)
         
         if form.is_valid() and form.is_multipart():
             form.save()

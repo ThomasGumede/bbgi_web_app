@@ -140,7 +140,7 @@
                                     
                                     
                                     {% if listing.owner == request.user %}
-                                    <a href="{% url 'listings:update-listing' listing.id %}"
+                                    <a href="{% url 'listings:update-listing' listing.slug %}"
                                         class="border group hover:bg-custom-h hover:border-custom-h transition-colors duration-300 cursor-pointer border-white text-center text-white border-solid py-2 md:py-3 px-4 md:px-6">
                                         <div class="relative flex items-center">
                                             <div class="text-sm">
