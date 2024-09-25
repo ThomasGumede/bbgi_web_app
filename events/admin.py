@@ -18,7 +18,7 @@ def make_pending(modeladmin, request, querset):
 
 class EventTicketTypeInline(admin.TabularInline):
     model = EventTicketTypeModel
-    readonly_fields = ("sale_start", "sale_end", "event")
+    readonly_fields = ("event",)
     extra = 0
 
 class TicketOrderInline(admin.TabularInline):
