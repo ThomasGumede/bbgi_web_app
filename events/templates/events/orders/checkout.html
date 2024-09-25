@@ -9,6 +9,42 @@
 <!-- checkout section -->
 <section>
     <div class="pb-10">
+        {% if form.errors %}
+        <div class="w-full mx-auto">
+            <div class="bg-red-50 border-l-8 border-red-900">
+                <div class="flex items-center">
+                    <div class="p-2">
+                        <div class="flex items-center">
+                            <div class="ml-2">
+                                <svg class="h-8 w-8 text-red-900 mr-2 cursor-pointer" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="px-6 py-4 text-red-900 font-semibold text-lg">Please fix the
+                                following
+                                errors.</p>
+                        </div>
+        
+                        <ul class="px-16 mb-4">
+                            {% for field in form %}
+                            {% if field.errors %}
+                            <li class="text-md font-bold text-red-500 text-sm">{{field.label}}: {{field.errors.as_text}}</li>
+                            {% endif %}
+                            {% endfor %}
+                            {% if form.non_field_errors %}
+        
+                            <li class="text-md font-bold text-red-500 text-sm">Form error: {{form.non_field_errors.as_text}}
+                            </li>
+        
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
         <!-- apply  coupon -->
         <!-- <div class="accordion-container">
             <div class="accordion mb-[30px]">
@@ -126,13 +162,13 @@
                         <!-- House number and street name  -->
                         <div>
                             <input type="text" placeholder="House number and street name"
-                                value="{{request.user.address_one}}" name="client_address_one" id="id_client_address_one"
+                                value="{% if request.user.address_one %}{{request.user.address_one}}{% endif %}" name="client_address_one" id="id_client_address_one"
                                 class="text-custom-text pl-5 pr-[50px] focus:outline-none focus:ring-0 outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
                         </div>
                         <!-- Apartment, suite, unit etc.  -->
                         <div>
                             <input type="text" placeholder="Apartment, suite, unit etc. (optional)"
-                                value="{{request.user.address_two}}" name="client_address_two" id="id_client_address_two"
+                            value="{% if request.user.address_two %}{{request.user.address_two}}{% endif %}" name="client_address_two" id="id_client_address_two"
                                 class="text-custom-text pl-5 pr-[50px] focus:outline-none focus:ring-0 outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
                         </div>
                     </div>
@@ -148,7 +184,7 @@
                                     Town / City
                                 </span>
                             </h5>
-                            <input type="text" placeholder="City" value="{{request.user.city}}" name="client_city"
+                            <input type="text" placeholder="City" value="{% if request.user.city %}{{request.user.city}}{% endif %}" name="client_city"
                                 class="text-custom-text pl-5 pr-[50px] focus:outline-none focus:ring-0 outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
                         </div>
                         <!-- State  -->
@@ -159,7 +195,7 @@
                                     State
                                 </span>
                             </h5>
-                            <input type="text" placeholder="State" value="{{request.user.province}}" name="client_province" id="id_client_province"
+                            <input type="text" placeholder="State" value="{% if request.user.province %}{{request.user.province}}{% endif %}" name="client_province" id="id_client_province"
                                 class="text-custom-text pl-5 pr-[50px] focus:outline-none focus:ring-0 outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
                         </div>
                         <!-- Zip -->
@@ -170,7 +206,7 @@
                                     Zip
                                 </span>
                             </h5>
-                            <input type="text" placeholder="Zip" value="{{request.user.zipcode}}" name="client_zipcode" id="id_client_zipcode"
+                            <input type="text" placeholder="Zip" value="{% if request.user.zipcode %}{{request.user.zipcode}}{% endif %}" name="client_zipcode" id="id_client_zipcode"
                                 class="text-custom-text pl-5 pr-[50px] focus:outline-none focus:ring-0 outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm">
                         </div>
                     </div>
@@ -183,7 +219,7 @@
                         </span>
                     </h5>
                     <div class="relative">
-                        <textarea placeholder="Notes about your order, e.g. special notes for delivery."
+                        <textarea placeholder="Notes about your order, e.g. special notes for delivery." name="order_note"
                             class="min-h-[50px] text-custom-text pl-5 pr-[50px] focus:outline-none focus:ring-0 py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-custom-text placeholder:text-sm"></textarea>
                         <span class="absolute top-[30px] -translate-y-1/2 right-4">
                             <i class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
