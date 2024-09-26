@@ -52,11 +52,12 @@ class EventModel(AbstractCreate):
         verbose_name_plural = 'Events'
 
     def date_time_formatter(self):
-        
-        if self.event_startdate.date() == self.event_enddate.date():
-            return f"{self.event_startdate.strftime('%a %d %b %Y')}, {self.event_startdate.strftime('%H:%M')} - {self.event_enddate.strftime('%H:%M')}"
+        start_local = timezone.localtime(self.event_startdate)
+        end_local = timezone.localtime(self.event_enddate)
+        if start_local.date() == end_local.date():
+            return f"{start_local.strftime('%a %d %b %Y')}, {start_local.strftime('%H:%M')} - {end_local.strftime('%H:%M')}"
         else:
-            return f"{self.event_startdate.strftime('%a %d %b %Y, %H:%M')} - {self.event_enddate.strftime('%a %d %b %Y, %H:%M')}"
+            return f"{start_local.strftime('%a %d %b %Y, %H:%M')} - {end_local.strftime('%a %d %b %Y, %H:%M')}"
         
     def sales_days_left(self):
         date = self.event_enddate - timezone.now()
