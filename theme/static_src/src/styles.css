@@ -7,6 +7,14 @@
     label {
         @apply block text-custom-text text-sm md:text-base font-normal capitalize mb-1
     }
+
+    p {
+        @apply hyphens-auto text-sm
+    }
+
+    a {
+        @apply no-underline
+    }
 }
 
 @layer components {

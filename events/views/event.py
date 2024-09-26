@@ -4,7 +4,7 @@ from accounts.custom_models.choices import StatusChoices
 from bbgi_home.models import BlogCategory
 from events.models import EventModel, EventOrganisor
 from campaigns.utils import generate_slug, PaymentStatus
-from events.forms import EventForm, EventOrganisorForm
+from events.forms import EventAddressForm, EventCreateForm, EventForm, EventOrganisorForm
 from django.contrib import messages
 from django.db.models import Q
 
@@ -42,22 +42,50 @@ def event_details(request, event_slug):
     return render(request, "events/event/details.html", {"event": event, "recent_events": recent_events})
 
 @login_required
-def create_event(request):
-    if request.method == "POST":
-        form = EventForm(request.POST, request.FILES)
-        if form.is_valid() and form.is_multipart():
-            event = form.save(commit=False)
-            event.organiser = request.user
-            event.slug = generate_slug(form.cleaned_data["title"], EventModel)
-            event.save()
-            messages.success(request, "Event was added successfully")
-            return redirect("events:create-ticket-types", event_id=event.id)
-        else:
+def create_event(request, event_slug=None):
+    if event_slug:
+        event = get_object_or_404(EventModel, slug=event_slug, organiser=request.user)
+        if request.method == "POST":
+            form = EventCreateForm(instance=event, data=request.POST, files=request.FILES)
+            if form.is_valid() and form.is_multipart():
+                # event = form.save(commit=False)
+                form.save()
+                messages.success(request, "Event was added successfully")
+                return redirect("events:create-event-address", event_slug=event.slug)
+            else:
+                
+                messages.error(request, "Please fix below errors")
+                return render(request, "events/event/create.html", {"form": form })
             
-            messages.error(request, "Please fix below errors")
-            return render(request, "events/event/create.html", {"form": form })
-    form = EventForm()
-    return render(request, "events/event/create.html", {"form": form })
+        form = EventCreateForm(instance=event)
+        return render(request, "events/event/create.html", {"form": form })
+    else:
+        if request.method == "POST":
+            form = EventCreateForm(request.POST, request.FILES)
+            if form.is_valid() and form.is_multipart():
+                event = form.save(commit=False)
+                event.organiser = request.user
+                event.slug = generate_slug(form.cleaned_data["title"], EventModel)
+                event.save()
+                messages.success(request, "Event was added successfully")
+                return redirect("events:create-event-address", event_slug=event.slug)
+            else:
+                
+                messages.error(request, "Please fix below errors")
+                return render(request, "events/event/create.html", {"form": form })
+        form = EventCreateForm()
+        return render(request, "events/event/create.html", {"form": form })
+
+@login_required
+def create_event_address(request, event_slug):
+    event = get_object_or_404(EventModel, slug=event_slug, organiser=request.user)
+    if request.method == "POST":
+        form = EventAddressForm(instance=event, data=request.POST)
+        if form.is_valid():
+            form.save()
+
+    form = EventAddressForm(instance=event)
+    return render(request, "events/event/create-event-address.html", {"form": form, "event": event })
 
 @login_required
 def update_event(request, event_slug):

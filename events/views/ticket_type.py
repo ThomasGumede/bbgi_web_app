@@ -37,6 +37,37 @@ def get_event_ticket_types(request, event_id):
     except EventModel.DoesNotExist:
         return JsonResponse({"success": False, "event_ticket_types": "Event does not exists"}, status=200)
 
+@login_required
+def create_new_ticket_types(request, event_slug):
+    event = get_object_or_404(EventModel, organiser = request.user, slug = event_slug)
+    max_forms =  5 if event.tickettypes.count() == 0 else 5 - event.tickettypes.count()
+    
+    if event.tickettypes.count() == 5:
+        messages.error(request, "Cannot add another ticket type, it either you already have 5 tickets or there are no tickets available to allocate")
+        return redirect("events:manage-events")
+    
+    if request.method == 'POST':
+        
+        form = EventTicketTypeForm(request.POST)
+
+        if form.is_valid():
+            add_another = form.cleaned_data.get("add_another", None)
+            title = form.cleaned_data.get("title", None)
+            ticket_type = form.save(commit=False)
+            ticket_type.event = event
+            ticket_type.save()
+            messages.success(request, f"Your Ticket type({title}) we successfully created")
+            if add_another:
+                return redirect("events:create-new-ticket-types", event_id=event.id)
+            
+            return redirect("events:manage-event", event_slug=event.slug)
+        else:
+            messages.error(request, "Something is missing, please fix errors below")
+            return render(request, "events/ticket/create-new-tickets-type.html", {"form": form, "event": event, "max_forms": max_forms})
+    else:    
+        
+        form = EventTicketTypeForm()
+        return render(request, "events/ticket/create-new-tickets-type.html", {"form": form, "event": event, "max_forms": max_forms})
 
 @login_required
 def create_ticket_types(request, event_id):

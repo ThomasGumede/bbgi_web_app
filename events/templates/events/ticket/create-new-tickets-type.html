@@ -17,7 +17,7 @@
                         <div class="w-full">
                             <div class="bg-white w-full relative">
                                 <h6 class="text-custom-h text-base mt-3 mb-6 font-bold uppercase">
-                                    Event Details
+                                    Event Ticket Types
                                 </h6>
                                 <div class="flex flex-wrap gap-y-4">
                                     <div class="w-full md:px-4">
@@ -27,7 +27,8 @@
                                             </label>
                                             {{form.image}}
                                             <div class="w-full border rounded-md bg-white border-dotted p-6">
-                                                <div class="flex items-center flex-col md:flex-row gap-4 w-full justify-between">
+                                                <div
+                                                    class="flex items-center flex-col md:flex-row gap-4 w-full justify-between">
                                                     <div class="flex items-center space-x-4">
                                                         <div id="img_container" data-image="{{form.image.value.url}}"
                                                             class="h-16 w-20 overflow-hidden rounded bg-gray-300">
@@ -40,15 +41,18 @@
                                                                 JPG, JPEG or GIF</p>
                                                         </div>
                                                     </div>
-                                                    <div id="pick_image" class="border p-2 cursor-pointer text-center text-black">
+                                                    <div id="pick_image"
+                                                        class="border p-2 cursor-pointer text-center text-black">
                                                         <p class="text-sm">Browser</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                    
-                                            <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.image.help_text}}</span>
+
+                                            <span
+                                                class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.image.help_text}}</span>
                                             {% if form.image.errors %}
-                                            <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.image.errors.as_text}}</span>
+                                            <span
+                                                class="text-[11px] text-red-500 block font-normal lowercase">{{form.image.errors.as_text}}</span>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -72,9 +76,10 @@
                                                 event category*
                                             </label>
                                             {{form.category}}
-                                            
+
                                             {% if form.category.errors %}
-                                            <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.category.errors.as_text}}</span>
+                                            <span
+                                                class="text-[11px] text-red-500 block font-normal lowercase">{{form.category.errors.as_text}}</span>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -84,10 +89,10 @@
                                                 Add small description about this event*
                                             </label>
                                             {{form.small_description}}
-                                    
+
                                             <span
                                                 class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.small_description.help_text}}</span>
-                                    
+
                                         </div>
                                     </div>
                                     <div class="w-full lg:w-6/12 md:px-4">
@@ -102,7 +107,7 @@
                                             <span
                                                 class="text-[11px] text-red-500 block font-normal lowercase">{{form.event_startdate.errors.as_text}}</span>
                                             {% endif %}
-                                    
+
                                         </div>
                                     </div>
                                     <div class="w-full lg:w-6/12 md:px-4">
@@ -114,12 +119,13 @@
                                             <span
                                                 class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.event_enddate.help_text}}</span>
                                             {% if form.event_enddate.errors %}
-                                            <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.event_enddate.errors.as_text}}</span>
+                                            <span
+                                                class="text-[11px] text-red-500 block font-normal lowercase">{{form.event_enddate.errors.as_text}}</span>
                                             {% endif %}
-                                    
+
                                         </div>
                                     </div>
-                                    
+
                                     <div class="w-full lg:w-12/12 md:px-4">
                                         <div class="relative w-full mb-3">
                                             <label for="id_content">
@@ -223,7 +229,7 @@
     }
 
 </script>
-<!-- <script>
+<script>
     "use strict";
 
     function initMap() {
@@ -291,21 +297,21 @@
         autocomplete.setComponentRestrictions(
             {'country': ['za']});
         autocomplete.addListener('place_changed', function () {
-            
+
             const place = autocomplete.getPlace();
             if (!place.geometry) {
-            // User entered the name of a Place that was not suggested and
-            // pressed the Enter key, or the Place Details request failed.
-            window.alert('No details available for input: \'' + place.name + '\'');
-            return;
-            } 
+                // User entered the name of a Place that was not suggested and
+                // pressed the Enter key, or the Place Details request failed.
+                window.alert('No details available for input: \'' + place.name + '\'');
+                return;
+            }
             const latitude = place.geometry.location.lat();
             const longitude = place.geometry.location.lng();
-            if (latitude && longitude){
+            if (latitude && longitude) {
                 document.getElementById('id_map_coordinates').value = latitude + ',' + longitude;
             }
-            
-            
+
+
             renderAddress(place)
             fillInAddress(place);
         });
@@ -337,7 +343,7 @@
             marker.setVisible(true);
         }
     }
-</script> -->
+</script>
 <script>
 
     $(document).ready(function () {

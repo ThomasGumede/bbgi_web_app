@@ -16,7 +16,7 @@
         class="w-full bg-no-repeat bg-cover bg-center relative z-0 after:w-full after:h-full after:absolute after:top-0 after:left-0 after:bg-white after:bg-opacity-30 after:-z-1">
         <div class="container py-[110px]">
             <h1 class="text-2xl sm:text-3xl md:text-[26px] lg:text-3xl xl:text-4xl font-bold text-custom-h mb-[15px]">
-                <span class="leading-1.3 md:leading-1.3 lg:leading-1.3 xl:leading-1.3">Create Listing</span>
+                <span class="leading-1.3 md:leading-1.3 lg:leading-1.3 xl:leading-1.3">Create Event</span>
             </h1>
             <ul class="breadcrumb flex gap-[30px] items-center text-sm lg:text-base font-bold pt-4">
                 <li class="home relative leading-[1.8] lg:leading-[1.8]">
@@ -24,7 +24,7 @@
                             class="fa-solid fa-home text-custom-primary"></i> Home</a>
                 </li>
                 <li class="leading-[1.8] lg:leading-[1.8] text-custom-h">
-                    Create Listing
+                    Create Event
                 </li>
             </ul>
         </div>
@@ -35,27 +35,9 @@
         <div class="relative block w-fit mx-auto">
             <div class="py-3 ml-4 mr-4">
                 <div class="flex flex-wrap gap-2">
-                    <div class=" w-fit rounded text-sm md:text-base font-medium px-2 md:px-3 py-2 {% if request.resolver_match.url_name == 'add-listing' or request.resolver_match.url_name == 'add-listing-with-slug' %}bg-custom-h text-white{% else %}text-custom-h{% endif %} ">
-                        <p
-                            class="font-medium  duration-500   ">Details</p>
-                    </div>
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="35" viewBox="0 0 43 35" fill="none">
-                            <g clip-path="url(#clip0_3346_6663)">
-                                <path
-                                    d="M16.9242 11.7425C16.2417 12.425 16.2417 13.5275 16.9242 14.21L23.7142 21L16.9242 27.79C16.2417 28.4725 16.2417 29.575 16.9242 30.2575C17.6067 30.94 18.7092 30.94 19.3917 30.2575L27.4242 22.225C28.1067 21.5425 28.1067 20.44 27.4242 19.7575L19.3917 11.725C18.7267 11.06 17.6067 11.06 16.9242 11.7425Z"
-                                    fill="#68769F" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_3346_6663">
-                                    <rect width="35" height="35" fill="white" transform="translate(0.666748)" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-                    </div>
-                    <div class=" w-fit text-sm md:text-base font-medium px-2 md:px-3 py-2 rounded {% if request.resolver_match.url_name == 'add-business-main-location' %}bg-custom-h text-white{% else %}text-custom-h{% endif %}">
-                        <p
-                            class="font-medium  duration-500   ">Main Location</p>
+                    <div
+                        class=" w-fit rounded text-sm md:text-base font-medium px-2 md:px-3 py-2 {% if request.resolver_match.url_name == 'create-event' or request.resolver_match.url_name == 'create-event-with-slug' %}bg-custom-h text-white{% else %}text-custom-h {% endif %} ">
+                        <p class="font-medium  duration-500   ">Details</p>
                     </div>
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="35" viewBox="0 0 43 35" fill="none">
@@ -72,8 +54,26 @@
                         </svg>
                     </div>
                     <div
-                        class=" w-fit text-sm md:text-base font-medium px-2 md:px-3 py-2 rounded {% if request.resolver_match.url_name == 'add-business-hours' %}bg-custom-h text-white{% else %}text-custom-h{% endif %}">
-                        <p class="font-medium  duration-500   ">Business Hours</p>
+                        class=" w-fit text-sm md:text-base font-medium px-2 md:px-3 py-2 rounded {% if request.resolver_match.url_name == 'add-business-main-location' %}bg-custom-h text-white{% else %}text-custom-h {% endif %}">
+                        <p class="font-medium  duration-500   ">Event Location</p>
+                    </div>
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="35" viewBox="0 0 43 35" fill="none">
+                            <g clip-path="url(#clip0_3346_6663)">
+                                <path
+                                    d="M16.9242 11.7425C16.2417 12.425 16.2417 13.5275 16.9242 14.21L23.7142 21L16.9242 27.79C16.2417 28.4725 16.2417 29.575 16.9242 30.2575C17.6067 30.94 18.7092 30.94 19.3917 30.2575L27.4242 22.225C28.1067 21.5425 28.1067 20.44 27.4242 19.7575L19.3917 11.725C18.7267 11.06 17.6067 11.06 16.9242 11.7425Z"
+                                    fill="#68769F" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_3346_6663">
+                                    <rect width="35" height="35" fill="white" transform="translate(0.666748)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div
+                        class=" w-fit text-sm md:text-base font-medium px-2 md:px-3 py-2 rounded {% if request.resolver_match.url_name == 'add-business-hours' %}bg-custom-h text-white{% else %}text-custom-h {% endif %}">
+                        <p class="font-medium  duration-500   ">Ticket Types</p>
                     </div>
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="35" viewBox="0 0 43 35" fill="none">
@@ -90,18 +90,18 @@
                         </svg>
                     </div>
 
-                    <div class="w-fit text-sm md:text-base font-medium px-2 md:px-3 py-2 rounded {% if request.resolver_match.url_name == 'add-business-socials' %}bg-custom-h text-white{% else %}text-custom-h{% endif %}">
-                        <p
-                            class="font-medium  duration-500   ">Social Accounts</p>
+                    <div
+                        class="w-fit text-sm md:text-base font-medium px-2 md:px-3 py-2 rounded {% if request.resolver_match.url_name == 'add-business-socials' %}bg-custom-h text-white{% else %}text-custom-h {% endif %}">
+                        <p class="font-medium  duration-500   ">Social Accounts</p>
                     </div>
-                    
+
 
                 </div>
             </div>
         </div>
         <div class="relative block ">
-            {% block businessblock %}
-            {% endblock businessblock %}
+            {% block event %}
+            {% endblock event %}
         </div>
     </div>
 </article>

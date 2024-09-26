@@ -6,6 +6,8 @@
     {% tailwind_preload_css %}
     {% tailwind_css %}
     {{form.media}}
+    <link rel="stylesheet" href="{% static 'css/jquery.datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
     {% block styles %}
     {% endblock styles %}
     <style>
@@ -79,6 +81,7 @@
 
     <!-- Custom Static -->
     <link rel="stylesheet" href="{% static 'css/fonts/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -93,6 +96,7 @@
     <link rel="icon" href="{% static 'imgs/cropped-Footer-192x192.png' %}" sizes="192x192">
     <link rel="apple-touch-icon" href="{% static 'imgs/cropped-Footer-180x180.png' %}">
     <link href="https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/keen-slider.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
 
     <!-- Alpine JS -->
     <style>
@@ -149,9 +153,12 @@
     {% include "includes/footer.html" %}
     <!-- End Footer -->
     
-    
+    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
     <script src="{% static 'js/all.min.js' %}"></script>
     <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.datetimepicker.full.min.js' %}"></script>
+    <script src="{% static 'js/global.js' %}"></script>
+    
     <script>
         // Navbar
         const menu = document.querySelector("#menu-bar");
