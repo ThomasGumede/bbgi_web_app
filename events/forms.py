@@ -56,9 +56,9 @@ class EventCreateForm(forms.ModelForm):
             'venue_name': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g John Snow Hall, Next to Asgard"}),
             'event_link': forms.URLInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g https://www.eventtitle.co.za"}),
             'event_address': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g Durban St, Durban, 4312, KZN"}),
-            'event_startdate': forms.DateTimeInput(attrs={"type": "datetime-local", "step": "any", "class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "yyyy-mm-dd h:m:s"}),
+            'event_startdate': forms.DateTimeInput(attrs={"type": "text", "step": "any", "class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "yyyy-mm-dd h:m:s"}),
             'content': TinyMCE(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8}),
-            'event_enddate': forms.DateTimeInput(attrs={"type": "datetime-local", "step": "any", "class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "yyyy-mm-dd h:m:s"})
+            'event_enddate': forms.DateTimeInput(attrs={"type": "text", "step": "any", "class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "yyyy-mm-dd h:m:s"})
         }
 
     def __init__(self, *args, **kwargs):
@@ -129,13 +129,15 @@ class EventTicketTypeForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(
                 attrs={
-                    'type': 'text', 
+                    'type': 'text',
+                    'placeholder': 'e.g 1 Person + 2 Kids',
                     'class': 'text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm'
                     }
                 ),
             'available_seats': forms.NumberInput(
                 attrs={
-                    'type': 'number', 
+                    'type': 'number',
+                    'value': '5', 
                     'class': 'text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm'
                     }
                 ),

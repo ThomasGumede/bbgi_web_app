@@ -1,33 +1,33 @@
-{% extends '_business_create.html' %}
+{% extends '_add_event.html' %}
 {% load static %}
 
 {% block seo_tags %}
-<title>BBGI - Create Listing</title>
+<title>BBGI - Create Event</title>
 <meta name="description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
                             to showcase businesses and expertise">
-<meta name="title" content="BBGI - Create Listing" />
+<meta name="title" content="BBGI - Create Event" />
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/listings/add" />
-<meta property="og:title" content="BBGI - Create Listing" />
+<meta property="og:url" content="https://bbgi.co.za/events/get-started" />
+<meta property="og:title" content="BBGI - Create Event" />
 <meta property="og:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
                             to showcase businesses and expertise" />
 <meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/listings/add" />
-<meta property="twitter:title" content="BBGI - Create Listing" />
+<meta property="twitter:url" content="https://bbgi.co.za/events/get-started" />
+<meta property="twitter:title" content="BBGI - Create Event" />
 <meta property="twitter:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
                             to showcase businesses and expertise" />
 <meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 {% endblock seo_tags %}
 
-{% block businessblock %}
+{% block event %}
 
 <section class="w-full  font-sans py-10 h-full">
     <div class="">
-        <div class="px-4">
+        <div class="">
             {% if form.errors %}
             <div class="w-full mx-auto">
                 <div class="bg-red-50 border-l-8 border-red-900">
@@ -90,7 +90,7 @@
                         <div class="flex flex-wrap">
 
 
-                            <div class="w-full lg:w-12/12 px-4">
+                            <div class="w-full lg:w-12/12 ">
                                 <div class="relative w-full mb-3">
                                     <label for="id_title">
                                         Search or Type Your Address*
@@ -104,7 +104,7 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            <div class="w-full lg:w-12/12 px-4">
+                            <div class="w-full lg:w-12/12 ">
                                 <div class="relative w-full mb-3">
                                     <label for="id_title">
                                         Type Your Event Venue Name*
@@ -116,7 +116,7 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            <div class="w-full lg:w-12/12 px-4 h-96" id="gmp-map">
+                            <div class="w-full lg:w-12/12  h-96" id="gmp-map">
 
                             </div>
 
@@ -154,7 +154,7 @@
     </div>
 </section>
 
-{% endblock businessblock %}
+{% endblock event %}
 {% block js %}
 <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1vMyd0KzU7mTn_AkMW3zd2V4cJC9w31I&libraries=places&callback=initMap&solution_channel=GMP_QB_addressselection_v1_cAC"

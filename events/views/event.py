@@ -79,12 +79,16 @@ def create_event(request, event_slug=None):
 @login_required
 def create_event_address(request, event_slug):
     event = get_object_or_404(EventModel, slug=event_slug, organiser=request.user)
+    form = EventAddressForm(instance=event)
     if request.method == "POST":
         form = EventAddressForm(instance=event, data=request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Event address added successfully!")
+            return redirect("events:add-event-tickets", event.slug)
+        else:
+            messages.error(request, "Error occured trying to add event address")
 
-    form = EventAddressForm(instance=event)
     return render(request, "events/event/create-event-address.html", {"form": form, "event": event })
 
 @login_required
