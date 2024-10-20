@@ -109,10 +109,13 @@ def subscription_payment_success(request, subscription_id):
             payment_information.save(update_fields=["order_number", "order_updated"])
 
         else:
-            check_payment_update_2_subscription.apply_async((subscription.checkout_id, domain, protocol), countdown=25*60)
+            # check_payment_update_2_subscription.apply_async((subscription.checkout_id, domain, protocol), countdown=25*60)
+            logger.info(f"something went wrong: check_payment_update_2_subscription.apply_async((subscription.checkout_id, domain, protocol), countdown=25*60)")
 
-    except PaymentInformation.DoesNotExist:
-        check_payment_update_2_subscription.apply_async((subscription.checkout_id, protocol, domain), countdown=25*60)
+    except PaymentInformation.DoesNotExist as ex:
+        # check_payment_update_2_subscription.apply_async((subscription.checkout_id, protocol, domain), countdown=25*60)
+        logger.info(f"something went wrong: {ex}")
+        
     
     except Exception as ex:
         logger.error(f"something went wrong: {ex}")
