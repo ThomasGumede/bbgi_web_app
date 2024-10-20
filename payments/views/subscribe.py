@@ -113,5 +113,8 @@ def subscription_payment_success(request, subscription_id):
 
     except PaymentInformation.DoesNotExist:
         check_payment_update_2_subscription.apply_async((subscription.checkout_id, protocol, domain), countdown=25*60)
+    
+    except Exception as ex:
+        logger.error(f"something went wrong: {ex}")
 
     return render(request, "payments/subscriptions/success.html", {"subscription": subscription})
