@@ -6,6 +6,7 @@
     {% tailwind_preload_css %}
     {% tailwind_css %}
     {{form.media}}
+    <link rel="stylesheet" href="{% static 'css/nice_select.css' %}">
     <link rel="stylesheet" href="{% static 'css/jquery.datetimepicker.min.css' %}">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
     {% block styles %}
@@ -152,12 +153,13 @@
     <!-- Footer -->
     {% include "includes/footer.html" %}
     <!-- End Footer -->
-    
+
     <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
     <script src="{% static 'js/all.min.js' %}"></script>
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/jquery.datetimepicker.full.min.js' %}"></script>
     <script src="{% static 'js/global.js' %}"></script>
+    <script src="{% static 'js/nice_select.js' %}"></script>
     
     <script>
         // Navbar

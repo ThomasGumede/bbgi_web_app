@@ -138,9 +138,20 @@
             <p class="text-custom-text mb-6 text-sm font-regular py-5 px-6 border-l-4 bg-[#c2a6404d] border-l-custom-primary border-l-solid">
                 "BBGI's expertise in optimizing our business listings has significantly boosted our online visibility."
             </p>
-            <a href="{% url 'bbgi_home:about-bbgi' %}" class="w-fit font-normal md:block py-3 px-5 text-lg text-center rounded-sm text-white bg-custom-primary">
-                <span>Read more</span>
-            </a>
+            <div>
+                <a href="{% url 'bbgi_home:about-bbgi' %}">
+                    <h5
+                        class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                        <span
+                            class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                        <div
+                            class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                            <p>Read more</p>
+                        </div>
+                    </h5>
+                </a>
+            </div>
+            
         </div>
     </div>
 </section>
@@ -246,17 +257,14 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7 flex-wrap">
                 {% for listing in listings %}
                 <div class="group overflow-hidden shadow-[0px_10px_30px_0px_rgba(0,_0,_0,_0.07)] rounded-lg">
-                    <div class="relative overflow-hidden block">
+                    <a href="{{listing.get_absolute_url}}" class="relative overflow-hidden block">
                         <div class="img_box overflow-hidden relative block">
                             <div class="overflow-hidden h-52 bg-custom-h relative block transition-all duration-500 ease-in">
-                                {% if listing.background_image %}
-                                <img src="{{listing.background_image.url}}"
+
+                                <img src="{% if listing.background_image %}{{listing.background_image.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}"
                                     alt="{{listing.title}} background_image by {{listing.owner.get_full_name}}"
                                     class="w-full transition-all duration-500 ease-in group-hover:scale-105 group-hover:opacity-50 h-full object-cover">
-                                {% else %}
-                                <img src="{% static 'imgs/no-image.png' %}" alt="{{listing.title}}"
-                                    class="w-full transition-all duration-500 ease-in group-hover:scale-105 group-hover:opacity-50 h-full object-cover">
-                                {% endif %}
+                                
                             </div>
                             <div class="absolute bottom-3 left-3">
                                 <div class="py-1 px-2 bg-custom-primary">
@@ -282,6 +290,12 @@
                             <div class="relative">
                                 <div class="">
                                     <p class="text-xs text-gray-500 font-normal"><span><i class="fa-solid fa-location-dot text-custom-primary mr-2"></i></span>{{listing.get_location|truncatewords:5}}</p>
+                                    <p class="text-xs text-gray-500 font-normal"><span><i
+                                                class="fa-solid fa-phone text-custom-primary mr-2"></i></span>{{listing.phone}}
+                                    </p>
+                                    <p class="text-xs text-gray-500 font-normal"><span><i
+                                                class="fa-solid fa-envelope text-custom-primary mr-2"></i></span>{{listing.email}}
+                                    </p>
                                 </div>
                             </div>
                             <div class="relative block border-t py-2 px-5  border-solid">
@@ -309,7 +323,7 @@
                             </div>
             
                         </div>
-                    </div>
+                    </a>
                 </div>
                 {% endfor %}
             </div>
@@ -412,9 +426,8 @@
     <div
         class="relative flex items-center justify-between gap-4 rounded-lg bg-custom-primary px-4 py-3 text-white shadow-lg">
         <p class="text-sm font-medium">
-            Ready for heritage month?
-            <a href="{% url 'events:events' %}" class="inline-block underline">Check out this new bbgi heritage month
-                event!</a>
+            Check out our upcoming events 
+            <a href="{% url 'events:events' %}" class="inline-block underline">here!</a>
         </p>
 
         <button @click="announcement = false" aria-label="Close"

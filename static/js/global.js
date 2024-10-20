@@ -484,5 +484,8 @@ const modal = () => {
   });
 };
 
+
+
+
 slider()
 modal()

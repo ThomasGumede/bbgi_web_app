@@ -130,7 +130,7 @@ def send_subscription_confirm_email(order: SubscriptionOrder, request, status):
         sent = send_html_email_with_attachments(order.subscriber.email, mail_subject, message, "BBGI <bbgiorders@bbgi.co.za>")
 
         if not sent:
-            email_logger.error(f"Failed to send subscription confirmation email for order {order.order_number} to {order.subscriber.email}")
+            email_logger.error(f"Failed to send subscription confirmation email for order {order.order_id} to {order.subscriber.email}")
             return False
 
         return True

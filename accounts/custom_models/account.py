@@ -73,6 +73,12 @@ class Account(AbstractUser, AbstractProfile):
     def __str__(self):
         return self.get_full_name()
 
+    def get_full_name(self):
+        if self.title:
+            return f"{self.title} {self.first_name[0]} {self.last_name}"
+        else:
+            return f"{self.first_name} {self.last_name}"
+
 class SubscriptionOrder(AbstractCreate, AbstractPayment):
     package = models.ForeignKey(SubscriptionPackage, null=True, blank=True, on_delete=models.SET_NULL, related_name="subscription_orders")
     subscriber = models.OneToOneField(Account, null=True, blank=True, on_delete=models.SET_NULL, related_name="subscription_order")

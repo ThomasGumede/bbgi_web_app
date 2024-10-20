@@ -27,10 +27,10 @@ class EmailForm(forms.ModelForm):
         fields = ('from_email', 'name', 'message', 'subject')
 
         widgets = {
-            "from_email": forms.EmailInput(attrs={"class": "text-body-color border-custom-h focus:border-custom-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none", "placeholder": "Your email"}),
-            "subject": forms.TextInput(attrs={"class": "text-body-color border-custom-h focus:border-custom-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none", "placeholder": "Email subject"}),
-            "name": forms.TextInput(attrs={"class": "text-body-color border-custom-h focus:border-custom-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none", "placeholder": "Your name"}),
-            "phone": forms.TextInput(attrs={"class": "text-body-color border-custom-h focus:border-custom-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none", "type": "tel", "placeholder": "Your phone"}),
+            "from_email": forms.EmailInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Your email"}),
+            "subject": forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Email subject"}),
+            "name": forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Your name"}),
+            "phone": forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "type": "tel", "placeholder": "Your phone"}),
             "message": forms.Textarea(attrs={"class": "text-body-color border-custom-h focus:border-custom-primary w-full resize-none rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none", "placeholder": "Your message", "row": "6"}),
         }
 
@@ -42,8 +42,8 @@ class MemberForm(forms.ModelForm):
         widgets = {
             "image": forms.FileInput(attrs={"class": "w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]"}),
             
-            "full_names": forms.TextInput(attrs={"class": "text-body-color border-custom-h focus:border-custom-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none", "placeholder": "Full names"}),
-            "role": forms.TextInput(attrs={"class": "text-body-color border-custom-h focus:border-custom-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none", "placeholder": "Role"}),
+            "full_names": forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Full names"}),
+            "role": forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Role"}),
             "decription": TinyMCE(attrs={"class": "border-0 px-3 py-3 {% if form.content.errors %} h-44 border-2 border-red-500{% endif %} placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", "rows": 8}),
             }
 
@@ -53,7 +53,7 @@ class CampaignUpdateStatusForm(forms.ModelForm):
         fields = ("status", )
 
         widget = {
-            'status': forms.Select(attrs={"class": "block p-3 md:text-base w-full text-sm text-custom-h outline-none placeholder:text-gray-400 bg-white rounded-md rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-custom-primary ease-linear transition-all duration-150"}),
+            'status': forms.Select(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
         }
 
 class EventUpdateStatusForm(forms.ModelForm):
@@ -62,7 +62,7 @@ class EventUpdateStatusForm(forms.ModelForm):
         fields = ("status", )
 
         widget = {
-            'status': forms.Select(attrs={"class": "block p-3 md:text-base w-full text-sm text-custom-h outline-none placeholder:text-gray-400 bg-white rounded-md rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-custom-primary ease-linear transition-all duration-150"}),
+            'status': forms.Select(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
         }
 
 class WalletStatusUpdateForm(forms.ModelForm):
@@ -76,8 +76,8 @@ class PostForm(forms.ModelForm):
         fields = ("title", "image", "content", "category")
 
         widgets = {
-            'title': forms.TextInput(attrs={"class": "block p-3 md:text-base w-full text-sm text-custom-h outline-none placeholder:text-gray-400 bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-custom-primary ease-linear transition-all duration-150", "placeholder": "e.g John Snow's 30th Birthday"}),
-            'category': forms.Select(attrs={"class": "block p-3 md:text-base w-full text-sm text-custom-h outline-none placeholder:text-gray-400 bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-custom-primary ease-linear transition-all duration-150"}),
+            'title': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g John Snow's 30th Birthday"}),
+            'category': forms.Select(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
             'image': forms.FileInput(attrs={"class": "w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]"}),
-            'content': TinyMCE(attrs={"class": "block p-3 md:text-base w-full text-sm text-custom-h outline-none placeholder:text-gray-400 bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-custom-primary ease-linear transition-all duration-150", "rows": 8}),
+            'content': TinyMCE(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8}),
         }
