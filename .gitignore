@@ -8,7 +8,6 @@ __pycache__
 migrations
 .env
 a.py
-data.json
 s.js
 /media
 /static_root
