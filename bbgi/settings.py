@@ -21,7 +21,7 @@ ADMINS = [('admin@bbgi.co.za'),( 'support@bbgi.co.za'), ('gumedethomas12@gmail.c
 MANAGERS = [('admin@bbgi.co.za'), ('support@bbgi.co.za'), ('gumedethomas12@gmail.com') ]
 
 # Security
-CSRF_TRUSTED_ORIGINS = ['https://127.0.0.1', 'https://localhost', 'https://bbgi.co.za', 'https://www.bbgi.co.za']
+CSRF_TRUSTED_ORIGINS = ['https://127.0.0.1', 'https://localhost', 'https://bbgi.co.za', 'https://www.bbgi.co.za', 'localhost']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SILENCED_SYSTEM_CHECKS = ['security.W019']
@@ -47,7 +47,7 @@ else:
     SECURE_HSTS_PRELOAD = True
 
     # Allowed Hosts
-    ALLOWED_HOSTS = ['bbgi.co.za', 'www.bbgi.co.za']
+    ALLOWED_HOSTS = ['bbgi.co.za', 'www.bbgi.co.za', 'localhost']
 
 
 # Files
