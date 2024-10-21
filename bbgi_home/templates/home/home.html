@@ -162,168 +162,156 @@
             <h4 class="text-4xl text-custom-h font-bold">Our Main Goal</h4>
         </div>
         <div class="swiper-2 overflow-hidden">
-            <di class="service-list bg-custom-bg swiper-wrapper">
+            <di class="service-list my-5 bg-custom-bg swiper-wrapper">
                 <div class="swiper-slide">
-                    <div class="w-full sm:w-72 md:w-[350px] h-80">
-                        <div
-                            class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-                
-                            <div class="w-32 h-32 border mx-auto overflow-hidden">
-                                <img src="{% static 'imgs/services/service-1.png' %}" alt="Service icon"
-                                    class="w-full h-full object-cover">
+                    <div class="p-[50px] col:p-[30px_25px] shadow-[0px_0px_20px_0px_rgba(20,33,43,0.1)]">
+                        <div class="text-center">
+                            <div
+                                class="w-[120px] h-[120px] leading-[120px] bg-[#f5f5f5] text-center mx-auto mb-[30px] text-[50px] rounded-[50%]">
+                                <i class="fa-solid fa-business-time text-custom-primary"></i>
                             </div>
-                
-                            <h3 class="text-xl font-semibold text-custom-h">
-                                <a href="#">Find Verified & Reliable Businesses</a>
-                            </h3>
-                
-                            
-                
-                            <a href="{% url 'listings:listings' %}"
-                                class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
-                                <span>Discover listings</span>
-                
-                                <ion-icon name="arrow-forward-outline" role="img" class="md hydrated"
-                                    aria-label="arrow forward outline"></ion-icon>
-                            </a>
-                
+                            <h2 class="text-[#14212b] text-[30px] font-bold mb-[20px] xl:text-[25px] col:text-[25px]">
+                                Business Listing</h2>
+                            <p class=" text-[#6e6e6e]">Our business/shops listing service offers a dedicated space for Black African business owners to showcase their products
+                            and services.</p>
+                            <a href="{% if request.user.is_authenticated and request.user.is_paid %}{% url 'listings:add-listing' %}{% else %}{% url 'listings:get-started-with-listing' %}{% endif %}"
+                                class="inline-block transition-all duration-300 p-[10px_35px] pr-[45px] text-custom-primary border-[1px] border-custom-primary
+                                                                            relative rounded-[6px] mt-[20px] uppercase before:absolute before:right-[20px]
+                                                                            before:top-[51%] before:content-['\f103'] before:font-['Flaticon']
+                                                                            before:-translate-y-1/2 hover:bg-custom-primary hover:text-white">Add Listing</a>
                         </div>
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="w-full sm:w-72 md:w-[350px] h-80">
-                        <div
-                            class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-                
-                            <div class="w-32 h-32 border mx-auto overflow-hidden">
-                                <img src="{% static 'imgs/services/service-2.png' %}" alt="Service icon"
-                                    class="w-full h-full object-cover">
+                    <div class="p-[50px] col:p-[30px_25px] shadow-[0px_0px_20px_0px_rgba(20,33,43,0.1)]">
+                        <div class="text-center">
+                            <div
+                                class="w-[120px] h-[120px] leading-[120px] bg-[#f5f5f5] text-center mx-auto mb-[30px] text-[50px] rounded-[50%]">
+                                <i class="fa-solid fa-magnifying-glass-dollar text-custom-primary"></i>
                             </div>
-                
-                            <h3 class="text-xl font-semibold text-custom-h">
-                                <a href="#">Get Support For Your Business</a>
-                            </h3>
-                
-                            
-                
+                            <h2 class="text-[#14212b] text-[30px] font-bold mb-[20px] xl:text-[25px] col:text-[25px]">
+                                Fundraise Listing</h2>
+                            <p class=" text-[#6e6e6e]">Our fundraising campaigns listing service provides a platform for Black African business owners to showcase their
+                            fundraising efforts.</p>
                             <a href="{% url 'campaigns:create-campaign' %}"
-                                class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
-                                <span>Add Campaign</span>
-                
-                                <ion-icon name="arrow-forward-outline" role="img" class="md hydrated"
-                                    aria-label="arrow forward outline"></ion-icon>
-                            </a>
-                
+                                class="inline-block transition-all duration-300 p-[10px_35px] pr-[45px] text-custom-primary border-[1px] border-custom-primary
+                                                                            relative rounded-[6px] mt-[20px] uppercase before:absolute before:right-[20px]
+                                                                            before:top-[51%] before:content-['\f103'] before:font-['Flaticon']
+                                                                            before:-translate-y-1/2 hover:bg-custom-primary hover:text-white">Add Campaign</a>
                         </div>
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="w-full sm:w-72 md:w-[350px] h-80">
-                        <div
-                            class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-                
-                            <div class="w-32 h-32 border mx-auto overflow-hidden">
-                                <img src="{% static 'imgs/services/service-3.png' %}" alt="Service icon"
-                                    class="w-full h-full object-cover">
+                    <div class="p-[50px] col:p-[30px_25px] shadow-[0px_0px_20px_0px_rgba(20,33,43,0.1)]">
+                        <div class="text-center">
+                            <div
+                                class="w-[120px] h-[120px] leading-[120px] bg-[#f5f5f5] text-center mx-auto mb-[30px] text-[50px] rounded-[50%]">
+                                <i class="fa-regular fa-calendar-check text-custom-primary"></i>
                             </div>
-                
-                            <h3 class="text-xl font-semibold text-custom-h">
-                                <a href="#">Connect With More Customers</a>
-                            </h3>
-                
-                            
-                
-                            <a href="{% url 'listings:add-listing' %}"
-                                class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
-                                <span>Add Listing</span>
-                            </a>
-                
+                            <h2 class="text-[#14212b] text-[30px] font-bold mb-[20px] xl:text-[25px] col:text-[25px]">
+                                Business Events</h2>
+                            <p class=" text-[#6e6e6e]">The business events listing service allows you to promote your business-related events to a wider audience.</p>
+                            <a href="{% url 'events:create-event' %}" class="inline-block transition-all duration-300 p-[10px_35px] pr-[45px] text-custom-primary border-[1px] border-custom-primary
+                                                            relative rounded-[6px] mt-[20px] uppercase before:absolute before:right-[20px]
+                                                            before:top-[51%] before:content-['\f103'] before:font-['Flaticon']
+                                                            before:-translate-y-1/2 hover:bg-custom-primary hover:text-white">Add Event</a>
                         </div>
                     </div>
                 </div>
-            
+                
             </div>
         </div>
         
     </div>
 </section>
+
 <section class="w-full overflow-hidden font-sans relative py-20 block bg-white">
     <div class="container">
-        <div class="text-center mb-8">
-            <p class="text-custom-primary mb-3 font-semibold text-lg">Fictured Listings</p>
-            <h4 class="text-4xl text-custom-h font-bold">Our Top Listings</h4>
-        </div>
-        <div class="relative">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7 flex-wrap">
+        <div class="flex lg:flex-row flex-col lg:text-left text-center flex-wrap items-center justify-between mb-12">
+            <div class="lg:mb-0 mb-4 aos-init aos-animate" data-aos="fade-up">
+              <h2 class="text-2xl lg:text-3xl font-bold capitalize mb-2 text-custom-h"> Trending Listing </h2>
+              <h6 class="text-sm lg:text-base text-gray-500  font-normal"> A selection of listing verified for quality </h6>
+            </div>
+            <div data-aos="fade-up" class="aos-init aos-animate">
+              <a href="{% url 'listings:listings' %}" class="text-gray-500  hover:text-blue-500 flex items-center"> Explore More <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="w-5 ml-3" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg> </a>
+            </div>
+          </div>
+        <div class="relative swiper-4">
+            <div class="swiper-wrapper py-8">
                 {% for listing in listings %}
-                <div class="group overflow-hidden shadow-[0px_10px_30px_0px_rgba(0,_0,_0,_0.07)] rounded-lg">
-                    <a href="{{listing.get_absolute_url}}" class="relative overflow-hidden block">
-                        <div class="img_box overflow-hidden relative block">
-                            <div class="overflow-hidden h-52 bg-custom-h relative block transition-all duration-500 ease-in">
+                <div class="swiper-slide">
+                    <div class="group overflow-hidden shadow-[0px_10px_30px_0px_rgba(0,_0,_0,_0.07)] rounded-lg">
+                        <a href="{{listing.get_absolute_url}}" class="relative overflow-hidden block">
+                            <div class="img_box overflow-hidden relative block">
+                                <div class="overflow-hidden h-52 bg-custom-h relative block transition-all duration-500 ease-in">
 
-                                <img src="{% if listing.background_image %}{{listing.background_image.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}"
-                                    alt="{{listing.title}} background_image by {{listing.owner.get_full_name}}"
-                                    class="w-full transition-all duration-500 ease-in group-hover:scale-105 group-hover:opacity-50 h-full object-cover">
-                                
-                            </div>
-                            <div class="absolute bottom-3 left-3">
-                                <div class="py-1 px-2 bg-custom-primary">
-                                    <div class="flex items-center justify-center space-x-1">
-                                        <i class="fa-regular text-white fa-xs fa-star"></i>
-                                        <p class="text-white text-xs p-0 font-semibold">{{listing.get_average_rating|safe}}</p>
+                                    <img src="{% if listing.background_image %}{{listing.background_image.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}"
+                                        alt="{{listing.title}} background_image by {{listing.owner.get_full_name}}"
+                                        class="w-full transition-all duration-500 ease-in group-hover:scale-105 group-hover:opacity-50 h-full object-cover">
+                                    
+                                </div>
+                                <div class="absolute bottom-3 left-3">
+                                    <div class="py-1 px-2 bg-custom-primary">
+                                        <div class="flex items-center justify-center space-x-1">
+                                            <i class="fa-regular text-white fa-xs fa-star"></i>
+                                            <p class="text-white text-xs p-0 font-semibold">{{listing.get_average_rating|safe}}</p>
+                                        </div>
+                
                                     </div>
-            
                                 </div>
                             </div>
-                        </div>
-                        <div class="block text-center space-y-6 bg-white ">
-                            <div class="space-y-1 pt-5 px-5">
-                                <h3 class="text-custom-h m-0 transition-all duration-500 text-xl font-bold">
-                                    <a href="{{listing.get_absolute_url}}"
-                                        class="text-custom-h transition-all duration-500 ease-in group-hover:text-custom-primary">{{listing.title|truncatewords:3}}</a>
-                                </h3>
-                                <p class="text-gray-500 text-sm">
-                                    {{listing.slogan}}
-                                </p>
-                            </div>
-            
-                            <div class="relative">
-                                <div class="">
-                                    <p class="text-xs text-gray-500 font-normal"><span><i class="fa-solid fa-location-dot text-custom-primary mr-2"></i></span>{{listing.get_location|truncatewords:5}}</p>
-                                    <p class="text-xs text-gray-500 font-normal"><span><i
-                                                class="fa-solid fa-phone text-custom-primary mr-2"></i></span>{{listing.phone}}
-                                    </p>
-                                    <p class="text-xs text-gray-500 font-normal"><span><i
-                                                class="fa-solid fa-envelope text-custom-primary mr-2"></i></span>{{listing.email}}
+                            <div class="block text-center space-y-6 bg-white ">
+                                <div class="space-y-1 pt-5 px-5">
+                                    <h3 class="text-custom-h m-0 transition-all duration-500 text-xl font-bold">
+                                        <a href="{{listing.get_absolute_url}}"
+                                            class="text-custom-h transition-all duration-500 ease-in group-hover:text-custom-primary">{{listing.title|truncatewords:3}}</a>
+                                    </h3>
+                                    <p class="text-gray-500 text-sm">
+                                        {{listing.slogan}}
                                     </p>
                                 </div>
-                            </div>
-                            <div class="relative block border-t py-2 px-5  border-solid">
-                                <div class="relative flex justify-between items-center">
-                                    <div class="relative space-x-2 flex justify-center w-fit items-center">
-                                        <div
-                                            class="text-sm rounded-full  h-7 w-7 grid items-center justify-center text-custom-primary">
-                                            <i class="fa-solid fa-tag font-bold p-0 m-0 text-sm"></i>
-                                        </div>
-                                        <div class="w-full">
-                                            <a href="{% url 'listings:get-listings-by-category' category=listing.category.slug %}"
-                                                class="text-xs text-gray-500 font-normal">{{listing.category.label|truncatewords:1}}</a>
-                                        </div>
-                                        <div
-                                            class="text-sm rounded-full  h-7 w-7 grid items-center justify-center text-custom-primary">
-                                            <p class="font-light p-0 m-0 text-xs">+{{listing.category.businesses.count}}</p>
-                                        </div>
-                                    </div>
-                                    <div class="">
-                                        <p class="text-xs text-gray-500 font-normal">{% if listing.is_open %}<span
-                                                class="p-1 rounded-sm text-white bg-green-400">open</span>{% else %}<span
-                                                class="p-1 text-white rounded-sm bg-red-400">close</span>{% endif %}</p>
+                
+                                <div class="relative">
+                                    <div class="block">
+                                        
+                                        <p class="text-xs text-gray-500 font-normal"><span><i class="fa-solid fa-location-dot text-custom-primary mr-2"></i></span>{{listing.get_location|truncatewords:5}}</p>
+                                        <a href="tel:{{listing.phone}}" class="text-xs block hover:text-custom-h text-gray-500 font-normal"><span><i
+                                                    class="fa-solid fa-phone text-custom-primary mr-2"></i></span>{{listing.phone}}
+                                        </a>
+                                        <a href="emailto:{{listing.email}}" class="text-xs block hover:text-custom-h text-gray-500 font-normal"><span><i
+                                                    class="fa-solid fa-envelope text-custom-primary mr-2"></i></span>{{listing.email}}
+                                        </a>
                                     </div>
                                 </div>
+                                <div class="relative block border-t py-2 px-5  border-solid">
+                                    <div class="relative flex justify-between items-center">
+                                        <div class="relative space-x-2 flex justify-center w-fit items-center">
+                                            <div
+                                                class="text-sm rounded-full  h-7 w-7 grid items-center justify-center text-custom-primary">
+                                                <i class="fa-solid fa-tag font-bold p-0 m-0 text-sm"></i>
+                                            </div>
+                                            <div class="w-full">
+                                                <a href="{% url 'listings:get-listings-by-category' category=listing.category.slug %}"
+                                                    class="text-xs text-gray-500 font-normal">{{listing.category.label|truncatewords:1}}</a>
+                                            </div>
+                                            <div
+                                                class="text-sm rounded-full  h-7 w-7 grid items-center justify-center text-custom-primary">
+                                                <p class="font-light p-0 m-0 text-xs">+{{listing.category.businesses.count}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <p class="text-xs text-gray-500 font-normal">{% if listing.is_open %}<span
+                                                    class="p-1 rounded-sm text-white bg-green-400">open</span>{% else %}<span
+                                                    class="p-1 text-white rounded-sm bg-red-400">close</span>{% endif %}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                
                             </div>
-            
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
@@ -366,33 +354,7 @@
         
     </div>
 </section>
-<section class="w-full font-sans relative py-20 block bg-custom-bg">
-    <div class="container">
-        <div class="overflow-hidden rounded-lg shadow-2xl md:grid md:grid-cols-3">
-            <img alt="" src="{% static 'imgs/about/about-3.png' %}" class="h-32 w-full object-cover md:h-full" />
 
-            <div class="p-4 text-center sm:p-6 md:col-span-2 lg:p-8">
-                <p class="text-sm font-semibold text-custom-primary uppercase tracking-widest">Join Us Today</p>
-
-                <h2 class="mt-6 font-black uppercase">
-                    <span class="text-4xl font-black text-custom-h sm:text-5xl lg:text-6xl"> Get 50% off </span>
-
-                    <span class="mt-2 block text-custom-text text-sm">On your first year subscription</span>
-                </h2>
-
-                <a class="mt-8 inline-block w-full bg-custom-h py-4 text-sm font-bold uppercase tracking-widest text-white"
-                    href="{% url 'accounts:choose-package' %}">
-                    Get Discount
-                </a>
-
-                <p class="mt-8 text-xs font-medium uppercase text-gray-400">
-                    Offer valid until we reach 50 listings*
-                </p>
-            </div>
-        </div>
-    </div>
-
-</section>
 <section class="section-blog bg-custom-bg py-20">
     <div
         class="container">
@@ -496,6 +458,25 @@
         }
     })
     const swiper_3 = new Swiper('.swiper-3', {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            loop: true,
+            breakpoints: {
+                // when window width is >= 320px
+                750: {
+                    slidesPerView: 2
+                },
+                1032: {
+                    slidesPerView: 2.5
+                },
+                // when window width is >= 640px
+                1140: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                }
+            }
+        })
+    const swiper_4 = new Swiper('.swiper-4', {
             slidesPerView: 1,
             spaceBetween: 10,
             loop: true,

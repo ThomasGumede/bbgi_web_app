@@ -44,7 +44,7 @@ def update_service(request, listing_slug, service_id):
         if form.is_valid() and form.is_multipart():
             service.save()
             messages.success(request, "Service updated successfully")
-            return redirect("markets:get-services", listing.id)
+            return redirect("markets:get-services", listing.slug)
         else:
             messages.error(request, "Error trying to update service")
             return render(request, "markets/services/update-service.html", {"form": form})
@@ -94,6 +94,25 @@ def create_quotation(request, service_id):
         
     form = QoutationForm
     return render(request, "markets/quotations/create-quotation.html", {"form": form})
+
+
+@login_required
+def qoutations(request, service_id = None):
+    
+    service = None
+    quotations = []
+
+    if service_id:
+        service = get_object_or_404(Service, id=service_id, organiser=request.user)
+        quotations = service.qoutations.all()
+    else:
+        businesses = Business.objects.prefetch_related("services").filter(owner=request.user)
+        quotations = []
+        for business in businesses:
+            for service in business.services.prefetch_related("qoutations"):
+                quotations.extend(service.qoutations.all())
+
+    return render(request, "markets/quotations/manage/quotations.html", {"quotations": quotations, "service": service})
 
 
 

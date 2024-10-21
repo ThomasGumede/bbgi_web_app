@@ -87,7 +87,7 @@
                                                 class="group w-full flex items-center pl-10 pr-2 py-2 text-sm font-medium text-white rounded-md hover:text-gray-900 hover:bg-gray-50">
                                                 My listings
                                             </a>
-                                            <a href="#"
+                                            <a href="{% url 'markets:qoutations' %}"
                                                 class="group w-full flex items-center pl-10 pr-2 py-2 text-sm font-medium text-white rounded-md hover:text-gray-900 hover:bg-gray-50">
                                                 Qoutations
                                             </a>
@@ -226,136 +226,6 @@
                     </div>
 
 
-                    <!-- <div class="relative block overflow-auto">
-                        
-                        <div class="p-4 grid gap-y-10">
-                            <div class="grid gap-y-6 sm:gap-y-7">
-                                <h3 class="duration-300 text-xl uppercase tracking-widest text-white font-semibold">
-                                    dashboard</h3>
-                                <a href="{% url 'bbgi_home:dashboard' %}"
-                                    class="px-4 py-2 duration-500 hover:bg-gray-50 hover:text-custom-h rounded flex items-center text-white font-normal text-base">
-                                    <span class="text-base font-normal whitespace-nowrap">Dashboard</span>
-                                </a>
-
-                                <a href="{% url 'bbgi_home:bbgi-home' %}"
-                                    class="px-4 py-2 duration-500 hover:bg-gray-50 hover:text-custom-h rounded flex items-center text-white font-normal text-base">
-                                    <span class="text-base font-normal whitespace-nowrap">Home</span>
-                                </a>
-
-                                <div
-                                    class="px-4 py-1 w-full group hover:max-h-full rounded hover:bg-gray-50 overflow-hidden max-h-7 duration-500 ease-in-out">
-                                    <div
-                                        class="duration-500  group-hover:text-custom-h rounded flex justify-between w-full items-center text-white font-normal text-sm">
-                                        <div>
-                                            <span class="text-base font-normal whitespace-nowrap">Organisor</span>
-                                        </div>
-                                        <div>
-                                            <i
-                                                class="fa-solid fa-chevron-down text-base group-hover:rotate-180  mr-auto"></i>
-                                        </div>
-                                    </div>
-
-                                    <div class="rounded mt-2">
-                                        <div class="nav__dropdown-content grid px-4">
-                                            <a href="{% url 'events:manage-events' %}"
-                                                class="nav__dropdown-item text-sm py-2 font-normal text-text-custom-h duration-500 text-custom-h rounded">My
-                                                Events</a>
-                                            <a href="{% url 'campaigns:manage-campaigns' %}"
-                                                class="nav__dropdown-item text-sm py-2 font-normal text-text-custom-h duration-500 text-custom-h rounded">My
-                                                Campaigns</a>
-                                            <a href="{% url 'campaigns:all-contributions' %}"
-                                                class="nav__dropdown-item text-sm py-2 font-normal text-text-custom-h duration-500 text-custom-h rounded">Contributions</a>
-                                            <a href="{% url 'events:all-ticket-orders' %}"
-                                                class="nav__dropdown-item text-sm py-2 font-normal text-text-custom-h duration-500 text-custom-h rounded">Ticket
-                                                Orders</a>
-                                            <a href="{% url 'listings:manage-listings' %}" class="text-sm font-normal text-custom-h duration-500 py-2">My
-                                                listings</a>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div
-                                    class="px-4 py-1 w-full group hover:max-h-full rounded hover:bg-gray-50 overflow-hidden max-h-7 duration-500 ease-in-out">
-                                    <div
-                                        class="duration-500  group-hover:text-custom-h rounded flex justify-between w-full items-center text-white font-normal text-sm">
-                                        <div>
-                                            <span class="text-base font-normal whitespace-nowrap">Account</span>
-                                        </div>
-                                        <div>
-                                            <i
-                                                class="fa-solid fa-chevron-down text-base group-hover:rotate-180  mr-auto"></i>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="rounded mt-2">
-                                        <div class="nav__dropdown-content grid px-4">
-                                            <a href="{% url 'accounts:profile-update' %}"
-                                                class="text-sm font-normal text-custom-h duration-500 py-2">Update
-                                                profile</a>
-                                            <a href=""
-                                                class="text-sm font-normal text-custom-h duration-500 py-2">My
-                                                wallet</a>
-                                            <a href="{% url 'events:manage-ticket-orders' %}"
-                                                class="text-sm font-normal text-custom-h duration-500 py-2">My
-                                                tickets</a>
-
-                                            <a href="{% url 'campaigns:manage-contributions' %}"
-                                                class="text-sm font-normal text-custom-h duration-500 py-2">My
-                                                contributions</a>
-                                            
-                                            <a href="{% url 'bbgi_home:all-quotations' %}" class="text-sm font-normal text-custom-h duration-500 py-2">My
-                                                quotes</a>
-                                            <a href="{% url 'accounts:logout' %}" class="text-sm font-normal text-custom-h duration-500 py-2">Logout</a>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                {% if request.user.is_staff and request.user.is_superuser %}
-
-
-                                <div
-                                    class="px-4 py-1 w-full group hover:max-h-full rounded hover:bg-gray-50 overflow-hidden max-h-7 duration-500 ease-in-out">
-                                    <div
-                                        class="duration-500  group-hover:text-custom-h rounded flex justify-between w-full items-center text-white font-normal text-sm">
-                                        <div>
-                                            <span class="text-base font-normal whitespace-nowrap">Admin</span>
-                                        </div>
-                                        <div>
-                                            <i
-                                                class="fa-solid fa-chevron-down text-base group-hover:rotate-180  mr-auto"></i>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="rounded mt-2">
-                                        <div class="nav__dropdown-content grid px-4">
-                                            <a href=""
-                                                class="text-sm font-normal text-custom-h duration-500 py-2">Earnings</a>
-                                            <a href="{% url 'bbgi_home:all-accounts' %}"
-                                                class="text-sm font-normal text-custom-h duration-500 py-2">Accounts</a>
-                                            <a href="{% url 'bbgi_home:team-members' %}"
-                                                class="text-sm font-normal text-custom-h duration-500 py-2">Team</a>
-                                            <a href="{% url 'bbgi_home:all-listings' %}"
-                                                class="text-sm font-normal text-custom-h duration-500 py-2">Listings</a>
-                                            <a href="{% url 'bbgi_home:all-campaigns' %}" class="text-sm font-normal text-custom-h duration-500 py-2">Campaigns</a>
-                                            <a href="{% url 'bbgi_home:all-events' %}" class="text-sm font-normal text-custom-h duration-500 py-2">Events</a>
-                                            <a href="{% url 'bbgi_home:all-contributions' %}"
-                                                class="text-sm font-normal text-custom-h duration-500 py-2">Contributions</a>
-                                            <a href="{% url 'bbgi_home:all-ticket-orders' %}" class="text-sm font-normal text-custom-h duration-500 py-2">Ticket
-                                                orders</a>
-                                            <a href="{% url 'bbgi_home:all-blogs' %}"
-                                                class="text-sm font-normal text-custom-h duration-500 py-2">Blog</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {% endif %}
-                                
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
                 <div class="lg:absolute lg:right-0 w-full lg:w-10/12 h-full lg:top-0">
                     <div class="relative   block w-full bg-custom-h">
@@ -365,6 +235,11 @@
                                     <img src="{% static 'imgs/logo_1.png' %}" alt="BBGI logo" class="object-cover">
                                 </a>
                                 <div class="flex w-fit items-center text-white space-x-9">
+                                    <div id="cart">
+                                        <a href="{% url 'bbgi_home:bbgi-home' %}" class="text-white">
+                                            <i class="fa-solid fa-home fa-lg"></i>
+                                        </a>
+                                    </div>
                                     <div class="w-fit flex items-center space-x-5">
                                         <div x-data="{ isOpen: false }" class="relative inline-block ">
                                             <!-- Dropdown toggle button -->
@@ -450,11 +325,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div id="cart">
-                                        <a href="" class="text-white">
-                                            <i class="fa-solid fa-cart-shopping fa-lg"></i>
-                                        </a>
-                                    </div> -->
+                                    
                                     <a href="{% url 'listings:add-listing' %}" id="add-listing w-full">
                                         <span href="" class="text-white md:hidden  w-full">
                                             <i class="fa-solid fa-plus fa-lg"></i>

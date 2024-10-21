@@ -91,6 +91,54 @@
         </div>
     </div>
 </section>
+<section class="section-wrap">
+    <div class="container">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class=" col:col-span-12">
+                <div class="p-[50px] bg-custom-h relative z-[1] rounded-[10px] overflow-hidden col:p-[20px]">
+                    <div>
+                        <h2 class="text-custom-primary text-[34px] mb-[20px] font-semibold">Our Mission</h2>
+                        <p class="text-[#cbcbcb] text-[15px] mb-[20px]">Lorem Ipsum is simply dummy text of the
+                            printing and
+                            typesetting
+                            has been the industry's standard dummy text ever since the 1500 when
+                            unknown printer took a galley of type and scrambled it to make a type
+                            specimen book. It has survived not only five centuries, but also
+                            the leap into electronic typesetting.</p>
+                        <h5 class="text-white text-[18px] leading-[27px] font-semibold">Lorem Ipsum is simply
+                            dummy
+                            text of the printing
+                            has been the industry standard dummy text ever since
+                            unknown printer took galley.</h5>
+                    </div>
+
+                    <div class="absolute left-[-70px] bottom-[-70px] w-[200px] h-[200px] bg-custom-primary rounded-[50%] 
+                            z-[-1]"></div>
+                    
+                </div>
+            </div>
+            <div class=" col:col-span-12">
+                <div class="p-[50px] bg-[#f5f5f5] relative z-[1] rounded-[10px] overflow-hidden col:p-[20px]">
+                    <div class="wpo-vission-text">
+                        <h2 class="text-custom-primary text-[34px] mb-[20px] font-semibold">Our Vission</h2>
+                        <h5 class="text-custom-h text-[18px] leading-[27px] font-semibold mb-[20px]">Lorem
+                            Ipsum is
+                            simply
+                            dummy text of the printing
+                            has been the industry standard dummy text ever since
+                            unknown printer took galley.</h5>
+                        <p class="text-custom-text text-[15px]">Lorem Ipsum is simply dummy text of the
+                            printing and typesetting
+                            has been the industry's standard dummy text ever since the 1500 when
+                            unknown printer took a galley of type and scrambled it to make a type
+                            specimen book. It has survived not only five centuries, but also
+                            the leap into electronic typesetting.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <section class="w-full font-sans relative py-20 block bg-custom-bg">
     <div class="container">
         <div class="text-center mb-5">
@@ -98,82 +146,64 @@
             <h4 class="text-4xl text-custom-h font-bold">Our Main Goal</h4>
         </div>
         <div class="swiper-2 overflow-hidden">
-            <di class="service-list bg-custom-bg swiper-wrapper">
+            <di class="service-list my-5 bg-custom-bg swiper-wrapper">
                 <div class="swiper-slide">
-                    <div class="w-full sm:w-72 md:w-[350px] h-80">
-                        <div
-                            class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-
-                            <div class="w-32 h-32 border mx-auto overflow-hidden">
-                                <img src="{% static 'imgs/services/service-1.png' %}" alt="Service icon"
-                                    class="w-full h-full object-cover">
+                    <div class="p-[50px] col:p-[30px_25px] shadow-[0px_0px_20px_0px_rgba(20,33,43,0.1)]">
+                        <div class="text-center">
+                            <div
+                                class="w-[120px] h-[120px] leading-[120px] bg-[#f5f5f5] text-center mx-auto mb-[30px] text-[50px] rounded-[50%]">
+                                <i class="fa-solid fa-business-time text-custom-primary"></i>
                             </div>
-
-                            <h3 class="text-xl font-semibold text-custom-h">
-                                <a href="#">Find Verified & Reliable Businesses</a>
-                            </h3>
-
-
-
-                            <a href="{% url 'listings:listings' %}"
-                                class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
-                                <span>Discover listings</span>
-
-                                <ion-icon name="arrow-forward-outline" role="img" class="md hydrated"
-                                    aria-label="arrow forward outline"></ion-icon>
-                            </a>
-
+                            <h2 class="text-[#14212b] text-[30px] font-bold mb-[20px] xl:text-[25px] col:text-[25px]">
+                                Business Listing</h2>
+                            <p class=" text-[#6e6e6e]">Our business/shops listing service offers a dedicated space for
+                                Black African business owners to showcase their products
+                                and services.</p>
+                            <a href="{% if request.user.is_authenticated and request.user.is_paid %}{% url 'listings:add-listing' %}{% else %}{% url 'listings:get-started-with-listing' %}{% endif %}"
+                                class="inline-block transition-all duration-300 p-[10px_35px] pr-[45px] text-custom-primary border-[1px] border-custom-primary
+                                                                            relative rounded-[6px] mt-[20px] uppercase before:absolute before:right-[20px]
+                                                                            before:top-[51%] before:content-['\f103'] before:font-['Flaticon']
+                                                                            before:-translate-y-1/2 hover:bg-custom-primary hover:text-white">Add
+                                Listing</a>
                         </div>
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="w-full sm:w-72 md:w-[350px] h-80">
-                        <div
-                            class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-
-                            <div class="w-32 h-32 border mx-auto overflow-hidden">
-                                <img src="{% static 'imgs/services/service-2.png' %}" alt="Service icon"
-                                    class="w-full h-full object-cover">
+                    <div class="p-[50px] col:p-[30px_25px] shadow-[0px_0px_20px_0px_rgba(20,33,43,0.1)]">
+                        <div class="text-center">
+                            <div
+                                class="w-[120px] h-[120px] leading-[120px] bg-[#f5f5f5] text-center mx-auto mb-[30px] text-[50px] rounded-[50%]">
+                                <i class="fa-solid fa-magnifying-glass-dollar text-custom-primary"></i>
                             </div>
-
-                            <h3 class="text-xl font-semibold text-custom-h">
-                                <a href="#">Get Support For Your Business</a>
-                            </h3>
-
-
-
+                            <h2 class="text-[#14212b] text-[30px] font-bold mb-[20px] xl:text-[25px] col:text-[25px]">
+                                Fundraise Listing</h2>
+                            <p class=" text-[#6e6e6e]">Our fundraising campaigns listing service provides a platform for
+                                Black African business owners to showcase their
+                                fundraising efforts.</p>
                             <a href="{% url 'campaigns:create-campaign' %}"
-                                class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
-                                <span>Add Campaign</span>
-
-                                <ion-icon name="arrow-forward-outline" role="img" class="md hydrated"
-                                    aria-label="arrow forward outline"></ion-icon>
-                            </a>
-
+                                class="inline-block transition-all duration-300 p-[10px_35px] pr-[45px] text-custom-primary border-[1px] border-custom-primary
+                                                                            relative rounded-[6px] mt-[20px] uppercase before:absolute before:right-[20px]
+                                                                            before:top-[51%] before:content-['\f103'] before:font-['Flaticon']
+                                                                            before:-translate-y-1/2 hover:bg-custom-primary hover:text-white">Add Campaign</a>
                         </div>
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="w-full sm:w-72 md:w-[350px] h-80">
-                        <div
-                            class="service-card  grid items-center justify-center text-center space-y-5 relative bg-white rounded-md py-8 px-11 shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-
-                            <div class="w-32 h-32 border mx-auto overflow-hidden">
-                                <img src="{% static 'imgs/services/service-3.png' %}" alt="Service icon"
-                                    class="w-full h-full object-cover">
+                    <div class="p-[50px] col:p-[30px_25px] shadow-[0px_0px_20px_0px_rgba(20,33,43,0.1)]">
+                        <div class="text-center">
+                            <div
+                                class="w-[120px] h-[120px] leading-[120px] bg-[#f5f5f5] text-center mx-auto mb-[30px] text-[50px] rounded-[50%]">
+                                <i class="fa-regular fa-calendar-check text-custom-primary"></i>
                             </div>
-
-                            <h3 class="text-xl font-semibold text-custom-h">
-                                <a href="#">Connect With More Customers</a>
-                            </h3>
-
-
-
-                            <a href="{% url 'listings:add-listing' %}"
-                                class="card-link text-custom-h font-bold transition-all duration-500 hover:text-custom-primary">
-                                <span>Add Listing</span>
-                            </a>
-
+                            <h2 class="text-[#14212b] text-[30px] font-bold mb-[20px] xl:text-[25px] col:text-[25px]">
+                                Business Events</h2>
+                            <p class=" text-[#6e6e6e]">The business events listing service allows you to promote your
+                                business-related events to a wider audience.</p>
+                            <a href="{% url 'events:create-event' %}"
+                                class="inline-block transition-all duration-300 p-[10px_35px] pr-[45px] text-custom-primary border-[1px] border-custom-primary
+                                                            relative rounded-[6px] mt-[20px] uppercase before:absolute before:right-[20px]
+                                                            before:top-[51%] before:content-['\f103'] before:font-['Flaticon']
+                                                            before:-translate-y-1/2 hover:bg-custom-primary hover:text-white">Add Event</a>
                         </div>
                     </div>
                 </div>
@@ -185,14 +215,14 @@
 </section>
 <section>
     <div class="mx-auto max-w-screen-2xl px-4 py-20 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
             <div class="bg-custom-h p-8 md:p-12 lg:px-16 lg:py-24">
                 <div class="mx-auto max-w-xl text-center">
                     <h2 class="text-2xl font-bold text-white md:text-3xl">
                     About BBGI Community and Our Expertise
                     </h2>
 
-                    <p class="hidden text-white/90 sm:mt-4 sm:block">
+                    <p class="block text-white/90 sm:mt-4 sm:block">
                         The Black Business Growth Initiative is a community and platform that aims to support the growth of Black African
                         businesses and careers. It serves as a unified community of Black entrepreneurs and professionals, providing a space to
                         showcase businesses and expertise. The initiative promotes unity and cooperation among Black African business owners and
@@ -213,31 +243,49 @@
         </div>
     </div>
 </section>
-<section id="our-team" class="bg-gray-100 py-20 font-sans">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-5">
-            <p class="text-custom-primary mb-3 font-semibold text-lg">PROFESSIONAL PEOPLE</p>
-            <h4 class="text-4xl text-custom-h font-bold">Meet the Team</h4>
+
+<!-- start team -->
+<section
+    class="py-20 bg-[#f5f5f5] overflow-hidden relative">
+    <div class="container">
+        <div class="mb-[75px] sm:mb-[40px] text-center">
+            <span class="uppercase text-[16px] font-bold tracking-[3px] text-custom-primary font-base-font">TEAM
+                MEMBERS</span>
+            <h2 class="text-[55px] md:text-[35px] sm:text-[32px] col:text-[28px] leading-[70px] md:leading-[55px] sm:leading-[40px] 
+                     mt-[10px] relative capitalize font-heading-font font-bold
+                     text-custom-h">We Have Skilled People</h2>
         </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {% for member in members %}
-            <div class="bg-white rounded-lg  shadow-md p-6 my-6 text-center">
-                <div class="w-48 h-48 mx-auto rounded-full mb-4 overflow-hidden">
-                    {% if member.image %}
-                    <img src="{{member.image.url}}" alt="BBGI Team member {{member.full_names}}"
-                        class="w-full h-full object-cover">
-                        {% else %}
-                        <img src="{% static 'imgs/R.png' %}" alt="BBGI Team member {{member.full_names}}"
-                            class="w-full h-full object-cover">
-                        {% endif %}
+        <div class="relative z-[1]">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-4">
+                {% for member in members %}
+                <div class="">
+                    <div class="group text-center p-[30px] border-[1px] border-transparent relative rounded-[5px] 
+                            transition-all max-w-[100%] duration-300
+                                mx-auto mb-[30px] hover:border-custom-primary">
+                        <div class="overflow-hidden h-[318px] lg:w-[318px] rounded-[5px] border-[1px] border-[#fff] relative text-center">
+                            <img class="w-full rounded-[5px] scale-[1] transition-all duration-300 group-hover:scale-[1.2]"
+                                src="{% if member.image %}{{member.image.url}}{% else %}{% static 'imgs/R.png' %}{% endif %}" alt="BBGI Team member {{member.full_names}}">
+                            <div class="absolute left-0 top-0 w-full h-full flex justify-center 
+                                       flex-col rounded-[5px] transition-all duration-300  pt-[15px] translate-y-[100%]
+                                        bg-custom-primary group-hover:translate-y-[0]">
+                                <span
+                                    class="uppercase text-[16px] font-base-font font-bold tracking-[3px] text-custom-h ">{{member.role}}</span>
+                                <h2 class=" text-[32px] font-heading-font font-semibold mt-[10px] text-white
+                                            lg:text-[25px]">{{member.full_names}}</h2>
+                                <a href="{% url 'bbgi_home:team-member' member.id %}"
+                                    class="inline-block w-[50px] h-[50px] leading-[50px]
+                                             border-[1px] border-[#fff] mt-[20px] rounded-[5px] relative overflow-hidden
+                                             after:absolute after:left-0 after:top-0 after:w-full after:h-full
+                                             after:bg-[rgba(255,255,255,0.5)] after:-translate-x-full mx-auto
+                                             hover:after:translate-x-full after:transition-all after:duration-300 after:ease-in-out">
+                                    <i class="fa-solid fa-plus text-white"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="text-xl font-semibold mb-2 text-custom-h">{{member.full_names}}</h3>
-                <p class="text-custom-text">{{member.role}}</p>
+                {% endfor %}
             </div>
-            {% endfor %}
-
-            
         </div>
     </div>
 </section>

@@ -1,310 +1,46 @@
 {% load static %}
+
 <header x-data="{isMobileNav: false, isdropdownNavbar: false, iscategories: false }" class="w-full  font-sans fixed z-[600] top-0 bg-custom-bg left-0">
     <nav class="w-full relative block">
         <div class="flex items-center container justify-between py-2">
             <a href="{% url 'bbgi_home:bbgi-home' %}" class="logo w-36 overflow-hidden h-full">
                 <img src="{% static 'imgs/logo_3.png' %}" alt="BBGI logo" class="object-cover">
             </a>
-            <ul class="items-center w-fit bg-transparent gap-4 hidden md:flex">
+            <ul class="items-center w-fit bg-transparent gap-2 hidden md:flex">
                 <li>
                     <a href="{% url 'bbgi_home:bbgi-home' %}"
-                        class="px-3 py-2 mx-3  {% if request.resolver_match.url_name == 'bbgi-home' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">Home</a>
+                        class="px-1 py-2 mx-1  {% if request.resolver_match.url_name == 'bbgi-home' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">Home</a>
                 </li>
                 <li>
                     <a href="{% url 'bbgi_home:about-bbgi' %}"
-                        class="px-3 py-2 mx-3 {% if request.resolver_match.url_name == 'about-bbgi' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">About</a>
+                        class="px-1 py-2 mx-1 {% if request.resolver_match.url_name == 'about-bbgi' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">About</a>
                 </li>
-                {% if request.resolver_match.url_name == 'listings' or request.resolver_match.url_name == 'get-listings-by-category' %}
-                    <li>
-                        <button @click="iscategories = !iscategories"
-                            class="text-custom-h hover:text-custom-primary hover:border-b focus:right-0 hover:border-b-custom-primary px-3 py-2 mx-3 font-medium flex items-center justify-between w-fit">Browser by category
-                            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"></path>
-                            </svg></button>
-                            <div x-cloak @click.away="iscategories = false" x-show="iscategories" x-transition:enter="transition ease-out duration-100"
-                                x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-                                x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 scale-100"
-                                x-transition:leave-end="opacity-0 scale-90"
-                                class="fixed z-[80] h-screen left-0 overflow-y-auto top-0 bg-white w-full">
-                                <div @click="iscategories = false" class=" relative w-full mb-8 h-full bg-white overflow-y-auto mt-24">
-                                    <div class="text-center mb-8">
-                                        <p class="text-custom-primary mb-3 font-semibold text-lg">Categories</p>
-                                        <h4 class="text-4xl text-custom-h font-bold">Our Top Categories</h4>
-                                    </div>
-                                    <div class="flex items-center justify-center mb-8 overflow-y-auto text-center w-full flex-wrap gap-4">
-                                        <div>
-                                            <div class="w-full sm:w-48 relative bg-white  rounded-md shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-                                                <a href="{% url 'listings:listings' %}"
-                                                    class="features-card text-center flex flex-col items-center py-4 justify-center">
-                                        
-                                                    <div class="card-icon w-16 mb-3 h-16 overflow-hidden">
-                                        
-                                                        <img src="{% static 'imgs/no-image.png' %}" alt="Medical Category" class="w-full  h-full object-cover">
-                                        
-                                                    </div>
-                                                    <div>
-                                                        <h3 class="card-title text-lg font-bold text-custom-h">
-                                                            All
-                                                        </h3>
-                                                        <p class="text-sm text-custom-text">{{listings.count}}+ listings</p>
-                                                    </div>
-                                        
-                                        
-                                                </a>
-                                            </div>
-                                        </div>
-                                        {% for category in listing_categories %}
-                                        <div>
-                                            <div class="w-full sm:w-48 relative bg-white  rounded-md shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-                                                <a href="{% url 'listings:get-listings-by-category' category.slug %}"
-                                                    class="features-card text-center flex flex-col items-center py-4 justify-center">
-                            
-                                                    <div class="card-icon w-16 mb-3 h-16 overflow-hidden">
-                                                        {% if category.thumbnail %}
-                                                        <img src="{{category.thumbnail.url}}" alt="Medical Category"
-                                                            class="w-full  h-full object-cover">
-                                                        {% else %}
-                                                        <img src="{% static 'imgs/categories/Medical.png' %}" alt="Medical Category"
-                                                            class="w-full  h-full object-cover">
-                                                        {% endif %}
-                                                    </div>
-                                                    <div>
-                                                        <h3 class="card-title text-lg font-bold text-custom-h">{{category.label|truncatechars:10}}
-                                                        </h3>
-                                                        <p class="text-sm text-custom-text">{{category.businesses.count}}+ listings</p>
-                                                    </div>
-                            
-                            
-                                                </a>
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                    <button @click ="iscategories = false" id="add-listing w-full" class="focus:ring-0 w-36 h-12  font-semibold grid justify-center items-center rounded-sm text-white bg-custom-h outline-none border-none mx-auto">
-                                        
-                                        <span
-                                            class="">
-                                    
-                                            close
-                                        </span>
-                                    </button>
-                                </div>
-                            </div>
-                    </li>
-                {% endif %}
-                {% if request.resolver_match.url_name == 'events' or request.resolver_match.url_name == 'events-by-category' %}
                 <li>
-                    <button @click="iscategories = !iscategories"
-                        class="text-custom-h hover:text-custom-primary hover:border-b focus:right-0 hover:border-b-custom-primary px-3 py-2 mx-3 font-medium flex items-center justify-between w-fit">Browser
-                        by category
-                        <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg></button>
-                    <div x-cloak @click.away="iscategories = false" x-show="iscategories"
-                        x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-100"
-                        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-90"
-                        class="fixed z-[80] h-screen left-0 overflow-y-auto top-0 bg-white w-full">
-                        <div @click="iscategories = false" class=" relative w-full mb-8 h-full bg-white overflow-y-auto mt-24">
-                            <div class="text-center mb-8">
-                                <p class="text-custom-primary mb-3 font-semibold text-lg">Categories</p>
-                                <h4 class="text-4xl text-custom-h font-bold">Our Top Categories</h4>
-                            </div>
-                            <div class="flex items-center justify-center mb-8 overflow-y-auto text-center w-full flex-wrap gap-4">
-                                <div>
-                                    <div class="w-full sm:w-48 relative bg-white  rounded-md shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-                                        <a href="{% url 'events:events' %}"
-                                            class="features-card text-center flex flex-col items-center py-4 justify-center">
-                                
-                                            <div class="card-icon w-16 mb-3 h-16 overflow-hidden">
-                                
-                                                <img src="{% static 'imgs/no-image.png' %}" alt="Medical Category" class="w-full  h-full object-cover">
-                                
-                                            </div>
-                                            <div>
-                                                <h3 class="card-title text-lg font-bold text-custom-h">
-                                                    All
-                                                </h3>
-                                                <p class="text-sm text-custom-text">{{events.count}}+ events</p>
-                                            </div>
-                                
-                                
-                                        </a>
-                                    </div>
-                                </div>
-                                {% for category in blog_categories %}
-                                <div>
-                                    <div
-                                        class="w-full sm:w-48 relative bg-white  rounded-md shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-                                        <a href="{% url 'events:events-by-category' category.slug %}"
-                                            class="features-card text-center flex flex-col items-center py-4 justify-center">
-                
-                                            <div class="card-icon w-16 mb-3 h-16 overflow-hidden">
-                                                {% if category.thumbnail %}
-                                                <img src="{{category.thumbnail.url}}" alt="Medical Category"
-                                                    class="w-full  h-full object-cover">
-                                                {% else %}
-                                                <img src="{% static 'imgs/no-image.png' %}" alt="Medical Category"
-                                                    class="w-full  h-full object-cover">
-                                                {% endif %}
-                                            </div>
-                                            <div>
-                                                <h3 class="card-title text-lg font-bold text-custom-h">
-                                                    {{category.label|truncatechars:10}}
-                                                </h3>
-                                                <p class="text-sm text-custom-text">{{category.events.count}}+ events</p>
-                                            </div>
-                
-                
-                                        </a>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            <button @click="iscategories = false" id="add-listing w-full"
-                                class="focus:ring-0 w-36 h-12  font-semibold grid justify-center items-center rounded-sm text-white bg-custom-h outline-none border-none mx-auto">
-                
-                                <span class="">
-                
-                                    close
-                                </span>
-                            </button>
-                        </div>
-                    </div>
+                    <a href="{% url 'listings:listings' %}"
+                        class="px-1 py-2 mx-1 {% if request.resolver_match.url_name == 'listings' or request.resolver_match.url_name == 'get-listings-by-category' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">Listings</a>
                 </li>
-                {% endif %}
-                {% if request.resolver_match.url_name == 'campaigns' or request.resolver_match.url_name == 'campaign-by-category' %}
                 <li>
-                    <button @click="iscategories = !iscategories"
-                        class="text-custom-h hover:text-custom-primary hover:border-b focus:right-0 hover:border-b-custom-primary px-3 py-2 mx-3 font-medium flex items-center justify-between w-fit">Browser
-                        by category
-                        <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg></button>
-                    <div x-cloak @click.away="iscategories = false" x-show="iscategories"
-                        x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-100"
-                        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-90"
-                        class="fixed z-[80] h-screen left-0 overflow-y-auto top-0 bg-white w-full">
-                        <div @click="iscategories = false" class=" relative w-full mb-8 h-full bg-white overflow-y-auto mt-24">
-                            <div class="text-center mb-8">
-                                <p class="text-custom-primary mb-3 font-semibold text-lg">Categories</p>
-                                <h4 class="text-4xl text-custom-h font-bold">Our Top Categories</h4>
-                            </div>
-                            <div class="flex items-center justify-center mb-8 overflow-y-auto text-center w-full flex-wrap gap-4">
-                                <div>
-                                    <div class="w-full sm:w-48 relative bg-white  rounded-md shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-                                        <a href="{% url 'campaigns:campaigns' %}"
-                                            class="features-card text-center flex flex-col items-center py-4 justify-center">
-                                
-                                            <div class="card-icon w-16 mb-3 h-16 overflow-hidden">
-                                                
-                                                <img src="{% static 'imgs/no-image.png' %}" alt="Medical Category" class="w-full  h-full object-cover">
-                                                
-                                            </div>
-                                            <div>
-                                                <h3 class="card-title text-lg font-bold text-custom-h">
-                                                    All
-                                                </h3>
-                                                <p class="text-sm text-custom-text">{{campaigns.count}}+ campaigns</p>
-                                            </div>
-                                
-                                
-                                        </a>
-                                    </div>
-                                </div>
-                                {% for category in blog_categories %}
-                                <div>
-                                    <div
-                                        class="w-full sm:w-48 relative bg-white  rounded-md shadow-[0_16px_32px_hsla(188,_63%,_7%,_0.1)]">
-                                        <a href="{% url 'campaigns:campaign-by-category' category.slug %}"
-                                            class="features-card text-center flex flex-col items-center py-4 justify-center">
-                
-                                            <div class="card-icon w-16 mb-3 h-16 overflow-hidden">
-                                                {% if category.thumbnail %}
-                                                <img src="{{category.thumbnail.url}}" alt="Medical Category"
-                                                    class="w-full  h-full object-cover">
-                                                {% else %}
-                                                <img src="{% static 'imgs/no-image.png' %}" alt="Medical Category"
-                                                    class="w-full  h-full object-cover">
-                                                {% endif %}
-                                            </div>
-                                            <div>
-                                                <h3 class="card-title text-lg font-bold text-custom-h">
-                                                    {{category.label|truncatechars:10}}
-                                                </h3>
-                                                <p class="text-sm text-custom-text">{{category.campaigns.count}}+ campaigns</p>
-                                            </div>
-                
-                
-                                        </a>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            <button @click="iscategories = false" id="add-listing w-full"
-                                class="focus:ring-0 w-36 h-12  font-semibold grid justify-center items-center rounded-sm text-white bg-custom-h outline-none border-none mx-auto">
-                
-                                <span class="">
-                
-                                    close
-                                </span>
-                            </button>
-                        </div>
-                    </div>
+                    <a href="{% url 'events:events' %}"
+                        class="px-1 py-2 mx-1 {% if request.resolver_match.url_name == 'events' or request.resolver_match.url_name == 'events-by-category' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">Events</a>
                 </li>
-                {% endif %}
-
-                <li class="relative">
-                    <button @click="isdropdownNavbar = !isdropdownNavbar" 
-                        class="text-custom-h hover:text-custom-primary hover:border-b focus:right-0 hover:border-b-custom-primary px-3 py-2 mx-3 font-medium flex items-center justify-between w-fit">Explore
-                        <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg></button>
-                    <!-- Dropdown menu -->
-                    <div x-cloak x-show="isdropdownNavbar" x-transition:enter="transition ease-out duration-100"
-                                x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-                                x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 scale-100"
-                                x-transition:leave-end="opacity-0 scale-90" @click.away="isdropdownNavbar = false"
-                        class=" bg-white text-base z-10 list-none absolute origin-top-right right-0 divide-y divide-gray-100 rounded shadow my-4 w-44">
-                        <ul class="py-1" aria-labelledby="dropdownLargeButton">
-                            <li>
-                                <a href="{% url 'listings:listings' %}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Listings</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'events:events' %}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Events</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'campaigns:campaigns' %}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Campaigns</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'bbgi_home:blogs' %}"
-                                    class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Blogs</a>
-                            </li>
-                        </ul>
-                        
-                    </div>
+                <li>
+                    <a href="{% url 'campaigns:campaigns' %}"
+                        class="px-1 py-2 mx-1 {% if request.resolver_match.url_name == 'campaigns' or request.resolver_match.url_name == 'campaign-by-category' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">Campaigns</a>
                 </li>
+                
                 <li>
                     <a href="{% url 'bbgi_home:contact' %}"
-                        class="px-3 py-2 mx-3 {% if request.resolver_match.url_name == 'contact' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">Contact</a>
+                        class="px-1 py-2 mx-1 {% if request.resolver_match.url_name == 'contact' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">Contact</a>
                 </li>
                 
             </ul>
             <div class="flex w-fit items-center text-white space-x-9">
+                {% if request.user.is_authenticated %}
                 <div id="profile">
-                    {% if request.user.is_authenticated %}
+                    
                         <div class="w-fit flex items-center space-x-5">
                             <div x-data="{ isOpen: false }" class="relative inline-block ">
-                                <!-- Dropdown toggle button -->
+                                
                                 <button @click="isOpen = !isOpen"
                                     class="relative z-10 flex items-center w-10 h-10 rounded-full   bg-white border border-transparent focus:border-blue-500 focus:ring-opacity-40  focus:ring-blue-300  focus:ring  focus:outline-none">
                                     {% if request.user.profile_image %}
@@ -320,7 +56,7 @@
                         
                                 </button>
                         
-                                <!-- Dropdown menu -->
+                                
                                 <div x-cloak x-show="isOpen" @click.away="isOpen = false" x-transition:enter="transition ease-out duration-100"
                                     x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
                                     x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 scale-100"
@@ -387,43 +123,71 @@
                                 </div>
                             </div>
                         </div>
-                    {% else %}
+                    
+                </div>
+                {% else %}
+                <div class="hidden lg:block profile">
+                    <p>
+                        <a href="{% url 'accounts:login' %}"
+                            class="px-1 py-2 mx-1 {% if request.resolver_match.url_name == 'login' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} transition-colors duration-300 transform text-base font-medium lg:mt-0 hover:text-custom-primary hover:border-b hover:border-b-custom-primary">Register / Login</a>
+                    </p>
+                </div>
+                <div id="profile" class="block lg:hidden">
+                
                     <div class="w-fit flex items-center space-x-5">
                         <div x-data="{ isOpen: false }" class="relative inline-block ">
-                            <!-- Dropdown toggle button -->
+                
                             <button @click="isOpen = !isOpen"
-                                class="relative z-10 flex items-center w-10 h-10 rounded-full  justify-center bg-white border border-transparent focus:border-blue-500 focus:ring-opacity-40  focus:ring-blue-300  focus:ring  focus:outline-none">
+                                class="relative z-10 flex items-center w-10 h-10 rounded-full   bg-white border border-transparent focus:border-blue-500 focus:ring-opacity-40  focus:ring-blue-300  focus:ring  focus:outline-none">
                                 
-                                <div class="text-black rounded-full text-center overflow-hidden">
-                                    <i class="fa-solid fa-user fa-xl"></i>
+                                <div href="{% url 'accounts:login' %}" class="text-white rounded-full overflow-hidden">
+                                    <img class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9" src="{% static 'imgs/R.png' %}" alt="User avatar">
                                 </div>
                                 
-                    
+                
                             </button>
-                    
-                            <!-- Dropdown menu -->
-                            <div x-cloak x-show="isOpen" @click.away="isOpen = false" x-transition:enter="transition ease-out duration-100"
-                                x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-                                x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 scale-100"
-                                x-transition:leave-end="opacity-0 scale-90"
+                
+                
+                            <div x-cloak x-show="isOpen" @click.away="isOpen = false"
+                                x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-100"
+                                x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-90"
                                 class="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl ">
-                                
-                    
                                 <a href="{% url 'accounts:login' %}"
-                                    class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100 ">
-                                    Sign in
+                                    class="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform  hover:bg-gray-100 ">
+                                    
+                                    <img class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
+                                        src="{% static 'imgs/R.png' %}"
+                                        alt="User avatar">
+                                    
+                                    <div class="mx-1 w-full">
+                                        <h5 class="text-sm font-semibold text-gray-700 ">
+                                            User</h5>
+                                        <p class="text-sm text-gray-500 ">
+                                            login/register
+                                        </p>
+                                    </div>
+                                </a>
+                
+                                <hr class="border-gray-200  ">
+                
+                                <a href="{% url 'accounts:login' %}"
+                                    class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100">
+                                    Sign In
                                 </a>
                                 <a href="{% url 'accounts:register' %}"
-                                    class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100 ">
-                                    Register
+                                    class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100">
+                                    Sign Up
                                 </a>
                             </div>
                         </div>
                     </div>
-                    {% endif %}
-                </div>
                 
-                <a href="{% url 'listings:get-started-with-listing' %}" id="add-listing w-full">
+                </div>
+
+                {% endif %}
+                
+                <a href="{% if request.user.is_authenticated and request.user.is_paid %}{% url 'listings:add-listing' %}{% else %}{% url 'listings:get-started-with-listing' %}{% endif %}" id="add-listing w-full">
                     <span href="" class="text-custom-h md:hidden  w-full">
                         <i class="fa-solid fa-plus fa-lg"></i>
                     </span>
@@ -450,15 +214,19 @@
                     <i class="fa-solid fa-x fa-xl text-black"></i>
                 </div>
                 <div class="space-y-3 mt-6 md:mt-0" >
-                    <a href="{% url 'bbgi_home:bbgi-home' %}" class="py-3 px-2 font-normal font-sans {% if request.resolver_match.url_name == 'bbgi-home' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %}">Home</a>
-                    <a href="{% url 'bbgi_home:about-bbgi' %}" class="{% if request.resolver_match.url_name == 'about-bbgi' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} py-3 px-2 font-normal font-sans block">About Us</a>
-                    <a href="{% url 'listings:listings' %}" class="{% if request.resolver_match.url_name == 'listings' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} py-3 px-2 font-normal font-sans block">Listings</a>
-                    <a href="{% url 'events:events' %}" class="{% if request.resolver_match.url_name == 'events' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} py-3 px-2 font-normal font-sans block">Events</a>
-                    <a href="{% url 'campaigns:campaigns' %}" class="{% if request.resolver_match.url_name == 'campaigns' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} py-3 px-2 font-normal font-sans block">Campaigns</a>
-                    <a href="{% url 'bbgi_home:blogs' %}" class="{% if request.resolver_match.url_name == 'blogs' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} py-3 px-2 font-normal font-sans block">Blog</a>
-                    <a href="{% url 'bbgi_home:contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} py-3 px-2 font-normal font-sans block">Contact</a>
+                    <a href="{% url 'bbgi_home:bbgi-home' %}" class="py-3 px-2 w-full font-normal font-sans {% if request.resolver_match.url_name == 'bbgi-home' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %}">Home</a>
+                    <a href="{% url 'bbgi_home:about-bbgi' %}" class="{% if request.resolver_match.url_name == 'about-bbgi' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} py-3 px-2  font-normal font-sans block">About Us</a>
+                    <a href="{% url 'listings:listings' %}" class="{% if request.resolver_match.url_name == 'listings' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} py-3 px-2  font-normal font-sans block">Listings</a>
+                    <a href="{% url 'events:events' %}" class="{% if request.resolver_match.url_name == 'events' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} py-3 px-2  font-normal font-sans block">Events</a>
+                    <a href="{% url 'campaigns:campaigns' %}" class="{% if request.resolver_match.url_name == 'campaigns' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} py-3 px-2  font-normal font-sans block">Campaigns</a>
+                    <a href="{% url 'bbgi_home:blogs' %}" class="{% if request.resolver_match.url_name == 'blogs' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} py-3 px-2  font-normal font-sans block">Blog</a>
+                    <a href="{% url 'bbgi_home:contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} py-3 px-2  font-normal font-sans block">Contact</a>
+                    {% if not request.user.is_authenticated %}
+                    <a href="{% url 'accounts:login' %}"
+                        class="{% if request.resolver_match.url_name == 'login' %}text-custom-primary border-b border-b-custom-primary{% else %}text-custom-h{% endif %} py-3 px-2 font-normal font-sans block">Login / Register</a>
                     
-                </div>
+                    {% endif %}
+                    </div>
             </div>
         </div>
     </nav>

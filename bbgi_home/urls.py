@@ -6,12 +6,13 @@ from bbgi_home.views.home_views import bbgi_home, about_bbgi, contact, dashboard
 from django.urls import path
 
 from bbgi_home.views.markets_views import all_quotations
-from bbgi_home.views.member_views import create_member, team_members
+from bbgi_home.views.member_views import create_member, team_members, delete_member, update_member, team_member_details
 
 app_name = 'bbgi_home'
 urlpatterns = [
     path("", bbgi_home, name="bbgi-home"),
     path("about-us", about_bbgi, name="about-bbgi"),
+    path("about-us/teams/<member_id>", team_member_details, name="team-member"),
     path("contact-us", contact, name="contact"),
     path("dashboard", dashboard, name="dashboard"),
     path("search", search, name="search"),
@@ -30,6 +31,8 @@ urlpatterns = [
 
     path("dashboard/members", team_members, name="team-members"),
     path("dashboard/member/create", create_member, name="create-member"),
+    path("dashboard/member/update/<member_id>", update_member, name="update-member"),
+    path("dashboard/member/delete/<member_id>", delete_member, name="delete-member"),
     path("dashboard/campaigns", all_campaigns, name="all-campaigns"),
     path("dashboard/campaign/<slug:campaign_slug>", campaign_details, name="campaign-details"),
     path("dashboard/accounts/campaigns/<username>", all_campaigns, name="all-campaigns-by-username"),
