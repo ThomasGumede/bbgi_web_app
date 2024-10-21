@@ -11,3 +11,5 @@ a.py
 s.js
 /media
 /static_root
+.env.save
+.env.save.1
