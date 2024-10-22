@@ -109,13 +109,13 @@ def subscription_payment_success(request, subscription_id):
             payment_information.save(update_fields=["order_number", "order_updated"])
 
         else:
-            check_payment_update_2_subscription.delay((subscription.checkout_id, domain, protocol))
             logger.info(f"something went wrong: check_payment_update_2_subscription.delay((subscription.checkout_id, domain, protocol))")
+            check_payment_update_2_subscription(subscription.checkout_id, domain, protocol)
+            
 
     except PaymentInformation.DoesNotExist as ex:
-        check_payment_update_2_subscription.delay((subscription.checkout_id, protocol, domain))
         logger.info(f"something went wrong: {ex}")
-        
+        check_payment_update_2_subscription(subscription.checkout_id, protocol, domain)        
     
     except Exception as ex:
         logger.error(f"something went wrong: {ex}")
