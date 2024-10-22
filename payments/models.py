@@ -26,7 +26,7 @@ class PaymentInformation(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return f"{self.id}"
+        return f"{self.order_number} - {self.created}"
     
     class Meta:
         verbose_name = 'Payment Information'
