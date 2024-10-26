@@ -30,7 +30,7 @@
         </div>
     </div>
 </section>
-<article class="w-full h-full py-20 space-y-5">
+<!-- <article class="w-full h-full py-20 space-y-5">
     <div class="container">
         <div class="relative block w-fit mx-auto">
             <div class="py-3 ml-4 mr-4">
@@ -100,11 +100,52 @@
             </div>
         </div>
         <div class="relative block ">
-            {% block businessblock %}
-            {% endblock businessblock %}
+            {% block businessblock2 %}
+            {% endblock businessblock2 %}
         </div>
     </div>
-</article>
+</article> -->
+<!-- listing section -->
+<section>
+    <div class="container py-30">
+        <!-- plan tab -->
+        <div class="tab plan-tab">
+            <div
+                class=" flex flex-wrap items-center justify-center gap-x-5 lg:gap-x-[30px] xl:gap-x-[50px] gap-y-[10px] text-sm lg:text-lg xl:text-xl text-custom-h mb-[50px]">
+                <button
+                    class="p-1px border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:translate-y-1/2 after:z-10 after:rounded-[100%] {% if request.resolver_match.url_name == 'add-listing' or request.resolver_match.url_name == 'add-listing-with-slug' %}active{% endif %}">
+                    1. Listing Details
+                </button>
+
+                <button
+                    class="p-1px border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0  after:left-1/2 after:-translate-x-1/2 after:translate-y-1/2 after:z-10 after:rounded-[100%] {% if request.resolver_match.url_name == 'add-business-main-location' %}active{% endif %}">
+                    2. Main Address
+                </button>
+
+                <button
+                    class="p-1px border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 {% if request.resolver_match.url_name == 'add-business-hours' %}active{% endif %} after:translate-y-1/2 after:z-10 after:rounded-[100%]">
+                    3. Business Hours
+                </button>
+
+                <button
+                    class="{% if request.resolver_match.url_name == 'add-business-socials' %}active{% endif %} p-1px border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:translate-y-1/2 after:z-10 after:rounded-[100%]">
+                    4. Contact Details
+                </button>
+                <button
+                    class="{% if request.resolver_match.url_name == 'add-service' %}active{% endif %} p-1px border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:translate-y-1/2 after:z-10 after:rounded-[100%]">
+                    5. Services
+                </button> 
+            </div>
+
+            <div class="tab-contents">
+                
+                {% block businessblock %}
+
+                {% endblock businessblock %}
+            </div>
+        </div>
+    </div>
+</section>
 
 
 {% endblock content %}

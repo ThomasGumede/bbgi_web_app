@@ -484,8 +484,55 @@ const modal = () => {
   });
 };
 
+const smoothScroll = () => {
+  var links = document.querySelectorAll('a[href^="#"]');
+  if (!links.length) {
+    return;
+  }
+  links.forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
 
+      var targetId = this.getAttribute("href").substring(1);
 
+      var targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.scroll({ top: 0, left: 0, behavior: "smooth" });
+      }
+    });
+  });
+};
 
+const scrollUp = () => {
+  const scrollUpElement = document.querySelector(".scroll-up");
+  if (scrollUpElement) {
+    scrollUpElement.addEventListener("click", () => {
+      window.scroll({ top: 0, left: 0, behavior: "smooth" });
+    });
+
+    window.addEventListener("scroll", () => {
+      const scrollCount = window.scrollY;
+
+      if (scrollCount < 300) {
+        scrollUpElement.classList.remove("active");
+      }
+      if (scrollCount > 300) {
+        scrollUpElement.classList.add("active");
+      }
+    });
+  }
+};
+
+const selects = document.querySelectorAll(".selectize");
+console.log(selects);
+if (selects?.length) {
+  
+  selects.forEach((select) => NiceSelect.bind(select));
+}
+
+smoothScroll()
 slider()
 modal()
+scrollUp()

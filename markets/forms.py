@@ -18,6 +18,7 @@ class QoutationForm(forms.ModelForm):
         }
 
 class ServiceForm(forms.ModelForm):
+    add_another = forms.CharField(max_length=100, required=False)
     class Meta:
         model = Service
         fields = ("image", "title", "description", "price_decription", "price")

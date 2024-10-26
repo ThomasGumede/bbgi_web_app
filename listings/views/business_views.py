@@ -28,7 +28,7 @@ def manage_listings(request):
 def manage_listing(request, listing_slug):
     queryset = Business.objects.all().select_related("category").prefetch_related("business_hours", "reviews", "images")
     listing = get_object_or_404(queryset, slug=listing_slug, owner=request.user)
-    return render(request, "business/listing/get_listing.html", {"listing": listing})
+    return render(request, "business/listing/manage/manage-listing.html", {"listing": listing})
 
 def get_started_with_listing(request):
     return render(request, "business/get-started.html")
@@ -70,9 +70,9 @@ def get_listing(request, listing_slug):
             return redirect("listings:get-listing", listing_slug=listing.slug)
         
         messages.error(request, "Error trying to add your review")
-        return render(request, "business/listing/get-listing.html", {"listing": listing, "form": form})
+        return render(request, "business/listing/listing-details.html", {"listing": listing, "form": form})
 
-    return render(request, "business/listing/get-listing.html", {"listing": listing, "form": form, "lcategories": categories, "form2": form2})
+    return render(request, "business/listing/listing-details.html", {"listing": listing, "form": form, "lcategories": categories, "form2": form2})
 
 @login_required
 def add_listing(request, listing_slug=None):
@@ -133,7 +133,7 @@ def add_listing_socials(request, listing_slug):
             
             send_html_email('New Listing Added', 'listings@bbgi.co.za', 'emails/listing-confirmation.html', {"listing": listing})
             messages.success(request, "Listing created successfully")
-            return redirect("listings:get-listing", listing_slug=listing.slug)
+            return redirect("markets:add-service", listing_slug=listing.slug)
         else:
             messages.error(request, "Something went wrong while trying to add your business")
             return render(request, "business/create-listing/add-social.html", {"listing": listing, "form": form})

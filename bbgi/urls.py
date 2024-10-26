@@ -13,7 +13,7 @@ urlpatterns = [
     path("", include("campaigns.urls", namespace="campaigns")),
     path("", include("events.urls", namespace="events")),
     path("", include("coupons.urls", namespace="coupons")),
-    path("markets/", include("markets.urls", namespace="markets")),
+    path("", include("markets.urls", namespace="markets")),
     path("payments/", include("payments.urls", namespace="payments")),
     
 ]

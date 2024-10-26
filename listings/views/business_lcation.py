@@ -34,6 +34,8 @@ def create_location(request, listing_slug):
     if request.method == "POST":
         form = BusinessLocationForm(request.POST)
         if form.is_valid():
+            map_coordinates = form.cleaned_data.get("map_coordinates", None)
+            print(map_coordinates)
             location = form.save(commit=False)
             location.business = listing
             location.save()
@@ -55,6 +57,8 @@ def update_location(request, location_id):
     if request.method == "POST":
         form = BusinessLocationForm(data=request.POST, instance=location)
         if form.is_valid():
+            map_coordinates = form.cleaned_data.get("map_coordinates", None)
+            print(map_coordinates)
             form.save()
             messages.success(request, "Successfully updated business location")
             return redirect("listings:get-locations", listing.slug)

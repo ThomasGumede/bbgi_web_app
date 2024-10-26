@@ -91,6 +91,193 @@
   --x-3d-half:translate3d(50%, -50%, 0);
 }
 
+/*============= Google Map Locations  ============= */
+
+.google-map-locations-area #gmap {
+  height: 90vh;
+}
+
+.google-map-locations-area #gmap .gm-ui-hover-effect {
+  top: 0 !important;
+  right: 0 !important;
+}
+
+[dir="rtl"] .google-map-locations-area #gmap .gm-ui-hover-effect {
+  left: 0 !important;
+}
+
+.google-map-locations-area #gmap .gm-style .gm-style-iw-c {
+  padding: 10px 8px 25px 25px ;
+  border-radius: 0;
+}
+
+[dir="rtl"] .google-map-locations-area #gmap .gm-style .gm-style-iw-c {
+  padding: 10px 25px 25px 8px !important;
+  border-radius: 0;
+}
+
+.map-item {
+  padding: 30px 25px 35px;
+  box-shadow: var(--box-shadow-4);
+}
+
+.map-item .location-name {
+  border-bottom: 2px solid var(--border-color-1);
+  margin-bottom: 25px;
+  color: var(--secondary-color);
+  font-size: 20px;
+}
+
+.map-item .location-single-info {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.map-item .location-single-info i {
+  margin-right: 10px;
+  background: var(--secondary-color);
+  color: var(--white);
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.map-item .btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.map-item .btn {
+  padding: 10px 10px;
+  font-size: 13px;
+  margin-right: 10px;
+}
+
+.google-map-locations-list-area .map-item {
+  margin-bottom: 50px;
+}
+
+.location-search h3 {
+  float: left;
+  margin-right: 30px;
+  margin-bottom: 0;
+  line-height: 63px;
+  color: var(--white);
+}
+
+.location-search .input-item {
+  float: left;
+  width: 300px;
+}
+
+.location-search form {
+  padding: 50px 50px 20px;
+  background-color: var(--secondary-color);
+}
+
+.state-location-title {
+  padding: 15px 30px;
+  background-color: var(--secondary-color);
+  color: var(--white);
+  margin: 50px 0;
+}
+
+.map-product-item {
+  max-width: 260px;
+}
+
+.map-product-item img {
+  max-width: 100%;
+  margin-bottom: 25px;
+}
+
+.map-product-item .map-product-title {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.map-product-item .map-product-price {
+  color: var(--secondary-color);
+}
+
+.map-product-item .map-product-location {
+  font-weight: 500;
+}
+
+.map-product-item .map-product-location i {
+  color: var(--secondary-color);
+  margin-right: 2px;
+}
+
+.map-product-item .map-product-info {
+  font-weight: 500;
+}
+
+.map-product-item .map-product-info span {
+  margin-right: 10px;
+}
+
+.gmap_controls .dropdown {
+  color: var(--primary-color);
+  outline: 1px solid var(--primary-color);
+}
+
+.gmap_controls .dropdown:focus {
+  outline-color: rgba(0, 0, 0, 0.2);
+}
+
+.shadow-box-shadow-3{
+  --tw-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28);
+  --tw-shadow-colored: 0 1px 6px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+/*============= tab  =============*/
+
+.plan-tab .active {
+  border-color: #D1B54B;
+  color: #D1B54B;
+}
+
+.plan-tab .active::after {
+  background-color: #D1B54B;
+}
+
+.hero-tab .tab-links .active button {
+  background: #D1B54B;
+  color: white;
+}
+
+.property-tab .tab-links .active button {
+  color: #D1B54B;
+}
+
+/* my account */
+
+.account-tab .tab-links .active button {
+  background: var(--section-bg-2);
+  color: white;
+}
+
+/*=============  scroll up =============*/
+
+.scroll-up {
+  opacity: 0;
+  visibility: hidden;
+  z-index: -1;
+  transition: all 0.3s;
+}
+
+.scroll-up.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 99999;
+}
+
 /*============= banner =============*/
 
 .breadcrumb .home::after {
@@ -190,9 +377,9 @@
 
 .swiper-container .swiper-button-prev:hover,
 .swiper-container .swiper-button-next:hover {
-  background: var(--secondary-color);
+  background: #D1B54B;
   color: white;
-  border-color: var(--secondary-color);
+  border-color: #D1B54B;
 }
 
 .swiper-container .swiper-pagination,
@@ -213,7 +400,7 @@
 }
 
 .swiper-pagination-bullet:hover {
-  background: var(--secondary-color);
+  background: #D1B54B;
   width: 15px;
   height: 15px;
   opacity: 1;
@@ -221,7 +408,7 @@
 
 .home-3 .swiper-pagination-bullet-active,
 .swiper-pagination-bullet-active {
-  background: var(--secondary-color);
+  background: #D1B54B;
   width: 15px;
   height: 15px;
   margin-bottom: -2px !important;
@@ -637,8 +824,8 @@
 
 .upcoming-project-slider-container .swiper-button-prev {
   right: var(--right-100);
-  background-color: var(--secondary-color);
-  border-color: var(--secondary-color);
+  background-color: #D1B54B;
+  border-color: #D1B54B;
   color: white;
 }
 
@@ -745,7 +932,7 @@
 /*============= accordion   =============*/
 
 .neighbour-accordion .active button span {
-  background: var(--secondary-color);
+  background: #D1B54B;
 }
 
 /*============= nice select    =============*/
@@ -836,7 +1023,7 @@
   transform: translateY(-50%);
   font-family: "Font Awesome\ 5 Free";
   font-weight: 900;
-  color: var(--secondary-color);
+  color: #D1B54B;
 }
 
 [dir="rtl"] .form-primary .nice-select::before {
@@ -860,7 +1047,7 @@
   font-family: "Font Awesome\ 5 Free";
   font-weight: 900;
   margin-right: 10px;
-  color: var(--secondary-color);
+  color: #D1B54B;
 }
 
 .property-form .nice-select::before {
@@ -891,8 +1078,8 @@
 /*=============  nice checkbox =============*/
 
 .checkmark.active {
-  background-color: var(--secondary-color);
-  border-color: var(--secondary-color);
+  background-color: #D1B54B;
+  border-color: #D1B54B;
 }
 
 .checkmark.active::after {
@@ -909,7 +1096,7 @@
 
 .range-slider .progress {
   height: 8px;
-  background-color: var(--secondary-color);
+  background-color: #D1B54B;
   border-radius: 20px;
   position: relative;
   overflow: visible;
@@ -918,7 +1105,7 @@
 .range input::-webkit-slider-thumb {
   width: 12px;
   height: 12px;
-  background: var(--secondary-color);
+  background: #D1B54B;
 }
 
 /* Internet Explorer */
@@ -926,7 +1113,7 @@
 input[type="range"]::-ms-thumb {
   width: 12px;
   height: 12px;
-  background: var(--secondary-color);
+  background: #D1B54B;
 }
 
 .range input:nth-child(2)::-webkit-slider-thumb {
@@ -968,7 +1155,7 @@ input[type="range"]::-ms-thumb {
 }
 
 .service-cards .service-card.active .find-service {
-  color: var(--secondary-color);
+  color: #D1B54B;
 }
 
 .service-cards .service-card-2.active > div {
@@ -978,21 +1165,21 @@ input[type="range"]::-ms-thumb {
 /*============= tab  =============*/
 
 .plan-tab .active {
-  border-color: var(--secondary-color);
-  color: var(--secondary-color);
+  border-color: #D1B54B;
+  color: #D1B54B;
 }
 
 .plan-tab .active::after {
-  background-color: var(--secondary-color);
+  background-color: #D1B54B;
 }
 
 .hero-tab .tab-links .active button {
-  background: var(--secondary-color);
+  background: #D1B54B;
   color: white;
 }
 
 .property-tab .tab-links .active button {
-  color: var(--secondary-color);
+  color: #D1B54B;
 }
 
 /* my account */
@@ -1005,9 +1192,9 @@ input[type="range"]::-ms-thumb {
 /* history */
 
 .history-tab .tab-links .active button {
-  background: var(--secondary-color);
+  background: #D1B54B;
   color: white;
-  border-color: var(--secondary-color);
+  border-color: #D1B54B;
 }
 
 /*============= popup gallery =============*/
@@ -1174,7 +1361,7 @@ input[type="range"]::-ms-thumb {
 .map-item .location-name {
   border-bottom: 2px solid var(--border-color-1);
   margin-bottom: 25px;
-  color: var(--secondary-color);
+  color: #D1B54B;
   font-size: 20px;
 }
 
@@ -1187,7 +1374,7 @@ input[type="range"]::-ms-thumb {
 
 .map-item .location-single-info i {
   margin-right: 10px;
-  background: var(--secondary-color);
+  background: #D1B54B;
   color: var(--white);
   width: 40px;
   height: 40px;
@@ -1225,12 +1412,12 @@ input[type="range"]::-ms-thumb {
 
 .location-search form {
   padding: 50px 50px 20px;
-  background-color: var(--secondary-color);
+  background-color: #D1B54B;
 }
 
 .state-location-title {
   padding: 15px 30px;
-  background-color: var(--secondary-color);
+  background-color: #D1B54B;
   color: var(--white);
   margin: 50px 0;
 }
@@ -1251,7 +1438,7 @@ input[type="range"]::-ms-thumb {
 }
 
 .map-product-item .map-product-price {
-  color: var(--secondary-color);
+  color: #D1B54B;
 }
 
 .map-product-item .map-product-location {
@@ -1259,7 +1446,7 @@ input[type="range"]::-ms-thumb {
 }
 
 .map-product-item .map-product-location i {
-  color: var(--secondary-color);
+  color: #D1B54B;
   margin-right: 2px;
 }
 
@@ -1329,14 +1516,14 @@ input[type="range"]::-ms-thumb {
 }
 
 .price_filter .ui-slider .ui-slider-range {
-  background-color: var(--secondary-color);
+  background-color: #D1B54B;
   background-image: none;
 }
 
 .price_filter .ui-state-default,
 .price_filter .ui-widget-content .ui-state-default,
 .price_filter .ui-widget-header .ui-state-default {
-  background-color: var(--secondary-color);
+  background-color: #D1B54B;
   border: medium none;
   border-radius: 100%;
   height: 12px;

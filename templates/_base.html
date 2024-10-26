@@ -6,6 +6,7 @@
     {% tailwind_preload_css %}
     {% tailwind_css %}
     {{form.media}}
+    <link rel="stylesheet" href="{% static 'fonts/icon-fonts/icons-fonts.css' %}">
     <link rel="stylesheet" href="{% static 'css/nice_select.css' %}">
     <link rel="stylesheet" href="{% static 'css/jquery.datetimepicker.min.css' %}">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
@@ -152,17 +153,23 @@
     </main>
     <!-- End Main -->
     
-
+    
     <!-- Footer -->
     {% include "includes/footer.html" %}
     <!-- End Footer -->
 
+    <button
+        class="scroll-up w-[30px] h-[30px] lg:w-10 lg:h-10 lg:text-xl bg-custom-h text-white hover:bg-white hover:text-custom-h rotate-[45deg] shadow-box-shadow-3 fixed bottom-[50px] lg:bottom-[70px] right-[3%] flex justify-center items-center z-xl">
+        <i class="fa-solid fa-angle-up leading-1 -rotate-[45deg] inline-block"></i>
+    </button>
+
     <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
     <script src="{% static 'js/all.min.js' %}"></script>
+    <script src="{% static 'js/nice_select.js' %}"></script>
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/jquery.datetimepicker.full.min.js' %}"></script>
     <script src="{% static 'js/global.js' %}"></script>
-    <script src="{% static 'js/nice_select.js' %}"></script>
+    
     
     <script>
         // Navbar

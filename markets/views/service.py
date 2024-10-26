@@ -1,18 +1,43 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from listings.models import Business
-from markets.models import Service, Qoutation
-from markets.forms import ServiceForm, QoutationForm
+from markets.models import Service
+from markets.forms import ServiceForm
 from django.contrib import messages
-from django.contrib.sites.shortcuts import get_current_site
 
-from markets.tasks import send_email_to_owner
 
 @login_required
 def get_services(request, listing_slug):
     listing = get_object_or_404(Business, slug=listing_slug, owner=request.user)
     services = Service.objects.filter(business = listing)
     return render(request, "markets/services/services.html", {"listing": listing, "services": services})
+
+def service_details(request, service_slug):
+    service = get_object_or_404(Service, slug=service_slug)
+    return render(request, "markets/services/service-details.html", {"service": service})
+
+@login_required
+def add_service(request, listing_slug):
+    listing = get_object_or_404(Business, slug=listing_slug, owner=request.user)
+    form = ServiceForm()
+
+    if request.method == "POST":
+        form = ServiceForm(request.POST, request.FILES)
+        if form.is_valid() and form.is_multipart():
+            add_another = form.cleaned_data.get("add_another", None)
+            title = form.cleaned_data.get("title", None)
+            service = form.save(commit=False)
+            service.business = listing
+            service.save()
+            messages.success(request, f"Service ({title}) added successfully")
+            if add_another:
+                return redirect("markets:add-service", listing.slug)
+            return redirect("listings:get-listing", listing.slug)
+        else:
+            messages.error(request, "Error trying to create service")
+            
+        
+    return render(request, "business/create-listing/add-services.html", {"form": form, "listing": listing})
 
 @login_required
 def create_service(request, listing_slug):
@@ -60,59 +85,3 @@ def delete_service(request, listing_slug, service_id):
         messages.success(request, "Service was deleted successfully")
         return redirect("markets:get-services", listing.id)
     return render(request, "markets/services/delete-service.html", {"listing": listing, "service": service})
-
-@login_required
-def get_quotations(request, service_id):
-    service = get_object_or_404(Service, id=service_id)
-    quotations = Qoutation.objects.filter(service = service)
-    return render(request, "markets/quotations/quotations.html", {"quotations": quotations})
-
-@login_required
-def quotation_details(request, quotation_id):
-    quotation = get_object_or_404(Qoutation, id=quotation_id)
-    return render(request, "markets/quotations/quotation.html", {"quotation": quotation})
-
-@login_required
-def create_quotation(request, service_id):
-    
-    service = get_object_or_404(Service, id=service_id)
-    if request.method == "POST":
-        form = QoutationForm(request.POST, request.FILES)
-        if form.is_valid():
-            quote = form.save(commit=False)
-            cd = form.cleaned_data
-            quote.service = service
-            quote.client = request.user
-            quote.save()
-            domain = get_current_site(request).domain
-            protocol = "https" if request.is_secure() else "http"
-            send_email_to_owner(domain, protocol, quote.id)
-            messages.success(request, "Quote was successfully sent to business owners")
-            return redirect("listings:get-listing", service.business.slug)
-        else:
-            return render(request, "markets/quotations/create-quotation.html", {"form": form})
-        
-    form = QoutationForm
-    return render(request, "markets/quotations/create-quotation.html", {"form": form})
-
-
-@login_required
-def qoutations(request, service_id = None):
-    
-    service = None
-    quotations = []
-
-    if service_id:
-        service = get_object_or_404(Service, id=service_id, organiser=request.user)
-        quotations = service.qoutations.all()
-    else:
-        businesses = Business.objects.prefetch_related("services").filter(owner=request.user)
-        quotations = []
-        for business in businesses:
-            for service in business.services.prefetch_related("qoutations"):
-                quotations.extend(service.qoutations.all())
-
-    return render(request, "markets/quotations/manage/quotations.html", {"quotations": quotations, "service": service})
-
-
-

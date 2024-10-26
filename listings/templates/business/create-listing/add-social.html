@@ -86,11 +86,11 @@
                 </div>
             </div>
             {% endif %}
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" class="form-primary add-property-form">
                 {% csrf_token %}
                 <div class="grid items-start gap-7">
                     
-                    <div class="w-full p-4 border border-solid  rounded-lg relative">
+                    <div class="w-full relative">
                         <h6 class="text-custom-h text-base mt-3 mb-6 font-bold uppercase">
                             Contact details
                         </h6>
@@ -246,7 +246,7 @@
                                 class="inline-block absolute top-0 left-0 w-full h-full bg-custom-h group-hover:bg-custom-primary -z-1 group-hover:w-0 transition-all duration-300"></span>
                             <button type="submit"
                                 class="relative z-1 px-5 font-sans md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
-                                Save & Finish
+                                Save & Next
                             </button>
                         </h5>
                     </div>

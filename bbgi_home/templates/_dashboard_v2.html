@@ -1,0 +1,126 @@
+{% extends "_base.html" %}
+{% load static %}
+
+
+{% block content %}
+<!-- banner section -->
+<section>
+    <!-- banner section -->
+    <div id="needs-bg-image-2"
+        class="w-full bg-no-repeat bg-cover bg-center relative z-0 after:w-full after:h-full after:absolute after:top-0 after:left-0 after:bg-white after:bg-opacity-30 after:-z-1">
+        <div class="container py-[110px]">
+            <h1 class="text-2xl sm:text-3xl md:text-[25px] lg:text-3xl xl:text-4xl font-bold text-heading-color mb-[15px]">
+                <span class="leading-1.3 md:leading-1.3 lg:leading-1.3 xl:leading-1.3">Dashboard</span>
+            </h1>
+            <ul class="breadcrumb flex gap-[30px] items-center text-sm lg:text-base font-bold pt-4">
+                <li class="home relative leading-1.8 lg:leading-1.8">
+                    <a href="/"><i class="fas fa-home text-secondary-color"></i> Home</a>
+                </li>
+                <li class="leading-1.8 lg:leading-1.8 text-heading-color">
+                    {{request.user.username}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <div class="container pt-30 pb-90px lg:pb-30">
+        <div class="tab account-tab grid grid-cols-1 lg:grid-cols-12 gap-x-[30px] gap-y-50px">
+            <!-- sidebar navigation -->
+            <div class="lg:col-start-1 lg:col-span-4">
+                <ul class="tab-links-2 lg:mr-[30px] border border-b-0 border-border-color-1">
+                    <li
+                        class="border-b border-border-color-1 {% if request.resolver_match.url_name == 'get-account' %}active{% endif %}">
+                        <button
+                            class="flex justify-between items-center px-5 py-[15px] w-full text-sm lg:text-base hover:text-secondary-color transition-all duration-300 capitalize">
+                            <a href=""
+                                class="leading-1.8 lg:leading-1.8"> Dashboard </a>
+                            <i class="fas fa-home text-sm"></i>
+                        </button>
+                    </li>
+                    <li
+                        class="border-b border-border-color-1 {% if request.resolver_match.url_name == 'update-profile' %}active{% endif %}">
+                        <button
+                            class="flex justify-between items-center px-5 py-[15px] w-full text-sm lg:text-base hover:text-secondary-color transition-all duration-300 capitalize">
+                            <a href=""
+                                class="leading-1.8 lg:leading-1.8">Profile</a>
+                            <i class="fas fa-user text-sm"></i>
+                        </button>
+                    </li>
+                    <li
+                        class="border-b border-border-color-1 {% if request.resolver_match.url_name == 'user-applications' %}active{% endif %}">
+                        <button
+                            class="flex justify-between items-center px-5 py-[15px] w-full text-sm lg:text-base hover:text-secondary-color transition-all duration-300 capitalize">
+                            <a href=""
+                                class="leading-1.8 lg:leading-1.8">
+                                My Listings
+                            </a>
+                            <i class="fa-solid fa-list text-sm"></i>
+                        </button>
+                    </li>
+                    {% if user.is_staff or user.is_superuser %}
+                    <li
+                        class="border-b border-border-color-1 {% if request.resolver_match.url_name == 'get-all-applications' %}active{% endif %}">
+                        <button
+                            class="flex justify-between items-center px-5 py-[15px] w-full text-sm lg:text-base hover:text-secondary-color transition-all duration-300 capitalize">
+                            <a href=""
+                                class="leading-1.8 lg:leading-1.8">
+                                Accounts
+                            </a>
+                            <i class="fa-solid fa-user text-sm"></i>
+                        </button>
+                    </li>
+                    <li class="border-b border-border-color-1">
+                        <button
+                            class="flex justify-between items-center px-5 py-[15px] w-full text-sm lg:text-base hover:text-secondary-color transition-all duration-300 capitalize">
+                            <a href="" class="leading-1.8 lg:leading-1.8">Listings
+                            </a>
+                            <i class="fa-solid fa-user text-sm"></i>
+                        </button>
+                    </li>
+                    <li class="border-b border-border-color-1">
+                        <button
+                            class="flex justify-between items-center px-5 py-[15px] w-full text-sm lg:text-base hover:text-secondary-color transition-all duration-300 capitalize">
+                            <a href="" class="leading-1.8 lg:leading-1.8">Company
+                                Details
+                            </a>
+                            <i class="fa-solid fa-user text-sm"></i>
+                        </button>
+                    </li>
+                    {% endif %}
+
+                    <li
+                        class="border-b border-border-color-1  {% if request.resolver_match.url_name == 'update-password' %}active{% endif %}">
+                        <button
+                            class="flex justify-between items-center px-5 py-[15px] w-full text-sm lg:text-base hover:text-secondary-color transition-all duration-300 capitalize">
+                            <a href="{% url 'accounts:update-password' request.user.username %}"
+                                class="leading-1.8 lg:leading-1.8">
+                                Change Password
+                            </a>
+                            <i class="fa-solid fa-lock text-sm"></i>
+                        </button>
+                    </li>
+                    <li class="border-b border-border-color-1">
+                        <a href="{% url 'accounts:logout' %}"
+                            class="flex justify-between items-center px-5 py-[15px] w-full text-sm lg:text-base hover:text-secondary-color transition-all duration-300 capitalize">
+                            <span class="leading-1.8 lg:leading-1.8">Logout </span>
+                            <i class="fas fa-sign-out-alt text-sm"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- main content -->
+            <div class="tab-contents lg:col-start-5 lg:col-span-8">
+                <!-- content 1 -->
+                {% include "includes/messages.html" %}
+                {% block account_content %}
+
+                {% endblock account_content %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

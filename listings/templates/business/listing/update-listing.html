@@ -56,10 +56,10 @@
                 </div>
             </div>
             {% endif %}
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" class="form-primary add-property-form">
                 {% csrf_token %}
                 <div class="grid items-start gap-7">
-                    <div class="p-4 border border-solid  rounded-lg w-full">
+                    <div class=" w-full">
                         <h6 class="text-custom-h text-base mt-3 mb-6 font-bold uppercase">
                             Listing Information
                         </h6>
@@ -175,6 +175,13 @@
                                     <span class="text-[11px] text-custom-tertiary block font-normal lowercase">Provide a physical business
                                         address so customers can find you when searching for services in your area</span>
                                 </div>
+                                <div class="relative w-full mb-3">
+                                    <label for="id_main_address">
+                                        Main Address Coordinates*
+                                    </label>
+                                    {{form.map_coordinates}}
+                                    <span class="text-[11px] text-custom-tertiary block font-normal lowercase">Provide main address oordinates (longitude & latitude) separated by a comma, e.g "-28.12321, 16.9999".</span>
+                                </div>
                             </div>
                             <div class="w-full px-4">
                                 <div class="relative w-full mb-3">
@@ -198,7 +205,7 @@
                             Contact details
                         </h6>
                         <div class="flex flex-wrap">
-                            {{form.map_coordinates}}
+                            
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="id_title">
@@ -367,11 +374,7 @@
                 window.alert('No details available for input: \'' + place.name + '\'');
                 return;
             }
-            const latitude = place.geometry.location.lat();
-            const longitude = place.geometry.location.lng();
-            if (latitude && longitude) {
-                document.getElementById('id_map_coordinates').value = latitude + ',' + longitude;
-            }
+            
             
             fillInAddress(place);
         });
@@ -393,6 +396,11 @@
                 }
                 return '';
             };
+            const latitude = place.geometry.location.lat();
+            const longitude = place.geometry.location.lng();
+            if (latitude && longitude) {
+                document.getElementById('id_map_coordinates').value = latitude + ',' + longitude;
+            }
 
             autocompleteInput.value = `${getAddressComp('route')}, ${getAddressComp('locality')}, ${getAddressComp('administrative_area_level_1')}, ${getAddressComp('postal_code')}, South Africa`
         }

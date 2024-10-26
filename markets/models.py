@@ -23,6 +23,10 @@ class Service(AbstractCreate):
     discount_description = models.CharField(max_length=150, null=True, blank=True)
     is_popular = models.BooleanField(default=False)
 
+    def get_absolute_url(self):
+        return reverse("markets:service-details", kwargs={"service_slug": self.slug})
+    
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Service, self).save(*args, **kwargs)
