@@ -1,10 +1,11 @@
+import json, logging
 from django.db.models import Q
 from django.forms import formset_factory, modelformset_factory, BaseModelFormSet
 from accounts.utilities.custom_email import send_html_email
 from listings.forms import BusinessForm, BusinessSocialForm, BusinessContent, BusinessReviewForm, BusinessUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
-from listings.models import Business, Category, BusinessHour
+from listings.models import Business, BusinessLocation, Category, BusinessHour
 from django.core import serializers
 from django.http import JsonResponse
 from markets.forms import ServiceForm, QoutationForm
@@ -55,9 +56,11 @@ def get_listings(request, category=None):
 def get_listing(request, listing_slug):
     queryset = Business.objects.all().select_related("category").prefetch_related("business_hours", "reviews", "images")
     listing = get_object_or_404(queryset, slug=listing_slug)
+    locations = BusinessLocation.objects.filter(business=listing).values("address", "map_coordinates")
+    data = json.dumps(list(locations))
     categories = Category.objects.all()
     form = BusinessReviewForm()
-    form2 = QoutationForm()
+    
     if request.method == "POST":
         form = BusinessReviewForm(request.POST)
         if form.is_valid():
@@ -68,11 +71,12 @@ def get_listing(request, listing_slug):
             review.save()
             messages.success(request, "Review added successfully")
             return redirect("listings:get-listing", listing_slug=listing.slug)
+        else:
         
-        messages.error(request, "Error trying to add your review")
-        return render(request, "business/listing/listing-details.html", {"listing": listing, "form": form})
+            messages.error(request, "Error trying to add your review")
 
-    return render(request, "business/listing/listing-details.html", {"listing": listing, "form": form, "lcategories": categories, "form2": form2})
+
+    return render(request, "business/listing/listing-details.html", {"listing": listing, "form": form, "lcategories": categories, "locations": data})
 
 @login_required
 def add_listing(request, listing_slug=None):

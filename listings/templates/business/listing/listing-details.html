@@ -741,11 +741,12 @@
     const coordinates = coordinatesInput.split(',');
     const latitude = parseFloat(coordinates[0]);
     const longitude = parseFloat(coordinates[1]);
-    locations = JSON.parse()
-    console.log('{{listing.business_locations.all}}')
-    const locations = []
+    const locations = JSON.parse('{{locations|escapejs}}')
+
+    
     $(function () {
         var LocsA = [
+            
             {
                 lat: latitude,
                 lon: longitude,
@@ -761,6 +762,29 @@
                 // icon: "../assets/img/icons/map-marker-2.png",
                 animation: google.maps.Animation.BOUNCE,
             },
+            ...locations.map((location, index) => {
+                if(location.map_coordinates){
+                    const [latitude, longitude] = location.map_coordinates.split(',');
+
+                    return {
+                        lat: parseFloat(latitude),
+                        lon: parseFloat(longitude),
+                        title: `{{listing.title}} location ${index}`,
+                        html: [
+                            '<div class="map-product-item">',
+                            `<a href="#"><img src="{% if listing.logo %}{{listing.logo.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}" alt="{{listing.title}} logo" class='h-52 w-full'></a>`,
+                            '<h5 class="ltn__map-product-title"><a href="#">{{listing.title}}</a></h5>',
+                            '<p class="ltn__map-product-info"><span>{{listing.slogan}}</span></p>',
+                            `<p class="ltn__map-product-location"><i class="flaticon-pin"></i>${location.address}</p>`,
+                            "</div>",
+                        ].join(""),
+                        // icon: "../assets/img/icons/map-marker-2.png",
+                        animation: google.maps.Animation.BOUNCE,
+                    };
+                }
+                
+            })
+            
 
         ];
         new Maplace({

@@ -13,3 +13,4 @@ s.js
 /static_root
 .env.save
 .env.save.1
+env.py

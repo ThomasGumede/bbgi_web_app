@@ -68,6 +68,12 @@ LOGGING = {
             'filename': os.path.join(LOGGING_DIR, 'utils.log'),
             'formatter': 'custom'
         },
+        'listing_file': {
+            'level': LOGGING_LEVEL,
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(LOGGING_DIR, 'listings.log'),
+            'formatter': 'custom'
+        },
         'smtp_file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
@@ -115,6 +121,11 @@ LOGGING = {
         'utils': {
             'level': LOGGING_LEVEL,
             'handlers': ['util_file'],
+            'propagate': True,
+        },
+        'listings': {
+            'level': LOGGING_LEVEL,
+            'handlers': ['listing_file'],
             'propagate': True,
         },
         'smtplib': {

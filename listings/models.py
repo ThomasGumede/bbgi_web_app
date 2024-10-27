@@ -140,15 +140,6 @@ class Business(AbstractCreate):
                 else:
                     return False
 
-class BusinessAddress(AbstractCreate):
-    business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name="addresses")
-    address = models.CharField(max_length=250, unique=True)
-    map_coordinates  = models.CharField(max_length=300, blank=True, null=True)
-    email = models.EmailField(_("Enter your business branch email"), max_length=250, blank=True, null=True)
-    phone = models.CharField(help_text=_("Enter your business branch number"), max_length=15, validators=[PHONE_VALIDATOR], unique=True, null=True, blank=True)
-
-    def __str__(self):
-        return self.address
     
 class BusinessContent(AbstractCreate):
     image = models.ImageField(help_text=_("Upload company/business images."), upload_to=handle_business_file_upload, blank=True, null=True)
@@ -196,9 +187,16 @@ class BusinessHour(AbstractCreate):
 
 class BusinessLocation(AbstractCreate):
     business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name="business_locations", null=True)
+    location_title = models.CharField(max_length=350, help_text=_("Enter your business branch name"), blank=True, null=True)
+    email = models.EmailField(help_text=_("Enter your business branch email"), max_length=250, blank=True, null=True)
+    phone = models.CharField(help_text=_("Enter your business branch number"), max_length=15, validators=[PHONE_VALIDATOR], unique=True, null=True, blank=True)
     address = models.CharField(max_length=400, help_text=_("Enter office address seperated by comma"))
     map_coordinates  = models.CharField(max_length=300, blank=True, null=True)
     address_id = models.CharField(max_length=300, null=True, blank=True)
+    
+    def __str__(self):
+        return self.address
+    
 
 
 @receiver(pre_delete, sender=Business)
