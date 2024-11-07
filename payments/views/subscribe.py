@@ -110,14 +110,17 @@ def subscription_payment_success(request, subscription_id):
 
         else:
             logger.info(f"something went wrong: check_payment_update_2_subscription.delay((subscription.checkout_id, domain, protocol))")
-            check_payment_update_2_subscription(subscription.checkout_id, domain, protocol)
+            check_payment_update_2_subscription.delay(subscription.checkout_id, domain, protocol)
+            return render(request, "payments/subscriptions/success.html", {"subscription": subscription})
             
 
     except PaymentInformation.DoesNotExist as ex:
         logger.info(f"something went wrong: {ex}")
-        check_payment_update_2_subscription(subscription.checkout_id, protocol, domain)        
+        check_payment_update_2_subscription.delay(subscription.checkout_id, protocol, domain)
+        return render(request, "payments/subscriptions/success.html", {"subscription": subscription})        
     
     except Exception as ex:
         logger.error(f"something went wrong: {ex}")
+        return render(request, "payments/subscriptions/success.html", {"subscription": subscription})
 
     return render(request, "payments/subscriptions/success.html", {"subscription": subscription})

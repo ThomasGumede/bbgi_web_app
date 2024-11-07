@@ -56,11 +56,13 @@ def create_new_ticket_types(request, event_slug):
             ticket_type = form.save(commit=False)
             ticket_type.event = event
             ticket_type.save()
-            messages.success(request, f"Your Ticket type({title}) was successfully created")
+            
             if add_another:
+                messages.success(request, f"Your Ticket type({title}) was successfully created")
                 return redirect("events:add-event-tickets", event_slug=event.slug)
             
-            return redirect("events:event-details", event_slug=event.slug)
+            messages.success(request, "Event created successfully and awaiting approval from our administration. It takes 4 - 24 hours to approve events")
+            return redirect("events:manage-event", event_slug=event.slug)
         else:
             messages.error(request, "Something is missing, please fix errors below")
             return render(request, "events/ticket/create-new-tickets-type.html", {"form": form, "event": event})

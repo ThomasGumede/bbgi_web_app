@@ -108,10 +108,15 @@ def tickets_payment_success(request, ticket_order_id):
                 payment_information.save(update_fields=["order_number", "order_updated"])
             else:
                check_payment_update_2_ticket_order.delay(ticket_order.checkout_id, protocol, domain)
+               return render(request, "payments/tickets/success.html", {"ticketorder": ticket_order})
 
         except PaymentInformation.DoesNotExist as ex:
             logger.error(f"Payment error - {ex}")
             check_payment_update_2_ticket_order.delay(ticket_order.checkout_id, protocol, domain)
+            return render(request, "payments/tickets/success.html", {"ticketorder": ticket_order})
+        
+        except Exception as ex:
+            logger.error(f"something went wrong: {ex}")
             return render(request, "payments/tickets/success.html", {"ticketorder": ticket_order})
     
     
