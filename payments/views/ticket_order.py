@@ -143,10 +143,13 @@ def verify_ticket_payment_order(request, ticket_order_id):
         except PaymentInformation.DoesNotExist as ex:
             logger.error(f"Payment error - {ex}")
             check_payment_update_2_ticket_order.delay(ticket_order.checkout_id, protocol, domain)
-            return render(request, "payments/tickets/success.html", {"ticketorder": ticket_order})
+            return render(request, "payments/tickets/verify-payment.html", {"ticketorder": ticket_order})
+    else:
+        messages.info(request, "This order was verified and client was notified")
+        return redirect("bbgi_home:all-ticket-orders")
     
     
-    return render(request, "payments/tickets/success.html", {"ticketorder": ticket_order})
+    return render(request, "payments/tickets/verify-payment.html", {"ticketorder": ticket_order})
 
 @login_required
 def tickets_payment_cancelled(request, ticket_order_id):
