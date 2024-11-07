@@ -34,11 +34,11 @@ CELERY_BEAT_SCHEDULE = {
     #     'schedule': crontab(hour=9, minute=0),  # Run the task 23 hours
     # },
     'close-expired-events': {
-        'task': 'events.tasks.check_events_status',
+        'task': 'events.tasks.check_2_events_status',
         'schedule': crontab(hour=9, minute=0)
     },
     'close-expired-campaigns': {
-        'task': 'campaigns.tasks.check_campaigns_status',
+        'task': 'campaigns.tasks.check_2_campaigns_status',
         'schedule': crontab(hour=9, minute=0)
     },
 }
