@@ -5,10 +5,8 @@
     <meta charset="utf-8">
     <title>Example 2</title>
     <style>
-        @font-face {
-        font-family: SourceSansPro;
-        src: url(SourceSansPro-Regular.ttf);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3&display=swap');
+        
 
         .clearfix:after {
             content: "";
@@ -23,14 +21,15 @@
 
         body {
         position: relative;
-        width: 21cm;  
-        height: 29.7cm; 
+         
         margin: 0 auto; 
         color: #555555;
         background: #FFFFFF;
-        font-family: Arial, sans-serif; 
+        font-family: "Source Sans 3", sans-serif; 
         font-size: 14px; 
-        font-family: SourceSansPro;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
         }
 
         header {
@@ -197,8 +196,7 @@
         color: #777777;
         width: 100%;
         height: 30px;
-        position: absolute;
-        bottom: 0;
+        margin-top: 30px;
         border-top: 1px solid #AAAAAA;
         padding: 8px 0;
         text-align: center;
