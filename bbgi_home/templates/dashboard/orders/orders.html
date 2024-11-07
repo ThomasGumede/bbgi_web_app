@@ -82,7 +82,12 @@
                             <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
                                 <p
                                     class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                                    Donor
+                                    Buyer
+                                </p>
+                            </th>
+                            <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                                <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                    Verify
                                 </p>
                             </th>
                             <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
@@ -160,6 +165,11 @@
                                 </div>
                             </td>
                             <td class="p-4 border-b border-blue-gray-50">
+                                <a href="{% url 'payments:verify-ticket-payment' order.id %}" class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                                    Verify Order
+                                </a>
+                            </td>
+                            <td class="p-4 border-b border-blue-gray-50">
                                 <a href="{% url 'bbgi_home:order' order.id %}"
                                     class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                     type="button">
@@ -172,8 +182,8 @@
                                         </svg>
                                     </span>
                                 </a>
-                                {% if order.paid == 'PAID' %}
-                                {% else %}
+                                {% if order.paid != 'PAID' %}
+                                
                                 <a href="{% url 'bbgi_home:cancel-ticket-order' order.id %}"
                                     class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                     type="button">

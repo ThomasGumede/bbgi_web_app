@@ -118,7 +118,7 @@ def tickets_payment_success(request, ticket_order_id):
     return render(request, "payments/tickets/success.html", {"ticketorder": ticket_order})
 
 @login_required
-def verify_payment_order(request, ticket_order_id):
+def verify_ticket_payment_order(request, ticket_order_id):
     domain = get_current_site(request).domain
     protocol = "https" if request.is_secure() else "http"
     ticket_order = get_object_or_404(TicketOrderModel, id=ticket_order_id)
