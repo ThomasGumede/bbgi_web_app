@@ -63,9 +63,9 @@ CSRF_TRUSTED_ORIGINS = ['https://127.0.0.1', 'https://localhost', 'https://bbgi.
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SILENCED_SYSTEM_CHECKS = ['security.W019']
-
+TEST_MODE = config('YOCO_TEST_MODE')
 # YOCO
-if DEBUG:
+if DEBUG or TEST_MODE == 'yes':
     YOCO_WEBHOOK_KEY = config('YOCO_TEST_WEBHOOK_KEY')
     YOCO_API_KEY = config('YOCO_TEST_API_KEY')
     ALLOWED_HOSTS=['*']
