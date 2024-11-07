@@ -88,8 +88,8 @@ def send_ticket_order_received_to_admin(order: TicketOrderModel, request):
         email = EmailMessage(
             subject=mail_subject,
             body=message,
-            from_email="BBGI Events <events@bbgi.co.za>",
-            to=['gumedethomas12@gmail.com', 'finance@bbgi.co.za', 'sazi.ndwandwa@gmail.com'],
+            from_email="BBGI Notifications <noreply@bbgi.co.za>",
+            to=['gumedethomas12@gmail.com', 'finance@bbgi.co.za', 'events@bbgi.co.za'],
         )
         email.content_subtype = 'html'
         sent = email.send()
@@ -124,14 +124,14 @@ def send_subscription_order_received_to_admin(order: SubscriptionOrder, request)
         email = EmailMessage(
             subject=mail_subject,
             body=message,
-            from_email="BBGI Subscription <subscriptions@bbgi.co.za>",
-            to=['gumedethomas12@gmail.com', 'finance@bbgi.co.za', 'sazi.ndwandwa@gmail.com'],
+            from_email="BBGI Notifications <noreply@bbgi.co.za>",
+            to=['gumedethomas12@gmail.com', 'finance@bbgi.co.za', 'listings@bbgi.co.za'],
         )
         email.content_subtype = 'html'
         sent = email.send()
         
         if not sent:
-            email_logger.error(f"Failed to send subscription email to 'gumedethomas12@gmail.com', 'finance@bbgi.co.za', 'sazi.ndwandwa@gmail.com' for order number {order.order_number}")
+            email_logger.error(f"Failed to send subscription email to 'gumedethomas12@gmail.com', 'finance@bbgi.co.za', 'listings@bbgi.co.za' for order number {order.order_number}")
             return False
 
         return True
