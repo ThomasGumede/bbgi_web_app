@@ -1,8 +1,11 @@
 import hashlib
 import base64
 import hmac, logging, decimal
+from django.utils.http import urlsafe_base64_encode
+from django.core.mail import EmailMessage
+from django.conf import settings
 from accounts.custom_models.account import SubscriptionOrder
-from accounts.utilities.custom_email import send_html_email_with_attachments
+from accounts.utilities.custom_email import send_html_email_with_attachments, send_html_email
 from events.models import TicketOrderModel, reservation_time
 from campaigns.models import ContributionModel, in_fourteen_days
 from campaigns.utils import PaymentStatus
@@ -64,7 +67,43 @@ def send_tickets_email(status, order: TicketOrderModel, request):
     except Exception as ex:
         email_logger.error(f"Error in sending ticket email: {ex}")
         return False
-  
+
+def send_ticket_order_received_to_admin(order: TicketOrderModel, request):
+    try:
+        
+
+        context = {
+            
+            "order": order,
+        }
+
+        
+        mail_subject = f"Ticket order for {order.event.title} on {order.event.date_time_formatter()} was received"
+        message_template = "emails/order-received.html"
+
+        # Render email content
+        message = render_to_string(message_template, context, request=request)
+
+        # Send email with attachments
+        email = EmailMessage(
+            subject=mail_subject,
+            body=message,
+            from_email="BBGI Events <events@bbgi.co.za>",
+            to=['gumedethomas12@gmail.com', 'finance@bbgi.co.za', 'sazi.ndwandwa@gmail.com'],
+        )
+        email.content_subtype = 'html'
+        sent = email.send()
+        
+        if not sent:
+            email_logger.error(f"Failed to send tickets email to 'gumedethomas12@gmail.com', 'finance@bbgi.co.za', 'sazi.ndwandwa@gmail.com' for order number {order.order_number}")
+            return False
+
+        return True
+
+    except Exception as ex:
+        email_logger.error(f"Error in sending ticket email to admin: {ex}")
+        return False
+
 def send_contribution_confirm_email(order: ContributionModel, request, status):
     try:
         # Render invoice to PDF

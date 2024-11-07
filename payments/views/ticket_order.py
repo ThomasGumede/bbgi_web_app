@@ -1,3 +1,4 @@
+from payments.utilities.custom_email import send_ticket_order_received_to_admin
 from payments.utilities.yoco_func import headers
 import requests, logging, json, decimal
 from django.shortcuts import render, get_object_or_404, redirect
@@ -88,10 +89,11 @@ def payment(request, ticket_order_id):
 
 @login_required
 def tickets_payment_success(request, ticket_order_id):
+    
     domain = get_current_site(request).domain
     protocol = "https" if request.is_secure() else "http"
     ticket_order = get_object_or_404(TicketOrderModel, id=ticket_order_id, buyer=request.user)
-
+    notified_admin = send_ticket_order_received_to_admin(ticket_order, request)
     if ticket_order.total_price == decimal.Decimal(0.00):
         updated = update_payment_status_zero_balance_ticket_order(request, ticket_order)
         return render(request, "payments/tickets/success.html", {"ticketorder": ticket_order})

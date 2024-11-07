@@ -192,6 +192,9 @@ class TicketOrderModel(AbstractCreate, AbstractPayment):
     def get_client_full_name(self):
         return f"{self.client_first_name} {self.client_last_name}"
     
+    def get_client_address(self):
+        return f"{self.client_address_one}, {self.client_city}, {self.client_province}, {self.client_zipcode}"
+    
     def get_absolute_url(self):
         return reverse("events:order", kwargs={"order_id": self.id, "event_slug": self.event.slug})
     
