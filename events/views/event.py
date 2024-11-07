@@ -38,7 +38,7 @@ def events(request, category_slug=None):
 def event_details(request, event_slug):
     queryset = EventModel.objects.all().select_related("organiser")
     event = get_object_or_404(queryset, slug = event_slug)
-    recent_events = EventModel.objects.filter(id != event.id).order_by("-created")[:6]
+    recent_events = EventModel.objects.all().order_by("-created")[:6]
     if event.status != StatusChoices.APPROVED or event.status != StatusChoices.COMPLETED:
         messages.info(request, "This event is either not approved or blocked. Please contact the event organisors before purchasing tickets")
     return render(request, "events/event/details.html", {"event": event, "recent_events": recent_events})
