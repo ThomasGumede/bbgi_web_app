@@ -16,6 +16,7 @@ class BBGIBankModel(AbstractCreate):
     class Meta:
         verbose_name = 'BBGI Finance Information'
         verbose_name_plural = 'BBGI Finance Informations'
+        ordering = ["-created"]
 
 class PaymentInformation(models.Model):
     id = models.CharField(max_length=300, unique=True, primary_key=True, db_index=True, editable=False)
@@ -31,3 +32,4 @@ class PaymentInformation(models.Model):
     class Meta:
         verbose_name = 'Payment Information'
         verbose_name_plural = 'Payment Informations'
+        ordering = ["-created"]
