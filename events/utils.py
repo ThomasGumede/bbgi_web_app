@@ -1,6 +1,8 @@
 import random, barcode, logging, qrcode
 from events.models import TicketModel, TicketOrderModel, EventModel
 from io import BytesIO
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.template.loader import get_template
 from django.contrib.sites.shortcuts import get_current_site
@@ -9,6 +11,43 @@ from barcode.writer import ImageWriter
 from django.http import HttpResponse
 
 logger = logging.getLogger("utils")
+email_logger = logging.getLogger("emails")
+
+def send_email_to_admins(event: EventModel, request):
+    try:
+        
+
+        context = {
+            
+            "event": event,
+        }
+
+        
+        mail_subject = f"Event {event.title} on {event.date_time_formatter()} was added"
+        message_template = "emails/event-added.html"
+
+        # Render email content
+        message = render_to_string(message_template, context, request=request)
+
+        # Send email with attachments
+        email = EmailMessage(
+            subject=mail_subject,
+            body=message,
+            from_email="BBGI Notification <noreply@bbgi.co.za>",
+            to=['gumedethomas12@gmail.com', 'finance@bbgi.co.za', 'events@bbgi.co.za'],
+        )
+        email.content_subtype = 'html'
+        sent = email.send()
+        
+        if not sent:
+            email_logger.error(f"Failed to send event added email to 'gumedethomas12@gmail.com', 'finance@bbgi.co.za', 'events@bbgi.co.za' for {event.title}")
+            return False
+
+        return True
+
+    except Exception as ex:
+        email_logger.error(f"Error in sending event added email to admin: {ex}")
+        return False
 
 def create_new_barcode_number():
     not_unique = True

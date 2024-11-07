@@ -329,21 +329,13 @@
                                                                                 SUBTOTAL (excl. DISC)</th>
                                                                             <th width="50%"
                                                                                 style="padding: 10px; word-break: break-word; font-weight: 700; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
-                                                                                R{{order.package.amount|floatformat:2}}
+                                                                                R1000
                                                                             </th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody
                                                                         style="vertical-align: top; font-size: 16px; line-height: 120%;">
-                                                                        <tr>
-                                                                            <td width="50%"
-                                                                                style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
-                                                                                TOTAL (incl. VAT)</td>
-                                                                            <td width="50%"
-                                                                                style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
-                                                                                R{{order.package.amount|floatformat:2}}
-                                                                            </td>
-                                                                        </tr>
+                                                                        
                                                                         <tr>
                                                                             <td width="50%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
@@ -352,21 +344,14 @@
                                                                                 style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
                                                                                 {{order.discount|floatformat:2}}%</td>
                                                                         </tr>
-                                                                        <tr>
-                                                                            <td width="50%"
-                                                                                style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
-                                                                                VAT</td>
-                                                                            <td width="50%"
-                                                                                style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
-                                                                                R{{order.vat|floatformat:2}}</td>
-                                                                        </tr>
+                                                                        
                                                                         <tr>
                                                                             <td width="50%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
                                                                                 TOTAL (incl. DISC)</td>
                                                                             <td width="50%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent;">
-                                                                                R{{order.total_aa|floatformat:2}}</td>
+                                                                                R{{order.total_amount|floatformat:2}}</td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>

@@ -78,6 +78,9 @@ class Account(AbstractUser, AbstractProfile):
             return f"{self.title} {self.first_name[0]} {self.last_name}"
         else:
             return f"{self.first_name} {self.last_name}"
+        
+    def get_absolute_url(self):
+        return reverse("accounts:user-details", kwargs={"username": self.username})
 
 class SubscriptionOrder(AbstractCreate, AbstractPayment):
     package = models.ForeignKey(SubscriptionPackage, null=True, blank=True, on_delete=models.SET_NULL, related_name="subscription_orders")

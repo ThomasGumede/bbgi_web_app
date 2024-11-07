@@ -9,6 +9,8 @@ from events.forms import EventTicketTypeForm, EventTicketTypeUpdateForm
 from django.contrib import messages
 from django.utils import timezone
 
+from events.utils import send_email_to_admins
+
 def confirm_attandance(request, order_number, ticket_id):
     order = get_object_or_404(TicketOrderModel, order_number=order_number)
     if order.paid == PaymentStatus.PAID:
@@ -62,6 +64,7 @@ def create_new_ticket_types(request, event_slug):
                 return redirect("events:add-event-tickets", event_slug=event.slug)
             
             messages.success(request, "Event created successfully and awaiting approval from our administration. It takes 4 - 24 hours to approve events")
+            send_email_to_admins(event, request)
             return redirect("events:manage-event", event_slug=event.slug)
         else:
             messages.error(request, "Something is missing, please fix errors below")
