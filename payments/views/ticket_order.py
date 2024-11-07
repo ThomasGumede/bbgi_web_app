@@ -107,14 +107,39 @@ def tickets_payment_success(request, ticket_order_id):
                 update_coupon(ticket_order.coupon_code)
                 payment_information.save(update_fields=["order_number", "order_updated"])
             else:
-               check_payment_update_2_ticket_order.apply_async((ticket_order.checkout_id, protocol, domain), countdown=25*60)
+               check_payment_update_2_ticket_order.delay(ticket_order.checkout_id, protocol, domain)
 
         except PaymentInformation.DoesNotExist as ex:
             logger.error(f"Payment error - {ex}")
-            check_payment_update_2_ticket_order.apply_async((ticket_order.checkout_id, protocol, domain), countdown=25*60)
+            check_payment_update_2_ticket_order.delay(ticket_order.checkout_id, protocol, domain)
             return render(request, "payments/tickets/success.html", {"ticketorder": ticket_order})
-    else:
-        pass
+    
+    
+    return render(request, "payments/tickets/success.html", {"ticketorder": ticket_order})
+
+@login_required
+def verify_payment_order(request, ticket_order_id):
+    domain = get_current_site(request).domain
+    protocol = "https" if request.is_secure() else "http"
+    ticket_order = get_object_or_404(TicketOrderModel, id=ticket_order_id)
+    if ticket_order.paid == PaymentStatus.PENDING:
+        try:
+            payment_information = PaymentInformation.objects.get(id = ticket_order.checkout_id)
+            updated = update_payment_status_ticket_order(json.loads(payment_information.data), request, ticket_order)
+
+            if updated:
+                payment_information.order_number = ticket_order.order_number
+                payment_information.order_updated = True
+                update_coupon(ticket_order.coupon_code)
+                payment_information.save(update_fields=["order_number", "order_updated"])
+            else:
+               check_payment_update_2_ticket_order.delay(ticket_order.checkout_id, protocol, domain)
+
+        except PaymentInformation.DoesNotExist as ex:
+            logger.error(f"Payment error - {ex}")
+            check_payment_update_2_ticket_order.delay(ticket_order.checkout_id, protocol, domain)
+            return render(request, "payments/tickets/success.html", {"ticketorder": ticket_order})
+    
     
     return render(request, "payments/tickets/success.html", {"ticketorder": ticket_order})
 
