@@ -103,6 +103,42 @@ def send_ticket_order_received_to_admin(order: TicketOrderModel, request):
     except Exception as ex:
         email_logger.error(f"Error in sending ticket email to admin: {ex}")
         return False
+    
+def send_subscription_order_received_to_admin(order: SubscriptionOrder, request):
+    try:
+        
+
+        context = {
+            
+            "order": order,
+        }
+
+        
+        mail_subject = f"BBGI Listing Subscription was received"
+        message_template = "emails/subscription/order-received.html"
+
+        # Render email content
+        message = render_to_string(message_template, context, request=request)
+
+        # Send email with attachments
+        email = EmailMessage(
+            subject=mail_subject,
+            body=message,
+            from_email="BBGI Subscription <subscriptions@bbgi.co.za>",
+            to=['gumedethomas12@gmail.com', 'finance@bbgi.co.za', 'sazi.ndwandwa@gmail.com'],
+        )
+        email.content_subtype = 'html'
+        sent = email.send()
+        
+        if not sent:
+            email_logger.error(f"Failed to send subscription email to 'gumedethomas12@gmail.com', 'finance@bbgi.co.za', 'sazi.ndwandwa@gmail.com' for order number {order.order_number}")
+            return False
+
+        return True
+
+    except Exception as ex:
+        email_logger.error(f"Error in sending ticket email to admin: {ex}")
+        return False
 
 def send_contribution_confirm_email(order: ContributionModel, request, status):
     try:
@@ -159,14 +195,14 @@ def send_subscription_confirm_email(order: SubscriptionOrder, request, status):
             mail_subject = "BBGI Payment Received"
             message_template = "emails/subscription/payment_received.html"
         else:
-            mail_subject = f"Your contribution payment for {order.campaign.title} campaign was unsuccessful"
+            mail_subject = f"Your payment for BBGI Subscription was unsuccessful"
             message_template = "emails/subscription/payment_cancelled.html"
 
         # Render email content
         message = render_to_string(message_template, context, request=request)
 
         # Send email
-        sent = send_html_email_with_attachments(order.subscriber.email, mail_subject, message, "BBGI <bbgiorders@bbgi.co.za>")
+        sent = send_html_email_with_attachments(order.subscriber.email, mail_subject, message, "BBGI Subscription <finance@bbgi.co.za>")
 
         if not sent:
             email_logger.error(f"Failed to send subscription confirmation email for order {order.order_id} to {order.subscriber.email}")

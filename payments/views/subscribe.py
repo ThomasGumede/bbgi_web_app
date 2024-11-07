@@ -1,4 +1,5 @@
 import json, logging, decimal, requests
+from payments.utilities.custom_email import send_subscription_order_received_to_admin
 from payments.utilities.yoco_func import headers
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
@@ -93,6 +94,7 @@ def subscription_payment_success(request, subscription_id):
     protocol = "https" if request.is_secure() else "http"
     
     subscription = get_object_or_404(SubscriptionOrder, id=subscription_id)
+    send_subscription_order_received_to_admin(subscription, request)
     if subscription.total_amount == decimal.Decimal(0.00):
         update_payment_status_zero_balance_subscription_order(request, subscription)
         update_coupon(subscription.id)
