@@ -43,16 +43,12 @@
                                 
                                 <button @click="isOpen = !isOpen"
                                     class="relative z-10 flex items-center w-10 h-10 rounded-full   bg-white border border-transparent focus:border-blue-500 focus:ring-opacity-40  focus:ring-blue-300  focus:ring  focus:outline-none">
-                                    {% if request.user.profile_image %}
+                                    
                                     <div class="text-white rounded-full overflow-hidden">
-                                        <img src="{{request.user.profile_image.url}}" alt="{{request.user.get_full_name}}"
+                                        <img src="{% if request.user.profile_image %}{{request.user.profile_image.url}}{% else %}{% static 'imgs/R.png' %}{% endif %}" alt="{{request.user.get_full_name}}"
                                             class="w-10 h-10 rounded-full object-cover">
                                     </div>
-                                    {% else %}
-                                    <div href="{% url 'bbgi_home:dashboard' %}" class="text-white rounded-full overflow-hidden">
-                                        <i class="fa-solid fa-user fa-xl"></i>
-                                    </div>
-                                    {% endif %}
+                                    
                         
                                 </button>
                         
@@ -64,14 +60,11 @@
                                     class="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl ">
                                     <a href="{% url 'accounts:user-details' request.user.username %}"
                                         class="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform  hover:bg-gray-100 ">
-                                        {% if request.user.profile_image %}
+                                        
                                         <img class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
-                                            src="{{request.user.profile_image.url}}" alt="{{request.user.get_full_name}} avatar">
-                                        {% else %}
-                                        <img class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
-                                            src="{% static 'images/global/no-image-available.webp' %}"
-                                            alt="{{request.user.get_full_name}} avatar">
-                                        {% endif %}
+                                            src="{% if request.user.profile_image %}{{request.user.profile_image.url}}{% else %}{% static 'imgs/R.png' %}{% endif %}" alt="{{request.user.get_full_name}} avatar">
+                                        
+                                        
                                         <div class="mx-1 w-full">
                                             <h5 class="text-sm font-semibold text-gray-700 ">
                                                 {{request.user.get_full_name}}</h5>
