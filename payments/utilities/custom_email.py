@@ -19,7 +19,7 @@ email_logger = logging.getLogger("emails")
 def send_tickets_email(status, order: TicketOrderModel, request):
     try:
         # Render invoice to PDF
-        invoice_template = get_template("emails/tickets/invoice.html")
+        invoice_template = get_template("emails/tickets/invoice_v2.html")
         invoice_context = {
             "buyer_full_name": order.buyer.get_full_name(),
             "order": order,
