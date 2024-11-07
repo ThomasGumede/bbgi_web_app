@@ -225,8 +225,7 @@
                                                                                 href="{{protocol}}://{{domain}}{{event.get_absolute_url}}"
                                                                                 target="_blank" rel="noopener"
                                                                                 style="text-decoration: underline; color: #071a1d;">{{event.title}}</a></strong>
-                                                                        was added on &nbsp;{{ event.created|date:"D j M Y,
-                                                                        H:i" }} by <strong><a href="{{protocol}}://{{domain}}{{event.organiser.get_absolute_url}}" target="_blank" rel="noopener"
+                                                                        was added on &nbsp;{{event.created|date:"D j M Y, H:i"}} by <strong><a href="{{protocol}}://{{domain}}{{event.organiser.get_absolute_url}}" target="_blank" rel="noopener"
                                                                                 style="text-decoration: underline; color: #071a1d;">{{event.organiser.get_full_name}}</a></strong>. This email serves an notification
                                                                         to review event and approve it, please find more information
                                                                         below.</p>
