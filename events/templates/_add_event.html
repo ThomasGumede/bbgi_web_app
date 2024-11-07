@@ -30,63 +30,38 @@
         </div>
     </div>
 </section>
-<article class="w-full h-full py-20 space-y-5">
-    <div class="container">
-        <div class="relative block w-fit mx-auto">
-            <div class="py-3 ml-4 mr-4">
-                <div class="flex flex-wrap gap-2">
-                    <div
-                        class=" w-fit rounded text-sm md:text-base font-medium px-2 md:px-3 py-2 {% if request.resolver_match.url_name == 'create-event' or request.resolver_match.url_name == 'create-event-with-slug' %}bg-custom-h text-white{% else %}text-custom-h {% endif %} ">
-                        <p class="font-medium  duration-500   ">Details</p>
-                    </div>
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="35" viewBox="0 0 43 35" fill="none">
-                            <g clip-path="url(#clip0_3346_6663)">
-                                <path
-                                    d="M16.9242 11.7425C16.2417 12.425 16.2417 13.5275 16.9242 14.21L23.7142 21L16.9242 27.79C16.2417 28.4725 16.2417 29.575 16.9242 30.2575C17.6067 30.94 18.7092 30.94 19.3917 30.2575L27.4242 22.225C28.1067 21.5425 28.1067 20.44 27.4242 19.7575L19.3917 11.725C18.7267 11.06 17.6067 11.06 16.9242 11.7425Z"
-                                    fill="#68769F" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_3346_6663">
-                                    <rect width="35" height="35" fill="white" transform="translate(0.666748)" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-                    </div>
-                    <div
-                        class=" w-fit text-sm md:text-base font-medium px-2 md:px-3 py-2 rounded {% if request.resolver_match.url_name == 'create-event-address' %}bg-custom-h text-white{% else %}text-custom-h {% endif %}">
-                        <p class="font-medium  duration-500   ">Event Location</p>
-                    </div>
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="35" viewBox="0 0 43 35" fill="none">
-                            <g clip-path="url(#clip0_3346_6663)">
-                                <path
-                                    d="M16.9242 11.7425C16.2417 12.425 16.2417 13.5275 16.9242 14.21L23.7142 21L16.9242 27.79C16.2417 28.4725 16.2417 29.575 16.9242 30.2575C17.6067 30.94 18.7092 30.94 19.3917 30.2575L27.4242 22.225C28.1067 21.5425 28.1067 20.44 27.4242 19.7575L19.3917 11.725C18.7267 11.06 17.6067 11.06 16.9242 11.7425Z"
-                                    fill="#68769F" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_3346_6663">
-                                    <rect width="35" height="35" fill="white" transform="translate(0.666748)" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-                    </div>
-                    <div
-                        class=" w-fit text-sm md:text-base font-medium px-2 md:px-3 py-2 rounded {% if request.resolver_match.url_name == 'add-event-tickets' %}bg-custom-h text-white{% else %}text-custom-h {% endif %}">
-                        <p class="font-medium  duration-500   ">Ticket Types</p>
-                    </div>
-                    
 
+<section>
+    <div class="container py-30">
+        <!-- plan tab -->
+        <div class="tab plan-tab">
+            <div
+                class=" flex flex-wrap items-center justify-center gap-x-5 lg:gap-x-[30px] xl:gap-x-[50px] gap-y-[10px] text-sm lg:text-lg xl:text-xl text-custom-h mb-[50px]">
+                <button
+                    class="p-1px border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:translate-y-1/2 after:z-10 after:rounded-[100%] {% if request.resolver_match.url_name == 'create-event' or request.resolver_match.url_name == 'create-event-with-slug' %}active{% endif %}">
+                    1. Event Details
+                </button>
 
-                </div>
+                <button
+                    class="p-1px border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0  after:left-1/2 after:-translate-x-1/2 after:translate-y-1/2 after:z-10 after:rounded-[100%] {% if request.resolver_match.url_name == 'create-event-address' %}active{% endif %}">
+                    2. Event Address
+                </button>
+
+                <button
+                    class="p-1px border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 {% if request.resolver_match.url_name == 'add-event-tickets' %}active{% endif %} after:translate-y-1/2 after:z-10 after:rounded-[100%]">
+                    3. Ticket Types
+                </button>
+            </div>
+
+            <div class="tab-contents">
+
+                {% block event %}
+
+                {% endblock event %}
             </div>
         </div>
-        <div class="relative block ">
-            {% block event %}
-            {% endblock event %}
-        </div>
     </div>
-</article>
+</section>
 
 
 {% endblock content %}
