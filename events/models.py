@@ -34,6 +34,8 @@ class EventModel(AbstractCreate):
     image = models.ImageField(help_text=_("Upload campaign image."), upload_to=handle_event_file_upload, null=True, blank=True)
     title = models.CharField(help_text=_("Enter title for your event"), max_length=150)
     slug = models.SlugField(max_length=250, blank=True, unique=True)
+    phone = models.CharField(help_text=_("Enter cellphone number"), max_length=15, validators=[PHONE_REGEX])
+    email = models.EmailField()
     organiser = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=None, related_name="events")
     small_description = models.TextField(help_text=_("Small description about your event for search"), null=True, blank=True)
     content = HTMLField()

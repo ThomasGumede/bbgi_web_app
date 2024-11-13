@@ -78,6 +78,30 @@
                                             {% endif %}
                                         </div>
                                     </div>
+                                    <div class="w-full lg:w-6/12 md:px-4">
+                                        <div class="relative w-full mb-3">
+                                            <label for="id_phone">
+                                                Phone*
+                                            </label>
+                                            {{form.phone}}
+                                            <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.phone.help_text}}</span>
+                                            {% if form.phone.errors %}
+                                            <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.phone.errors.as_text}}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="w-full lg:w-6/12 relative md:px-4">
+                                        <div class="relative w-full  mb-3">
+                                            <label for="id_email">
+                                                Email*
+                                            </label>
+                                            {{form.email}}
+                                    
+                                            {% if form.email.errors %}
+                                            <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.email.errors.as_text}}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
                                     <div class="w-full lg:w-12/12 md:px-4">
                                         <div class="relative w-full mb-3">
                                             <label for="id_small_description">

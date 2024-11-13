@@ -111,10 +111,10 @@
                             <p class="text-sm text-gray-500 md:text-base font-medium space-x-2"><i class="fa-brands text-lg fa-chrome"></i>
                                 <a href="{{event.event_link}}">{% if event.event_link %}{{event.event_link}}{% else %}-{% endif %}</a>
                             </p>
-                            <p class="text-sm text-gray-500 md:text-base font-medium space-x-2"><i class="fa-solid text-lg fa-phone"></i>
-                                <span>{% if event.organiser.phone %}{{event.organiser.phone}}{% else %}-{% endif %}</span></p>
-                            <p class="text-sm text-gray-500 md:text-base font-medium space-x-2"><i class="fa-solid text-lg fa-envelope"></i>
-                                <span>{{event.organiser.email}}</span></p>
+                            <a href="tel:{{event.phone}}" class="text-sm block hover:text-custom-primary text-gray-500 md:text-base font-medium space-x-2"><i class="fa-solid text-lg fa-phone"></i>
+                                <span>{{event.phone}}</span></a>
+                            <a href="emailto:{{event.email}}" class="text-sm block hover:text-custom-primary text-gray-500 md:text-base font-medium space-x-2"><i class="fa-solid text-lg fa-envelope"></i>
+                                <span>{{event.email}}</span></a>
                         </div>
 
                     </div>
