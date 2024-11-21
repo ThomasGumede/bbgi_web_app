@@ -100,7 +100,7 @@ def activate(request, uidb64, token):
         if not sent:
             logger.error(f"Something went wrong trying to send email to {user.username}")
 
-    return redirect("home:home")
+    return redirect("bbgi_home:bbgi-home")
 
 def confirm_email(request, uidb64, token):
     logout(request)
@@ -130,7 +130,7 @@ def confirm_email(request, uidb64, token):
         if not sent:
             logger.error(f"Something went wrong trying to send email to {user.username}")
 
-    return redirect("home:home")
+    return redirect("bbgi_home:bbgi-home")
 
 @user_not_authenticated
 def register(request):
