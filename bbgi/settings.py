@@ -85,7 +85,7 @@ else:
     SECURE_HSTS_PRELOAD = True
 
     # Allowed Hosts
-    ALLOWED_HOSTS = ['bbgi.co.za', 'www.bbgi.co.za', 'localhost', '102.219.85.210']
+    ALLOWED_HOSTS = ['bbgi.co.za', 'www.bbgi.co.za', 'localhost', '102.219.85.210', '0.0.0.0']
 
 
 # Files
