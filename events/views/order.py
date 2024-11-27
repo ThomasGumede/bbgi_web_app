@@ -139,12 +139,12 @@ def create_ticket_order(request, event_slug):
     event = get_object_or_404(queryset, slug=event_slug)
     time_remaining = (event.event_enddate - timezone.now()).days
 
-    if time_remaining <= 0 or event.get_total_seats() == 0:
-        messages.error(request, "Sorry, this event is closed or has run out of tickets.")
-        if time_remaining <= 0:
-            event.status = StatusChoices.COMPLETED
-            event.save(update_fields=["status"])
-        return redirect("events:event-details", event_slug=event.slug)
+    # if time_remaining <= 0 or event.get_total_seats() == 0:
+    #     messages.error(request, "Sorry, this event is closed or has run out of tickets.")
+    #     if time_remaining <= 0:
+    #         event.status = StatusChoices.COMPLETED
+    #         event.save(update_fields=["status"])
+    #     return redirect("events:event-details", event_slug=event.slug)
 
     formset = formset_factory(TicketForm, extra=event.tickettypes.count(), max_num=event.tickettypes.count())
 
