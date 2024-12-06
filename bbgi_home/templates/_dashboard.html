@@ -233,11 +233,11 @@
                 <div class="lg:absolute lg:right-0 w-full lg:w-10/12 h-full lg:top-0">
                     <div class="relative   block w-full bg-custom-h">
                         <nav class="w-full relative block">
-                            <div class="flex items-center container justify-between py-2">
+                            <div class="flex items-center justify-between py-2 px-4">
                                 <a href="{% url 'bbgi_home:bbgi-home' %}" class="logo w-36 overflow-hidden h-full">
                                     <img src="{% static 'imgs/logo_1.png' %}" alt="BBGI logo" class="object-cover">
                                 </a>
-                                <div class="flex w-fit items-center text-white space-x-9">
+                                <div class="flex w-fit items-center text-white space-x-4 lg:space-x-9">
                                     <div id="cart">
                                         <a href="{% url 'bbgi_home:bbgi-home' %}" class="text-white">
                                             <i class="fa-solid fa-home fa-lg"></i>
@@ -329,16 +329,7 @@
                                         </div>
                                     </div>
                                     
-                                    <a href="{% url 'listings:add-listing' %}" id="add-listing w-full">
-                                        <span href="" class="text-white md:hidden  w-full">
-                                            <i class="fa-solid fa-plus fa-lg"></i>
-                                        </span>
-                                        <span
-                                            class="hidden w-36 font-semibold md:block py-2 px-3 text-center rounded-sm text-white bg-custom-primary">
-                                            <i class="fa-solid fa-plus fa-sm mr-1"></i>
-                                            Add Listing
-                                        </span>
-                                    </a>
+                                    
                                     <div @click="dashboard = !dashboard" class="cursor-pointer lg:hidden">
                                         <i class="fa-solid text-white fa-bars fa-lg"></i>
                                     </div>

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from campaigns.models import CampaignModel, ContributionModel
 from campaigns.utils import PaymentStatus, generate_slug
-from campaigns.forms import CampaignForm
+from campaigns.forms import CampaignContactForm, CampaignForm, CampaignAddressForm
 from accounts.custom_models.choices import StatusChoices
 from bbgi_home.models import BlogCategory
 from django.contrib import messages
@@ -89,21 +89,58 @@ def campaign_details(request, campaign_slug):
     return render(request, "campaigns/campaign/details.html", {"campaign": campaign, "recent_campaigns":recent_campaigns})
 
 @login_required
-def create_campaign(request):
+def create_campaign(request, campaign_slug=None):
+    campaign=None
+    if campaign_slug:
+        campaign = get_object_or_404(CampaignModel, slug=campaign_slug, organiser=request.user)
+        
+    form = CampaignForm(instance=campaign)
     if request.method == 'POST':
-        form = CampaignForm(request.POST, request.FILES)
+        form = CampaignForm(instance=campaign, data=request.POST, files=request.FILES)
         if form.is_valid() and form.is_multipart():
             campaign = form.save(commit=False)
             campaign.slug = generate_slug(campaign.title, CampaignModel)
             campaign.organiser = request.user
             campaign.save()
-            messages.success(request, "Campaign was created successfully")
-            return redirect("campaigns:campaign", campaign_slug=campaign.slug)
+            messages.success(request, "Campaign was created successfully. Add address now")
+            return redirect("campaigns:create-campaign-address", campaign_slug=campaign.slug)
         else:
-            return render(request, "campaigns/campaign/create.html", {"form": form})
-    else:
-        form = CampaignForm()
-        return render(request, "campaigns/campaign/create.html", {"form": form})
+            messages.error(request, "Failed to Add Campaign, please fix errors below")
+    
+    return render(request, "campaigns/campaign/create/campaign-details.html", {"form": form, "campaign": campaign})
+
+@login_required
+def create_campaign_address(request, campaign_slug):
+    campaign = get_object_or_404(CampaignModel, slug=campaign_slug, organiser=request.user)
+    form = CampaignAddressForm(instance=campaign)
+    if request.method == 'POST':
+        form = CampaignAddressForm(instance=campaign, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Campaign address added successfully")
+            return redirect("campaigns:create-campaign-contact", campaign_slug=campaign.slug)
+            
+    return render(request, "campaigns/campaign/create/campaign-location.html", {"form": form, "campaign": campaign})
+
+@login_required
+def add_campaign_socials(request, campaign_slug):
+    campaign = get_object_or_404(CampaignModel, slug=campaign_slug, organiser=request.user)
+    form = CampaignContactForm(instance=campaign)
+    
+    if request.method == "POST":
+        form = CampaignContactForm(instance=campaign, data=request.POST)
+
+        if form.is_valid():
+            form.save()
+            # send_html_email('New campaign Added', 'campaigns@bbgi.co.za', 'emails/campaign-confirmation.html', {"campaign": campaign})
+            messages.success(request, "campaign contact details successfully added. It takes 12 - 48 hours for campaign status to be updated, will contact you if we require additional information. Thank you")
+            return redirect("campaigns:manage-campaign", campaign_id=campaign.id)
+        else:
+            messages.error(request, "Something went wrong while trying to add your business")
+            return render(request, "campaigns/campaign/create/campaign-contact.html", {"campaign": campaign, "form": form})
+    
+    return render(request, "campaigns/campaign/create/campaign-contact.html", {"campaign": campaign, "form": form})
+
 
 @login_required
 def update_campaign(request, campaign_slug):
@@ -112,19 +149,19 @@ def update_campaign(request, campaign_slug):
         if campaign.status in [StatusChoices.APPROVED, StatusChoices.PENDING]:
             messages.error(request, "You cannot edit campaign that is already approved or pending approval")
             return redirect("campaigns:manage-campaigns")
-        
+        form = CampaignForm(instance=campaign)
         if request.method == 'POST':
             form = CampaignForm(instance=campaign,data=request.POST, files=request.FILES)
             if form.is_valid() and form.is_multipart():
                 campaign = form.save(commit=False)
                 campaign.save()
                 messages.success(request, "Campaign was updated successfully")
-                return redirect("campaigns:campaign", campaign_slug=campaign.slug)
+                
             else:
-                return render(request, "campaigns/campaign/update.html", {"form": form})
+                messages.error(request, "Error trying to update campaign, fix issues below")
         
-        form = CampaignForm(instance=campaign)
-        return render(request, "campaigns/campaign/update.html", {"form": form})
+        
+        return render(request, "campaigns/campaign/update.html", {"form": form, "campaign": campaign})
     
     except CampaignModel.MultipleObjectsReturned:
         logger.error("Something went wrong")
@@ -132,10 +169,35 @@ def update_campaign(request, campaign_slug):
         messages.error(request, f"Something went wrong, it looks like you save two campaigns with the same title... will fix it")
         return redirect("campaigns:manage-campaigns")
     
-    except Exception as err:
-        logger.error(err)
-        messages.error(request, f"Something went wrong, will fix it")
-        return redirect("campaigns:manage-campaigns")
+@login_required
+def update_campaign_address(request, campaign_slug):
+    campaign = get_object_or_404(CampaignModel, slug=campaign_slug, organiser=request.user)
+    form = CampaignAddressForm(instance=campaign)
+    if request.method == 'POST':
+        form = CampaignAddressForm(instance=campaign, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Campaign address added successfully")
+            
+    return render(request, "campaigns/campaign/update/campaign-location.html", {"form": form, "campaign": campaign})
+
+@login_required
+def update_campaign_contact(request, campaign_slug):
+    campaign = get_object_or_404(CampaignModel, slug=campaign_slug, organiser=request.user)
+    form = CampaignContactForm(instance=campaign)
+    
+    if request.method == "POST":
+        form = CampaignContactForm(instance=campaign, data=request.POST)
+
+        if form.is_valid():
+            form.save()
+            # send_html_email('New campaign Added', 'campaigns@bbgi.co.za', 'emails/campaign-confirmation.html', {"campaign": campaign})
+            messages.success(request, "campaign contact details successfully added. It takes 12 - 48 hours for campaign status to be updated, will contact you if we require additional information. Thank you")
+            
+        else:
+            messages.error(request, "Something went wrong while trying to add your business")
+
+    return render(request, "campaigns/campaign/update/campaign-contact.html", {"campaign": campaign, "form": form}) 
 
 @login_required
 def delete_campaign(request, campaign_slug):

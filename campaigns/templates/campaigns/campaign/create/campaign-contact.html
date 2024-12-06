@@ -1,33 +1,11 @@
-{% extends '_business_create.html' %}
+{% extends '_create-campaign.html' %}
 {% load static %}
 
-{% block seo_tags %}
-<title>BBGI - Create Listing</title>
-<meta name="description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
-                            to showcase businesses and expertise">
-<meta name="title" content="BBGI - Create Listing" />
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/listings/add" />
-<meta property="og:title" content="BBGI - Create Listing" />
-<meta property="og:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
-                            to showcase businesses and expertise" />
-<meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
-
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/listings/add" />
-<meta property="twitter:title" content="BBGI - Create Listing" />
-<meta property="twitter:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
-                            to showcase businesses and expertise" />
-<meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
-{% endblock seo_tags %}
-
-{% block businessblock %}
+{% block campaign %}
 
 <section class="w-full  font-sans py-10 h-full bg-white">
     <div class="">
-
+        
         <div class="px-4">
             {% if forms.errors or form.errors %}
             <div class="w-full mx-auto">
@@ -89,7 +67,7 @@
             <form method="post" enctype="multipart/form-data" class="form-primary add-property-form">
                 {% csrf_token %}
                 <div class="grid items-start gap-7">
-                    
+
                     <div class="w-full relative">
                         <h6 class="text-custom-h text-base mt-3 mb-6 font-bold uppercase">
                             Contact details
@@ -107,9 +85,10 @@
                                     <span
                                         class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.phone.help_text}}</span>
                                     {% if form.phone.errors %}
-                                    <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.phone.errors.as_text}}</span>
+                                    <span
+                                        class="text-[11px] text-red-500 block font-normal lowercase">{{form.phone.errors.as_text}}</span>
                                     {% endif %}
-                                    </div>
+                                </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
@@ -121,7 +100,8 @@
                                         id="id_alternative_phone" name="alternative_phone" maxlength="15" type="tel"
                                         class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm">
                                     {% if form.alternative_phone.errors %}
-                                    <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.alternative_phone.errors.as_text}}</span>
+                                    <span
+                                        class="text-[11px] text-red-500 block font-normal lowercase">{{form.alternative_phone.errors.as_text}}</span>
                                     {% endif %}
                                 </div>
                             </div>
@@ -134,9 +114,10 @@
                                     <span
                                         class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.email.help_text}}</span>
                                     {% if form.email.errors %}
-                                    <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.email.errors.as_text}}</span>
+                                    <span
+                                        class="text-[11px] text-red-500 block font-normal lowercase">{{form.email.errors.as_text}}</span>
                                     {% endif %}
-                                    </div>
+                                </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
@@ -147,9 +128,10 @@
                                     <span
                                         class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.website.help_text}}</span>
                                     {% if form.website.errors %}
-                                        <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.website.errors.as_text}}</span>
+                                    <span
+                                        class="text-[11px] text-red-500 block font-normal lowercase">{{form.website.errors.as_text}}</span>
                                     {% endif %}
-                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -172,7 +154,8 @@
                                     <span
                                         class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.facebook.help_text}}</span>
                                     {% if form.facebook.errors %}
-                                    <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.facebook.errors.as_text}}</span>
+                                    <span
+                                        class="text-[11px] text-red-500 block font-normal lowercase">{{form.facebook.errors.as_text}}</span>
                                     {% endif %}
                                 </div>
                             </div>
@@ -187,7 +170,8 @@
                                     <span
                                         class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.twitter.help_text}}</span>
                                     {% if form.twitter.errors %}
-                                    <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.twitter.errors.as_text}}</span>
+                                    <span
+                                        class="text-[11px] text-red-500 block font-normal lowercase">{{form.twitter.errors.as_text}}</span>
                                     {% endif %}
                                 </div>
                             </div>
@@ -202,9 +186,10 @@
                                     <span
                                         class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.instagram.help_text}}</span>
                                     {% if form.instagram.errors %}
-                                    <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.instagram.errors.as_text}}</span>
+                                    <span
+                                        class="text-[11px] text-red-500 block font-normal lowercase">{{form.instagram.errors.as_text}}</span>
                                     {% endif %}
-                                    </div>
+                                </div>
                             </div>
                             <div class="w-full lg:w-6/12 md:px-4">
                                 <div class="relative w-full mb-3">
@@ -217,9 +202,10 @@
                                     <span
                                         class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.linkedIn.help_text}}</span>
                                     {% if form.linkedIn.errors %}
-                                    <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.linkedIn.errors.as_text}}</span>
+                                    <span
+                                        class="text-[11px] text-red-500 block font-normal lowercase">{{form.linkedIn.errors.as_text}}</span>
                                     {% endif %}
-                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -228,7 +214,7 @@
                 </div>
 
                 <div class="flex flex-wrap items-center justify-between gap-4 mt-6 ">
-                    <a href="{% url 'listings:add-business-hours' listing.slug %}">
+                    <a href="{% url 'campaigns:create-campaign-address' campaign.slug %}">
                         <h5
                             class="uppercase text-sm md:text-base !text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
                             <span
@@ -246,7 +232,7 @@
                                 class="inline-block absolute top-0 left-0 w-full h-full bg-custom-h group-hover:bg-custom-primary -z-1 group-hover:w-0 transition-all duration-300"></span>
                             <button type="submit"
                                 class="relative z-1 px-5 font-sans md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
-                                Save & Next
+                                Save & Complete
                             </button>
                         </h5>
                     </div>
@@ -256,110 +242,4 @@
     </div>
 </section>
 
-{% endblock businessblock %}
-{% block js %}
-<script>
-    window.onload = () => {
-        const background_image_picker = document.querySelector("#id_background_image")
-        const pick_background_image = document.querySelector("#pick_background_image")
-        const no_background_image = document.querySelector("#no_background_image");
-        const logo_picker = document.querySelector("#id_logo")
-        const pick_logo = document.querySelector("#pick_logo")
-        const no_logo = document.querySelector("#no_logo");
-        const img_container_1 = document.querySelector("#img_container_1")
-        const img_1 = document.querySelector("#img_1")
-        const img_container_2 = document.querySelector("#img_container_2")
-        const img_2 = document.querySelector("#img_2")
-
-
-        if (img_container_1.getAttribute("data-background-image")) {
-
-            img_container_1.innerHTML = '';
-            img_container_1.innerHTML += `
-                    <img
-                        src="${img_container_1.getAttribute("data-background-image")}"
-                        alt="{{request.user.first_name}}"
-                        class="w-full h-full object-cover"
-                        id="img_1"
-                    />
-                `
-        }
-        pick_background_image.addEventListener('click', () => {
-            background_image_picker.click()
-        })
-
-        background_image_picker.onchange = ({target}) => {
-
-            var file = target.files[0]
-
-            if (file) {
-                // console.log(no_background_image)
-                if (no_background_image) {
-
-                    img_container_1.innerHTML = '';
-                    img_container_1.innerHTML += `
-                    <img
-                        src="${window.URL.createObjectURL(file)}"
-                        alt="{{request.user.first_name}}"
-                        class="w-full h-full object-cover"
-                        id="img_1"
-                    />
-                `
-                } else {
-                    img_1.src = window.URL.createObjectURL(file)
-                }
-
-            } else {
-                alert("no file selected")
-            }
-
-        };
-
-        if (img_container_2.getAttribute("data-logo")) {
-
-            img_container_2.removeChild(no_logo);
-            img_container_2.innerHTML += `
-                    <img
-                        src="${img_container_1.getAttribute("data-logo")}"
-                        alt="{{request.user.first_name}}"
-                        class="w-full h-full object-cover"
-                        id="img_2"
-                    />
-                `
-        }
-        pick_logo.addEventListener('click', () => {
-            logo_picker.click()
-        })
-
-        logo_picker.onchange = ({target}) => {
-
-            var file = target.files[0]
-            if (file) {
-                // console.log(no_background_image)
-                if (no_logo) {
-
-                    img_container_2.removeChild(no_logo);
-                    img_container_2.innerHTML += `
-                    <img
-                        src="${window.URL.createObjectURL(file)}"
-                        alt="{{request.user.first_name}}"
-                        class="w-full h-full object-cover"
-                        id="img_2"
-                    />
-                `
-                } else {
-                    img_2.src = window.URL.createObjectURL(file)
-                }
-
-            } else {
-                alert("no file selected")
-            }
-
-        };
-
-
-        // Monitor change in check boxes
-
-    }
-</script>
-{% endblock js %}
+{% endblock campaign %}

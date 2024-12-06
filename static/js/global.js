@@ -525,6 +525,202 @@ const scrollUp = () => {
   }
 };
 
+// open drawer
+const handleOpen = (drawer, drawerShow) => {
+  const drawerContainer = drawer.parentNode;
+  drawerShow.addEventListener("click", () => {
+    const mobileControllerIcon = drawerShow.querySelector(".utilize-toggle");
+
+    if (mobileControllerIcon) {
+      mobileControllerIcon.classList.toggle("close");
+    }
+    drawerContainer.classList.add("active");
+  });
+};
+// close drawer
+const handleClose = (drawer, drawerShow, closedrawer) => {
+  const drawerContainer = drawer.parentNode;
+  closedrawer.addEventListener("click", () => {
+    drawerContainer.classList.remove("active");
+    const mobileControllerIcon = drawerShow.querySelector(".utilize-toggle");
+    if (mobileControllerIcon) {
+      mobileControllerIcon.classList.toggle("close");
+    }
+  });
+};
+// controll mobile menu
+const drawer = () => {
+  const drawerShowButtons = document.querySelectorAll(".show-drawer");
+  const drawers = document.querySelectorAll(".drawer");
+  if (drawerShowButtons?.length) {
+    drawerShowButtons.forEach((drawerShow, idx) => {
+      const drawer = drawers[idx];
+      if (drawer) {
+        const darawerContainer = drawer.parentNode;
+        handleOpen(drawer, drawerShow);
+        const closedrawers = darawerContainer.querySelectorAll(".close-drawer");
+        closedrawers?.forEach((closedrawer) => {
+          handleClose(drawer, drawerShow, closedrawer);
+        });
+      }
+    });
+  }
+};
+
+// style controllers
+
+const controllerStyle = (accordionController, isActive) => {
+  const rotateAbleLine = accordionController.querySelectorAll("span")[1];
+
+  if (rotateAbleLine) {
+    rotateAbleLine.style.transform = !isActive
+      ? "rotate(0deg)"
+      : "rotate(90deg)";
+  }
+};
+
+// accordion hide and show
+const toggleAccordion = (accordion, isActive, currentIndex, index) => {
+  const parentContent = accordion.closest(".accordion-content");
+  const content = accordion.querySelector(".accordion-content");
+  const contentWrapper = accordion.querySelector(".content-wrapper");
+  const contentHeight = contentWrapper.offsetHeight;
+
+  let contenStyleHeight = content.style.height;
+  if (contenStyleHeight === "auto") {
+    content.style.height = `${contentHeight}px`;
+  }
+
+  setTimeout(() => {
+    content.style.height = !isActive ? `${contentHeight}px` : 0;
+  }, 1);
+  if (!isActive) {
+    setTimeout(() => {
+      if (!parentContent) {
+        content.style.height = `auto`;
+      }
+    }, 500);
+  }
+};
+
+// get accordion controller and listen click event
+const accordionController = (accordionContainer) => {
+  const groupOfAccordion = accordionContainer.querySelectorAll(".accordion");
+
+  groupOfAccordion.forEach((accordion, idx) => {
+    const accordionController = accordion.querySelector(
+      ".accordion-controller"
+    );
+    const isInitialyActive = accordion.classList.contains("active");
+
+    if (isInitialyActive) {
+      const contents = accordion.querySelector(".accordion-content");
+      const contentHeight = contents.children[0].offsetHeight;
+      if (contentHeight) {
+        contents.style.height = `${contentHeight}px`;
+      }
+    }
+
+    if (accordionController) {
+      accordionController.addEventListener("click", function () {
+        const currentAccordion = this.closest(".accordion");
+
+        const isActive = currentAccordion.classList.contains("active");
+        let waitForDblClick = setTimeout(() => {
+          groupOfAccordion.forEach((accordion, idx1) => {
+            const isAccordionController = accordion.querySelector(
+              ".accordion-controller"
+            );
+
+            if (isAccordionController) {
+              accordion.classList.remove("active");
+              const accordionController = accordion.querySelector(
+                ".accordion-controller"
+              );
+              controllerStyle(accordionController, true);
+              toggleAccordion(accordion, true, idx, idx1);
+            }
+          });
+          if (!isActive) {
+            currentAccordion.classList.add("active");
+            controllerStyle(accordionController, false);
+            toggleAccordion(currentAccordion, false);
+          }
+        }, 10);
+        accordionController.addEventListener("dblclick", function () {
+          clearTimeout(waitForDblClick);
+        });
+      });
+    }
+  });
+};
+const accordions = () => {
+  const accordionContainers = document.querySelectorAll(".accordion-container");
+
+  if (!accordionContainers.length) {
+    return;
+  }
+  accordionContainers.forEach((accordionContainer) => {
+    accordionController(accordionContainer);
+  });
+};
+
+const service = () => {
+  const serviceCards = document.querySelectorAll(".service-cards");
+  if (serviceCards?.length) {
+    serviceCards.forEach((serviceCardsSingle) => {
+      const allServiceCards =
+        serviceCardsSingle.querySelectorAll(".service-card");
+
+      allServiceCards.forEach((serviceCard, idx) => {
+        serviceCard.addEventListener("mouseenter", function () {
+          allServiceCards.forEach((serviceCard) => {
+            serviceCard.classList.remove("active");
+          });
+
+          this.classList.add("active");
+        });
+      });
+    });
+  }
+};
+
+const stickystickyHeader = () => {
+  const header = document.querySelector("header");
+  const stickyHeader = header?.querySelector(".sticky-header");
+
+  if (stickyHeader) {
+    window.addEventListener("scroll", () => {
+      const stickyHeaderHeight = stickyHeader.offsetHeight;
+      const scrollCount = window.scrollY;
+
+      // if (scrollCount - headerHeight < 0 && scrollCount - headerHeight > -5) {
+
+      // }
+      if (scrollCount < 300) {
+        if (scrollCount > 200) {
+          stickyHeader.setAttribute(
+            "style",
+            `position: fixed;top: -${stickyHeaderHeight}px;left:0;right:0
+        `
+          );
+          stickyHeader.classList.remove("active");
+        } else {
+          stickyHeader.removeAttribute("style");
+          stickyHeader.classList.remove("active");
+        }
+      }
+      if (scrollCount > 300) {
+        stickyHeader.setAttribute(
+          "style",
+          " position: fixed;top: 0px; left:0;right:0 "
+        );
+        stickyHeader.classList.add("active");
+      }
+    });
+  }
+};
+
 const selects = document.querySelectorAll(".selectize");
 console.log(selects);
 if (selects?.length) {
@@ -532,7 +728,11 @@ if (selects?.length) {
   selects.forEach((select) => NiceSelect.bind(select));
 }
 
+drawer()
 smoothScroll()
 slider()
 modal()
 scrollUp()
+accordions()
+service()
+stickystickyHeader()

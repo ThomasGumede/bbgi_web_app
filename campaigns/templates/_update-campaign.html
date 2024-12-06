@@ -1,0 +1,40 @@
+{% extends '_dashboard.html' %}
+{% load static %}
+
+{% block title %}Campaign Update{% endblock title %}
+
+{% block content %}
+
+<div class="block relative  bg-white">
+    <div class="w-full h-full">
+        <div class="relative block">
+            <div class="py-3 ml-4 mr-4 border-b border-b-custom-h">
+                <div class="flex flex-wrap lg:items-center lg:space-x-5">
+                    <div
+                        class="text-custom-h w-fit text-semibold rounded-md transition-all duration-300 group   px-3 py-2 lg:px-0 lg:py-0">
+                        <a href="{% url 'campaigns:update-campaign' campaign.slug %}"
+                            class="py-2 px-3 duration-500 hover:bg-gray-50 rounded  font-semibold">Update Details</a>
+                    </div>
+                    <div class="h-full w-1 bg-gray-50"></div>
+                    <div
+                        class="text-custom-h w-fit text-semibold rounded-md transition-all duration-300 group  px-3 py-2 lg:px-0 lg:py-0">
+                        <a href="{% url 'campaigns:update-campaign-address' campaign.slug %}"
+                            class="py-2 px-3 duration-500 hover:bg-gray-50 rounded  font-semibold">Update Address</a>
+                    </div>
+                    <div class="h-full w-1 bg-gray-50"></div>
+                    <div
+                        class="text-custom-h w-fit text-semibold rounded-md transition-all duration-300 group  px-3 py-2 lg:px-0 lg:py-0">
+                        <a href="{% url 'campaigns:update-campaign-contact' campaign.slug %}"
+                            class="py-2 px-3 duration-500 hover:bg-gray-50 rounded  font-semibold">Update Contacts</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="relative block p-4">
+            {% block campaign %}
+            {% endblock campaign %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

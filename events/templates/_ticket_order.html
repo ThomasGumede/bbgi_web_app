@@ -1,66 +1,73 @@
+
 {% extends '_base.html' %}
 {% load static %}
 
-{% block seo_tags %}
-<title>Ticket Order</title>
-<meta name="description" content="{{event.content|truncatechars:157}}">
-<meta name="title" content="Ticket Order" />
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/ticket-order/create" />
-<meta property="og:title" content="Ticket Order" />
-<meta property="og:description" content="{{event.content|truncatechars:157}}" />
-{% if event.image %}
-<meta property="og:image" content="https://bbgi.co.za{{event.image.url}}" />
-{% else %}
-<meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
-{% endif %}
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/ticket-order/create" />
-<meta property="twitter:title" content="Ticket Order" />
-<meta property="twitter:description" content="{{event.content|truncatechars:157}}" />
-{% if event.image %}
-<meta property="twitter:image" content="https://bbgi.co.za{{event.image.url}}" />
-{% else %}
-<meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
-{% endif %}
-{% endblock seo_tags %}
+{% block title %}
+<style>
+    #f {
+        color: #071a1d;
+    }
+</style>
+{% endblock title %}
 
 {% block content %}
-
-<section class="block relative  bg-custom-bg">
-    <div class="w-full mt-24 h-full">
-        <div class="relative w-fit mx-auto block p-4">
-            <div class="py-3 ml-4 mr-4 ">
-                <div class="flex flex-wrap gap-2 lg:gap-4 items-center">
-                    <div class=" text-sm md:text-base font-normal px-3 py-2 lg:px-0 lg:py-0">
-                        <a 
-                            class="font-normal py-2 px-2 md:px-3 duration-500 {% if request.resolver_match.url_name == 'create-ticket-order' %}bg-custom-h text-white{% else %}text-custom-h bg-gray-50{% endif %} rounded ">Reserve</a>
-                    </div>
-                    
-                    <div class="text-sm md:text-base font-normal px-3 py-2 lg:px-0 lg:py-0">
-                        <a 
-                            class="font-normal py-2 px-2 md:px-3 duration-500 {% if request.resolver_match.url_name == 'add-guests' %}bg-custom-h text-white{% else %}text-custom-h bg-gray-50{% endif %} rounded ">Guest</a>
-                    </div>
-                    
-                    <div class="text-sm md:text-base font-normal px-3 py-2 lg:px-0 lg:py-0">
-                        <a
-                            class="font-normal py-2 px-2 md:px-3 duration-500 {% if request.resolver_match.url_name == 'order-checkout' %}bg-custom-h text-white{% else %}text-custom-h bg-gray-50{% endif %} rounded ">Checkout</a>
-                    </div>
-
-                    <div class="text-sm md:text-base font-normal px-3 py-2 lg:px-0 lg:py-0">
-                        <a 
-                            class="font-normal py-2 px-2 md:px-3 duration-500 {% if request.resolver_match.url_name == 'ticket-payment-success' %}bg-custom-h text-white{% else %}text-custom-h bg-gray-50{% endif %} rounded ">Payment</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container bg-custom-bg">
-            {% block ticketsordercontent %}
-            {% endblock ticketsordercontent %}
+<section>
+    <!-- banner section -->
+    <div
+        class="w-full bg-no-repeat bg-cover bg-center relative z-0 after:w-full after:h-full after:absolute after:top-0 after:left-0 after:bg-white after:bg-opacity-30 after:-z-1">
+        <div class="container py-[110px]">
+            <h1 class="text-2xl sm:text-3xl md:text-[26px] lg:text-3xl xl:text-4xl font-bold text-custom-h mb-[15px]">
+                <span class="leading-1.3 md:leading-1.3 lg:leading-1.3 xl:leading-1.3">Create Order</span>
+            </h1>
+            <ul class="breadcrumb flex gap-[30px] items-center text-sm lg:text-base font-bold pt-4">
+                <li class="home relative leading-[1.8] lg:leading-[1.8]">
+                    <a href="{% url 'bbgi_home:bbgi-home' %}" class="text-custom-h"><i
+                            class="fa-solid fa-home text-custom-primary"></i> Home</a>
+                </li>
+                <li class="leading-[1.8] lg:leading-[1.8] text-custom-h">
+                    Create Order
+                </li>
+            </ul>
         </div>
     </div>
 </section>
+
+<section>
+    <div class="container py-30">
+        <!-- plan tab -->
+        <div class="tab plan-tab py-5">
+            <div
+                class=" flex flex-wrap  items-center justify-center gap-x-5 lg:gap-x-[30px] xl:gap-x-[50px] gap-y-[10px] text-sm lg:text-lg xl:text-xl text-custom-h mb-[50px]">
+                <button
+                    class="p-1px border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:translate-y-1/2 after:z-10 after:rounded-[100%] {% if request.resolver_match.url_name == 'create-ticket-order' %}active{% endif %}">
+                    1. Reserve
+                </button>
+
+                <button
+                    class="p-1px border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0  after:left-1/2 after:-translate-x-1/2 after:translate-y-1/2 after:z-10 after:rounded-[100%] {% if request.resolver_match.url_name == 'add-guests' %}active{% endif %}">
+                    2. Guest
+                </button>
+
+                <button
+                    class="p-1px border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 {% if request.resolver_match.url_name == 'order-checkout' %}active{% endif %} after:translate-y-1/2 after:z-10 after:rounded-[100%]">
+                    3. Checkout
+                </button>
+
+                <button
+                    class="p-1px border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 {% if request.resolver_match.url_name == 'ticket-payment' %}active{% endif %} after:translate-y-1/2 after:z-10 after:rounded-[100%]">
+                    3. Payment
+                </button>
+            </div>
+
+            <div class="tab-contents">
+
+                {% block ticketsordercontent %}
+
+                {% endblock ticketsordercontent %}
+            </div>
+        </div>
+    </div>
+</section>
+
 
 {% endblock content %}

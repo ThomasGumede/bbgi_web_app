@@ -12,10 +12,10 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def bbgi_home(request):
-    blogs = Blog.objects.all()[:3]
-    listings = Business.objects.all()[:3]
+    blogs = Blog.objects.all()[:5]
+    listings = Business.objects.all()[:5]
     popular_services = Service.objects.filter(is_popular=True, on_discount=True)[:3]
-    return render(request, "home/home.html", {"posts": blogs, "listings": listings, "popular_services": popular_services})
+    return render(request, "home/home_v2.html", {"posts": blogs, "listings": listings, "popular_services": popular_services})
 
 def about_bbgi(request):
     members = Member.objects.all()
@@ -95,3 +95,7 @@ def terms_and_conditions(request, terms_slug=None):
         term = get_object_or_404(Privacy, slug="website-terms-and-community-guidlines")
 
     return render(request, "home/terms_and_conditions.html", {"legals": legals, "term": term})
+
+def faqs(request):
+    blogs = Blog.objects.all()[:5]
+    return render(request, "home/faqs.html", {"posts": blogs})

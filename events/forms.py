@@ -1,5 +1,5 @@
 from django import forms
-from events.models import EventModel, TicketOrderModel, EventTicketTypeModel, TicketModel, EventOrganisor
+from events.models import EventModel, TicketOrderModel, EventTicketTypeModel, TicketModel, EventOrganisor, EventReview, EventContent
 from tinymce.widgets import TinyMCE
 
 class EventForm(forms.ModelForm):
@@ -156,6 +156,20 @@ class EventTicketTypeForm(forms.ModelForm):
             'sale_start': forms.DateTimeInput(attrs={"type": "text", "class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
             'sale_end': forms.DateTimeInput(attrs={"type": "text", "class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
             
+        }
+
+class EventReviewForm(forms.ModelForm):
+    class Meta:
+        model = EventReview
+        fields = ("comment", "commenter_full_names", "commenter_email", "rating_value", "comment_title")
+
+        widgets = {
+            'rating_value': forms.HiddenInput(),
+            'commenter_full_names': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your name..."}),
+            'commenter_email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your email..."}),
+            'comment_title': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your comment title..."}),
+            
+            'comment': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Type your comment..."}),
         }
 
 class EventTicketTypeUpdateForm(forms.ModelForm):

@@ -4,9 +4,10 @@ from accounts.custom_models.choices import StatusChoices
 from accounts.models import AbstractCreate
 from accounts.utilities.validators import verify_rsa_phone
 from accounts.custom_models.abstracts import AbstractPayment
-from campaigns.utils import generate_order_number, PaymentStatus , Tip
+from campaigns.utils import generate_order_number, PaymentStatus
 from bbgi_home.models import BlogCategory
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models import Avg
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import pre_delete, post_save
@@ -77,6 +78,16 @@ class EventModel(AbstractCreate):
     def __str__(self) -> str:
         return f"{self.title}"
     
+    def get_average_rating(self):
+        reviews = self.reviews.all()
+        average_rating = reviews.aggregate(Avg('rating_value'))['rating_value__avg'] or 0
+        text = round(average_rating, 1)
+        
+        return text
+    
+    def get_avg_rating(self):
+        return self.reviews.aggregate(avg_rating_value=Avg('rating_value'))['avg_rating_value']
+    
     def image_tag(self):
         if self.image.url is not None:
             return mark_safe(f"<img src={self.image.url} alt={self.title}-image height='60' width='90' />")
@@ -91,6 +102,29 @@ class EventModel(AbstractCreate):
     def request_payout_details(self):
         if self.status == StatusChoices.COMPLETED:
             pass
+
+class EventContent(AbstractCreate):
+    image = models.ImageField(help_text=_("Upload emages images."), upload_to="event/images/", blank=True, null=True)
+    event = models.ForeignKey(EventModel, on_delete=models.CASCADE, related_name="images")
+
+class EventReview(AbstractCreate):
+    rating_value = models.IntegerField(validators=[
+            MinValueValidator(1),   
+            MaxValueValidator(5)  
+        ])
+    commenter = models.ForeignKey(get_user_model(), related_name="event_reviews", on_delete=models.SET_NULL, null=True)
+    commenter_email = models.EmailField()
+    commenter_full_names = models.CharField(max_length=250)
+    event = models.ForeignKey(EventModel, on_delete=models.CASCADE, related_name="reviews")
+    comment_title = models.CharField(max_length=250)
+    comment = models.TextField()
+
+    class Meta:
+        verbose_name = 'Ecent Review'
+        verbose_name_plural = 'Ecent Reviews'
+
+    def __str__(self) -> str:
+        return self.commenter_email
 
 class EventOrganisor(AbstractCreate):
     event = models.ForeignKey(EventModel, on_delete=models.CASCADE, related_name="organisors")

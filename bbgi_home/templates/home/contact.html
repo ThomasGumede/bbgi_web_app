@@ -59,117 +59,138 @@
     </div>
 </section>
 
-<!-- Contact -->
-<section class="section-contact relative xl:py-[100px] py-[70px]">
-    <div
-        class=" bg-size-full before:bg-no-repeat before:absolute before:lg:left-[-50px] before:md:left-[-6px] before:left-[10px] before:bottom-0 before:z-[-1] before:2xl:w-[260px] before:xl:w-[185px] before:md:w-[138px] before:w-[60px] before:2xl:h-[500px] before:xl:h-[350px] before:md:h-[275px] before:h-[120px]">
-    </div>
-    <div
-        class="flex flex-wrap justify-between items-center mx-auto container">
-        <div class="lg:flex flex-wrap w-full">
-            <div class="lg:w-1/3 w-full px-3 mb-6">
-                <div class="lh-contact h-full p-6 bg-[#f7f5f1] rounded-[15px] flex flex-col flex-wrap"
-                    data-aos="fade-up" data-aos-duration="1000">
-                    <div class="flex justify-center pb-3">
-                        <img src="{% static 'imgs/contact/call-1.svg' %}" class="w-[60px] h-[60px] svg-img" alt="call">
-                    </div>
-                    <div class="text-center">
-                        <h4 class="xl:text-3xl lg:text-xl text-lg font-normal text-custom-h py-3">Make A
-                            call</h4>
-                        <!-- <p class="text-custom-text">This is the dolor sit amet consectetur adipisicing elit. In, quis!</p> -->
-                        <div class="pt-3">
-                            <a href="#" class="text-custom-primary hover:text-custom-primary">{{company_support}}</a>
-                        </div>
-                    </div>
+<!-- icons section -->
+<section>
+    <div class="container pb-5">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-[30px]">
+            <!-- card 1 -->
+            <div class="px-[30px] py-[50px] border-2 border-border-color-11 text-center flex flex-col items-center">
+                <div class="mb-[35px]">
+                    <img src="{% static 'imgs/contact/email-1.svg' %}" alt="email svg" class="w-[90px] h-[88px]">
+                </div>
+                <div>
+                    <h2 class="text-lg md:text-xl lg:text-[22px] xl:text-2xl text-heading-color font-bold mb-[15px]">
+                        <span class="leading-1.3"> Email Address </span>
+                    </h2>
+                    <p class="text-sm lg:text-base">
+                        <span class="leading-1.8">
+                            info@bbgi.co.za <br>support@bbgi.co.za
+                        </span>
+                    </p>
                 </div>
             </div>
-            <div class="lg:w-1/3 w-full px-3 mb-6">
-                <div class="lh-contact h-full p-6 bg-[#f7f5f1] rounded-[15px] flex flex-col flex-wrap"
-                    data-aos="fade-up" data-aos-duration="1500">
-                    <div class="flex justify-center pb-3">
-                        <img src="{% static 'imgs/contact/email-1.svg' %}" class="w-[60px] h-[60px] svg-img" alt="contact">
-                    </div>
-                    <div class="text-center">
-                        <h4 class="xl:text-3xl lg:text-xl text-lg font-normal text-custom-h py-3">Send A
-                            Email</h4>
-                        <!-- <p class="text-custom-text">This is the dolor sit amet consectetur adipisicing elit. In, quis!</p> -->
-                        <div class="pt-3">
-                            <a href="#" class="text-custom-primary hover:text-custom-primary">{{company_support_mail}}</a>
-                        </div>
-                    </div>
+            <!-- card 2 -->
+            <div class="px-[30px] py-[50px] border-2 border-border-color-11 text-center flex flex-col items-center">
+                <div class="mb-[35px]">
+                    <img src="{% static 'imgs/contact/call-1.svg' %}" alt="call svg" class="w-[90px] h-[88px]">
+                </div>
+                <div>
+                    <h2 class="text-lg md:text-xl lg:text-[22px] xl:text-2xl text-heading-color font-bold mb-[15px]">
+                        <span class="leading-1.3"> Phone Number </span>
+                    </h2>
+                    <p class="text-sm lg:text-base">
+                        <span class="leading-1.8">
+                            {{company_support}}
+                        </span>
+                    </p>
                 </div>
             </div>
-            <div class="lg:w-1/3 w-full px-3 mb-6">
-                <div class="lh-contact h-full p-6 bg-[#f7f5f1] rounded-[15px] flex flex-col flex-wrap"
-                    data-aos="fade-up" data-aos-duration="2000">
-                    <div class="flex justify-center pb-3">
-                        <img src="{% static 'imgs/contact/support-1.svg' %}" class="w-[60px] h-[60px] svg-img" alt="contact">
-                    </div>
-                    <div class="text-center">
-                        <h4 class="xl:text-3xl lg:text-xl text-lg font-normal text-custom-h py-3">Address
-                        </h4>
-                        <!-- <p class="text-custom-text">This is the dolor sit amet consectetur adipisicing elit. In, quis!</p> -->
-                        <div class="pt-3">
-                            <p class="text-custom-primary">{{address}}</p>
-                        </div>
-                    </div>
+            <!-- card 3 -->
+            <div class="px-[30px] py-[50px] border-2 border-border-color-11 text-center flex flex-col items-center">
+                <div class="mb-[35px]">
+                    <img src="{% static 'imgs/contact/support-1.svg' %}" alt="support svg" class="w-[90px] h-[88px]">
+                </div>
+                <div>
+                    <h2 class="text-lg md:text-xl lg:text-[22px] xl:text-2xl text-heading-color font-bold mb-[15px]">
+                        <span class="leading-1.3"> Office Address </span>
+                    </h2>
+                    <p class="text-sm lg:text-base">
+                        <span class="leading-1.8">
+                            {{address}}
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
-        <div class="p-6 bg-[#f7f5f1] rounded-[15px] mx-3" data-aos="fade-up" data-aos-duration="2000">
-            <div class="flex flex-wrap mb-[-24px]">
-                <div class="lg:w-1/2 lg:pr-3 pr-0 pl-0 mb-6 w-full">
-                    <div class="lh-contact-touch-inner">
-                        <div class="lh-contact-touch-contain">
-                            <h4
-                                class="text-custom-h pb-[15px] 2xl:text-[28px] xl:text-[26px] lg:text-[24px] font-bold md:text-3xl sm:text-lg text-[18px]">
-                                Get In Touch With Us Fell Free To Write Us</h4>
-                            <p class="text-custom-text">Our commitment to user privacy is unwavering. We do not collect data for advertising purposes or sell user information
-                            to external parties.</p>
-                        </div>
-                        <div class="pt-8">
-                            <form method="post">
-                                {% csrf_token %}
-                                <div class="flex xl:mb-8 mb-[15px]">
-                                    <input type="text" id="id_name" name="name" placeholder="Your Name*"
-                                        class="border-0 bg-white pl-5 outline-0 h-[50px] w-full rounded-[15px] border-none outline-none focus-visible:shadow-none mr-8"
-                                        required="">
-                                    <input type="email" id="id_from_email" name="from_email" placeholder="Your Email*"
-                                        class="border-0 bg-white pl-5 outline-0 h-[50px] w-full rounded-[15px] border-none outline-none focus-visible:shadow-none"
-                                        required="">
-                                </div>
-                                <div class="flex xl:mb-8 mb-[15px]">
-                                    <input type="text" id="id_subject" name="subject" placeholder="Your Subject*"
-                                        class="border-0 bg-white pl-5 outline-0 h-[50px] w-full rounded-[15px] border-none outline-none focus-visible:shadow-none"
-                                        required="">
-                                </div>
-                                <div class="flex xl:mb-8 mb-[15px]">
-                                    <textarea name="message"
-                                        class="border-0 bg-white outline-none px-5 py-[15px] h-[150px] w-full rounded-[15px] border-none focus-visible:shadow-none"
-                                        placeholder="Message*"></textarea>
-                                </div>
-                                <button type="submit" value="submit"
-                                    class="bg-custom-h border-custom-h w-full rounded border p-3 text-white transition hover:bg-opacity-90">
-                                    Send Message
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="lg:w-1/2 lg:pl-3 w-full pr-0 pl-0 mb-6">
-                    <div class="h-full">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13247.420938158404!2d18.504457!3d-33.893382!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc5c10cac442ef%3A0x302a343737bbf168!2sSpaces%20-%20Cape%20Town%2C%20Century%20City!5e0!3m2!1sen!2sus!4v1726326495181!5m2!1sen!2sus"
-                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div
-        class="2xl:after:w-[500px] lg:after:w-[400px] dark-opicity-1 after:w-[300px] 2xl:after:h-[500px] xl:after:h-[400px] after:h-[300px] bg-size-full after:absolute 2xl:after:top-[30px] after:top-5 after:right-[-180px] after:z-0 after:bg-[url('{% static 'imgs/theme/9.png')]">
     </div>
 </section>
+<!-- contact section -->
+<section>
+    <div class="container">
+        <!-- details form -->
+        <div class="relative -bottom-[100px] z-10">
+            <form method="post" class="form-primary bg-white shadow-box-shadow-2 px-[25px] pt-10 pb-[50px] md:p-[50px] md:pt-10">
+                {% csrf_token %}
+                <h4
+                    class="text-[22px] font-semibold leading-1.3 pl-[10px] border-l-2 border-secondary-color text-heading-color mb-[30px]">
+                    Get A Quote
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-[30px]">
+                    <!-- name -->
+                    <div class="relative">
+                        <input type="text" placeholder="Enter your name" name="name" id="id_name"
+                            class="text-paragraph-color pl-5 pr-[50px] outline-none border-2 border-border-color-9 focus:border focus:border-secondary-color h-[65px] block w-full rounded-none placeholder:opacity-60 placeholder:text-sm placeholder:text-paragraph-color">
+                        <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                            <i class="fas fa-user text-sm lg:text-base text-secondary-color font-bold"></i>
+                        </span>
+                    </div>
+                    <!-- email -->
+                    <div class="relative">
+                        <input type="text" placeholder="Enter email address" name="from_email" id="id_from_email"
+                            class="text-paragraph-color pl-5 pr-[50px] outline-none border-2 border-border-color-9 focus:border focus:border-secondary-color h-[65px] block w-full rounded-none placeholder:opacity-60 placeholder:text-sm placeholder:text-paragraph-color">
+                        <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                            <i class="fas fa-envelope text-sm lg:text-base text-secondary-color font-bold"></i>
+                        </span>
+                    </div>
+                    <div class="relative">
+                        <input type="text" placeholder="Enter Subject" name="subject" id="id_subject"
+                            class="text-paragraph-color pl-5 pr-[50px] outline-none border-2 border-border-color-9 focus:border focus:border-secondary-color h-[65px] block w-full rounded-none placeholder:opacity-60 placeholder:text-sm placeholder:text-paragraph-color">
+                        <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                            <i class="fas fa-phone text-sm lg:text-base text-secondary-color font-bold"></i>
+                        </span>
+                    </div>
+                    <!-- number -->
+                    <div class="relative">
+                        <input type="text" placeholder="Enter phone number" name="phone"
+                            class="text-paragraph-color pl-5 pr-[50px] outline-none border-2 border-border-color-9 focus:border focus:border-secondary-color h-[65px] block w-full rounded-none placeholder:opacity-60 placeholder:text-sm placeholder:text-paragraph-color">
+                        <span class="absolute top-1/2 -translate-y-1/2 right-4">
+                            <i class="fas fa-phone text-sm lg:text-base text-secondary-color font-bold"></i>
+                        </span>
+                    </div>
+                    <!-- message -->
+                    <div class="relative md:col-start-1 md:col-span-2 mb-[35px]">
+                        <textarea placeholder="Enter message" name="message"
+                            class="min-h-[150px] text-paragraph-color pl-5 pr-[50px] py-[15px] outline-none border-2 border-border-color-9 focus:border focus:border-secondary-color h-[65px] block w-full rounded-none placeholder:opacity-60 placeholder:text-sm placeholder:text-paragraph-color"></textarea>
+                        <span class="absolute top-[30px] -translate-y-1/2 right-4">
+                            <i class="fas fa-pencil text-sm lg:text-base text-secondary-color font-bold"></i>
+                        </span>
+                    </div>
+                </div>
+
+
+                <!-- submit button -->
+
+                <div class="pb-5">
+                    <h5
+                        class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-secondary-color hover:border-heading-color inline-block z-0">
+                        <span
+                            class="inline-block absolute top-0 right-0 w-full h-full bg-secondary-color group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                        <button type="submit"
+                            class="relative z-1 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:-[17px] group-hover:text-heading-color leading-[23px] uppercase">
+                            get an free service
+                        </button>
+                    </h5>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<div class="pb-[140px] lg:pb-32">
+    <div class="google-map h-[800px] relative z-1">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9334.271551495209!2d-73.97198251485975!3d40.668170674982946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25b0456b5a2e7%3A0x68bdf865dda0b669!2sBrooklyn%20Botanic%20Garden%20Shop!5e0!3m2!1sen!2sbd!4v1590597267201!5m2!1sen!2sbd"
+            style="height:100%;width:100%;border:0px;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    </div>
+</div>
 
 {% endblock content %}

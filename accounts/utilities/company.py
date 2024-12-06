@@ -29,7 +29,7 @@ except:
         "company_support_mail": "info@bbgi.co.za",
         "phone": "021 830 5415",
         "youtube": "https://www.youtube.com/@blackbusinessgrowthinitiat6153",
-        "address": "Bridgeways Precinct, 1 Bridgeway, Century City, Cape Town, 7441, RSA",
+        "address": "Cape Town, 7441, RSA",
         "company_city": "COMPANY.city",
         "company_state": "COMPANY.province",
         "company_zipcode": "zipcode"

@@ -1,5 +1,5 @@
 from django.urls import path 
-from campaigns.views.campaign import (campaigns, campaign_details, 
+from campaigns.views.campaign import (campaigns, campaign_details, create_campaign_address, add_campaign_socials, update_campaign_address, update_campaign_contact,
                                       create_campaign, update_campaign, delete_campaign, manage_campaigns, manage_campaign, generate_contributors_list)
 from campaigns.views.contribution import (
     create_contribution, cancel_contribution, contribution, contributions, manage_contribution, manage_contributions
@@ -10,11 +10,16 @@ app_name = "campaigns"
 urlpatterns = [
     path("campaigns", campaigns, name="campaigns"),
     path("campaign/manage", manage_campaigns, name="manage-campaigns"),
-    path("campaign/create", create_campaign, name="create-campaign"),
+    path("campaign/get-started", create_campaign, name="create-campaign"),
+    path("campaign/get-started/<slug:campaign_slug>", create_campaign, name="create-campaign-with-slug"),
+    path("campaign/add-address/<slug:campaign_slug>", create_campaign_address, name="create-campaign-address"),
+    path("campaign/add-contact/<slug:campaign_slug>", add_campaign_socials, name="create-campaign-contact"),
     path("<slug:category_slug>", campaigns, name="campaign-by-category"),
     path("campaing/<slug:campaign_slug>", campaign_details, name="campaign"),
     path("campaign/manage/<uuid:campaign_id>", manage_campaign, name="manage-campaign"),
-    path("campaign/update/<slug:campaign_slug>", update_campaign, name="update-campaign"),
+    path("campaign/update-details/<slug:campaign_slug>", update_campaign, name="update-campaign"),
+    path("campaign/update-address/<slug:campaign_slug>", update_campaign_address, name="update-campaign-address"),
+    path("campaign/update-contact/<slug:campaign_slug>", update_campaign_contact, name="update-campaign-contact"),
     path("campaign/delete/<slug:campaign_slug>", delete_campaign, name="delete-campaign"),
 
     path("campaign/updates/create/<slug:campaign_slug>", create_campaign_update, name="create-campaign-update"),

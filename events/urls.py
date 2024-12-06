@@ -1,5 +1,5 @@
 from django.urls import path
-from events.views.event import create_event_address, create_event, event_details, events, update_event, delete_event, add_event_organisor, update_event_organisor, delete_event_organisor
+from events.views.event import create_event_address, delete_event_content, add_event_content, create_event, event_details, events, update_event, delete_event, add_event_organisor, update_event_organisor, delete_event_organisor
 from events.views.order import create_ticket_order, add_guest_details, ticket_order, ticket_orders, cancel_ticket_order, order_checkout
 from events.views.ticket_type import confirm_attandance, create_new_ticket_types, create_ticket_types, update_ticket_type, get_event_ticket_types, delete_ticket_type
 from events.views.manage import manage_event, manage_events, manage_ticket_order, manage_ticket_orders, generate_guest_list, generate_ticket
@@ -21,7 +21,8 @@ urlpatterns = [
     path("dashboard/event/add-event-organisor/<slug:event_slug>", add_event_organisor, name="add-event-organisor"),
     path("dashboard/event/update-event-organisor/<slug:event_slug>/<uuid:organisor_id>", update_event_organisor, name="update-event-organisor"),
     path("dashboard/event/delete-event-organisor/<slug:event_slug>/<uuid:organisor_id>", delete_event_organisor, name="delete-event-organisor"),
-
+    path("dashboard/event/update/content/<slug:event_slug>", add_event_content, name="add-event-content"),
+    path("dashboard/delete/content/<slug:event_slug>/<uuid:content_id>", delete_event_content, name="delete-event-content"),
     path("ticket-types/<event_id>", get_event_ticket_types, name="event-ticket-types"),
     path("ticket-types/verify/<order_number>/<ticket_id>", confirm_attandance, name="confirm-attandance"),
     path("ticket-types/create/<event_id>", create_ticket_types, name="create-ticket-types"),

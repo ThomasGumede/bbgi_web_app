@@ -128,6 +128,7 @@ class SubscriptionOrder(AbstractCreate, AbstractPayment):
 class AboutCompany(AbstractCreate, AbstractProfile):
     title = models.CharField(max_length=300, null=True, blank=True, unique=True)
     slogan = models.CharField(max_length=300, null=True, blank=True, unique=True)
+    # vision = models.CharField(max_length=300, null=True, blank=True, unique=True)
     slug = models.SlugField(max_length=300, default="about-bbgi-model", unique=True)
     email = models.EmailField(null=True, blank=True)
     small_description = models.TextField(null=True, blank=True)

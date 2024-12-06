@@ -122,25 +122,25 @@
                                             </div>
                                             
                                         </div>
-                                        <div class=" cursor-pointer rounded-md  text-center text-white py-2 md:py-3">
+                                        <div class=" cursor-pointer rounded-md  text-center !text-white py-2 md:py-3">
                                             <div class="flex items-center w-fit justify-between flex-wrap gap-4">
-                                                <span class="text-lg  font-bold text-white">Share: </span>
+                                                <span class="text-lg  font-bold !text-white">Share: </span>
                                         
                                         
                                                 <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
-                                                    class="relative text-white text-sm h-8 w-8 rounded-full grid items-center justify-center font-bold ">
+                                                    class="relative !text-white text-sm h-8 w-8 rounded-full grid items-center justify-center font-bold ">
                                                     <i class="fa-brands fa-lg fa-facebook"></i>
                                                 </a>
                                                 <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ listing.title }}"
-                                                    class="relative text-white text-sm h-8 w-8 rounded-full grid items-center justify-center font-bold ">
+                                                    class="relative !text-white text-sm h-8 w-8 rounded-full grid items-center justify-center font-bold ">
                                                     <i class="fa-brands fa-lg fa-twitter"></i>
                                                 </a>
                                                 <a href="https://wa.me/?text={{ listing.title }}%20{{ request.build_absolute_uri }}"
-                                                    class="relative text-white text-sm h-8 w-8 rounded-full grid items-center justify-center font-bold ">
+                                                    class="relative !text-white text-sm h-8 w-8 rounded-full grid items-center justify-center font-bold ">
                                                     <i class="fa-brands fa-lg fa-whatsapp"></i>
                                                 </a>
                                                 <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ listing.title }}&summary={{listing.details|truncatechars:100}}"
-                                                    class="relative text-white text-sm h-8 w-8 rounded-full grid items-center justify-center font-bold ">
+                                                    class="relative !text-white text-sm h-8 w-8 rounded-full grid items-center justify-center font-bold ">
                                                     <i class="fa-brands fa-lg fa-linkedin"></i>
                                                 </a>
                                         
@@ -157,7 +157,7 @@
                                     
                                     {% if listing.owner == request.user %}
                                     <a href="{% url 'listings:update-listing' listing.slug %}"
-                                        class="border group hover:bg-custom-h hover:border-custom-h transition-colors duration-300 cursor-pointer border-white text-center text-white border-solid py-2 md:py-3 px-4 md:px-6">
+                                        class="border group hover:bg-custom-h hover:border-custom-h transition-colors duration-300 cursor-pointer border-white text-center !text-white border-solid py-2 md:py-3 px-4 md:px-6">
                                         <div class="relative flex items-center">
                                             <div class="text-sm">
                                                 <i class="fa-solid fa-plus fa-xl font-bold"></i>
@@ -192,15 +192,15 @@
                                 </div>
                                 
                                 <div data-category="reviews"
-                                    class="bg-custom-h cursor-pointer transition-all duration-500 py-2 lg:py-3 px-3 campaign_navbar lg:px-4 text-center text-white font-medium text-sm lg:text-xl">
+                                    class="bg-custom-h cursor-pointer transition-all duration-500 py-2 lg:py-3 px-3 campaign_navbar lg:px-4 text-center !text-white font-medium text-sm lg:text-xl">
                                     <p class="text-white">Reviews</p>
                                 </div>
                                 <div data-category="updates"
-                                    class="bg-custom-h cursor-pointer transition-all duration-500 py-2 lg:py-3 px-3 campaign_navbar lg:px-4 text-center text-white font-medium text-sm lg:text-xl">
+                                    class="bg-custom-h cursor-pointer transition-all duration-500 py-2 lg:py-3 px-3 campaign_navbar lg:px-4 text-center !text-white font-medium text-sm lg:text-xl">
                                     <p class="text-white">Gallery</p>
                                 </div>
                                 <div data-category="services"
-                                    class="bg-custom-h cursor-pointer transition-all duration-500 py-2 lg:py-3 px-3 campaign_navbar lg:px-4 text-center text-white font-medium text-sm lg:text-xl">
+                                    class="bg-custom-h cursor-pointer transition-all duration-500 py-2 lg:py-3 px-3 campaign_navbar lg:px-4 text-center !text-white font-medium text-sm lg:text-xl">
                                     <p class="text-white">Services</p>
                                 </div>
                             </div>
@@ -490,7 +490,7 @@
                                                 </p>
                                                 <div class="flex mt-2 items-center w-full justify-between gap-4">
                                                     <span class="font-medium text-base">{{service.price_decription}} : R{{service.price}}</span>
-                                                    <a href="{% url 'markets:create-quotation' service.id %}" class="bg-custom-h  text-white font-bold py-2 px-4 rounded">
+                                                    <a href="{% url 'markets:create-quotation' service.id %}" class="bg-custom-h  !text-white font-bold py-2 px-4 rounded">
                                                         Request Quote
                                                     </a>
                                                 </div>
@@ -514,7 +514,7 @@
                                                     <div class="mt-8">
                                                         <a href="{% url 'markets:create-quotation' service.id %}">
                                                             <button
-                                                                class="mr-2 mb-4 flex cursor-pointer items-center justify-center rounded-md bg-custom-h py-2 px-8 text-center text-white transition duration-150 ease-in-out hover:translate-y-1 hover:bg-custom-h">
+                                                                class="mr-2 mb-4 flex cursor-pointer items-center justify-center rounded-md bg-custom-h py-2 px-8 text-center !text-white transition duration-150 ease-in-out hover:translate-y-1 hover:bg-custom-h">
                                                                 
                                                                 Request quote
                                                             </button>

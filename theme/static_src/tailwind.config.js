@@ -53,28 +53,45 @@ module.exports = {
         "custom-h": "hsl(188, 63%, 7%)",
         "custom-tertiary": "hsl(200, 15%, 43%)",
         "custom-text-2": "#bfbfc0",
+        "primary-color": "#000000",
+        "secondary-color": "#D1B54B",
+        "color-1": "#8cb2b2",
+        "heading-color": "#071c1f",
+        "paragraph-color": "#5c727d",
+        
+        "border-color-1": "#e5eaee",
+        "section-bg-1": "#f2f6f7",
+        "section-bg-2": "#171b2a",
+        "border-color-9": "#e4ecf2",
+        
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],
+        "heading-font": '"Poppins", sans-serif',
+        "body-font": '"Nunito Sans", sans-serif',
       },
     },
     screens: {
-      xsm: "520px",
+      xs: "480px",
 
-      sm: "730px",
+      sm: "576px",
       // => @media (min-width: 730px) { ... }
 
-      md: "1024px",
+      md: "768px",
       // => @media (min-width: 1024px) { ... }
 
-      lg: "1204px",
+      lg: "992px",
       // => @media (min-width: 1204px) { ... }
 
-      xl: "1440px",
+      xl: "1200px",
       // => @media (min-width: 1440pxpx) { ... }
 
-      xxl: "1636px",
+      xxl: "1300px",
       // => @media (min-width: 1636px) { ... }
+
+      txxl: "1400px",
+
+      dxxl: "1600px",
     },
   },
   plugins: [
@@ -84,7 +101,7 @@ module.exports = {
      * comment the line below to disable '@tailwindcss/forms'.
      */
     // require("@tailwindcss/forms"),
-    require("@tailwindcss/typography"),
+    // require("@tailwindcss/typography"),
     require("@tailwindcss/line-clamp"),
     require("@tailwindcss/aspect-ratio"),
   ],

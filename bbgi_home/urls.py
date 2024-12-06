@@ -2,7 +2,7 @@ from bbgi_home.views.admin_views import all_accounts, all_listings, delete_listi
 from bbgi_home.views.blog_views import all_blogs, blog_details, blogs, create_blog, delete_blog, update_blog
 from bbgi_home.views.campaigns_views import all_campaigns, all_contributions, campaign_details, contribution_details, delete_contribution
 from bbgi_home.views.events_views import all_events, all_ticket_orders, delete_ticket_order, event_details, ticket_order_details
-from bbgi_home.views.home_views import bbgi_home, about_bbgi, contact, dashboard, search, terms_and_conditions
+from bbgi_home.views.home_views import bbgi_home, about_bbgi, contact, dashboard, search, terms_and_conditions, faqs
 from django.urls import path
 
 from bbgi_home.views.markets_views import all_quotations
@@ -16,6 +16,7 @@ urlpatterns = [
     path("contact-us", contact, name="contact"),
     path("dashboard", dashboard, name="dashboard"),
     path("search", search, name="search"),
+    path("bbgi/faqs", faqs, name="faqs"),
     path("privacy", terms_and_conditions, name="terms"),
     path("privacy/<slug:terms_slug>", terms_and_conditions, name="privacy"),
     path("blogs", blogs, name="blogs"),

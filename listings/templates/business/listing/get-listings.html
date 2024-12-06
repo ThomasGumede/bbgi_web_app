@@ -247,8 +247,8 @@
                 </div>
                 <div class="px-4 py-6 flex gap-4">
                     <button type="submit" value="submit"
-                        class="px-4 py-3 w-fit bg-custom-h rounded-md flex items-center justify-between text-sm text-white">
-                        <span class="font-medium text-white"> Apply Filter </span>
+                        class="px-4 py-3 w-fit bg-custom-h rounded-md flex items-center justify-between text-sm !text-white">
+                        <span class="font-medium !text-white"> Apply Filter </span>
                     </button>
                     <div
                         class="px-4 py-3 w-fit border border-custom-h rounded-md flex items-center justify-between text-sm text-custom-h">
@@ -329,7 +329,7 @@
                                     </div>
                                 </div>
                                 <button @click="searchBarOpen = false" id="add-listing w-full"
-                                    class="focus:ring-0 w-36 h-12  font-semibold grid justify-center items-center rounded-sm text-white bg-custom-h outline-none border-none mx-auto">
+                                    class="focus:ring-0 w-36 h-12  font-semibold grid justify-center items-center rounded-sm !text-white bg-custom-h outline-none border-none mx-auto">
                         
                                     <span class="">
                         
@@ -412,7 +412,7 @@
                                     {% endfor %}
                                 </div>
                                 <button @click="category = false" id="add-listing w-full"
-                                    class="focus:ring-0 w-36 h-12  font-semibold grid justify-center items-center rounded-sm text-white bg-custom-h outline-none border-none mx-auto">
+                                    class="focus:ring-0 w-36 h-12  font-semibold grid justify-center items-center rounded-sm !text-white bg-custom-h outline-none border-none mx-auto">
                         
                                     <span class="">
                         
@@ -455,7 +455,7 @@
                                             <div class="absolute bottom-3 left-3">
                                                 <div class="py-1 px-2 bg-custom-primary">
                                                     <div class="flex items-center justify-center space-x-1">
-                                                        <i class="fa-regular text-white fa-xs fa-star"></i>
+                                                        <i class="fa-regular !text-white fa-xs fa-star"></i>
                                                         <p class="text-white text-xs p-0 font-semibold">{{listing.get_average_rating|safe}}</p>
                                                     </div>
                                 
@@ -505,8 +505,8 @@
                                                     </div>
                                                     <div class="">
                                                         <p class="text-xs text-gray-500 font-normal">{% if listing.is_open %}<span
-                                                                class="p-1 rounded-sm text-white bg-green-400">open</span>{% else %}<span
-                                                                class="p-1 text-white rounded-sm bg-red-400">close</span>{% endif %}</p>
+                                                                class="p-1 rounded-sm !text-white bg-green-400">open</span>{% else %}<span
+                                                                class="p-1 !text-white rounded-sm bg-red-400">close</span>{% endif %}</p>
                                                     </div>
                                                 </div>
                                             </div>

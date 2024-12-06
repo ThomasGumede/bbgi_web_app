@@ -1,9 +1,6 @@
 {% extends '_base.html' %}
 {% load static %}
-{% block styles %}
-<link rel="stylesheet" href="{% static 'css/slick.min.css' %}">
-<link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
-{% endblock styles %}
+
 {% block content %}
 <section class="w-full font-sans relative pt-20 block bg-custom-bg">
     <div class="relative">
@@ -162,7 +159,7 @@
             <h4 class="text-4xl text-custom-h font-bold">Our Main Goal</h4>
         </div>
         <div class="swiper-2 overflow-hidden">
-            <di class="service-list my-5 bg-custom-bg swiper-wrapper">
+            <div class="service-list my-5 bg-custom-bg swiper-wrapper">
                 <div class="swiper-slide">
                     <div class="p-[50px] col:p-[30px_25px] shadow-[0px_0px_20px_0px_rgba(20,33,43,0.1)]">
                         <div class="text-center">

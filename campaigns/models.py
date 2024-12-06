@@ -1,9 +1,10 @@
 from datetime import timedelta
 import decimal
 from django.urls import reverse
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from accounts.custom_models.abstracts import AbstractPayment
 from accounts.models import AbstractCreate
+from accounts.utilities.validators import validate_fcbk_link, validate_insta_link, verify_rsa_phone, validate_in_link, validate_twitter_link
 from campaigns.utils import handle_campaign_file_upload, PaymentStatus, Tip
 from django.db import models
 from django.utils import timezone
@@ -17,6 +18,7 @@ from django.contrib.auth import get_user_model
 from tinymce.models import HTMLField
 
 User = get_user_model()
+PHONE_REGEX = verify_rsa_phone()
 
 def in_fourteen_days():
     return timezone.now() + timedelta(days=14)
@@ -30,9 +32,20 @@ class CampaignModel(AbstractCreate):
     slug = models.SlugField(max_length=250, blank=True)
     organiser = models.ForeignKey(User, on_delete=models.CASCADE, default=None, related_name="campaigns")
     category = models.ForeignKey(BlogCategory, on_delete=models.PROTECT, related_name="campaigns")
+    small_description = models.TextField(help_text=_("Small description about your campaign for search optimization."), null=True, blank=True)
     details = HTMLField(help_text=_("Enter additional details about your campaign"))
     target = models.DecimalField(help_text=_("Enter target amount"),max_digits=1000, decimal_places=2, default=0.00)
     current_amount = models.DecimalField(max_digits=1000, decimal_places=2, default=0.00)
+    phone = models.CharField(help_text=_("Enter cellphone number"), max_length=15, validators=[PHONE_REGEX], null=True, blank=True)
+    alternative_phone = models.CharField(help_text=_("Enter your business number"), max_length=15, validators=[PHONE_REGEX], null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    facebook = models.URLField(validators=[validate_fcbk_link], blank=True, null=True)
+    twitter = models.URLField(validators=[validate_twitter_link], blank=True, null=True)
+    instagram = models.URLField(validators=[validate_insta_link], blank=True, null=True)
+    linkedIn = models.URLField(validators=[validate_in_link], blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
+    campaign_address = models.CharField(max_length=300, help_text=_("Enter campaign address seperated by comma"), null=True, blank=True)
+    map_coordinates  = models.CharField(max_length=300, blank=True, null=True)
     start_date = models.DateTimeField(default=timezone.now)
     end_date = models.DateTimeField(default=in_fourteen_days, validators=[MinValueValidator(timezone.now(), "Date should not be less that today's date")])
     status = models.CharField(max_length=50, choices=StatusChoices.choices, default=StatusChoices.NOT_APPROVED)
@@ -79,7 +92,29 @@ class CampaignModel(AbstractCreate):
     def content_safe(self):
         return mark_safe(self.details)
 
+class CampaignContent(AbstractCreate):
+    image = models.ImageField(help_text=_("Upload emages images."), upload_to="campaigns/images/", blank=True, null=True)
+    campaign = models.ForeignKey(CampaignModel, on_delete=models.CASCADE, related_name="images")
+    
+class CampaignReview(AbstractCreate):
+    rating_value = models.IntegerField(validators=[
+            MinValueValidator(1),   
+            MaxValueValidator(5)  
+        ])
+    commenter = models.ForeignKey(get_user_model(), related_name="campaign_reviews", on_delete=models.SET_NULL, null=True)
+    commenter_email = models.EmailField()
+    commenter_full_names = models.CharField(max_length=250)
+    campaign = models.ForeignKey(CampaignModel, on_delete=models.CASCADE, related_name="reviews")
+    comment_title = models.CharField(max_length=250)
+    comment = models.TextField()
 
+    class Meta:
+        verbose_name = 'Campaign Review'
+        verbose_name_plural = 'Campaign Reviews'
+
+    def __str__(self) -> str:
+        return self.commenter_email
+    
 class CampaignUpdateModel(AbstractCreate):
     campaign = models.ForeignKey(CampaignModel, on_delete=models.CASCADE, related_name="updates")
     title = models.CharField(max_length=250)
