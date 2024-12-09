@@ -104,7 +104,7 @@ class EventModel(AbstractCreate):
             pass
 
 class EventContent(AbstractCreate):
-    image = models.ImageField(help_text=_("Upload emages images."), upload_to="event/images/", blank=True, null=True)
+    image = models.ImageField(help_text=_("Upload emages images."), upload_to=handle_event_file_upload, blank=True, null=True)
     event = models.ForeignKey(EventModel, on_delete=models.CASCADE, related_name="images")
 
 class EventReview(AbstractCreate):

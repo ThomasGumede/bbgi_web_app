@@ -314,7 +314,7 @@
                         <ul class="mb-[30px] pb-5 pt-[5px] border-b border-border-primary">
                             <li class="group mt-4">
                                 <!-- accordion header -->
-                                 {% if request.user.authentucated %}
+                                 {% if request.user.is_authenticated %}
                                 <a href="{% url 'accounts:contact-update' %}" class="text-sm lg:text-base">
                                     <span
                                         class="inline-block h-[50px] w-[50px] border-2 border-border-color-1 text-center leading-[50px] mr-3">

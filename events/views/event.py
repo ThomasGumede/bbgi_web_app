@@ -43,6 +43,9 @@ def event_details(request, event_slug):
     recent_events = EventModel.objects.all().order_by("-created")[:6]
     if event.status == StatusChoices.NOT_APPROVED or event.status == StatusChoices.BLOCKED:
         messages.info(request, "This event is either not approved or blocked. Please contact the event organisors before purchasing tickets")
+    for event_file in event.images.all():
+        print(f"{event_file.image.url}")
+        print("6")
         
     if request.method == "POST":
         form = EventReviewForm(request.POST)

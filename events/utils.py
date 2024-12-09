@@ -1,4 +1,4 @@
-import random, barcode, logging, qrcode
+import random, barcode, logging, qrcode, uuid
 from events.models import TicketModel, TicketOrderModel, EventModel
 from io import BytesIO
 from django.core.mail import EmailMessage
@@ -12,6 +12,11 @@ from django.http import HttpResponse
 
 logger = logging.getLogger("utils")
 email_logger = logging.getLogger("emails")
+
+def handle_event_file_upload(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = '{}.{}'.format(uuid.uuid4().hex, ext)
+    return f"event/{filename}"
 
 def send_email_to_admins(event: EventModel, request):
     try:
