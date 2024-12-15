@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 from coupons.models import Coupon
-from coupons.forms import CouponApplyForm
+from coupons.forms import CouponApplyForm, CreateCouponForm
 from django.contrib import messages
+
+def coupons(request):
+    return render(request, "coupons/all-coupons.html", {"coupons": Coupon.objects.all()})
 
 @require_POST
 def apply_coupon(request):
@@ -21,3 +24,7 @@ def apply_coupon(request):
             request.session["coupon_id"] = None
 
     return redirect(return_url)
+
+
+def create_coupon(request):
+    form = CreateCouponForm()
