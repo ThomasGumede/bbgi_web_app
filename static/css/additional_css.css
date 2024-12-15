@@ -337,105 +337,18 @@
 }
 
 
-.bg-\[url\(\'\.\.\/img\/bg\/13\.jpg\'\)\]{
-  background-image: url('../img/bg/13.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/bg\/14\.jpg\'\)\]{
-  background-image: url('../img/bg/14.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/bg\/15\.jpg\'\)\]{
-  background-image: url('../img/bg/15.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/bg\/19\.jpg\'\)\]{
-  background-image: url('../img/bg/19.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/bg\/20\.jpg\'\)\]{
-  background-image: url('../img/bg/20.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/bg\/22\.jpg\'\)\]{
-  background-image: url('../img/bg/22.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/bg\/23\.jpg\'\)\]{
-  background-image: url('../img/bg/23.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/bg\/6\.jpg\'\)\]{
-  background-image: url('../img/bg/6.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/bg\/7\.jpg\'\)\]{
-  background-image: url('../img/bg/7.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/bg\/8\.jpg\'\)\]{
-  background-image: url('../img/bg/8.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/blog\/2\.jpg\'\)\]{
-  background-image: url('../img/blog/2.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/blog\/3\.jpg\'\)\]{
-  background-image: url('../img/blog/3.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/gallery\/2\.jpg\'\)\]{
-  background-image: url('../img/gallery/2.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/gallery\/3\.jpg\'\)\]{
-  background-image: url('../img/gallery/3.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/gallery\/7\.jpg\'\)\]{
-  background-image: url('../img/gallery/7.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/gallery\/8\.jpg\'\)\]{
-  background-image: url('../img/gallery/8.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/gallery\/9\.jpg\'\)\]{
-  background-image: url('../img/gallery/9.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/others\/5\.jpg\'\)\]{
-  background-image: url('../img/others/5.jpg');
-}
 
 .bg-\[url\(\'\.\.\/img\/slider\/home\.jpg\'\)\]{
   background-image: url('../imgs/home.jpg');
 }
 
-.bg-\[url\(\'\.\.\/img\/slider\/111\.jpeg\'\)\]{
-  background-image: url('../img/slider/111.jpg');
-}
 
-.bg-\[url\(\'\.\.\/img\/slider\/12\.jpg\'\)\]{
-  background-image: url('../img/slider/12.jpg');
-}
-
-.bg-\[url\(\'\.\.\/img\/slider\/13\.jpg\'\)\]{
-  background-image: url('../img/slider/13.jpg');
-}
 
 .bg-\[url\(\'\.\.\/img\/slider\/home_4\.jpg\'\)\]{
   background-image: url('../imgs/home_4.jpg');
 }
 
-.bg-\[url\(\'\.\.\/img\/slider\/52\.jpg\'\)\]{
-  background-image: url('../img/slider/52.jpg');
-}
 
-.bg-\[url\(\'\.\.\/img\/slider\/62\.jpg\'\)\]{
-  background-image: url('../img/slider/62.jpg');
-}
 
 .bg-gradient-color-2{
   background-image: linear-gradient(to top, rgba(7,28,31,0) 0%, rgba(7,28,31,1) 90%);
