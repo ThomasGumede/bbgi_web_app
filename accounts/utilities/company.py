@@ -12,7 +12,7 @@ try:
         "company_support_mail": company.email,
         "phone": company.phone,
         "youtube": "https://www.youtube.com/@blackbusinessgrowthinitiat6153",
-        "address": f"{company.address_one}, {company.address_two}, {company.city}, {company.province}, {company.zipcode}, RSA",
+        "address": f"{company.city}, {company.province}, {company.zipcode}, RSA", 
         "company_city": company.city,
         "company_state": company.province,
         "company_zipcode": company.zipcode
