@@ -63,12 +63,12 @@
                 <ul class="flex flex-wrap gap-x-[15px] md:gap-x-[35px] gap-y-[15px] items-center mb-[30px]">
                     <li>
                         <ul class="flex gap-x-[15px] md:gap-x-[30px] items-center">
-                            {% if event.is_featured %}
+                            
                             <li>
                                 <a class="text-xs md:text-sm uppercase !text-white px-[15px] py-3 bg-custom-primary hover:text-white font-semibold"
-                                    href="#"><span class="leading-1.8 md:leading-1.8">Featured</span></a>
+                                    href="#"><span class="leading-1.8 md:leading-1.8">{{event.status}}</span></a>
                             </li>
-                            {% endif %}
+                            
                             <li>
                                 <a class="text-xs md:text-sm uppercase !text-white px-[15px] py-3 bg-custom-h font-semibold hover:text-white"
                                     href="{% url 'events:events-by-category' event.category.slug %}"><span
