@@ -722,7 +722,7 @@ const stickystickyHeader = () => {
 };
 
 const selects = document.querySelectorAll(".selectize");
-console.log(selects);
+
 if (selects?.length) {
   
   selects.forEach((select) => NiceSelect.bind(select));
