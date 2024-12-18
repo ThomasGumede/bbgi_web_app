@@ -1,4 +1,4 @@
-const slider = () => {
+const >slider = () => {
   const swiperElement = document.querySelector(".swiper");
   if (swiperElement) {
     // swiper slider
