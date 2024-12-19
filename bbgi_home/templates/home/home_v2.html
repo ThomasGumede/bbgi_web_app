@@ -242,22 +242,22 @@
                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4 pt-4">
                     <li class="text-sm lg:text-base flex items-center">
                         <i
-                            class="fa-solid fa-hand-holding-hand fa-lg l text-secondary-color bg-color-6 w-[45px] h-[45px] flex items-center justify-center mr-[25px] rounded-100%"></i>
+                            class="fa-solid fa-hand-holding-hand fa-lg l text-secondary-color bg-color-6 w-[45px] h-[45px] flex items-center justify-center mr-[25px] rounded-[100%]"></i>
                         <span class="leading-1.8">Support Black Businesses</span>
                     </li>
                     <li class="text-sm lg:text-base flex items-center">
                         <i
-                            class="fa-solid fa-hand-holding-hand fa-lg -xl text-secondary-color bg-color-6 w-[45px] h-[45px] flex items-center justify-center mr-[25px] rounded-100%"></i>
+                            class="fa-solid fa-hand-holding-hand fa-lg -xl text-secondary-color bg-color-6 w-[45px] h-[45px] flex items-center justify-center mr-[25px] rounded-[100%]"></i>
                         <span class="leading-1.8">Promote Unity</span>
                     </li>
                     <li class="text-sm lg:text-base flex items-center">
                         <i
-                            class="fa-solid fa-hand-holding-hand fa-lg  text-secondary-color bg-color-6 w-[45px] h-[45px] flex items-center justify-center mr-[25px] rounded-100%"></i>
+                            class="fa-solid fa-hand-holding-hand fa-lg  text-secondary-color bg-color-6 w-[45px] h-[45px] flex items-center justify-center mr-[25px] rounded-[100%]"></i>
                         <span class="leading-1.8">Showcase Expertise</span>
                     </li>
                     <li class="text-sm lg:text-base flex items-center">
                         <i
-                            class="fa-solid fa-hand-holding-hand fa-lg l text-secondary-color bg-color-6 w-[45px] h-[45px] flex items-center justify-center mr-[25px] rounded-100%"></i>
+                            class="fa-solid fa-hand-holding-hand fa-lg l text-secondary-color bg-color-6 w-[45px] h-[45px] flex items-center justify-center mr-[25px] rounded-[100%]"></i>
                         <span class="leading-1.8">Foster Cooperation</span>
                     </li>
                 </ul>
@@ -732,16 +732,16 @@
                 <a href="{% url 'listings:get-listings-by-category' category.slug %}"
                     class="pt-10 pb-[35px] px-[15px] md:px-5 xl:px-[30px] bg-white hover:bg-secondary-color transition-all duration-300 shadow-box-shadow-4 rounded-[10px] flex flex-col items-center group relative">
                     <span
-                        class="w-[60px] md:w-20 grid items-center justify-center overflow-hidden xl:w-[100px] h-[60px] md:h-20 xl:h-[100px] text-[25px] md:text-3xl xl:text-[45px] bg-section-bg-5 rounded-100% transition-all duration-300 group-hover:bg-white text-secondary-color mb-5 text-center leading-1">
+                        class="w-[60px] md:w-20 grid items-center justify-center overflow-hidden xl:w-[100px] h-[60px] md:h-20 xl:h-[100px] text-[25px] md:text-3xl xl:text-[45px] bg-section-bg-5 rounded-[100%] transition-all duration-300 group-hover:bg-white text-secondary-color mb-5 text-center leading-1">
                         <img src="{% if category.thumbnail %}{{category.thumbnail.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}" alt="{{category.label}} Category" class="w-full  h-full object-cover">
                     </span>
                     <span
                         class="block text-[13px] md:text-lg xl:text-[22px] transition-all duration-300 text-heading-color group-hover:text-white mb-[10px] font-poppins font-semibold leading-1.8 capitalize">
-                        {{category.label}}
+                        {{category.label|truncatewords:2}}
                     </span>
 
                     <span
-                        class="text-lg grid items-center justify-center w-[45px] h-[45px] border border-border-color-8 shadow-box-shadow-2 rounded-100% bg-white group-hover:text-secondary-color transition-all duration-300 text-center  absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
+                        class="text-lg grid items-center justify-center w-[45px] h-[45px] border border-border-color-8 shadow-box-shadow-2 rounded-[100%] bg-white group-hover:text-secondary-color transition-all duration-300 text-center  absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
                         <i class="fa-solid fa-xl fa-arrow-right leading-12"></i>
                     </span>
                 </a>

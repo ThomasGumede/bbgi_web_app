@@ -15,7 +15,9 @@ try:
         "address": f"{company.city}, {company.province}, {company.zipcode}, RSA", 
         "company_city": company.city,
         "company_state": company.province,
-        "company_zipcode": company.zipcode
+        "company_zipcode": company.zipcode,
+        "vision": company.vision,
+        "mission": company.mission
 
     }
 except:
@@ -32,7 +34,15 @@ except:
         "address": "Cape Town, 7441, RSA",
         "company_city": "COMPANY.city",
         "company_state": "COMPANY.province",
-        "company_zipcode": "zipcode"
+        "company_zipcode": "zipcode",
+        "vision": """To become the leading platform that unites and empowers Black African entrepreneurs and professionals, fostering a
+                        thriving, collaborative community that drives economic growth, innovation, and sustainable success across
+                        South Africa and beyond.""",
+        "mission": """
+        Our mission is to support and promote the growth of Black African businesses and careers by providing a platform to
+                        showcase expertise, facilitating impactful networking opportunities, delivering business education and mentorship,
+                        fostering unity and collaboration, and driving initiatives that empower and sustain Black-owned businesses.
+        """
 
     }
 
