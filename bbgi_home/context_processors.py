@@ -24,6 +24,8 @@ def global_context(request):
         "company_city": COMPANY["company_city"],
         "company_state": COMPANY["company_state"],
         "company_zipcode": COMPANY["company_zipcode"],
+        "vision": COMPANY["vision"],
+        "mission": COMPANY["mission"],
     }
 
     
