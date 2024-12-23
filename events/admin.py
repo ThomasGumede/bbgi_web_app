@@ -26,7 +26,7 @@ class TicketOrderInline(admin.TabularInline):
 
 class TicketInline(admin.TabularInline):
     model = TicketModel
-    exclude = ("barcode_image", "barcode_value", "qrcode_image", "qrcode_url")
+    exclude = ("barcode_image", "barcode_value", "qrcode_image", "qrcode_url", "sale_start", "sale_end")
     extra = 0
     readonly_fields = ("id", "ticket_type","guest_full_name", "guest_email", "guest_phone_number", "quantity", "barcode_image_tag", "qrcode_image_tag")
 
@@ -43,6 +43,7 @@ class TicketOrderAdmin(admin.ModelAdmin):
 @admin.register(EventModel)
 class EventAdmin(admin.ModelAdmin):
     list_display = ("title", "total_seats_sold", "category", "date_time_formatter", "status")
+    exclude = ("title", "event_startdate", "event_enddate")
     list_editable = ("status",)
     list_per_page = 10
     search_fields = ("title",)
