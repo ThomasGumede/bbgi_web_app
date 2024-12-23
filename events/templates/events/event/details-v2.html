@@ -41,10 +41,17 @@
                     <img src="{{event.image.url}}"
                         alt="{{event.title}} image by {{event.organiser.get_full_name}}"
                         class="absolute top-1/2 left-1/2 h-full -translate-x-1/2 -translate-y-1/2 w-full transition-all duration-500 ease-in group-hover:scale-105 opacity-50 object-cover">
-                    {% else %}
+                    <div class="absolute inset-0 z-[2000] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <a href="{{event.image.url}}" target="_blank" rel="noopener noreferrer"
+                            class="bg-white text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors">
+                            View
+                        </a>
+                    </div>
+                        {% else %}
                     <img src="{% static 'imgs/no-image.png' %}" alt="{{event.title}}"
                         class="absolute top-1/2 left-1/2 h-full -translate-x-1/2 -translate-y-1/2 w-full transition-all duration-500 ease-in group-hover:scale-105 opacity-50 object-cover">
                     {% endif %}
+                    
                 </div>
                 
             </div>

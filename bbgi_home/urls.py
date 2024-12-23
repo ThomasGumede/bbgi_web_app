@@ -1,8 +1,9 @@
+
 from bbgi_home.views.admin_views import all_accounts, all_listings, delete_listing
 from bbgi_home.views.blog_views import all_blogs, blog_details, blogs, create_blog, delete_blog, update_blog
 from bbgi_home.views.campaigns_views import all_campaigns, all_contributions, campaign_details, contribution_details, delete_contribution
 from bbgi_home.views.events_views import all_events, all_ticket_orders, delete_ticket_order, event_details, ticket_order_details
-from bbgi_home.views.home_views import bbgi_home, about_bbgi, contact, dashboard, search, terms_and_conditions, faqs
+from bbgi_home.views.home_views import bbgi_home, about_bbgi, contact, dashboard, search, terms_and_conditions, faqs, privacy, refunds
 from django.urls import path
 
 from bbgi_home.views.markets_views import all_quotations
@@ -17,8 +18,9 @@ urlpatterns = [
     path("dashboard", dashboard, name="dashboard"),
     path("search", search, name="search"),
     path("bbgi/faqs", faqs, name="faqs"),
-    path("privacy", terms_and_conditions, name="terms"),
-    path("privacy/<slug:terms_slug>", terms_and_conditions, name="privacy"),
+    path("about-us/privacy", privacy, name="policy"),
+    path("about-us/refund-policy", refunds, name="refund"),
+    path("about-us/terms-and-conditions", terms_and_conditions, name="terms"),
     path("blogs", blogs, name="blogs"),
     path("blogs/<slug:category_slug>", blogs, name="blogs-by-category"),
     path("dashboard/accounts", all_accounts, name="all-accounts"),

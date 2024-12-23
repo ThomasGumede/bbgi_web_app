@@ -98,6 +98,14 @@
                                     class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500">
                                 <label for="filter-mobile-sort_by-1" class="ml-3 text-sm text-gray-500"> Newest </label>
                             </div>
+                            <div class="flex items-center">
+                                <input id="filter-mobile-sort_by-1" name="sort_by" value="approved" type="radio" {% if sort_by == 'approved' %} checked {% endif %} class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500">
+                                <label for="filter-mobile-sort_by-1" class="ml-3 text-sm text-gray-500"> Approved </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="filter-mobile-sort_by-1" name="sort_by" value="completed" type="radio" {% if sort_by == 'completed' %} checked {% endif %} class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500">
+                                <label for="filter-mobile-sort_by-1" class="ml-3 text-sm text-gray-500"> Completed </label>
+                            </div>
                         </div>
                     </div>
                 </div>

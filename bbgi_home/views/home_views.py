@@ -87,14 +87,14 @@ def search(request):
     
     return render(request, "home/search.html", context=context)
 
-def terms_and_conditions(request, terms_slug=None):
-    legals = Privacy.objects.all().only("slug", "title")
-    if terms_slug:
-        term = get_object_or_404(Privacy, slug=terms_slug)
-    else:
-        term = get_object_or_404(Privacy, slug="website-terms-and-community-guidlines")
+def terms_and_conditions(request):
+    return render(request, "home/terms_and_conditions.html")
 
-    return render(request, "home/terms_and_conditions.html", {"legals": legals, "term": term})
+def privacy(request):
+    return render(request, "home/privacy.html")
+
+def refunds(request):
+    return render(request, "home/refunds.html")
 
 def faqs(request):
     blogs = Blog.objects.all()[:5]

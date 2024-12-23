@@ -131,9 +131,10 @@
                 <p class="py-10 text-center text-gray-300">&copy;
                     <script>document.write(new Date().getFullYear());</script> BBGI All Rights
                     Reserved
-                    by <a href="#" rel="nofollow" class="">wedodev.</a> | <a rel="nofollow" href="" nofollow>Terms &
-                        Conditions</a> | <a href="" rel="nofollow">Privacy
-                        Policy</a>
+                    by <a href="#" rel="nofollow" class="">wedodev.</a> | <a rel="nofollow" href="{% url 'bbgi_home:terms' %}" nofollow>Terms &
+                        Conditions</a> | <a href="{% url 'bbgi_home:policy' %}" rel="nofollow">Privacy
+                        Policy</a>| <a href="{% url 'bbgi_home:refund' %}" rel="nofollow">Refund
+                            Policy</a>
                 </p>
             </div>
         </div>

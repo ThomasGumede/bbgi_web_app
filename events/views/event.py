@@ -6,7 +6,7 @@ from events.models import EventContent, EventModel, EventOrganisor
 from campaigns.utils import generate_slug, PaymentStatus
 from events.forms import EventAddressForm, EventCreateForm, EventForm, EventOrganisorForm, EventReviewForm
 from django.contrib import messages
-from django.db.models import Q
+from django.db.models import Q, When, Case
 
 
 def events(request, category_slug=None):
@@ -25,7 +25,9 @@ def events(request, category_slug=None):
             events = queryset.filter(Q(title__icontains=query)| Q(organiser__first_name__icontains=query))
         else:
             events = queryset
-
+    if sort_by == 'newest':
+        events = events.order_by('-created')
+        
     context = {
         "events": events, 
         "query": query,
