@@ -19,6 +19,7 @@ def make_pending(modeladmin, request, querset):
 class EventTicketTypeInline(admin.TabularInline):
     model = EventTicketTypeModel
     readonly_fields = ("event",)
+    exclude = ("sale_start", "sale_end")
     extra = 0
 
 class TicketOrderInline(admin.TabularInline):
@@ -26,7 +27,7 @@ class TicketOrderInline(admin.TabularInline):
 
 class TicketInline(admin.TabularInline):
     model = TicketModel
-    exclude = ("barcode_image", "barcode_value", "qrcode_image", "qrcode_url", "sale_start", "sale_end")
+    exclude = ("barcode_image", "barcode_value", "qrcode_image", "qrcode_url")
     extra = 0
     readonly_fields = ("id", "ticket_type","guest_full_name", "guest_email", "guest_phone_number", "quantity", "barcode_image_tag", "qrcode_image_tag")
 
