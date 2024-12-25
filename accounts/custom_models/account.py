@@ -132,8 +132,8 @@ class AboutCompany(AbstractCreate, AbstractProfile):
     slug = models.SlugField(max_length=300, default="about-bbgi-model", unique=True)
     email = models.EmailField(null=True, blank=True)
     small_description = models.TextField(null=True, blank=True)
-    # vision = models.TextField(blank=True, null=True, unique=True)
-    # mission = models.TextField(blank=True, null=True, unique=True)
+    vision = models.TextField(blank=True, null=True, unique=True)
+    mission = models.TextField(blank=True, null=True, unique=True)
 
     def __str__(self):
         return self.title
