@@ -8,7 +8,7 @@ from django.contrib import messages
 class CompanyAddressForm(forms.ModelForm):
     class Meta:
         model = AboutCompany
-        fields = ("address_one", "city", "province", "address_two", "zipcode", "email", "phone", "linkedIn", "facebook", "twitter", "instagram", "small_description", "slogan", "title", "vision", "mission")
+        fields = ("address_one", "city", "province", "address_two", "zipcode", "email", "phone", "linkedIn", "facebook", "twitter", "instagram", "small_description", "slogan", "title")
         widgets = {
             'vision': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Company Vision"}),
             'mission': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Company Mission"}),
