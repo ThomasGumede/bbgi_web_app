@@ -11,11 +11,6 @@
                     <h3 class="pt-4 pb-4 text-2xl text-center text-custom-h font-bold">Reset password</h3>
                     {% include "includes/errors.html" %}
                     <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" method="post">
-
-
-
-
-
                         <div class="w-full space-y-4 text-base mb-6 text-custom-text font-normal font-sans">
                             <p class="">
                                 Enter the email address you used when you joined and we'll send you instructions to
@@ -28,21 +23,23 @@
                         </div>
                         {% csrf_token %}
                         <div class="mb-4 text-start">
-                            <label for="id_email">
-                                email*
-                            </label>
-                            <input id="id_email" name="email" required
-                                class="block p-3 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-curing-custom-primary"
-                                id="email" type="email" placeholder="email" />
+                            
+                            <div class="relative">
+                                <input type="email" placeholder="Email*" name="email" id="id_email"
+                                    value="{% if form.email.value %}{{form.email.value}}{% endif %}" required
+                                    class="text-paragraph-color pl-5 pr-[50px] outline-none border-2 border-border-color-9 focus:border focus:border-secondary-color h-[65px] block w-full rounded-none placeholder:text-paragraph-color placeholder:text-sm placeholder:text-opacity-60">
+                            </div>
                             <span
                                 class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.email.help_text}}</span>
                         </div>
                         <div class="mb-6 text-center">
-                            <button
-                                class="w-full px-4 py-3 font-bold text-white bg-custom-h rounded-full hover:bg-custom-h focus:outline-none focus:shadow-outline"
-                                type="submit">
-                                Submit
-                            </button>
+                            <h5
+                                class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border bg-secondary-color border-secondary-color hover:border-primary-color hover:bg-primary-color inline-block z-0">
+                                <button type="submit"
+                                    class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px] group-hover:text-white leading-[23px] uppercase h">
+                                    RESET PASSWORD
+                                </button>
+                            </h5>
                         </div>
                         <hr class="mb-6 border-t" />
                         <div class="text-center">

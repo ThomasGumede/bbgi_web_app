@@ -1,6 +1,7 @@
 from django import forms
 from accounts.models import SubscriptionOrder
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import (AuthenticationForm,  UserCreationForm)
 
 class UserLoginForm(AuthenticationForm):
@@ -15,7 +16,7 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('email', 'username', 'first_name', 'last_name', 'password1', 'password2')
+        fields = ('email', 'first_name', 'last_name', 'password1', 'password2')
 
         widgets = {
             'username': forms.TextInput(attrs={"class": "w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"}),
@@ -50,10 +51,11 @@ class RegistrationForm(UserCreationForm):
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
-        
+        user.username = self.cleaned_data['email']
         if commit:
             user.save()
-
+            if hasattr(self, "save_m2m"):
+                self.save_m2m()
         return user
 
 class AccountUpdateForm(forms.ModelForm):
