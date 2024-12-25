@@ -16,8 +16,8 @@ try:
         "company_city": company.city,
         "company_state": company.province,
         "company_zipcode": company.zipcode,
-        "vision": company.vision,
-        "mission": company.mission
+        "vision": "company.vision",
+        "mission": "company.mission"
 
     }
 except:
