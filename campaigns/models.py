@@ -92,31 +92,31 @@ class CampaignModel(AbstractCreate):
     def content_safe(self):
         return mark_safe(self.details)
 
-# class CampaignContent(AbstractCreate):
-#     image = models.ImageField(help_text=_("Upload emages images."), upload_to="campaigns/images/content/")
-#     campaign = models.ForeignKey(CampaignModel, on_delete=models.CASCADE, related_name="images")
+class CampaignContent(AbstractCreate):
+    image = models.ImageField(help_text=_("Upload emages images."), upload_to="campaigns/images/content/")
+    campaign = models.ForeignKey(CampaignModel, on_delete=models.CASCADE, related_name="images")
     
-#     def __str__(self):
-#         return self.campaign.title + "content"
+    def __str__(self):
+        return self.campaign.title + "content"
     
-# class CampaignReview(AbstractCreate):
-#     rating_value = models.IntegerField(validators=[
-#             MinValueValidator(0),   
-#             MaxValueValidator(5)  
-#         ])
-#     commenter = models.ForeignKey(get_user_model(), related_name="campaign_reviews", on_delete=models.SET_NULL, null=True)
-#     commenter_email = models.EmailField()
-#     commenter_full_names = models.CharField(max_length=300)
-#     campaign = models.ForeignKey(CampaignModel, on_delete=models.CASCADE, related_name="reviews")
-#     comment_title = models.CharField(max_length=250)
-#     comment = models.TextField()
+class CampaignReview(AbstractCreate):
+    rating_value = models.IntegerField(validators=[
+            MinValueValidator(0),   
+            MaxValueValidator(5)  
+        ])
+    commenter = models.ForeignKey(get_user_model(), related_name="campaign_reviews", on_delete=models.SET_NULL, null=True)
+    commenter_email = models.EmailField()
+    commenter_full_names = models.CharField(max_length=300)
+    campaign = models.ForeignKey(CampaignModel, on_delete=models.CASCADE, related_name="reviews")
+    comment_title = models.CharField(max_length=250)
+    comment = models.TextField()
 
-#     class Meta:
-#         verbose_name = 'Campaign Review'
-#         verbose_name_plural = 'Campaign Reviews'
+    class Meta:
+        verbose_name = 'Campaign Review'
+        verbose_name_plural = 'Campaign Reviews'
 
-#     def __str__(self) -> str:
-#         return self.commenter_email
+    def __str__(self) -> str:
+        return self.commenter_email
     
 class CampaignUpdateModel(AbstractCreate):
     campaign = models.ForeignKey(CampaignModel, on_delete=models.CASCADE, related_name="updates")

@@ -2,9 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from accounts.custom_models.choices import StatusChoices
 from bbgi_home.models import BlogCategory
-from events.models import EventModel, EventOrganisor
+from events.models import EventContent, EventModel, EventOrganisor
 from campaigns.utils import generate_slug, PaymentStatus
-from events.forms import EventAddressForm, EventCreateForm, EventForm, EventOrganisorForm #, EventReviewForm
+from events.forms import EventAddressForm, EventCreateForm, EventForm, EventOrganisorForm, EventReviewForm
 from django.contrib import messages
 from django.db.models import Q, When, Case
 
@@ -39,9 +39,9 @@ def events(request, category_slug=None):
     return render(request, "events/event/list.html", {"events": events, "query": query})
 
 def event_details(request, event_slug):
-    queryset = EventModel.objects.all().select_related("organiser") # .prefetch_related("images")
+    queryset = EventModel.objects.all().select_related("organiser").prefetch_related("images")
     event = get_object_or_404(queryset, slug = event_slug)
-    # form = EventReviewForm()
+    form = EventReviewForm()
     recent_events = EventModel.objects.all().order_by("-created")[:6]
     if event.status == StatusChoices.NOT_APPROVED or event.status == StatusChoices.BLOCKED:
         messages.info(request, "This event is either not approved or blocked. Please contact the event organisors before purchasing tickets")
@@ -49,20 +49,20 @@ def event_details(request, event_slug):
         print(f"{event_file.image.url}")
         print("6")
         
-    # if request.method == "POST":
-    #     form = EventReviewForm(request.POST)
-    #     if form.is_valid():
-    #         review = form.save(commit=False)
-    #         review.event = event
-    #         if request.user.is_authenticated:
-    #             review.commenter = request.user
-    #         review.save()
-    #         messages.success(request, "Review added successfully")
+    if request.method == "POST":
+        form = EventReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.event = event
+            if request.user.is_authenticated:
+                review.commenter = request.user
+            review.save()
+            messages.success(request, "Review added successfully")
             
-    #     else:
-    #         messages.error(request, "Error trying to add your review")
+        else:
+            messages.error(request, "Error trying to add your review")
             
-    return render(request, "events/event/details-v2.html", {"event": event})
+    return render(request, "events/event/details-v2.html", {"event": event, "form": form})
 
 @login_required
 def create_event(request, event_slug=None):
@@ -135,17 +135,17 @@ def update_event(request, event_slug):
 @login_required
 def add_event_content(request, event_slug):
     event = get_object_or_404(EventModel, organiser = request.user, slug = event_slug)
-    # if request.method == "POST":
-    #     files = request.FILES.getlist("files")
-    #     if len(files) > 0:
-    #         for file in files:
-    #                 event_content = EventContent(image=file, event=event)
-    #                 event_content.save()
-    #         messages.success(request, "Event images added successfully")
-    #         return redirect("events:add-event-content", event.slug)
-    #     else:
-    #         messages.error(request, "Please select atleast one image before submiting form")
-    #         return render(request, "events/event/manage/update-event-content.html", {"event": event})
+    if request.method == "POST":
+        files = request.FILES.getlist("files")
+        if len(files) > 0:
+            for file in files:
+                    event_content = EventContent(image=file, event=event)
+                    event_content.save()
+            messages.success(request, "Event images added successfully")
+            return redirect("events:add-event-content", event.slug)
+        else:
+            messages.error(request, "Please select atleast one image before submiting form")
+            return render(request, "events/event/manage/update-event-content.html", {"event": event})
         
     return render(request, "events/event/manage/update-event-content.html", {"event": event})
 
@@ -153,8 +153,8 @@ def add_event_content(request, event_slug):
 def delete_event_content(request, event_slug, content_id):
     
     event = get_object_or_404(EventModel, organiser = request.user, slug = event_slug)
-    # content = get_object_or_404(EventContent, id=content_id, event=event)
-    # content.delete()
+    content = get_object_or_404(EventContent, id=content_id, event=event)
+    content.delete()
     messages.success(request, "Image removed successfully")
     return redirect("events:add-event-content", event.slug)
 
