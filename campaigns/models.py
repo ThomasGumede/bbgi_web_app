@@ -93,17 +93,20 @@ class CampaignModel(AbstractCreate):
         return mark_safe(self.details)
 
 class CampaignContent(AbstractCreate):
-    image = models.ImageField(help_text=_("Upload emages images."), upload_to="campaigns/images/", blank=True, null=True)
+    image = models.ImageField(help_text=_("Upload emages images."), upload_to="campaigns/images/content/")
     campaign = models.ForeignKey(CampaignModel, on_delete=models.CASCADE, related_name="images")
+    
+    def __str__(self):
+        return self.campaign.title + "content"
     
 class CampaignReview(AbstractCreate):
     rating_value = models.IntegerField(validators=[
-            MinValueValidator(1),   
+            MinValueValidator(0),   
             MaxValueValidator(5)  
         ])
     commenter = models.ForeignKey(get_user_model(), related_name="campaign_reviews", on_delete=models.SET_NULL, null=True)
     commenter_email = models.EmailField()
-    commenter_full_names = models.CharField(max_length=250)
+    commenter_full_names = models.CharField(max_length=300)
     campaign = models.ForeignKey(CampaignModel, on_delete=models.CASCADE, related_name="reviews")
     comment_title = models.CharField(max_length=250)
     comment = models.TextField()

@@ -104,19 +104,20 @@ class EventModel(AbstractCreate):
             pass
 
 class EventContent(AbstractCreate):
-    image = models.ImageField(help_text=_("Upload emages images."), upload_to=handle_event_file_upload, blank=True, null=True)
+    image = models.ImageField(help_text=_("Upload emages images."), upload_to=handle_event_file_upload)
     event = models.ForeignKey(EventModel, on_delete=models.CASCADE, related_name="images")
+    some_field = models.CharField(max_length=20, blank=True, null=True)
 
 class EventReview(AbstractCreate):
     rating_value = models.IntegerField(validators=[
-            MinValueValidator(1),   
+            MinValueValidator(0),   
             MaxValueValidator(5)  
         ])
     commenter = models.ForeignKey(get_user_model(), related_name="event_reviews", on_delete=models.SET_NULL, null=True)
     commenter_email = models.EmailField()
-    commenter_full_names = models.CharField(max_length=250)
+    commenter_full_names = models.CharField(max_length=300)
     event = models.ForeignKey(EventModel, on_delete=models.CASCADE, related_name="reviews")
-    comment_title = models.CharField(max_length=250)
+    comment_title = models.CharField(max_length=300)
     comment = models.TextField()
 
     class Meta:
