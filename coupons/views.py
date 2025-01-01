@@ -25,6 +25,5 @@ def apply_coupon(request):
 
     return redirect(return_url)
 
-
 def create_coupon(request):
     form = CreateCouponForm()

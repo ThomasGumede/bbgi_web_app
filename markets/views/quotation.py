@@ -9,6 +9,11 @@ from django.contrib.sites.shortcuts import get_current_site
 from markets.tasks import send_email_to_owner
 
 @login_required
+def manage_quotations(request):
+    quotations = Qoutation.objects.filter(client=request.user)
+    return render(request, "markets/quotations/manage/quotations.html", {"quotations": quotations})
+
+@login_required
 def get_quotations(request, service_id):
     service = get_object_or_404(Service, id=service_id)
     quotations = Qoutation.objects.filter(service = service)
@@ -50,6 +55,39 @@ def delete_quote(request, quotation_id, service_slug):
     requested_quotation.delete()
     messages.success(request, "Request quotation message deleted")
     return redirect("markets:qoutations")
+
+@login_required
+def get_qoutations(request, listing_slug):
+    
+    service = None
+    quotations = []
+
+    queryset = Business.objects.prefetch_related("services").filter(owner=request.user)
+    business = get_object_or_404(queryset, slug=listing_slug)
+    quotations = []
+    
+    for service in business.services.prefetch_related("qoutations"):
+        quotations.extend(service.qoutations.all())
+
+    return render(request, "markets/quotations/quotations.html", {"quotations": quotations, "listing": business})
+
+@login_required
+def admin_qoutations(request, service_id = None):
+    
+    service = None
+    quotations = []
+
+    if service_id:
+        service = get_object_or_404(Service, id=service_id, organiser=request.user)
+        quotations = service.qoutations.all()
+    else:
+        businesses = Business.objects.prefetch_related("services").all()
+        quotations = []
+        for business in businesses:
+            for service in business.services.prefetch_related("qoutations"):
+                quotations.extend(service.qoutations.all())
+
+    return render(request, "markets/quotations/manage/quotations.html", {"quotations": quotations, "service": service})
 
 @login_required
 def qoutations(request, service_id = None):

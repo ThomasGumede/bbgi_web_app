@@ -167,7 +167,7 @@
 
 
                                     {% if listing.owner == request.user %}
-                                    <a href="{% url 'listings:update-listing' listing.slug %}"
+                                    <a href="{% url 'listings:manage-listing' listing.slug %}"
                                         class="border group hover:bg-custom-h hover:border-custom-h transition-colors duration-300 cursor-pointer border-white text-center !text-white border-solid py-2 md:py-3 px-4 md:px-6">
                                         <div class="relative flex items-center">
                                             <div class="text-sm">
@@ -555,7 +555,7 @@
                                                 <a href="{{service.get_absolute_url}}" class="overflow-hidden">
                                                     <img src="{% if service.image %}{{service.image.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}"
                                                         class="w-full group-hover:scale-110 h-64 transition-all duration-700"
-                                                        alt="{{listing.title}} services - {{service.title}} image">
+                                                        alt="{{service.title}} image">
                                                 </a>
 
                                                 <div class="absolute top-10 lg:top-5 right-[30px]">
@@ -563,7 +563,7 @@
                                                         class="w-10 h-10 overflow-hidden"><img
                                                             src="{% if listing.logo %}{{listing.logo.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}"
                                                             alt="{{listing.title}} logo"
-                                                            class="w-10 h-10 rounded-full group-hover:scale-110 border-[3px] border-[#e5eaee] transition-all duration-300"></a>
+                                                            class="w-10 h-10 rounded-[100%] group-hover:scale-110 border-[3px] border-[#e5eaee] transition-all duration-300"></a>
                                                 </div>
                                             </div>
                                             <!-- card body -->

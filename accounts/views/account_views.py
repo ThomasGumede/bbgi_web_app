@@ -198,7 +198,7 @@ def general(request):
 
 @login_required
 def account_update(request):
-    template = "accounts/manage/update.html"
+    template = "accounts/my-account.html"
 
     if request.method == 'POST':
         form = AccountUpdateForm(instance=request.user, data=request.POST, files=request.FILES)

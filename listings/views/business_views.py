@@ -145,14 +145,35 @@ def add_listing_socials(request, listing_slug):
     return render(request, "business/create-listing/add-social.html", {"listing": listing, "form": buniness_form})
 
 @login_required
+def update_listing_socials(request, listing_slug):
+    listing = get_object_or_404(Business, slug=listing_slug, owner=request.user)
+    buniness_form = BusinessSocialForm(instance=listing)
+    
+    if request.method == "POST":
+        form = BusinessSocialForm(instance=listing, data=request.POST)
+
+        if form.is_valid():
+            form.save()
+            
+            # send_html_email('New Listing Added', 'listings@bbgi.co.za', 'emails/listing-confirmation.html', {"listing": listing})
+            messages.success(request, "Listing contact details updated successfully")
+            return redirect("listings:update-listing-socials", listing_slug=listing.slug)
+        else:
+            messages.error(request, "Something went wrong while trying to update your business")
+            return render(request, "business/listing/update/update-listing-social.html", {"listing": listing, "form": form})
+    
+    return render(request, "business/listing/update/update-listing-social.html", {"listing": listing, "form": buniness_form})
+
+
+@login_required
 def update_listing(request, listing_slug):
     queryset = Business.objects.all().select_related("category").prefetch_related("business_hours", "reviews", "images")
     listing = get_object_or_404(queryset, slug=listing_slug, owner=request.user)
-    buniness_form = BusinessUpdateForm(instance=listing)
+    buniness_form = BusinessForm(instance=listing)
     
 
     if request.method == "POST":
-        form = BusinessUpdateForm(instance=listing, data=request.POST, files=request.FILES)
+        form = BusinessForm(instance=listing, data=request.POST, files=request.FILES)
         
         if form.is_valid() and form.is_multipart():
             form.save()

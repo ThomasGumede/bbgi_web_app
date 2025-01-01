@@ -1,152 +1,139 @@
-{% extends '_account.html' %}
+{% extends '_account_v2.html' %}
 {% load static %}
 
 {% block title %}Edit Contact{% endblock title %}
 
-{% block accountblock %}
-<div class='relative block'>
-    <div class="bg-white">
-        <div class="space-y-4 md:px-4">
-            {% include "includes/errors.html" %}
-            <form method="post">
-                {% csrf_token %}
-                <h6 class="text-gray-900 text-base mt-3 mb-6 font-bold uppercase">
-                    Contact Information
-                </h6>
-                <div class="flex flex-wrap space-y-3 md:space-y-0">
-                    <div class="w-full lg:w-12/12 md:px-4">
-                        <div class="relative w-full mb-3">
-                            <label for="id_username" class="block text-custom-h font-semibold text-sm capitalize mb-2"
-                                htmlfor="grid-password">
-                                Username*
-                            </label>
-                            <input value="{{form.username.value}}" id="id_username" name="username" required
-                                maxlength="300" type="text"
-                                class="block p-2 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary placeholder:text-gray-400 focus:border-custom-primary ease-linear transition-all duration-150"
-                                value="">
-                            <span
-                                class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.username.help_text}}</span>
-
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-6/12 md:px-4">
-                        <div class="relative w-full mb-3">
-                            <label for="id_email" class="block text-custom-h font-semibold text-sm capitalize mb-2"
-                                htmlfor="grid-password">
-                                Email*
-                            </label>
-                            <input value="{{form.email.value}}" id="id_email" name="email" maxlength="300" type="email"
-                                class="block p-2 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary placeholder:text-gray-400 focus:border-custom-primary ease-linear transition-all duration-150">
-                            <span
-                                class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.email.help_text}}</span>
-
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-6/12 md:px-4">
-                        <div class="relative w-full mb-3">
-                            <label for="id_phone" class="block text-custom-h font-semibold text-sm capitalize mb-2"
-                                htmlfor="grid-password">
-                                Cellphone
-                            </label>
-                            <input value="{{form.phone.value}}" id="id_phone" name="phone" required maxlength="15"
-                                type="tel"
-                                class="block p-2 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary placeholder:text-gray-400 focus:border-custom-primary ease-linear transition-all duration-150">
-                            <span
-                                class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.phone.help_text}}</span>
-
-                        </div>
-                    </div>
+{% block content_v2 %}
+<div class="transition-all duration-300">
+    <p class="p-5 bg-section-bg-1 mb-5 lg:mb-6 text-sm lg:text-base">
+        <span class="leading-1.8 lg:leading-1.8">The following addresses will be used on the checkout
+            page
+            by default.</span>
+    </p>
+    <!-- form -->
+    {% include "includes/errors.html" %}
+    <form method="post" class="form-primary bg-white">
+        {% csrf_token %}
+        <div class="mb-20">
+            <div class="relative">
+                <p class="text-sm lg:text-base">
+                    <span class="leading-1.8 lg:leading-1.8">Username:</span>
+                </p>
+                <input type="text" name="username" id="id_username" value="{% if form.username.value %}{{form.username.value}}{% endif %}"
+                    class="text-paragraph-color pl-5 pr-[50px] outline-none border-2 border-border-color-9 focus:border focus:border-secondary-color h-[65px] block w-full rounded-none placeholder:text-paragraph-color placeholder:text-sm placeholder:text-opacity-85">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-[30px] mb-20">
+                <!-- 1st name -->
+                <div class="relative">
+                    <p class="text-sm lg:text-base">
+                        <span class="leading-1.8 lg:leading-1.8">Email:</span>
+                    </p>
+                    <input type="email" name="email" id="id_email" value="{% if form.email.value %}{{form.email.value}}{% endif %}"
+                        class="text-paragraph-color pl-5 pr-[50px] outline-none border-2 border-border-color-9 focus:border focus:border-secondary-color h-[65px] block w-full rounded-none placeholder:text-paragraph-color placeholder:text-sm placeholder:text-opacity-85">
                 </div>
-                <hr class="mt-6 border-b-1 border-blueGray-300">
-                <div class="flex font-sans mt-6 flex-wrap">
-                    <div class="w-full relative lg:w-12/12 md:px-4">
-                        <div class="relative w-full mb-3">
-                            <label for="id_address_one"
-                                class="block text-custom-h font-semibold text-sm capitalize mb-2">
-                                Address Line 1
-                            </label>
-                            <input name="address_one" required id="id_address_one" type="text"
-                                value="{{form.address_one.value}}" placeholder="e.g KwaMashu West"
-                                class="block p-2 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary placeholder:text-gray-400 focus:border-custom-primary ease-linear transition-all duration-150">
-                            <span
-                                class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.address_one.help_text}}</span>
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-12/12 md:px-4">
-                        <div class="relative w-full mb-3">
-                            <label for="id_address_two"
-                                class="block text-custom-h font-semibold text-sm capitalize mb-2">
-                                Address Line 2
-                            </label>
-                            <input id="id_address_two" name="address_two" type="text" value="{{form.address_two.value}}"
-                                placeholder="e.g Block 34, West Street"
-                                class="block p-2 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary placeholder:text-gray-400 focus:border-custom-primaryease-linear transition-all duration-150">
-                            <span
-                                class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.address_two.help_text}}</span>
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-12/12 md:px-4">
-                        <div class="relative w-full mb-3">
-                            <label for="id_city" class="block text-custom-h font-semibold text-sm capitalize mb-2">
-                                City
-                            </label>
-                            <input id="id_city" required name="city" type="text" placeholder="e.g Durban"
-                                value="{{form.city.value}}"
-                                class="block p-2 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary  focus:border-custom-primary placeholder:text-gray-400 ease-linear transition-all duration-150">
-                            <span
-                                class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.city.help_text}}</span>
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-4/12 md:px-4">
-                        <div class="relative w-full mb-3">
-                            <label for="id_province" class="block text-custom-h font-semibold text-sm capitalize mb-2">
-                                province
-                            </label>
-                            <input placeholder="e.g KZN, WC, GP" required id="id_province" name="province"
-                                value="{{form.province.value}}" type="text"
-                                class="block p-2 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary placeholder:text-gray-400 focus:border-custom-primary ease-linear transition-all duration-150">
-                            <span
-                                class="text-[11px]  text-custom-tertiary block font-normal lowercase">{{form.province.help_text}}</span>
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-4/12 md:px-4">
-                        <div class="relative w-full mb-3">
-                            <label for="id_country" class="block text-sm text-custom-h font-semibold capitalize mb-2">
-                                Country
-                            </label>
-                            <input readonly id="id_country" name="country" type="text" editable="false"
-                                value="{{form.country.value}}"
-                                class="block p-2 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary placeholder:text-gray-400 focus:border-custom-primary ease-linear transition-all duration-150"
-                                value="South Africa">
-                            <span
-                                class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.country.help_text}}</span>
-
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-4/12 md:px-4">
-                        <div class="relative w-full mb-3">
-                            <label for="id_zipcode" class="block text-sm text-custom-h font-semibold capitalize mb-2">
-                                Postal Code
-                            </label>
-                            <input id="id_zipcode" required name="zipcode" type="number" value="{{form.zipcode.value}}"
-                                class="block p-2 md:text-base w-full text-sm text-gray-900 outline-none bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary placeholder:text-gray-400 focus:border-custom-primary ease-linear transition-all duration-150">
-                            <span
-                                class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.zipcode.help_text}}</span>
-
-                        </div>
-                    </div>
+                <!-- last name -->
+                <div class="relative">
+                    <p class="text-sm lg:text-base">
+                        <span class="leading-1.8 lg:leading-1.8">
+                            Cellphone:</span>
+                    </p>
+                    <input type="tel" name="phone" id="id_phone" value="{% if form.phone.value %}{{form.phone.value}}{% endif %}"
+                        class="text-paragraph-color pl-5 pr-[50px] outline-none border-2 border-border-color-9 focus:border focus:border-secondary-color h-[65px] block w-full rounded-none placeholder:text-paragraph-color placeholder:text-sm placeholder:text-opacity-85">
                 </div>
 
-                <div
-                    class="text-center mt-6 text-4xl inline-block h-12 bg-custom-h w-[150px] rounded-md cursor-pointer">
-                    <input type="submit" value="submit"
-                        class="text-white w-full h-full cursor-pointer text-sm font-semibold" />
+                <!-- display name -->
+                <div class="relative">
+                    <p class="text-sm lg:text-base">
+                        <span class="leading-1.8 lg:leading-1.8">Address one:</span>
+                    </p>
+                    <input type="text"  name="address_one" id="id_address_one" value="{% if form.address_one.value %}{{form.address_one.value}}{% endif %}"
+                        class="text-paragraph-color pl-5 pr-[50px] outline-none border-2 border-border-color-9 focus:border focus:border-secondary-color h-[65px] block w-full rounded-none placeholder:text-paragraph-color placeholder:text-sm placeholder:text-opacity-85">
                 </div>
-            </form>
+                <!--  Display Email -->
+                <div class="relative">
+                    <p class="text-sm lg:text-base">
+                        <span class="leading-1.8 lg:leading-1.8">
+                            Address two:</span>
+                    </p>
+                    <input type="text" name="address_two" id="id_address_two" value="{% if form.address_two.value %}{{form.address_two.value}}{% endif %}"
+                        class="text-paragraph-color pl-5 pr-[50px] outline-none border-2 border-border-color-9 focus:border focus:border-secondary-color h-[65px] block w-full rounded-none placeholder:text-paragraph-color placeholder:text-sm placeholder:text-opacity-85">
+                </div>
+                <div class="relative">
+                    <p class="text-sm lg:text-base">
+                        <span class="leading-1.8 lg:leading-1.8">City:</span>
+                    </p>
+                    <input type="text" name="city" id="id_city"
+                        value="{% if form.city.value %}{{form.city.value}}{% endif %}"
+                        class="text-paragraph-color pl-5 pr-[50px] outline-none border-2 border-border-color-9 focus:border focus:border-secondary-color h-[65px] block w-full rounded-none placeholder:text-paragraph-color placeholder:text-sm placeholder:text-opacity-85">
+                </div>
+                <div class="relative">
+                    <p class="text-sm lg:text-base">
+                        <span class="leading-1.8 lg:leading-1.8">Province:</span>
+                    </p>
+                    <select name="province" id="id_province" class="selectize boerder-2 border-border-color-9 text-[14px] leading-[60px] h-[65px]" style="
+                                opacity: 0;
+                                width: 0px;
+                                padding: 0px;
+                                height: 0px;
+                                ">
+                        <option value="" data-display="Select">
+                            Select Province
+                        </option>
+                        <option {% if form.province.value == "wc" %}selected{% endif %} value="wc">
+                            Western Cape
+                        </option>
+                        <option {% if form.province.value == "ec" %}selected{% endif %} value="ec">
+                            Eastern Cape
+                        </option>
+                        <option {% if form.province.value == "fs" %}selected{% endif %} value="fs">
+                            Free-state
+                        </option>
+                        <option {% if form.province.value == "nw" %}selected{% endif %} value="nw">North West</option>
+                        <option {% if form.province.value == "kzn" %}selected{% endif %} value="kzn">KwaZulu-Natal</option>
+                        <option {% if form.province.value == "gp" %}selected{% endif %} value="gp">Gauteng</option>
+                        <option {% if form.province.value == "lp" %}selected{% endif %} value="lp">Limpopo</option>
+                        <option {% if form.province.value == "mp" %}selected{% endif %} value="mp">Mpumalanga</option>
+                        <option {% if form.province.value == "nc" %}selected{% endif %} value="nc">Northern Cape</option>
+                    </select>
+                </div>
+                <!--  Display Email -->
+                <div class="relative">
+                    <p class="text-sm lg:text-base">
+                        <span class="leading-1.8 lg:leading-1.8">
+                            Zipcode:</span>
+                    </p>
+                    <input type="number" name="zipcode" id="id_zipcode"
+                        value="{% if form.zipcode.value %}{{form.zipcode.value}}{% endif %}"
+                        class="text-paragraph-color pl-5 pr-[50px] outline-none border-2 border-border-color-9 focus:border focus:border-secondary-color h-[65px] block w-full rounded-none placeholder:text-paragraph-color placeholder:text-sm placeholder:text-opacity-85">
+                </div>
+                <div class="relative">
+                    <p class="text-sm lg:text-base">
+                        <span class="leading-1.8 lg:leading-1.8">
+                            Country:</span>
+                    </p>
+                    <input type="text" name="country" id="id_country"
+                        value="{% if form.country.value %}{{form.country.value}}{% endif %}"
+                        class="text-paragraph-color pl-5 pr-[50px] outline-none border-2 border-border-color-9 focus:border focus:border-secondary-color h-[65px] block w-full rounded-none placeholder:text-paragraph-color placeholder:text-sm placeholder:text-opacity-85">
+                </div>
+            </div>
         </div>
-    </div>
+        <!-- submit button -->
+
+        <div>
+            <h5
+                class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-secondary-color hover:border-heading-color inline-block z-0">
+                <span
+                    class="inline-block absolute top-0 right-0 w-full h-full bg-secondary-color group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                <button type="submit"
+                    class="relative z-1 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-heading-color leading-[23px] uppercase">
+                    Save Changes
+                </button>
+            </h5>
+        </div>
+    </form>
 </div>
-{% endblock accountblock %}
+
+{% endblock content_v2 %}
 
 {% block js %}
 <script

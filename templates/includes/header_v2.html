@@ -64,7 +64,7 @@
                     <!-- item 1 -->
                     <li>
                         <a href="{% url 'bbgi_home:bbgi-home' %}"
-                            class="text-lg xl:text-[15px] xxl:text-lg text-heading-color hover:text-custom-primary font-semibold whitespace-nowrap pl-[10px] py-[22px]">Home
+                            class="text-lg xl:text-[15px] active xxl:text-lg text-heading-color hover:text-custom-primary font-semibold whitespace-nowrap pl-[10px] py-[22px]">Home
                         </a>
                     </li>
 
@@ -74,28 +74,24 @@
                         </a>
                     </li>
                     
-                    <!-- <li class="relative group">
+                    <li class="relative group">
                         <a href="#"
-                            class="text-lg xl:text-[15px] xxl:text-lg text-heading-color hover:text-custom-primary font-semibold whitespace-nowrap pl-[10px] py-[22px]">About
+                            class="text-lg xl:text-[15px] xxl:text-lg text-heading-color hover:text-custom-primary font-semibold whitespace-nowrap pl-[10px] py-[22px]">Markets
                             <span class="text-sm font-extrabold -ml-0.5">+</span></a>
                         
                         <ul
                             class="py-[15px] border-t-[5px] border-custom-primary bg-white w-dropdown shadow-box-shadow-4 absolute left-0 top-full opacity-0 invisible translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-xl">
+                            
                             <li>
-                                <a class="whitespace-nowrap px-[30px] py-2"
-                                    href="{% url 'bbgi_home:about-bbgi' %}">About</a>
-                            </li>
-
-                            <li>
-                                <a class="whitespace-nowrap px-[30px] py-2" href="portfolio.html">Portfolio</a>
+                                <a class="whitespace-nowrap px-[30px] py-2" href="{% url 'markets:all-services' %}">Services</a>
                             </li>
                             <li>
-                                <a class="whitespace-nowrap px-[30px] py-2" href="{% url 'bbgi_home:faqs' %}">FAQ</a>
+                                <a class="whitespace-nowrap px-[30px] py-2" href="{% url 'markets:shop' %}">Shop</a>
                             </li>
                         </ul>
-                    </li> -->
+                    </li> 
 
-                    <!-- item 3 -->
+                    
                     <li>
                         <a href="{% url 'listings:listings' %}"
                             class="text-lg xl:text-[15px] xxl:text-lg text-heading-color hover:text-custom-primary font-semibold whitespace-nowrap pl-[10px] py-[22px]">Listings
@@ -160,7 +156,7 @@
                                 <a class="whitespace-nowrap px-[15px] py-[5px]" href="{% url 'bbgi_home:dashboard' %}">Dashboard</a>
                             </li>
                             <li>
-                                <a class="whitespace-nowrap px-[15px] py-[5px]" href="{% url 'accounts:contact-update' %}">My Account</a>
+                                <a class="whitespace-nowrap px-[15px] py-[5px]" href="{% url 'accounts:profile-update' %}">My Account</a>
                             </li>
                             <li>
                                 <a class="whitespace-nowrap px-[15px] py-[5px]" href="{% url 'accounts:logout' %}">Logout</a>
@@ -315,7 +311,7 @@
                             <li class="group mt-4">
                                 <!-- accordion header -->
                                  {% if request.user.is_authenticated %}
-                                <a href="{% url 'accounts:contact-update' %}" class="text-sm lg:text-base">
+                                <a href="{% url 'accounts:profile-update' %}" class="text-sm lg:text-base">
                                     <span
                                         class="inline-block h-[50px] w-[50px] border-2 border-border-color-1 text-center leading-[50px] mr-3">
                                         <i class="far fa-user"></i>

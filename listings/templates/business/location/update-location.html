@@ -1,29 +1,8 @@
-{% extends '_business_update.html' %}
+{% extends '_manage-listing.html' %}
 {% load static %}
 
-{% block seo_tags %}
-<title>BBGI - Create Listing</title>
-<meta name="description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
-                            to showcase businesses and expertise">
-<meta name="title" content="BBGI - Create Listing" />
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/listings/add" />
-<meta property="og:title" content="BBGI - Create Listing" />
-<meta property="og:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
-                            to showcase businesses and expertise" />
-<meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/listings/add" />
-<meta property="twitter:title" content="BBGI - Create Listing" />
-<meta property="twitter:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
-                            to showcase businesses and expertise" />
-<meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
-{% endblock seo_tags %}
-
-{% block businessblock %}
+{% block content_v2 %}
 
 <section class="w-full  font-sans py-10 h-full">
     <div class="">
@@ -129,7 +108,7 @@
     </div>
 </section>
 
-{% endblock businessblock %}
+{% endblock content_v2 %}
 {% block js %}
 <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD5_FEFwr5YQFY6SBGyE1RcqNgL_bvyYI&libraries=places&callback=initMap&solution_channel=GMP_QB_addressselection_v1_cAC"

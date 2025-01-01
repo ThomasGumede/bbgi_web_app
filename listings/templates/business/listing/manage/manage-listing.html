@@ -1,8 +1,8 @@
-{% extends '_dashboard.html' %}
+{% extends '_manage-listing.html' %}
 {% load static %}
 {{form.media}}
 {% block title %}{{listing.title}} Manage{% endblock title %}
-{% block content %}
+{% block content_v2 %}
 <section class="w-full bg-custom-bg py-10 px-4 relative block">
     <div class="">
         <div class="relative overflow-hidden block">
@@ -35,6 +35,21 @@
                     <div>
                         <span class="block text-2xl font-bold">{{listing.services.count}}</span>
                         <span class="block text-gray-500">Services</span>
+                    </div>
+                </div>
+                <div class="flex items-center p-8 bg-white shadow rounded-lg">
+                    <div
+                        class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
+                        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-bold">{{listing.services.count}}</span>
+                        <span class="block text-gray-500">Quotations</span>
                     </div>
                 </div>
             </div>
@@ -115,11 +130,7 @@
                                     <a href="{% url 'listings:get-listing' listing.slug %}"
                                         class="text-sm lg:text-base p-0 group-hover:text-custom-h text-white">View More</a>
                                 </div>
-                                <div
-                                    class="bg-custom-h  py-2 px-4 rounded-md duration-300 group hover:bg-white border-2 border-custom-h text-center">
-                                    <a href=""
-                                        class="text-sm lg:text-base p-0 group-hover:text-custom-h text-white">add tickets</a>
-                                </div>
+                                
                                 
                             </div>
                         </div>
@@ -198,4 +209,4 @@
         </div>
     </div>
 </section>
-{% endblock content %}
+{% endblock content_v2 %}

@@ -118,19 +118,34 @@ def create_event_address(request, event_slug):
 def update_event(request, event_slug):
     event = get_object_or_404(EventModel, organiser = request.user, slug = event_slug)
     if request.method == "POST":
-        form = EventForm(instance=event, data=request.POST, files=request.FILES)
+        form = EventCreateForm(instance=event, data=request.POST, files=request.FILES)
         if form.is_valid() and form.is_multipart():
             
             event = form.save(commit=False)
             event.save()
-            messages.success(request, "Event was updated successfully")
-            return redirect("events:manage-events")
+            messages.success(request, "Event details was updated successfully")
+            return redirect("events:manage-event", event.slug)
         else:
             messages.error(request, "Please fix below errors")
-            return render(request, "events/event/update.html", {"form": form })
+            return render(request, "events/event/update/update-event-details.html", {"form": form, "event": event })
         
-    form = EventForm(instance=event)
-    return render(request, "events/event/update.html", {"form": form })
+    form = EventCreateForm(instance=event)
+    return render(request, "events/event/update/update-event-details.html", {"form": form, "event": event })
+
+@login_required
+def update_event_address(request, event_slug):
+    event = get_object_or_404(EventModel, slug=event_slug, organiser=request.user)
+    form = EventAddressForm(instance=event)
+    if request.method == "POST":
+        form = EventAddressForm(instance=event, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Event address updated successfully!")
+            return redirect("events:update-event-tickets", event.slug)
+        else:
+            messages.error(request, "Error occured trying to add event address")
+
+    return render(request, "events/event/update/update-event-address.html", {"form": form, "event": event })
 
 @login_required
 def add_event_content(request, event_slug):
@@ -208,10 +223,10 @@ def update_event_organisor(request, event_slug, organisor_id):
             
             return redirect("events:manage-event", event_slug=event.slug)
         else:
-            return render(request, "events/event/manage/add-event-organisor.html", {"form": form, "event": event})
+            return render(request, "events/event/manage/update-event-organisor.html", {"form": form, "event": event})
         
     form = EventOrganisorForm(instance=organisor)
-    return render(request, "events/event/manage/add-event-organisor.html", {"form": form, "event": event})
+    return render(request, "events/event/manage/update-event-organisor.html", {"form": form, "event": event}) 
 
 
 @login_required

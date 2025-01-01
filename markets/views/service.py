@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from listings.models import Business
 from markets.models import Service
@@ -15,6 +16,13 @@ def get_services(request, listing_slug):
 def service_details(request, service_slug):
     service = get_object_or_404(Service, slug=service_slug)
     return render(request, "markets/services/service-details.html", {"service": service})
+
+def all_services(request):
+    services = Service.objects.all()
+    query = request.GET.get("query", None)
+    if query:
+        services = Service.objects.filter(Q(title__icontains=query) | Q(business__title__icontains=query))
+    return render(request, "markets/services/all-services.html", {"services": services, "query": query})
 
 @login_required
 def add_service(request, listing_slug):

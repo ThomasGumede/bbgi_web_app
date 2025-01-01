@@ -1,8 +1,15 @@
 from django.urls import path
-from events.views.event import create_event_address, delete_event_content, add_event_content, create_event, event_details, events, update_event, delete_event, add_event_organisor, update_event_organisor, delete_event_organisor
+from events.views.event import create_event_address, delete_event_content, add_event_content, \
+create_event, event_details, events, update_event, \
+delete_event, add_event_organisor, update_event_organisor, delete_event_organisor, update_event_address
+
 from events.views.order import create_ticket_order, add_guest_details, ticket_order, ticket_orders, cancel_ticket_order, order_checkout
-from events.views.ticket_type import confirm_attandance, create_new_ticket_types, create_ticket_types, update_ticket_type, get_event_ticket_types, delete_ticket_type
-from events.views.manage import manage_event, manage_events, manage_ticket_order, manage_ticket_orders, generate_guest_list, generate_ticket
+
+from events.views.ticket_type import confirm_attandance, create_new_ticket_types, create_ticket_types, \
+update_ticket_type, get_event_ticket_types, delete_ticket_type
+
+from events.views.manage import manage_event, manage_events, manage_ticket_order, manage_ticket_orders, \
+    generate_guest_list, generate_ticket
 
 app_name = "events"
 urlpatterns = [
@@ -15,9 +22,10 @@ urlpatterns = [
 
     path("event/details/<slug:event_slug>", event_details, name="event-details"),
     path("event/update/<slug:event_slug>", update_event, name="update-event"),
+    path("event/update-event-address/<slug:event_slug>", update_event_address, name="update-event-address"),
     path("event/delete/<slug:event_slug>", delete_event, name="delete-event"),
-    path("dashboard/my-events", manage_events, name="manage-events"),
-    path("dashboard/my-event/<slug:event_slug>", manage_event, name="manage-event"),
+    path("account/events/manage", manage_events, name="manage-events"),
+    path("account/events/manage/<slug:event_slug>", manage_event, name="manage-event"),
     path("dashboard/event/add-event-organisor/<slug:event_slug>", add_event_organisor, name="add-event-organisor"),
     path("dashboard/event/update-event-organisor/<slug:event_slug>/<uuid:organisor_id>", update_event_organisor, name="update-event-organisor"),
     path("dashboard/event/delete-event-organisor/<slug:event_slug>/<uuid:organisor_id>", delete_event_organisor, name="delete-event-organisor"),
@@ -37,9 +45,9 @@ urlpatterns = [
     path("order/cancel/<uuid:order_id>", cancel_ticket_order, name="cancel-ticket-order"),
     path("order/guest/<uuid:ticket_order_id>", add_guest_details, name="add-guests"),
     path("order/checkout/<uuid:ticket_order_id>", order_checkout, name="order-checkout"),
-    path("dashboard/order/manage", manage_ticket_orders, name="manage-ticket-orders"),
-    path("dashboard/order/manage/<uuid:order_id>", manage_ticket_order, name="manage-ticket-order"),
-    path("dashboard/order/generate/ticket/<uuid:order_id>/<uuid:ticket_id>", generate_ticket, name="generate-ticket")
+    path("account/order/manage", manage_ticket_orders, name="manage-ticket-orders"),
+    path("account/order/manage/<uuid:order_id>", manage_ticket_order, name="manage-ticket-order"),
+    path("account/order/generate/ticket/<uuid:order_id>/<uuid:ticket_id>", generate_ticket, name="generate-ticket")
 
     
     

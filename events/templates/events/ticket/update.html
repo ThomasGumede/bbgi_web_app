@@ -1,10 +1,10 @@
-{% extends '_dashboard.html' %}
+{% extends '_manage.html' %}
 {% load static %}
 {% block title %}Create event{% endblock title %}
-{% block content %}
+{% block content_v2 %}
 
 <section class="w-full pb-20 overflow-hidden">
-    {% include "includes/messages.html" %}
+    
     <div class="flex bg-blue-100 rounded-lg p-4 mb-4 text-sm text-blue-700" role="alert">
         <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
@@ -16,72 +16,18 @@
         </div>
     </div>
     <div class="bg-gray-50">
-        <div class="relative block p-4">
-            <div class="bg-white w-full p-2 pb-2">
-                <div class="mb-2">
-                    <h4 class="text-lg">
-                        Event summary
-                    </h4>
-                </div>
-                <div class="w-full">
-                    <div class="relative block  p-4 border rounded-md">
-                        <div class="flex w-full items-center justify-between mb-2">
-
-                            <div id="ticket_title">
-
-                                <h6 class="text-base">
-                                    Event title
-                                </h6>
-                            </div>
-                            <div class=" rounded-md w-fit">
-                                <p class="text-base font-normarl">
-                                    {{event.title}}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex w-full items-center justify-between mb-2">
-
-                            <div id="ticket_title">
-
-                                <h6 class="text-base">
-                                    Event Date and time
-                                </h6>
-                            </div>
-                            <div class=" rounded-md w-fit">
-                                <p class="text-base font-normarl">
-                                    {{event.event_startdate}} - {{event.event_enddate}}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex w-full items-center justify-between mb-2">
-
-                            <div id="ticket_title">
-
-                                <h6 class="text-base">
-                                    Event location
-                                </h6>
-                            </div>
-                            <div class=" rounded-md w-fit">
-                                <p class="text-base font-normarl">
-                                    {{event.event_address}}
-                                </p>
-                            </div>
-                        </div>
-                        
-
-                    </div>
-                </div>
-            </div>
-            <div class="space-y-4 p-2 bg-white w-full relative">
+        <div class="relative block">
+            
+            <div class="space-y-4 bg-white w-full relative">
                 {% include "includes/errors.html" %}
                 <div class="px-4">
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        
+
                         <div class="w-full grid bg-white gap-5">
                             <div class="flex w-full items-center justify-between">
                                 <h6 class="text-custom-h w-fit text-base mt-3 mb-6 font-bold uppercase">
-                                    Add Ticket types
+                                    Update '{{form.title.value}}' Ticket
                                 </h6>
                             </div>
 
@@ -119,18 +65,17 @@
                                                 <label for="{{form.available_seats.id_for_label}}">
                                                     total seats*
                                                 </label>
-                                                <input id="{{form.available_seats.id_for_label}}"
-                                                    value="{{form.available_seats.value}}"
-                                                    
-                                                    name="{{form.available_seats.html_name}}" type="number" min="0"
-                                                    class="block p-3 md:text-base w-full text-sm text-custom-h outline-none placeholder:text-gray-400 bg-gray-50 rounded-lg border border-gray-300 focus:ring-custom-primary focus:border-custom-primary ease-linear transition-all duration-150" />
+                                                {{form.available_seats}}
                                                 <span
                                                     class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.available_seats.help_text}}</span>
+                                                {% if form.available_seats.errors %}
+                                                <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.available_seats.errors.as_text}}</span>
+                                                {% endif %}
                                             </div>
                                         </div>
-                                        
+
                                     </div>
-                                    
+
                                 </div>
                                 <hr class="mb-4 border-b-1 border-gray-300" />
                             </div>
@@ -149,7 +94,7 @@
     </div>
 </section>
 
-{% endblock content %}
+{% endblock content_v2 %}
 {% block js %}
 <script>
 

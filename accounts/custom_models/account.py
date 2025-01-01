@@ -70,6 +70,9 @@ class Account(AbstractUser, AbstractProfile):
         verbose_name_plural = _("Accounts")
         ordering = ["-created"]
 
+    def get_full_user_address(self):
+        return f"{self.address_one}, {self.city}, {self.province}, {self.zipcode}"
+    
     def __str__(self):
         return self.get_full_name()
 

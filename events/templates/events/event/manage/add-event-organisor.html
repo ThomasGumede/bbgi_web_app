@@ -1,7 +1,7 @@
-{% extends '_dashboard.html' %}
+{% extends '_manage.html' %}
 {% load static %}
 {% block title %}Create event{% endblock title %}
-{% block content %}
+{% block content_v2 %}
 
 <section class="w-full pb-20 overflow-hidden">
     <div class="bg-gray-50">
@@ -9,76 +9,119 @@
             <div class="bg-white w-full p-2 pb-2">
                 <div class="mb-2">
                     <h4 class="text-lg">
-                        Event summary
+                        Event Organisors
                     </h4>
                 </div>
-                <div class="w-full">
-                    <div class="relative block  p-4 border rounded-md">
-                        <div class="flex w-full items-center justify-between mb-2">
-
-                            <div id="ticket_title">
-
-                                <h6 class="text-base">
-                                    Event title
-                                </h6>
-                            </div>
-                            <div class=" rounded-md w-fit">
-                                <p class="text-base font-normarl">
-                                    {{event.title}}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex w-full items-center justify-between mb-2">
-
-                            <div id="ticket_title">
-
-                                <h6 class="text-base">
-                                    Event Date and time
-                                </h6>
-                            </div>
-                            <div class=" rounded-md w-fit">
-                                <p class="text-base font-normarl">
-                                    {{event.event_startdate}} - {{event.event_enddate}}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex w-full items-center justify-between mb-2">
-
-                            <div id="ticket_title">
-
-                                <h6 class="text-base">
-                                    Event location
-                                </h6>
-                            </div>
-                            <div class=" rounded-md w-fit">
-                                <p class="text-base font-normarl">
-                                    {{event.event_address}}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex w-full items-center justify-between mb-2">
-
-                            <div id="ticket_title">
-
-                                <h6 class="text-base">
-                                    Tickets Type
-                                </h6>
-                            </div>
-                            <div class=" rounded-md w-fit">
-                                <p class="text-base font-normarl">
-                                    {{max_forms}}
-                                </p>
-                            </div>
-                        </div>
-
-
+                <div class="mb-4 overflow-x-auto w-full">
+                    <div class="align-middle inline-block min-w-full overflow-hidden bg-white px-4 pt-3 rounded-bl-lg rounded-br-lg">
+                        <table class="w-full text-left table-auto min-w-max">
+                            <thead>
+                                <tr>
+                                    <th class="p-4 border-y border-blue-gray-100 bg-customborder-custom-text/50">
+                                        <p
+                                            class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                            Organisor
+                                        </p>
+                                    </th>
+                
+                
+                                    <th class="p-4 border-y border-blue-gray-100 bg-customborder-custom-text/50">
+                                        <p
+                                            class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                            Phone
+                                        </p>
+                                    </th>
+                                    <th class="p-4 border-y border-blue-gray-100 bg-customborder-custom-text/50">
+                                        <p
+                                            class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                            Email
+                                        </p>
+                                    </th>
+                
+                
+                                    <th class="p-4 border-y border-blue-gray-100 bg-customborder-custom-text/50">
+                                        <p
+                                            class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                        </p>
+                                    </th>
+                
+                
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="p-4 border-b border-custom-text">
+                
+                                        <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                                            {{event.organiser.get_full_name}}
+                                        </p>
+                                    </td>
+                
+                                    <td class="p-4 border-b border-custom-text">
+                                        <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                                            {{event.organiser.phone}}
+                                        </p>
+                                    </td>
+                                    <td class="p-4 border-b border-custom-text">
+                                        <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                                            {{event.organiser.email}}
+                                        </p>
+                                    </td>
+                                    <td class="p-4 border-b border-custom-text space-x-8">
+                
+                
+                                    </td>
+                                </tr>
+                                {% for organisor in event.organisors.all %}
+                                <tr>
+                                    <td class="p-4 border-b border-custom-text">
+                
+                                        <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                                            {{organisor.full_name}}
+                                        </p>
+                                    </td>
+                
+                                    <td class="p-4 border-b border-custom-text">
+                                        <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                                            {{organisor.organisor_phone_one}}
+                                        </p>
+                                    </td>
+                                    <td class="p-4 border-b border-custom-text">
+                                        <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                                            {{organisor.organisor_email}}
+                                        </p>
+                                    </td>
+                                    <td class="p-4 border-b border-custom-text space-x-8">
+                                        <a href="{% url 'events:update-event-organisor' event_slug=event.slug organisor_id=organisor.id %}"
+                                            class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                            type="button">
+                                            <span class="">
+                                                <i class="fa-solid fa-plus text-xl"></i>
+                                            </span>
+                                        </a>
+                
+                                        <a href="{% url 'events:delete-event-organisor' event_slug=event.slug organisor_id=organisor.id %}"
+                                            class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                            type="button">
+                                            <span class="">
+                                                <i class="fa-solid text-red-600 fa-trash text-xl"></i>
+                
+                                            </span>
+                                        </a>
+                
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                
                     </div>
                 </div>
             </div>
             <div class="space-y-4 p-2 bg-white w-full relative">
                 {% include "includes/errors.html" %}
                 <div class="px-4">
-                    <form method="post" id="ticket_form" enctype="multipart/form-data">
+                    <form method="post" id="organiser_form" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="w-full grid bg-white gap-5">
                             <div class="">
@@ -160,7 +203,19 @@
     </div>
 </section>
 
-{% endblock content %}
+{% endblock content_v2 %}
 {% block js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('add_another').addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default form submission
 
+            // Add the value 'add another' to the hidden input field
+            document.getElementById('id_add_another').value = 'add another';
+
+            // Submit the form
+            document.getElementById('organiser_form').submit();
+        });
+    });
+</script>
 {% endblock js %}

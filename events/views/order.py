@@ -118,13 +118,14 @@ def ticket_orders(request, event_id=None):
     """
     List all ticket orders, optionally filtered by event.
     """
+    event = None
     if event_id:
         event = get_object_or_404(EventModel, id=event_id, organiser=request.user)
         ticket_orders = TicketOrderModel.objects.filter(event=event)
     else:
         ticket_orders = TicketOrderModel.objects.filter(event__organiser=request.user).select_related('event').order_by("-event__created")
 
-    return render(request, "events/orders/orders.html", {"orders": ticket_orders})
+    return render(request, "events/orders/orders.html", {"orders": ticket_orders, "event": event})
 
 @login_required
 def create_ticket_order(request, event_slug):

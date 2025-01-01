@@ -1,7 +1,27 @@
-{% extends '_dashboard.html' %}
+{% extends '_base_v2.html' %}
 {% load static %}
 {% block title %}Order {{order.order_number}}{% endblock title %}
 {% block content %}
+<section>
+    <!-- banner section -->
+    <div id="hero-section-"
+        class="w-full bg-no-repeat bg-cover bg-center relative z-0 after:w-full after:h-full after:absolute after:top-0 after:left-0 after:bg-white after:bg-opacity-30 after:-z-1">
+        <div class="container py-[110px]">
+            <h1 class="text-2xl sm:text-3xl md:text-[26px] lg:text-3xl xl:text-4xl font-bold text-custom-h mb-4">
+                <span class="leading-1.3 md:leading-1.3 lg:leading-1.3 xl:leading-1.3">Ticket Management</span>
+            </h1>
+            <ul class="breadcrumb flex gap-7 items-center text-sm lg:text-base font-bold pt-4">
+                <li class="home relative leading-1.8 lg:leading-1.8">
+                    <a href="{% url 'events:manage-ticket-orders' %}"><i class="fas fa-home text-custom-primary"></i>
+                        Ticket orders</a>
+                </li>
+                <li class="leading-1.8 lg:leading-1.8 text-custom-h">
+                    {{order.order_number}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
 <section class="w-full bg-gray-50 my-4 relative block">
     <div class="container">
         <div class="w-full mx-auto bg-white rounded-md p-7 overflow-hidden">
@@ -36,7 +56,7 @@
                             <article class="mx-auto space-y-4 w-fit">
                                 <div id="image_container" class="w-full mx-auto h-96 rounded-md overflow-hidden">
                                     {% if order.event.image %}
-                                    <img src="{{order.event.image.url}}" class="w-full h-full object-cover object-center" />
+                                    <img src="{{order.event.image.url}}" class="w-full h-full object-cover object-center" alt="{{order.event.title}}" />
                                     {% else %}
                                     <img src="{% static 'images/global/image-no.jpg' %}" class="w-full h-full object-cover object-center" />
                                     {% endif %}

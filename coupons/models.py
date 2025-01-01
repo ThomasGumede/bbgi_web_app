@@ -12,3 +12,6 @@ class Coupon(AbstractCreate):
 
     def __str__(self) -> str:
         return self.code
+    
+    def get_formated_date(self):
+        return

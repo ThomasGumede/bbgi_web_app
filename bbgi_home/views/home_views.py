@@ -4,6 +4,7 @@ from django.contrib import messages
 from bbgi_home.forms import EmailForm, SearchForm
 from bbgi_home.models import Blog, Member, Privacy
 from bbgi_home.tasks import send_email_to_admin
+from bbgi_home.utilities.decorators import user_not_superuser_or_staff
 from campaigns.models import CampaignModel
 from events.models import EventModel
 from listings.models import Business
@@ -39,9 +40,13 @@ def contact(request):
     return render(request, "home/contact.html", {"form": form})
 
 @login_required
+@user_not_superuser_or_staff
 def dashboard(request):
+    events = EventModel.objects.all()
+    campaigns = CampaignModel.objects.all()
+    listings = Business.objects.all()
     popular_services = Service.objects.filter(is_popular=True, on_discount=True)
-    return render(request, "dashboard/dashboard.html", {"popular_services": popular_services})
+    return render(request, "dashboard/dashboard.html", {"listings": listings, "events": events, "campaigns": campaigns, "popular_services": popular_services})
 
 def search(request):
 

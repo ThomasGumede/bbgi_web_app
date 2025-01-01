@@ -20,6 +20,12 @@ def manage_contribution(request, contribution_id):
     return render(request, "campaigns/contributions/manage/contribution.html", {"order": contribution})
 
 @login_required
+def get_contributors(request, campaign_id):
+    campaign = get_object_or_404(CampaignModel, id=campaign_id, organiser=request.user)
+    contributions = ContributionModel.objects.filter(campaign=campaign)
+    return render(request, "campaigns/contributions/get-contributors.html", {"contributions": contributions, "campaign": campaign})
+
+@login_required
 def contributions(request, campaign_id = None):
     
     contributions = None

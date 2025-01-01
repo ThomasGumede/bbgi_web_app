@@ -7,6 +7,6 @@ from django.contrib import messages
 
 @login_required
 def all_quotations(request):
-    quotations = Qoutation.objects.filter(client=request.user)
+    quotations = Qoutation.objects.all()
     return render(request, "dashboard/markets/quotations/quotations.html", {"quotations": quotations})
 

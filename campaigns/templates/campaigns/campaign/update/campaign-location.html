@@ -1,28 +1,6 @@
 {% extends '_update-campaign.html' %}
 {% load static %}
 
-{% block seo_tags %}
-<title>BBGI - Create Campaign</title>
-<meta name="description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
-                            to showcase businesses and expertise">
-<meta name="title" content="BBGI - Create Campaign" />
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/campaigns/get-started" />
-<meta property="og:title" content="BBGI - Create Campaign" />
-<meta property="og:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
-                            to showcase businesses and expertise" />
-<meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
-
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/campaigns/get-started" />
-<meta property="twitter:title" content="BBGI - Create Campaign" />
-<meta property="twitter:description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
-                            to showcase businesses and expertise" />
-<meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
-{% endblock seo_tags %}
-
 {% block campaign %}
 
 <section class="w-full  font-sans py-10 h-full">
@@ -115,18 +93,8 @@
                     </div>
                     {{form.map_coordinates}}
                 </div>
-                <div class="flex flex-wrap items-center justify-between gap-4 mt-6 ">
-                    <a href="{% url 'campaigns:create-campaign-with-slug' campaign.slug %}">
-                        <h5
-                            class="uppercase text-sm md:text-base !text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
-                            <span
-                                class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
-                            <div
-                                class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px]  leading-1.5 uppercase">
-                                <p class="!text-white group-hover:!text-custom-h">Previous step</p>
-                            </div>
-                        </h5>
-                    </a>
+                <div class=" mt-6 ">
+                    
                     <div>
                         <h5
                             class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-h hover:border-custom-primary inline-block z-0">
@@ -134,7 +102,7 @@
                                 class="inline-block absolute top-0 left-0 w-full h-full bg-custom-h group-hover:bg-custom-primary -z-1 group-hover:w-0 transition-all duration-300"></span>
                             <button type="submit"
                                 class="relative z-1 px-5 font-sans md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
-                                Save & Proceed
+                                Update Address
                             </button>
                         </h5>
                     </div>

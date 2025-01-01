@@ -21,6 +21,7 @@ def manage_campaigns(request):
     campaigns = CampaignModel.objects.filter(organiser = request.user)
     return render(request, "campaigns/campaign/manage/campaigns.html", {"campaigns": campaigns})
 
+
 @login_required
 def generate_contributors_list(request, campaign_id):
     quertset = CampaignModel.objects.prefetch_related(Prefetch("contributions", queryset=ContributionModel.objects.filter(paid=PaymentStatus.PAID)))
@@ -192,7 +193,7 @@ def update_campaign_contact(request, campaign_slug):
         if form.is_valid():
             form.save()
             # send_html_email('New campaign Added', 'campaigns@bbgi.co.za', 'emails/campaign-confirmation.html', {"campaign": campaign})
-            messages.success(request, "campaign contact details successfully added. It takes 12 - 48 hours for campaign status to be updated, will contact you if we require additional information. Thank you")
+            messages.success(request, "campaign contact details successfully updated.")
             
         else:
             messages.error(request, "Something went wrong while trying to add your business")

@@ -28,6 +28,23 @@ def add_main_location(request, listing_slug):
     return render(request, "business/create-listing/create-location.html", {"listing": listing, "form": form})
 
 @login_required
+def update_main_location(request, listing_slug):
+    queryset = Business.objects.all().prefetch_related("business_locations")
+    listing = get_object_or_404(queryset, slug=listing_slug, owner=request.user)
+    if request.method == "POST":
+        form = BusinessMainLocationForm(instance=listing, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Successfully updated main business location")
+            return redirect("listings:update-main-location", listing.slug)
+        else:
+            messages.error(request, "Error trying to save your business location")
+            return render(request, "business/listing/update/update-main-location.html", {"listing": listing, "form": form})
+        
+    form = BusinessMainLocationForm(instance=listing)
+    return render(request, "business/listing/update/update-main-location.html", {"listing": listing, "form": form})
+
+@login_required
 def create_location(request, listing_slug):
     queryset = Business.objects.all().prefetch_related("business_locations")
     listing = get_object_or_404(queryset, slug=listing_slug, owner=request.user)
