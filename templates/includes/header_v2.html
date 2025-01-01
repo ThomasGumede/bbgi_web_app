@@ -152,11 +152,13 @@
                             <li>
                                 <a class="whitespace-nowrap px-[15px] py-[5px]" href="{% url 'campaigns:create-campaign' %}">Add Campaign</a>
                             </li>
+                            {% if request.user.is_staff %}
                             <li>
                                 <a class="whitespace-nowrap px-[15px] py-[5px]" href="{% url 'bbgi_home:dashboard' %}">Dashboard</a>
                             </li>
+                            {% endif %}
                             <li>
-                                <a class="whitespace-nowrap px-[15px] py-[5px]" href="{% url 'accounts:profile-update' %}">My Account</a>
+                                <a class="whitespace-nowrap px-[15px] py-[5px]" href="{% url 'accounts:profile-update' %}">My Dashboard</a>
                             </li>
                             <li>
                                 <a class="whitespace-nowrap px-[15px] py-[5px]" href="{% url 'accounts:logout' %}">Logout</a>
@@ -232,11 +234,11 @@
                                     class="accordion-controller flex items-center justify-between cursor-pointer hover:text-custom-primary uppercase text-sm lg:text-base py-2 lg:py-2.5">
                                     ABOUT</a>
                             </li>
-                            <!-- <li class="accordion mt-4">
+                            <li class="accordion mt-4">
                                 
                                 <div
                                     class="accordion-controller flex items-center justify-between cursor-pointer hover:text-custom-primary uppercase text-sm lg:text-base py-2 lg:py-2.5">
-                                    About
+                                    Market
                                     <button class="px-3 h-full">
                                         <span
                                             class="w-[10px] h-0.5 bg-gray1 block dark:bg-whiteColor bg-opacity-75"></span><span
@@ -250,28 +252,23 @@
                                             <li class="mt-4">
                                                 
 
-                                                <a href="{% url 'bbgi_home:about-bbgi' %}"
-                                                    class="!leading-[22px] text-darkdeep1 text-sm lg:text-base hover:text-custom-primary">About</a>
+                                                <a href="{% url 'markets:all-services' %}"
+                                                    class="!leading-[22px] text-darkdeep1 text-sm lg:text-base hover:text-custom-primary">Markets</a>
                                             </li>
 
                                             <li class="mt-4">
                                                 
 
-                                                <a href="portfolio.html"
-                                                    class="!leading-[22px] text-darkdeep1 text-sm lg:text-base hover:text-custom-primary">Portfolio</a>
+                                                <a href="{% url 'markets:shop' %}"
+                                                    class="!leading-[22px] text-darkdeep1 text-sm lg:text-base hover:text-custom-primary">Shop</a>
                                             </li>
 
-                                            <li class="mt-4">
-                                                
-
-                                                <a href="{% url 'bbgi_home:faqs' %}"
-                                                    class="!leading-[22px] text-darkdeep1 text-sm lg:text-base hover:text-custom-primary">FAQ</a>
-                                            </li>
+                                            
                                             
                                         </ul>
                                     </div>
                                 </div>
-                            </li> -->
+                            </li>
                             <li class="mt-4">
                                 <!-- accordion header -->
                                 <a href="{% url 'listings:listings' %}"
