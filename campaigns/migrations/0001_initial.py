@@ -104,36 +104,5 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'Campaign Updates',
             },
         ),
-        migrations.CreateModel(
-            name='CampaignReview',
-            fields=[
-                ('id', models.UUIDField(db_index=True, default=uuid.uuid4, editable=False, primary_key=True, serialize=False, unique=True)),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('rating_value', models.IntegerField(validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(5)])),
-                ('commenter_email', models.EmailField(max_length=254)),
-                ('commenter_full_names', models.CharField(max_length=300)),
-                ('comment_title', models.CharField(max_length=250)),
-                ('comment', models.TextField()),
-                ('campaign', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='reviews', to='campaigns.campaignmodel')),
-                ('commenter', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='campaign_reviews', to=settings.AUTH_USER_MODEL)),
-            ],
-            options={
-                'verbose_name': 'Campaign Review',
-                'verbose_name_plural': 'Campaign Reviews',
-            },
-        ),
-        migrations.CreateModel(
-            name='CampaignContent',
-            fields=[
-                ('id', models.UUIDField(db_index=True, default=uuid.uuid4, editable=False, primary_key=True, serialize=False, unique=True)),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('image', models.ImageField(help_text='Upload emages images.', upload_to='campaigns/images/content/')),
-                ('campaign', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='images', to='campaigns.campaignmodel')),
-            ],
-            options={
-                'abstract': False,
-            },
-        ),
+        
     ]
