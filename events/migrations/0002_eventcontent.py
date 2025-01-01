@@ -17,26 +17,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='eventmodel',
-            name='event_enddate',
-            field=models.DateTimeField(validators=[django.core.validators.MinValueValidator(datetime.datetime(2025, 1, 1, 1, 0, 32, 770250, tzinfo=datetime.timezone.utc), 'Event end date and time cannot be in the past')]),
-        ),
-        migrations.AlterField(
-            model_name='eventmodel',
-            name='event_startdate',
-            field=models.DateTimeField(validators=[django.core.validators.MinValueValidator(datetime.datetime(2025, 1, 1, 1, 0, 32, 770227, tzinfo=datetime.timezone.utc), 'Event start date and time cannot be in the past')]),
-        ),
-        migrations.AlterField(
-            model_name='eventtickettypemodel',
-            name='sale_end',
-            field=models.DateTimeField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(datetime.datetime(2025, 1, 1, 1, 0, 32, 773353, tzinfo=datetime.timezone.utc), 'Ticket sale end date and time cannot be in the past')]),
-        ),
-        migrations.AlterField(
-            model_name='eventtickettypemodel',
-            name='sale_start',
-            field=models.DateTimeField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(datetime.datetime(2025, 1, 1, 1, 0, 32, 773330, tzinfo=datetime.timezone.utc), 'Ticket sale start date and time cannot be in the past')]),
-        ),
         migrations.CreateModel(
             name='EventReview',
             fields=[
