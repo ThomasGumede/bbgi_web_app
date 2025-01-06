@@ -1,24 +1,28 @@
 {% extends '_base.html' %}
 {% load static %}
 {% block seo_tags %}
-<title>BBGI - Blog</title>
+<title>Blogs - Insights and Updates from BBGI</title>
 <meta name="description"
-    content="The Black Business Growth Initiative supports Black African businesses and careers by providing a unified platform for entrepreneurs and professionals to showcase their expertise and promote unity and cooperation.">
-<meta name="title" content="BBGI -  Black Business Growth Initiative" />
+    content="Stay informed with blogs covering Black African business insights, success stories, and updates from the BBGI community.">
+<meta name="keywords"
+    content="BBGI blogs, Black business insights, entrepreneurial tips, business updates, success stories">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://bbgi.co.za/blogs">
+
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/blogs" />
-<meta property="og:title" content="BBGI - Blog" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+<meta property="og:title" content="Blogs - Insights and Updates from BBGI" />
 <meta property="og:description"
-    content="The Black Business Growth Initiative supports Black African businesses and careers by providing a unified platform for entrepreneurs and professionals to showcase their expertise and promote unity and cooperation." />
+    content="Stay informed with blogs covering Black African business insights, success stories, and updates from the BBGI community." />
 <meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/blogs" />
-<meta property="twitter:title" content="BBGI - Blog" />
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
+<meta property="twitter:title" content="Blogs - Insights and Updates from BBGI" />
 <meta property="twitter:description"
-    content="The Black Business Growth Initiative supports Black African businesses and careers by providing a unified platform for entrepreneurs and professionals to showcase their expertise and promote unity and cooperation." />
+    content="Stay informed with blogs covering Black African business insights, success stories, and updates from the BBGI community." />
 <meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 {% endblock seo_tags %}
 

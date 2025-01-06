@@ -1,6 +1,27 @@
 {% extends '_base.html' %}
 {% load static %}
 
+{% block seo_tags %}
+<title>BBGI - Services</title>
+<meta name="description"
+  content="From educational initiatives to healthcare support, our campaigns are a testament to the transformative impact of unity">
+<meta name="title" content="BBGI -  Services" />
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+<meta property="og:title" content="BBGI - Services" />
+<meta property="og:description"
+  content="From educational initiatives to healthcare support, our campaigns are a testament to the transformative impact of unity" />
+<meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
+<meta property="twitter:title" content="BBGI - Services" />
+<meta property="twitter:description"
+  content="From educational initiatives to healthcare support, our campaigns are a testament to the transformative impact of unity" />
+<meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+{% endblock seo_tags %}
 
 {% block content %}
 <section>

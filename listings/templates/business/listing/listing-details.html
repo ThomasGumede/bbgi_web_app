@@ -8,7 +8,7 @@
 <meta name="title" content="{{listing.title}}" />
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="{% url 'listings:get-listing' listing.slug %}" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
 <meta property="og:title" content="{{listing.title}}" />
 <meta property="og:description" content="{{listing.details|truncatechars:157}}" />
 {% if listing.background_image %}
@@ -18,7 +18,7 @@
 {% endif %}
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="{% url 'listings:get-listing' listing.slug %}" />
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
 <meta property="twitter:title" content="{{listing.title}}" />
 <meta property="twitter:description" content="{{listing.details|truncatechars:157}}" />
 {% if listing.background_image %}

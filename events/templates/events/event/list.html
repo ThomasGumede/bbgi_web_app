@@ -1,21 +1,26 @@
 {% extends '_base.html' %}
 {% load static %}
 {% block seo_tags %}
-<title>BBGI - Events</title>
-<meta name="description" content="{{listing.details|truncatechars:157}}">
-<meta name="title" content="BBGI - Events" />
+<title>Events - Connect and Grow at BBGI Hosted Gatherings</title>
+<meta name="description"
+    content="Attend events organized by BBGI and its members to network, learn, and grow. Find workshops, seminars, and social gatherings in the Black African business community.">
+<meta name="keywords"
+    content="BBGI events, business networking, Black professionals events, workshops, seminars, Cape Town business events">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/events" />
-<meta property="og:title" content="BBGI - Events" />
-<meta property="og:description" content="{{listing.details|truncatechars:157}}" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+<meta property="og:title" content="Events - Connect and Grow at BBGI Hosted Gatherings" />
+<meta property="og:description" content="Attend events organized by BBGI and its members to network, learn, and grow. Find workshops, seminars, and social gatherings in the Black African business community." />
 <meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/events" />
-<meta property="twitter:title" content="BBGI - Events" />
-<meta property="twitter:description" content="{{listing.details|truncatechars:157}}" />
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
+<meta property="twitter:title" content="Events - Connect and Grow at BBGI Hosted Gatherings" />
+<meta property="twitter:description" content="Attend events organized by BBGI and its members to network, learn, and grow. Find workshops, seminars, and social gatherings in the Black African business community." />
 <meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 
 {% endblock seo_tags %}

@@ -27,3 +27,4 @@ def apply_coupon(request):
 
 def create_coupon(request):
     form = CreateCouponForm()
+    return render(request, "coupons/add-coupon.html", {"form": form})

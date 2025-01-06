@@ -15,6 +15,15 @@
     <link rel="stylesheet" href="{% static 'css/glightbox.css' %}">
     <link rel="stylesheet" href="{% static 'css/jquery.datetimepicker.min.css' %}">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_MEASUREMENT_ID }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', '{{ GOOGLE_ANALYTICS_MEASUREMENT_ID }}');
+    </script>
     {% block styles %}
     {% endblock styles %}
     <style>
@@ -3624,31 +3633,82 @@ input[type="range"]::-ms-thumb {
         }
     </style>
 
-
-    <meta name="keywords"
-        content="bbgi, Black Business Growth Initiative, Black African businesses, support, ndwandwa, sazi ndwandwa, business, cape town, south africa, ndwandwa family foundation, business listing, business support, african business listing">
-    <meta name="robots" content="index, nofollow">
-
     {% block seo_tags %}
-    <title>BBGI &dash; Empowering Black Business</title>
-    <meta name="description"
-        content="The Black Business Growth Initiative supports Black African businesses and careers by providing a unified platform for entrepreneurs and professionals to showcase their expertise and promote unity and cooperation.">
-    <meta name="title" content="BBGI -  Empowering Black Business" />
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://bbgi.co.za" />
-    <meta property="og:title" content="BBGI - Empowering Black Business" />
-    <meta property="og:description"
-        content="The Black Business Growth Initiative supports Black African businesses and careers by providing a unified platform for entrepreneurs and professionals to showcase their expertise and promote unity and cooperation." />
-    <meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+    <!-- Primary Meta Tags -->
+      <title>BBGI - Empowering Black African Businesses and Professionals</title>
+      <meta name="description" content="BBGI is a platform for showcasing Black African businesses, campaigns, and events while fostering unity, collaboration, and growth among entrepreneurs and professionals.">
+      <meta name="keywords" content="Black Business Growth Initiative, Black African businesses, business campaigns, events, services, business networking, Cape Town">
+      <meta name="author" content="BBGI Team">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="robots" content="index, follow">
+      <link rel="canonical" href="https://bbgi.co.za/">
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://bbgi.co.za" />
-    <meta property="twitter:title" content="BBGI - Empowering Black Business" />
-    <meta property="twitter:description"
-        content="The Black Business Growth Initiative supports Black African businesses and careers by providing a unified platform for entrepreneurs and professionals to showcase their expertise and promote unity and cooperation." />
-    <meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+      <!-- Open Graph / Facebook -->
+      <meta property="og:type" content="website">
+      <meta property="og:url" content="https://bbgi.co.za/">
+      <meta property="og:title" content="BBGI - Empowering Black African Businesses and Professionals">
+      <meta property="og:description" content="BBGI is a platform for showcasing Black African businesses, campaigns, and events while fostering unity, collaboration, and growth among entrepreneurs and professionals.">
+      <meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}">
+
+      <!-- Twitter -->
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:url" content="https://bbgi.co.za/">
+      <meta name="twitter:title" content="BBGI - Empowering Black African Businesses and Professionals">
+      <meta name="twitter:description" content="BBGI is a platform for showcasing Black African businesses, campaigns, and events while fostering unity, collaboration, and growth among entrepreneurs and professionals.">
+      <meta name="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}">
+      <meta name="twitter:creator" content="@BBGIOfficial">
+
+      <!-- Google+ / Schema.org -->
+      <meta itemprop="name" content="BBGI - Empowering Black African Businesses and Professionals">
+      <meta itemprop="description" content="BBGI is a platform for showcasing Black African businesses, campaigns, and events while fostering unity, collaboration, and growth among entrepreneurs and professionals.">
+      <meta itemprop="image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}">
+
+      <!-- Additional Meta Tags -->
+      <meta property="og:locale" content="en_ZA">
+      <meta property="og:site_name" content="BBGI">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+      <!-- Structured Data / Schema Markup -->
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "url": "https://bbgi.co.za/",
+          "name": "Black Business Growth Initiative (BBGI)",
+          "description": "A platform to empower Black African businesses and professionals through business listings, campaigns, and events.",
+          "publisher": {
+            "@type": "Organization",
+            "name": "BBGI",
+            "url": "https://bbgi.co.za"
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://bbgi.co.za/search?search_by=listings&query={search_term_string}",
+            "query-input": "required name=search_term_string"
+          },
+          "hasPart": [
+            {
+              "@type": "Service",
+              "name": "Business Listings",
+              "description": "Explore Black-owned businesses and their services. Join BBGI to list your business and connect with other entrepreneurs.",
+              "url": "https://bbgi.co.za/businesses"
+            },
+            {
+              "@type": "Service",
+              "name": "Campaign Listings",
+              "description": "Support and discover campaigns by Black African professionals and businesses to drive community and economic growth.",
+              "url": "https://bbgi.co.za/campaigns"
+            },
+            {
+              "@type": "Service",
+              "name": "Event Listings",
+              "description": "Attend networking events, seminars, and workshops to grow your business and connect with the Black African business community.",
+              "url": "https://bbgi.co.za/events"
+            }
+          ]
+        }
+      </script>
     {% endblock seo_tags %}
 </head>
 

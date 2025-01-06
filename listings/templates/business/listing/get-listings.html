@@ -3,24 +3,28 @@
 
 
 {% block seo_tags %}
-<title>BBGI - Listings</title>
+<title>Businesses - Discover Black-Owned Enterprises on BBGI</title>
 <meta name="description"
-    content="From educational initiatives to healthcare support, our campaigns are a testament to the transformative impact of unity">
-<meta name="title" content="BBGI -  Listings" />
+    content="Explore and connect with Black-owned businesses listed on BBGI. Find services, expertise, and opportunities to support and collaborate with these enterprises.">
+<meta name="keywords"
+    content="Black-owned businesses, business directory, Black entrepreneurs, BBGI businesses, Cape Town business community">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/listings" />
-<meta property="og:title" content="BBGI - Listings" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+<meta property="og:title" content="Businesses - Discover Black-Owned Enterprises on BBGI" />
 <meta property="og:description"
-    content="From educational initiatives to healthcare support, our campaigns are a testament to the transformative impact of unity" />
+    content="Explore and connect with Black-owned businesses listed on BBGI. Find services, expertise, and opportunities to support and collaborate with these enterprises." />
 <meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/listings" />
-<meta property="twitter:title" content="BBGI - Listings" />
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
+<meta property="twitter:title" content="Businesses - Discover Black-Owned Enterprises on BBGI" />
 <meta property="twitter:description"
-    content="From educational initiatives to healthcare support, our campaigns are a testament to the transformative impact of unity" />
+    content="Explore and connect with Black-owned businesses listed on BBGI. Find services, expertise, and opportunities to support and collaborate with these enterprises." />
 <meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 {% endblock seo_tags %}
 

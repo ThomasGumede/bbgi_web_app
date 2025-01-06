@@ -9,10 +9,10 @@ from listings.views.business_views import add_listing, add_listing_socials, dele
 app_name = "listings"
 
 urlpatterns = [
-    path("listings/", get_listings, name="listings"),
+    path("businesses/", get_listings, name="listings"),
     path("account/listings/manage", manage_listings, name="manage-listings"),
     path("listings/category=<slug:category>", get_listings, name="get-listings-by-category"),
-    path("listing/details/<slug:listing_slug>", get_listing, name="get-listing"),
+    path("business/details/<slug:listing_slug>", get_listing, name="get-listing"),
     path("listing/create-listing", add_listing, name = "add-listing"),
     path("listing/<slug:listing_slug>/create-listing", add_listing, name = "add-listing-with-slug"),
     path("listing/<slug:listing_slug>/create-listing-hours", add_business_hours, name = "add-business-hours"),

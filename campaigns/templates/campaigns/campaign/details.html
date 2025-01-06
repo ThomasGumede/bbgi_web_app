@@ -6,7 +6,7 @@
 <meta name="title" content="{{campaign.title}}" />
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/campaigns/campaign/{{campaign.slug}}" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
 <meta property="og:title" content="{{campaign.title}}" />
 <meta property="og:description" content="{{campaign.details|truncatechars:157}}" />
 {% if campaign.image %}
@@ -16,7 +16,7 @@
 {% endif %}
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/campaigns/campaign/{{campaign.slug}}" />
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
 <meta property="twitter:title" content="{{campaign.title}}" />
 <meta property="twitter:description" content="{{campaign.details|truncatechars:157}}" />
 {% if campaign.image %}

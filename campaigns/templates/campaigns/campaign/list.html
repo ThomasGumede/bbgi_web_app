@@ -1,29 +1,31 @@
 {% extends '_base.html' %}
 {% load static %}
 {% block seo_tags %}
-<title>BBGI - Campaigns</title>
-<meta name="description" content="From educational initiatives to healthcare support, our campaigns are a testament to the transformative impact of unity">
-<meta name="title" content="BBGI - Campaigns" />
+<title>Campaigns - Empowering Initiatives by Black African Entrepreneurs</title>
+<meta name="description"
+    content="Discover campaigns by Black African entrepreneurs and professionals. Support initiatives that drive innovation, community development, and growth.">
+<meta name="keywords"
+    content="Black business campaigns, community initiatives, fundraising campaigns, BBGI campaigns, support Black businesses">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/campaigns" />
-<meta property="og:title" content="BBGI - Campaigns" />
-<meta property="og:description" content="From educational initiatives to healthcare support, our campaigns are a testament to the transformative impact of unity" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+<meta property="og:title" content="Campaigns - Empowering Initiatives by Black African Entrepreneurs" />
+<meta property="og:description" content="Discover campaigns by Black African entrepreneurs and professionals. Support initiatives that drive innovation, community development, and growth." />
 <meta property="og:image" content="https://bbgi.co.za{{listing.background_image.url}}" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/campaigns" />
-<meta property="twitter:title" content="BBGI - Campaigns" />
-<meta property="twitter:description" content="From educational initiatives to healthcare support, our campaigns are a testament to the transformative impact of unity" />
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
+<meta property="twitter:title" content="Campaigns - Empowering Initiatives by Black African Entrepreneurs" />
+<meta property="twitter:description" content="Discover campaigns by Black African entrepreneurs and professionals. Support initiatives that drive innovation, community development, and growth." />
 <meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 
 {% endblock seo_tags %}
 
-{% block description %}
-<meta name="description"
-    content="From educational initiatives to healthcare support, our campaigns are a testament to the transformative impact of unity">
-{% endblock description %}
 
 {% block content %}
 

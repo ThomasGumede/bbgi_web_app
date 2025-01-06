@@ -8,7 +8,7 @@
 <meta name="title" content="{{post.title}}" />
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/blogs/details/{{post.slug}}" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
 <meta property="og:title" content="{{post.title}}" />
 <meta property="og:description"
     content="{{post.content|truncatechars:157}}" />
@@ -16,7 +16,7 @@
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/blogs/details/{{post.slug}}" />
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
 <meta property="twitter:title" content="{{post.title}}" />
 <meta property="twitter:description"
     content="{{post.content|truncatechars:157}}" />

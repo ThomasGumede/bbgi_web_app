@@ -10,7 +10,7 @@
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/about-us" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
 <meta property="og:title" content="{{service.business.title}} &dash; {{service.title}} details" />
 <meta property="og:description"
     content="{{service.description|slice:':150'}}" />
@@ -18,7 +18,7 @@
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/about-us" />
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
 <meta property="twitter:title" content="{{service.business.title}} &dash; {{service.title}} details" />
 <meta property="twitter:description"
     content="{{service.description|slice:':150'}}" />

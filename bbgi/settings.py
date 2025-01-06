@@ -114,6 +114,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     
     'accounts.apps.AccountsConfig',
     'bbgi_home',
@@ -133,6 +134,8 @@ INSTALLED_APPS = [
     # "django.contrib.sites",
     # 'django.contrib.sitemaps',
 ]
+
+GOOGLE_ANALYTICS_MEASUREMENT_ID = config('GOOGLE_G')
 
 TAILWIND_APP_NAME = 'theme'
 NPM_BIN_PATH = "/usr/bin/npm"
