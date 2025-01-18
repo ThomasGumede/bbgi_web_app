@@ -22,6 +22,7 @@ class SearchForm(forms.Form):
     query = forms.CharField(widget=forms.TextInput(attrs={"type": "search", "class": "bg-gray-50 outline-none focus:outline-none border-none p-2 py-2 rounded-md text-lg text-black focus:border-none h-full"}))
 
 class EmailForm(forms.ModelForm):
+    recaptcha_token = forms.CharField(widget=forms.HiddenInput())
     class Meta:
         model = EmailModel
         fields = ('from_email', 'name', 'message', 'subject')

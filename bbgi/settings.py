@@ -46,11 +46,14 @@ CELERY_BEAT_SCHEDULE = {
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3y8rwrn(uibq1y74d_(taob6lm1-8fe)wp6=99iqbu9z#b814+'
+SECRET_KEY = config('SECRET', 'django-insecure-3y8rwrn(uibq1y74d_(taob6lm1-8fe)wp6=99iqbu9z#b814+')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config('DEBUG', default=False, cast=bool)
 
+RECAPTCHA_ENTERPRISE_PROJECT_ID = config('RECAPTCHA_ENTERPRISE_PROJECT_ID')
+RECAPTCHA_ENTERPRISE_SITE_KEY = config('RECAPTCHA_ENTERPRISE_SITE_KEY')
+GOOGLE_APPLICATION_CREDENTIALS = '/path/to/your/service-account-key.json'
 #  Custom User model
 AUTH_USER_MODEL = 'accounts.Account'
 AUTHENTICATION_BACKENDS = ['accounts.utilities.backends.EmailBackend']

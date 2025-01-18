@@ -5,12 +5,16 @@ from bbgi_home.forms import EmailForm, SearchForm
 from bbgi_home.models import Blog, Member, Privacy
 from bbgi_home.tasks import send_email_to_admin
 from bbgi_home.utilities.decorators import user_not_superuser_or_staff
+from bbgi_home.utilities.google_recaptcha import validate_recaptcha
 from campaigns.models import CampaignModel
 from events.models import EventModel
 from listings.models import Business
 from markets.models import Service
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+import logging
 
+logger = logging.getLogger("tasks")
 # Create your views here.
 def bbgi_home(request):
     blogs = Blog.objects.all()[:5]
@@ -26,10 +30,22 @@ def contact(request):
     if request.method == 'POST':
         form = EmailForm(request.POST)
         if form.is_valid():
-            form.save()
-            send_email_to_admin(form.cleaned_data["subject"], form.cleaned_data["message"], form.cleaned_data["from_email"], form.cleaned_data["name"])
-            messages.success(request, "We have successfully receive your email, will be in touch shortly")
-            return redirect("bbgi_home:contact")
+            recaptcha_token = form.cleaned_data.get('recaptcha_token')
+            try:
+                validate_recaptcha(
+                    token=recaptcha_token,
+                    project_id=settings.RECAPTCHA_ENTERPRISE_PROJECT_ID,
+                    site_key=settings.RECAPTCHA_ENTERPRISE_SITE_KEY,
+                )
+                form.save()
+                send_email_to_admin(form.cleaned_data["subject"], form.cleaned_data["message"], form.cleaned_data["from_email"], form.cleaned_data["name"])
+                messages.success(request, "We have successfully receive your email, will be in touch shortly")
+                return redirect("bbgi_home:contact")
+            
+            except ValueError as e:
+                logger.error(f"Failed to verify this due to f{e}")
+                messages.success(request, "We have successfully receive your email, will be in touch shortly")
+                return redirect("bbgi_home:contact")
         else:
             messages.error(request, "Something went wrong, please fix errors below")
             for err in form.errors:
