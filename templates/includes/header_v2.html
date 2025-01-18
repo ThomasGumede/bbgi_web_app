@@ -1,54 +1,7 @@
 {% load static %}
 <header>
     <!-- header top -->
-    <div class="bg-section-bg-6">
-        <div class="container text-white text-[13px] md:text-sm font-bold">
-            <div class="flex justify-center md:justify-between items-center flex-wrap md:flex-nowrap">
-                <div class="flex justify-center md:block pt-2 md:pt-0">
-                    <ul class="basis-full md:basis-auto flex gap-6 lg:gap-9 items-center">
-                        <li>
-                            <a class="hover:text-custom-primary"
-                                href="mailto:info@bbgi.co.za">
-                                <i
-                                    class="fa-solid fa-envelope text-custom-primary font-bold mr-0.5"></i>
-                                info@bbgi.co.za</a>
-                        </li>
-                        <li>
-                            <a class="hover:text-custom-primary"><i
-                                    class="fa-solid fa-location-pin text-custom-primary font-bold mr-0.5"></i>
-                                {{address}}</a>
-                        </li>
-                    </ul>
-                </div> 
-
-                <div class="basis-full md:basis-auto flex justify-center md:block py-[5px] md:py-0">
-                    <ul class="text flex items-center gap-[15px]">
-                        <li>
-                            <a href="{{facebook}}" title="Facebook"><i
-                                    class="fab fa-facebook-f font-bold"></i></a>
-                        </li>
-                        <li>
-                            <a href="{{instagram}}" title="Instagram"><i class="fab fa-instagram font-bold"></i></a>
-                        </li>
-
-                        <li>
-                            <a href="{{youtube}}" title="YouTube"><i
-                                    class="fab fa-youtube font-bold"></i></a>
-                        </li>
-                        <li>
-                            <a href="{{linkedin}}" title="Linkedin"><i
-                                    class="fab fa-linkedin font-bold"></i></a>
-                        </li>
-                        <li>
-                            <a href="{% if request.user.is_authenticated and request.user.is_paid %}{% url 'listings:add-listing' %}{% else %}{% url 'listings:get-started-with-listing' %}{% endif %}"
-                                class="px-4 md:px-5 py-0.5 md:py-3 ml-2 lg:ml-5 bg-custom-primary inline-block bg-opacity-100 hover:bg-opacity-60 hover:text-white">Add
-                                Listing</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <!-- navbar main -->
     <div class="sticky-header z-xl bg-white transition-all duration-700">
         <div

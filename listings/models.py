@@ -55,6 +55,7 @@ class OperatingChoices(models.TextChoices):
 
 class Category(AbstractCreate):
     thumbnail = models.ImageField(upload_to="category/business/", null=True, blank=True)
+    icon = models.CharField(max_length=250)
     slug = models.SlugField(max_length=350, unique=True, db_index=True)
     label = models.CharField(max_length=250, unique=True)
     

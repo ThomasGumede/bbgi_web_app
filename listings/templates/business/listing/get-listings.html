@@ -399,8 +399,7 @@
                                                     <img src="{{category.thumbnail.url}}" alt="Medical Category"
                                                         class="w-full  h-full object-cover">
                                                     {% else %}
-                                                    <img src="{% static 'imgs/categories/Medical.png' %}" alt="Medical Category"
-                                                        class="w-full  h-full object-cover">
+                                                    {{category.icon|safe}}
                                                     {% endif %}
                                                 </div>
                                                 <div>
