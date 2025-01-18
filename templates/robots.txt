@@ -2,11 +2,11 @@ User-agent: *
 Disallow: /
 
 User-agent: *
-Allow: /{% url 'bbgi_home:bbgi-home' %}
-Allow: /{% url 'bbgi_home:about-bbgi' %}
-Allow: /{% url 'bbgi_home:contact' %}
-Allow: /{% url 'bbgi_home:blogs' %}
-Allow: /{% url 'campaigns:campaigns' %}
-Allow: /{% url 'listings:listings' %}
-Allow: /{% url 'events:events' %}
+Allow: {% url 'bbgi_home:bbgi-home' %}
+Allow: {% url 'bbgi_home:about-bbgi' %}
+Allow: {% url 'bbgi_home:contact' %}
+Allow: {% url 'bbgi_home:blogs' %}
+Allow: {% url 'campaigns:campaigns' %}
+Allow: {% url 'listings:listings' %}
+Allow: {% url 'events:events' %}
 Sitemap: {{ request.scheme }}://{{ request.get_host }}/sitemap.xml
