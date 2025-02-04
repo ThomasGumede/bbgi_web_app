@@ -42,7 +42,7 @@
                         <li>
                             <a href="{% if request.user.is_authenticated and request.user.is_paid %}{% url 'listings:add-listing' %}{% else %}{% url 'listings:get-started-with-listing' %}{% endif %}"
                                 class="px-4 md:px-5 py-0.5 md:py-3 ml-2 lg:ml-5 bg-custom-primary inline-block bg-opacity-100 hover:bg-opacity-60 hover:text-white">Add
-                                Listing</a>
+                                Business</a>
                         </li>
                     </ul>
                 </div>
