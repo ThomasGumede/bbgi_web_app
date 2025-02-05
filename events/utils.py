@@ -18,6 +18,38 @@ def handle_event_file_upload(instance, filename):
     filename = '{}.{}'.format(uuid.uuid4().hex, ext)
     return f"event/{filename}"
 
+def send_boarding_email_to_organiser(event: EventModel, request):
+    try:
+        context = {
+            
+            "event": event,
+        }
+        mail_subject = f"Event '{event.title}' was created Successfully"
+        message_template = "emails/manage-event-email.html"
+        
+        # Render email content
+        message = render_to_string(message_template, context, request=request)
+
+        # Send email with attachments
+        email = EmailMessage(
+            subject=mail_subject,
+            body=message,
+            from_email="BBGI Events <events@bbgi.co.za>",
+            to=[event.organiser.email],
+        )
+        email.content_subtype = 'html'
+        sent = email.send()
+        
+        if not sent:
+            email_logger.error(f"Failed to send event added email to {event.organiser.email} for {event.title}")
+            return False
+
+        return True
+        
+    except Exception as ex:
+        email_logger.error(f"Error in sending event added email to organisor: {ex}")
+        return False
+
 def send_email_to_admins(event: EventModel, request):
     try:
         

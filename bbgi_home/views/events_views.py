@@ -1,5 +1,7 @@
+import logging
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from accounts.custom_models.choices import StatusChoices
 from bbgi_home.utilities.decorators import user_not_superuser_or_staff
 from campaigns.utils import PaymentStatus
 from django.contrib.auth import get_user_model
@@ -8,6 +10,9 @@ from events.models import EventModel, TicketOrderModel
 from django.contrib import messages
 from django.db.models import Q
 
+from events.utils import send_boarding_email_to_organiser
+
+logger = logging.getLogger("events")
 USER = get_user_model()
 
 @login_required
@@ -44,6 +49,10 @@ def event_details(request, event_slug):
         form = EventUpdateStatusForm(instance=event, data=request.POST)
         if form.is_valid():
             event = form.save()
+            if event.status == StatusChoices.APPROVED:
+                send_email = send_boarding_email_to_organiser(event, request)
+                if not send_email:
+                    logger.error("Something went wrong with email sending after approving the event")
             messages.success(request, "Event status was changed successfully")
             return redirect("bbgi_home:event-details", event_slug=event.slug)
     
