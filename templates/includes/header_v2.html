@@ -123,8 +123,14 @@
             <div>
                 <ul class="flex items-center gap-[10px]">
                     
+                    
+                    {% if request.user.is_authenticated %}
+                    <li>
+                        <a href="{% if request.user.is_authenticated and request.user.is_paid %}{% url 'listings:add-listing' %}{% else %}{% url 'listings:get-started-with-listing' %}{% endif %}"
+                            class="px-4 md:px-5 !text-white py-0.5 md:py-3 font-bold  bg-custom-primary inline-block bg-opacity-100 hover:bg-opacity-60 hover:text-white">Add
+                            Business</a>
+                    </li>
                     <li class="group relative">
-                        {% if request.user.is_authenticated %}
                         <a href="#"
                             class="h-[50px] w-[50px] text-heading-color overflow-hidden shadow-box-shadow-1 flex justify-center items-center hover:bg-custom-primary hover:text-white transition-all duration-300">
                             {% if request.user.profile_image %}
@@ -154,16 +160,21 @@
                             </li>
                             
                         </ul>
-                        {% else %}
+                    </li>
+                    {% else %}
+                    <li class="group relative">
+                        
                         <a href="{% url 'accounts:login' %}"
-                            class="px-4 md:px-5 py-0.5 md:py-2   text-custom-primary  inline-block font-bold">Login</a>
-                        {% endif %}
+                            class="px-4 md:px-5 py-2   text-custom-primary  inline-block font-bold">Login</a>
+                        
                     </li>
                     <li>
                         <a href="{% if request.user.is_authenticated and request.user.is_paid %}{% url 'listings:add-listing' %}{% else %}{% url 'listings:get-started-with-listing' %}{% endif %}"
-                            class="px-4 md:px-5 !text-white py-0.5 md:py-3 font-bold  bg-custom-primary inline-block bg-opacity-100 hover:bg-opacity-60 hover:text-white">Add
+                            class="px-4 md:px-5 !text-white py-3 font-bold  bg-custom-primary inline-block bg-opacity-100 hover:bg-opacity-60 hover:text-white">Add
                             Business</a>
                     </li>
+                    {% endif %}
+                    
                     <li class="block xl:hidden">
                         <div
                             class="show-drawer d-xl-none h-[50px] w-[50px] text-heading-color shadow-box-shadow-1 flex justify-center items-center transition-all duration-300 relative">
