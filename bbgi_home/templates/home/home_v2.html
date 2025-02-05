@@ -6,16 +6,17 @@
 <!-- banner section -->
 <section>
     <!-- banner section -->
-    <div class="hero hero-primary overflow-hidden relative z-0">
+    <div class="hero hero-primary overflow-hidden md:p-6  relative z-0">
         <!-- overlay -->
 
         <!-- Swiper -->
-        <div class="hero-slider-container swiper-container relative">
+        <div class="hero-slider-container swiper-container md:rounded-[30px] relative">
             <div class="swiper primary-slider home-3">
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper md:rounded-[30px]">
                     <!-- Hero  1 -->
+                    
                     <div
-                        class="swiper-slide relative z-0 pt-[300px] md:pt-50 pb-[100px] dxxl:h-screen dxxl:min-h-[800px] overflow-hidden flex flex-col justify-center bg-cover bg-center bg-no-repeat bg-[url('../img/slider/home_4.jpg')]">
+                        class="swiper-slide md:rounded-[30px] relative z-0 pt-[300px] md:pt-50 pb-[100px] dxxl:h-screen dxxl:min-h-[800px] overflow-hidden flex flex-col justify-center bg-cover bg-center bg-no-repeat bg-[url('../img/slider/home_4.jpg')]">
                         <div class="absolute top-0 left-0 w-full h-full bg-overlay z-20"></div>
                         <div class="container w-full relative z-xl">
                             <div class="">
@@ -54,16 +55,16 @@
                     </div>
                     <!-- Hero  2-->
                     <div
-                        class="swiper-slide relative z-0 pt-[300px] md:pt-50 pb-[100px] dxxl:h-screen dxxl:min-h-[800px] overflow-hidden flex flex-col justify-center bg-cover bg-center bg-no-repeat bg-[url('../img/slider/home.jpg')]">
+                        class="swiper-slide md:rounded-[30px] relative z-0 pt-[300px] md:pt-50 pb-[100px] dxxl:h-screen dxxl:min-h-[800px] overflow-hidden flex flex-col justify-center bg-cover bg-center bg-no-repeat bg-[url('../img/slider/home.jpg')]">
                         <div class="absolute top-0 left-0 w-full h-full bg-overlay z-20"></div>
                         <div class="container w-full relative z-xl">
                             <div class="">
                                 <!-- banner Left -->
-
-                                <div class="slide-animation flex flex-col justify-center items-end text-end">
+                    
+                                <div class="slide-animation flex flex-col justify-center items-center text-center">
                                     <p class="text-sm md:text-[15px] lg:text-base font-bold mb-5 !text-white animated">
                                         <i class="fas fa-home"></i>
-                                        Black Business Growth Initiative
+                                        BBGI Business Listing
                                     </p>
                                     <h1
                                         class="text-3xl md:text-[40px] lg:text-[50px] dxxl:text-[65px] !text-white leading-[30px] md:leading-10 lg:leading-[50px] dxxl:leading-[65px] font-bold mb-5 animated">
@@ -75,7 +76,8 @@
                                     <p
                                         class="text-sm lg:text-base mb-5 max-w-[450px] pr-[15px] xl:pr-[30px] border-r border-border-color-14 animated !text-white">
                                         <span class="leading-[25px] lg:leading-1.8">
-                                            A platform for entrepreneurs and professionals to present their skills and services, fostering visibility and
+                                            A platform for entrepreneurs and professionals to present their skills and services, fostering
+                                            visibility and
                                             connection.
                                         </span>
                                     </p>
@@ -85,7 +87,8 @@
                                             <span
                                                 class="inline-block absolute top-0 right-0 w-full h-full bg-secondary-color group-hover:bg-primary-color z-1 group-hover:w-0 transition-all duration-300"></span>
                                             <a href="{% if request.user.is_authenticated and request.user.is_paid %}{% url 'listings:add-listing' %}{% else %}{% url 'listings:get-started-with-listing' %}{% endif %}"
-                                                class="relative z-10 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-3 lg:py-[17px] group-hover:text-heading-color leading-[23px]">List Business</a>
+                                                class="relative z-10 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-3 lg:py-[17px] group-hover:text-heading-color leading-[23px]">List
+                                                Business</a>
                                         </h5>
                                     </div>
                                 </div>
@@ -94,16 +97,16 @@
                     </div>
                     <!-- Hero  3 -->
                     <div
-                        class="swiper-slide relative z-0 pt-[300px] md:pt-50 pb-[100px] dxxl:h-screen dxxl:min-h-[800px] overflow-hidden flex flex-col justify-center bg-cover bg-no-repeat bg-[url('../img/slider/13.html')]">
+                        class="swiper-slide md:rounded-[30px] relative z-0 pt-[300px] md:pt-50 pb-[100px] dxxl:h-screen dxxl:min-h-[800px] overflow-hidden flex flex-col justify-center bg-cover bg-no-repeat bg-[url('../img/slider/13.html')]">
                         <div class="absolute top-0 left-0 w-full h-full bg-overlay z-20"></div>
                         <div class="container w-full relative z-xl">
                             <div class="">
                                 <!-- banner Left -->
 
-                                <div class="slide-animation flex flex-col justify-center items-start text-start">
+                                <div class="slide-animation flex flex-col justify-center items-center text-center">
                                     <p class="text-sm md:text-[15px] lg:text-base font-bold mb-5 !text-white animated">
                                         <i class="fas fa-home"></i>
-                                        Black Business Growth Initiative
+                                        BBGI Campaigns and Contributions
                                     </p>
                                     <h1
                                         class="text-3xl md:text-[40px] lg:text-[50px] dxxl:text-[65px] !text-white leading-[30px] md:leading-10 lg:leading-[50px] dxxl:leading-[65px] font-bold mb-5 animated">
@@ -123,9 +126,9 @@
                                             class="capitalize text-sm md:text-base !text-white relative group whitespace-nowrap font-normal transition-all duration-300 border border-secondary-color bg-white hover:border-heading-color inline-block mr-[15px]">
                                             <span
                                                 class="inline-block absolute top-0 right-0 w-full h-full bg-secondary-color group-hover:bg-primary-color z-1 group-hover:w-0 transition-all duration-300"></span>
-                                            <a href="{% url 'bbgi_home:about-bbgi' %}"
+                                            <a href="{% url 'campaigns:campaigns' %}"
                                                 class="relative z-10 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-3 lg:py-[17px] group-hover:text-heading-color leading-[23px]">Make
-                                                An Enquiry</a>
+                                                A Contribution</a>
                                         </h5>
                                     </div>
                                 </div>
@@ -199,93 +202,7 @@
     </div>
 </section>
 
-<!-- about section -->
-<section>
-    <div class="container pt-32 pb-[90px]">
-        <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-[30px]">
-            <!-- about left -->
-            <div class="lg:mr-[30px] relative mb-10 lg:mb-0">
-                <img src="{% static 'imgs/home_3.jpg' %}" alt="bbgi ceo sazi ndwandwa" class="max-w-full w-400px rounded-xl">
-                <div class="absolute left-[10px] bottom-[70px] w-[150px] md:w-[300px]">
-                    <div class="relative">
-                        <img src="{% static 'imgs/about/About-1.png' %}" alt="" class="w-full">
-                        <div class="absolute left-0 top-0 w-full h-full flex items-center justify-center">
-                            <a class="glightbox2 w-[50px] h-[50px] lg:w-20 lg:h-20 text-center lg:text-lg text-secondary-color shadow-box-shadow-2 rounded-full bg-white flex items-center justify-center animate-pulse1"
-                                href="{{youtube}}" rel="nofollow" target="_blank" data-glightbox="type: video;">
-                                <i class="fa-solid fa-play"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- about right -->
-            <div>
-                <div class="mb-5">
-                    <p
-                        class="text-sm md:text-[15px] lg:text-base text-secondary-color bg-[#c2a6404d] capitalize mb-[15px] py-[1px] px-5 rounded-full inline-block font-semibold">
-                        <span class="leading-1.3">about us</span>
-                    </p>
-                    <h2
-                        class="text-2xl sm:text-3xl md:text-[26px] lg:text-3xl xl:text-[44px] text-heading-color font-bold mb-[15px]">
-                        <span class="leading-1.3">
-                            The Leading Business Growth Initiative In Cape Town
-                        </span>
-                    </h2>
-                    <p class="text-sm lg:text-base max-w-[500px]">
-                        <span class="leading-1.8 lg:leading-1.8">The Black Business Growth Initiative supports Black
-                            African businesses and careers by providing a unified platform for
-                            entrepreneurs and professionals to showcase their expertise and promote unity and
-                            cooperation.</span>
-                    </p>
-                </div>
-                <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4 pt-4">
-                    <li class="text-sm lg:text-base flex items-center">
-                        <p class="text-secondary-color grid items-center justify-center bg-color-6 w-[45px] h-[45px] mr-[25px] rounded-[100%]">
-                        <i
-                            class="fa-solid fa-hand-holding-hand fa-lg  "></i></p>
-                        <span class="leading-1.8">Support Black Businesses</span>
-                    </li>
-                    <li class="text-sm lg:text-base flex items-center">
-                    <p class="text-secondary-color grid items-center justify-center bg-color-6 w-[45px] h-[45px] mr-[25px] rounded-[100%]">
-                        <i class="fa-solid fa-hand-holding-hand fa-lg  "></i>
-                    </p>
-                        <span class="leading-1.8">Promote Unity</span>
-                    </li>
-                    <li class="text-sm lg:text-base flex items-center">
-                        <p class="text-secondary-color grid items-center justify-center bg-color-6 w-[45px] h-[45px] mr-[25px] rounded-[100%]">
-                        <i
-                            class="fa-solid fa-hand-holding-hand fa-lg  "></i></p>
-                        <span class="leading-1.8">Showcase Expertise</span>
-                    </li>
-                    <li class="text-sm lg:text-base flex items-center">
-                        <p class="text-secondary-color grid items-center justify-center bg-color-6 w-[45px] h-[45px] mr-[25px] rounded-[100%]">
-                        <i
-                            class="fa-solid fa-hand-holding-hand fa-lg  "></i></p>
-                        <span class="leading-1.8">Foster Cooperation</span>
-                    </li>
-                </ul>
 
-                <div class="bg-[#c2a6404d] mt-[30px] mb-10">
-                    <p class="text-sm lg:text-base p-5 border-l-4 border-secondary-color">
-                        <span class="leading-1.8">
-                            "BBGI's expertise in optimizing our business listings has significantly boosted our online
-                            visibility"
-                        </span>
-                    </p>
-                </div>
-                <div>
-                    <h5
-                        class="uppercase text-sm md:text-base !text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-secondary-color hover:border-heading-color inline-block">
-                        <span
-                            class="inline-block absolute top-0 right-0 w-full h-full bg-secondary-color group-hover:bg-black hover:bg-primary-cogroup-lor z-1 group-hover:w-0 transition-all duration-300"></span>
-                        <a href="{% url 'bbgi_home:about-bbgi' %}"
-                            class="relative z-10 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-3 lg:py-[17px] group-hover:text-heading-color leading-[23px]">ABOUT US</a>
-                    </h5>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- services section -->
 <section>  
@@ -375,6 +292,100 @@
                     </div>
                     <span
                         class="hover-line absolute bottom-0 left-0 w-0 h-1 bg-secondary-color transition-all duration-300 block"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- about section -->
+<section>
+    <div class="container pt-32 pb-[90px]">
+        <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-[30px]">
+            <!-- about left -->
+            <div class="lg:mr-[30px] relative mb-10 lg:mb-0">
+                <img src="{% static 'imgs/home_3.jpg' %}" alt="bbgi ceo sazi ndwandwa"
+                    class="max-w-full w-400px rounded-xl">
+                <div class="absolute left-[10px] bottom-[70px] w-[150px] md:w-[300px]">
+                    <div class="relative">
+                        <img src="{% static 'imgs/about/About-1.png' %}" alt="" class="w-full">
+                        <div class="absolute left-0 top-0 w-full h-full flex items-center justify-center">
+                            <a class="glightbox2 w-[50px] h-[50px] lg:w-20 lg:h-20 text-center lg:text-lg text-secondary-color shadow-box-shadow-2 rounded-full bg-white flex items-center justify-center animate-pulse1"
+                                href="{{youtube}}" rel="nofollow" target="_blank" data-glightbox="type: video;">
+                                <i class="fa-solid fa-play"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- about right -->
+            <div>
+                <div class="mb-5">
+                    <p
+                        class="text-sm md:text-[15px] lg:text-base text-secondary-color bg-[#c2a6404d] capitalize mb-[15px] py-[1px] px-5 rounded-full inline-block font-semibold">
+                        <span class="leading-1.3">about us</span>
+                    </p>
+                    <h2
+                        class="text-2xl sm:text-3xl md:text-[26px] lg:text-3xl xl:text-[44px] text-heading-color font-bold mb-[15px]">
+                        <span class="leading-1.3">
+                            The Leading Business Growth Initiative In Cape Town
+                        </span>
+                    </h2>
+                    <p class="text-sm lg:text-base max-w-[500px]">
+                        <span class="leading-1.8 lg:leading-1.8">The Black Business Growth Initiative supports Black
+                            African businesses and careers by providing a unified platform for
+                            entrepreneurs and professionals to showcase their expertise and promote unity and
+                            cooperation.</span>
+                    </p>
+                </div>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4 pt-4">
+                    <li class="text-sm lg:text-base flex items-center">
+                        <p
+                            class="text-secondary-color grid items-center justify-center bg-color-6 w-[45px] h-[45px] mr-[25px] rounded-[100%]">
+                            <i class="fa-solid fa-hand-holding-hand fa-lg  "></i>
+                        </p>
+                        <span class="leading-1.8">Support Black Businesses</span>
+                    </li>
+                    <li class="text-sm lg:text-base flex items-center">
+                        <p
+                            class="text-secondary-color grid items-center justify-center bg-color-6 w-[45px] h-[45px] mr-[25px] rounded-[100%]">
+                            <i class="fa-solid fa-hand-holding-hand fa-lg  "></i>
+                        </p>
+                        <span class="leading-1.8">Promote Unity</span>
+                    </li>
+                    <li class="text-sm lg:text-base flex items-center">
+                        <p
+                            class="text-secondary-color grid items-center justify-center bg-color-6 w-[45px] h-[45px] mr-[25px] rounded-[100%]">
+                            <i class="fa-solid fa-hand-holding-hand fa-lg  "></i>
+                        </p>
+                        <span class="leading-1.8">Showcase Expertise</span>
+                    </li>
+                    <li class="text-sm lg:text-base flex items-center">
+                        <p
+                            class="text-secondary-color grid items-center justify-center bg-color-6 w-[45px] h-[45px] mr-[25px] rounded-[100%]">
+                            <i class="fa-solid fa-hand-holding-hand fa-lg  "></i>
+                        </p>
+                        <span class="leading-1.8">Foster Cooperation</span>
+                    </li>
+                </ul>
+
+                <div class="bg-[#c2a6404d] mt-[30px] mb-10">
+                    <p class="text-sm lg:text-base p-5 border-l-4 border-secondary-color">
+                        <span class="leading-1.8">
+                            "BBGI's expertise in optimizing our business listings has significantly boosted our online
+                            visibility"
+                        </span>
+                    </p>
+                </div>
+                <div>
+                    <h5
+                        class="uppercase text-sm md:text-base !text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-secondary-color hover:border-heading-color inline-block">
+                        <span
+                            class="inline-block absolute top-0 right-0 w-full h-full bg-secondary-color group-hover:bg-black hover:bg-primary-cogroup-lor z-1 group-hover:w-0 transition-all duration-300"></span>
+                        <a href="{% url 'bbgi_home:about-bbgi' %}"
+                            class="relative z-10 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-3 lg:py-[17px] group-hover:text-heading-color leading-[23px]">ABOUT
+                            US</a>
+                    </h5>
                 </div>
             </div>
         </div>
