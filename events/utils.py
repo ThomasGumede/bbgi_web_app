@@ -35,7 +35,7 @@ def send_boarding_email_to_organiser(event: EventModel, request):
             subject=mail_subject,
             body=message,
             from_email="BBGI Events <events@bbgi.co.za>",
-            to=['gumedethomas12@gmail.com'],
+            to=[event.organiser.email],
         )
         email.content_subtype = 'html'
         sent = email.send()
