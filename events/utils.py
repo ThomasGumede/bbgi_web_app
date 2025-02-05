@@ -35,19 +35,12 @@ def send_boarding_email_to_organiser(event: EventModel, request):
             subject=mail_subject,
             body=message,
             from_email="BBGI Events <events@bbgi.co.za>",
-            to=[event.organiser.email],
+            to=['gumedethomas12@gmail.com'],
         )
         email.content_subtype = 'html'
         sent = email.send()
         
-        email2 = EmailMessage(
-            subject=mail_subject,
-            body=message,
-            from_email="BBGI Events <events@bbgi.co.za>",
-            to=['thomasgumede12@gmail.com'],
-        )
-        email2.content_subtype = 'html'
-        sent2 = email2.send()
+        
         
         if not sent:
             email_logger.error(f"Failed to send event added email to {event.organiser.email} for {event.title}")
