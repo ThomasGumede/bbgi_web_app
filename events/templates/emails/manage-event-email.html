@@ -400,7 +400,7 @@
                                                                     <p style="margin: 0;">To manage your event on BBGI, start by logging into your account and navigating to the Event Management Dashboard.
                                                                     This is your central hub for tracking and updating all aspects of your event. From here, you can make adjustments to
                                                                     ensure your event runs smoothly and reaches the right audience.<a
-                                                                            href="https://bbgi.co.za/{% url 'events:manage-event' event_slug=event.slug %}"
+                                                                            href="https://bbgi.co.za{% url 'events:manage-event' event_slug=event.slug %}"
                                                                             target="_blank"
                                                                             style="text-decoration: underline; color: #525252;"
                                                                             rel="noopener">Manage event dasboard &gt;</a></p>
@@ -515,7 +515,7 @@
                                                                     style="color:#525252;direction:ltr;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif;font-size:14px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:16.8px;">
                                                                     <p style="margin: 0;">In the dashboard, you can update your event details, manage ticket types, and upload event files. Once you've sold 30+
                                                                     tickets, you can generate a guest list to track attendees. <a
-                                                                            href="https://bbgi.co.za/{% url 'events:update-event' event_slug=event.slug %}"
+                                                                            href="https://bbgi.co.za{% url 'events:update-event' event_slug=event.slug %}"
                                                                             target="_blank"
                                                                             style="text-decoration: underline; color: #525252;"
                                                                             rel="noopener">Update event &gt;</a></p>
@@ -630,7 +630,7 @@
                                                                     <p style="margin: 0;">Managing ticket sales is just as seamless. The dashboard allows you to track ticket orders, view both pending and
                                                                     completed transactions, and handle any necessary order modifications. By monitoring paid orders and pending payments,
                                                                     you can ensure a smooth check-in experience for your guests. <a
-                                                                            href="https://bbgi.co.za/{% url 'events:ticket-orders' event_id=event.id %}"
+                                                                            href="https://bbgi.co.za{% url 'events:ticket-orders' event_id=event.id %}"
                                                                             target="_blank"
                                                                             style="text-decoration: underline; color: #525252;"
                                                                             rel="noopener">View Orders &gt;</a></p>
