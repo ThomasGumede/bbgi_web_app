@@ -147,7 +147,7 @@ def verify_ticket_payment_order(request, ticket_order_id):
             check_payment_update_2_ticket_order.delay(ticket_order.checkout_id, protocol, domain)
             return render(request, "payments/tickets/verify-payment.html", {"ticketorder": ticket_order})
     else:
-        sent = send_tickets_email(PaymentStatus.PAID, ticket_order, request)
+        sent = send_tickets_email('payment.succeeded', ticket_order, request)
 
         if sent:
             return True
