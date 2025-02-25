@@ -1,6 +1,17 @@
+from accounts.utilities.custom_email import send_html_email_with_attachments
 from payments.utilities.custom_email import send_ticket_order_received_to_admin, send_tickets_email
 from payments.utilities.yoco_func import headers
-import requests, logging, json, decimal
+import requests, logging, json, decimal, base64
+from accounts.custom_models.account import SubscriptionOrder
+from accounts.utilities.custom_email import send_html_email_with_attachments, send_html_email
+from events.models import TicketOrderModel, reservation_time
+from campaigns.models import ContributionModel, in_fourteen_days
+from campaigns.utils import PaymentStatus
+from events.models import TicketOrderModel
+from io import BytesIO
+from django.template.loader import render_to_string
+from django.template.loader import get_template
+from weasyprint import HTML
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from coupons.models import Coupon
@@ -14,6 +25,13 @@ from django.contrib.sites.shortcuts import get_current_site
 
 from payments.utilities.ticket_func import update_payment_status_ticket_order, update_payment_status_zero_balance_ticket_order
 from payments.utilities.yoco_func import decimal_to_str
+from django.template.loader import render_to_string
+from accounts.utilities.company import COMPANY
+
+
+
+logger = logging.getLogger("tasks")
+email_logger = logging.getLogger("emails")
 
 logger = logging.getLogger("payments")
 
@@ -147,12 +165,59 @@ def verify_ticket_payment_order(request, ticket_order_id):
             check_payment_update_2_ticket_order.delay(ticket_order.checkout_id, protocol, domain)
             return render(request, "payments/tickets/verify-payment.html", {"ticketorder": ticket_order})
     else:
-        sent = send_tickets_email('payment.succeeded', ticket_order, request)
+        try:
+            # Render invoice to PDF
+            invoice_template = get_template("emails/tickets/invoice_v2.html")
+            invoice_context = {
+                "buyer_full_name": ticket_order.buyer.get_full_name(),
+                "order": ticket_order,
+                "due_date": reservation_time(),
+            }
+            render_invoice = invoice_template.render(invoice_context, request=request)
+            pdf_file = HTML(string=render_invoice).write_pdf()
+            
+            # Save PDF to order's receipt
+            buffer = BytesIO(pdf_file)
+            ticket_order.receipt.save(f'{ticket_order.order_number}_invoice.pdf', buffer)
+            
+            # Prepare files for email attachments
+            files = [{"file_content": base64.b64encode(pdf_file).decode(), "filename": f'{ticket_order.order_number}_invoice.pdf'}]
 
-        if sent:
-            return True
-        messages.info(request, "This order was verified and client was notified")
-        return redirect("bbgi_home:all-ticket-orders")
+            context = {
+                "user": ticket_order.buyer.get_full_name(),
+                "order": ticket_order,
+            }
+
+            if ticket_order.paid == PaymentStatus.PAID:
+                mail_subject = f"Your tickets for {ticket_order.event.title} on {ticket_order.event.date_time_formatter()}"
+                message_template = "emails/tickets/ticket-order-email.html"
+                
+                with open(ticket_order.tickets_pdf_file.path, 'rb') as pdf_file:
+                    pdf_content = pdf_file.read()
+                    encoded_content = base64.b64encode(pdf_content).decode()
+                    files.append({"file_content": encoded_content, "filename": f'{ticket_order.order_number}_tickets.pdf'})
+            else:
+                mail_subject = f"Your tickets order for {ticket_order.event.title} on {ticket_order.event.date_time_formatter()} was cancelled"
+                message_template = "emails/tickets/order-cancelled.html"
+
+            # Render email content
+            message = render_to_string(message_template, context, request=request)
+
+            # Send email with attachments
+            sent = send_html_email_with_attachments(ticket_order.email, mail_subject, message, "BBGI Events <events@bbgi.co.za>", files)
+            sent = send_html_email_with_attachments('gumedethomas12@gmail.com', mail_subject, message, "BBGI Events <events@bbgi.co.za>", files)
+            if not sent:
+                email_logger.error(f"Failed to send tickets email to {ticket_order.email} for order number {ticket_order.order_number}")
+                
+
+            messages.info(request, "This order was verified and client was notified")
+            return redirect("bbgi_home:all-ticket-orders")
+
+        except Exception as ex:
+            email_logger.error(f"Error in sending ticket email: {ex}")
+            
+            messages.info(request, "This order was verified and client was notified")
+            return redirect("bbgi_home:all-ticket-orders")
     
     
     return render(request, "payments/tickets/verify-payment.html", {"ticketorder": ticket_order})
