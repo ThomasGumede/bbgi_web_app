@@ -1,4 +1,4 @@
-from payments.utilities.custom_email import send_ticket_order_received_to_admin
+from payments.utilities.custom_email import send_ticket_order_received_to_admin, send_tickets_email
 from payments.utilities.yoco_func import headers
 import requests, logging, json, decimal
 from django.shortcuts import render, get_object_or_404, redirect
@@ -147,6 +147,10 @@ def verify_ticket_payment_order(request, ticket_order_id):
             check_payment_update_2_ticket_order.delay(ticket_order.checkout_id, protocol, domain)
             return render(request, "payments/tickets/verify-payment.html", {"ticketorder": ticket_order})
     else:
+        sent = send_tickets_email(PaymentStatus.PAID, ticket_order, request)
+
+        if sent:
+            return True
         messages.info(request, "This order was verified and client was notified")
         return redirect("bbgi_home:all-ticket-orders")
     
