@@ -19,7 +19,7 @@ USER = get_user_model()
 @user_not_superuser_or_staff
 def all_events(request, username=None):
     query = request.GET.get("query", None)
-    queryset = EventModel.objects.all()
+    queryset = EventModel.objects.order_by('-created')
     if username:
         user = get_object_or_404(USER, username=username)
         if query:
@@ -62,11 +62,11 @@ def event_details(request, event_slug):
 @login_required
 @user_not_superuser_or_staff
 def all_ticket_orders(request, event_id = None):
-    ticketorders = TicketOrderModel.objects.all()
+    ticketorders = TicketOrderModel.objects.order_by('-created')
     event_model = None
     if event_id:
         event_model = get_object_or_404(EventModel, id=event_id)
-        ticketorders = TicketOrderModel.objects.filter(event = event_model)
+        ticketorders = TicketOrderModel.order_by('-created').filter(event = event_model)
     
 
     return render(request, "dashboard/orders/orders.html", {"orders": ticketorders, "event": event_model})
