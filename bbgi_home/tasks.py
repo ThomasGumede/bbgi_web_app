@@ -46,7 +46,7 @@ def send_admin_email_to_bbgi_community(message, topic):
                 subject=f"BBGI | {topic}",
                 body=html_content,
                 from_email="BBGI Admin <admin@bbgi.co.za>",
-                to=['gumedethomas12@gmail.com']
+                to=[recipient.email]
             )
             email.content_subtype = 'html'
 

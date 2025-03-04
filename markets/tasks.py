@@ -31,32 +31,18 @@ def send_email_to_bbgi_community(domain, protocol, qoute_id):
         #     )
         html_content = render_to_string("emails/quotation_request_email.html", context)
         for recipient in recipients:
-        # Render the HTML template
-            
-
-            # Create email message
-            # email = EmailMultiAlternatives(
-            #     subject=f"BBGI | Quote Request for Service - {qoute.service_title}",
-            #     body="This is an HTML email. If you're seeing this, your email client does not support HTML.",
-            #     from_email="BBGI Quotes <orders@bbgi.co.za>",
-            #     to=[recipient],
-            # )
-            # email.attach_alternative(html_content, "text/html")
-            # if qoute.file:
-            #     email.attach_file(qoute.file.path)
-            # sent = email.send(fail_silently=False)
         
             email = EmailMessage(
-                subject=f"BBGI | Quote Request for Service - {qoute.service_title}",
+                subject=f"Quote Request for Service - {qoute.service_title}",
                 body=html_content,
                 from_email="BBGI Quotes <orders@bbgi.co.za>",
-                to=[recipient]
+                to=['gumedethomas12@gmail.com']
             )
             email.content_subtype = 'html'
 
             if qoute.file:
-                
                 email.attach_file(qoute.file.path)
+                
             sent = email.send(fail_silently=False)
             if not sent:
                 logger.error(f"Email not sent to {qoute.service.business.email} for qoute {qoute.id}")
