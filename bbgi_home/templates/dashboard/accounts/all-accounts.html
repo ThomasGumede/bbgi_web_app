@@ -11,13 +11,16 @@
             <div class="relative mx-4 mt-4 overflow-hidden text-custom-h bg-white rounded-none bg-clip-border">
                 <div class="flex flex-col justify-between gap-8 mb-4 md:flex-row md:items-center">
                     <div>
-                        <h5
-                            class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                            All Accounts
-                        </h5>
-                        <p class="block mt-1 font-sans text-base antialiased font-normal leading-relaxed text-custom-h">
-                            These are accounts that are registered on our system
-                        </p>
+                        <div>
+                            <a href="{% url 'bbgi_home:send-email' %}"
+                                class="text-base font-normal px-3 py-2 border border-solid text-center">Send Email To All</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <a href="{% url 'bbgi_home:export-accounts' %}"
+                                class="text-base font-normal px-3 py-2 border border-solid text-center">Export Accounts</a>
+                        </div>
                     </div>
                     <div class="flex w-full gap-2 shrink-0 md:w-max">
                         <div class="w-full md:w-72">

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block seo_tags %}
-<title>BBGI - Create Listing</title>
+<title>BBGI - Request Service</title>
 <meta name="description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
                             to showcase businesses and expertise">
 <meta name="title" content="BBGI - Create Listing" />
@@ -37,7 +37,7 @@
                     <a href="{% url 'bbgi_home:bbgi-home' %}" class=""><i class="fa-solid fa-home text-custom-primary"></i> Home</a>
                 </li>
                 <li class="leading-[1.8] lg:leading-[1.8] text-custom-h">
-                    Quotation Request for {{service.title}}
+                    Quotation Request for Any Service
                 </li>
             </ul>
         </div>
@@ -122,6 +122,18 @@
                                         class="text-[11px] text-custom-text block font-normal lowercase">{{form.full_names.help_text}}</span>
                                     {% if form.full_names.errors %}
                                     <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.full_names.errors.as_text}}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-12/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_title">
+                                        Service Title*
+                                    </label>
+                                    {{form.service_title}}
+                                    <span class="text-[11px] text-custom-text block font-normal lowercase">{{form.service_title.help_text}}</span>
+                                    {% if form.service_title.errors %}
+                                    <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.service_title.errors.as_text}}</span>
                                     {% endif %}
                                 </div>
                             </div>

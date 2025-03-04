@@ -2,9 +2,11 @@ import logging
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from bbgi_home.forms import EmailForm
 from bbgi_home.utilities.decorators import user_not_superuser_or_staff
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+from bbgi_home.tasks import send_admin_email_to_bbgi_community
 
 from listings.models import Business, Category
 
@@ -24,7 +26,32 @@ def all_accounts(request):
             | Q(address_one__icontains = query)
         )
         
+        
     return render(request, "dashboard/accounts/all-accounts.html", {"accounts": users, "query": query})
+
+@login_required
+@user_not_superuser_or_staff
+def send_email_to_users(request):
+    form = EmailForm()
+    if request.method == "POST":
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            email = form.save()
+            send_admin_email_to_bbgi_community.delay(email.message, email.subject)
+            messages.success(request, "Email was successfully sent to all BBGI members")
+            return redirect("bbgi_home:all-accounts")
+        else:
+            messages.error(request, "Email not sent, fix errors below")
+            
+            return render(request, "dashboard/accounts/send-email.html", {"form": form})
+        
+    return render(request, "dashboard/accounts/send-email.html", {"form": form})
+
+
+@login_required
+@user_not_superuser_or_staff
+def export_accounts(request):
+    return redirect("bbgi_home:all-accounts")
 
 @login_required
 @user_not_superuser_or_staff

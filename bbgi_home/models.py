@@ -154,6 +154,41 @@ class Member(AbstractCreate):
         self.slug = slug
         super(Member, self).save(*args, **kwargs)
 
+class Review(AbstractCreate):
+    logo = models.ImageField( help_text="Reviewer logo or image", upload_to="home/images/reviewers", null=True, blank=True)
+    reviewer = models.CharField(max_length=350, help_text="Reviewer names")
+    review = models.TextField()
+    
+    class Meta:
+        verbose_name = 'Review'
+        verbose_name_plural = 'Reviews'
+    
+    def __str__(self):
+        return self.reviewer
+        
+class Sponsor(AbstractCreate):
+    logo = models.ImageField(help_text="sponsor logo or image", upload_to="home/images/sponsors", null=True, blank=True)
+    sponsor = models.CharField(max_length=350, help_text="sponsor names or title")
+    decription = HTMLField(blank=True, null=True, help_text=_("Describe the team member"))
+    
+    class Meta:
+        verbose_name = 'Sponsor'
+        verbose_name_plural = 'Sponsors'
+        
+    def __str__(self):
+        return self.sponsor
+    
+class Accreditation(AbstractCreate):
+    logo = models.ImageField(help_text="Accreditation logo or image", upload_to="home/images/Accreditations", null=True, blank=True)
+    accreditation = models.CharField(max_length=350, help_text="Accreditation names or title")
+    
+    class Meta:
+        verbose_name = 'Accreditation'
+        verbose_name_plural = 'Accreditations'
+        
+    def __str__(self):
+        return self.accreditation
+
 @receiver(pre_delete, sender=Blog)
 def delete_Post_image_hook(sender, instance, using, **kwargs):
     instance.image.delete()

@@ -79,3 +79,25 @@ class Qoutation(AbstractCreate):
         verbose_name = _("Qoutation Request")
         verbose_name_plural = _("Qoutation Requests")
         ordering = ["-created"]
+        
+class RequestService(AbstractCreate):
+    service_title = models.CharField(max_length=350)
+    file = models.ImageField(upload_to="business/qoutation/", null=True, blank=True)
+    full_names = models.CharField(max_length=350)
+    phone = models.CharField(help_text=_("Enter your cellphone number"), max_length=15, validators=[PHONE_VALIDATOR])
+    email = models.EmailField(help_text=_("Enter your email address"), max_length=254)
+    description = models.TextField(null=True, blank=True)
+    is_location_based = models.BooleanField(help_text=_("Does this job need to be done on a specific location?"), default=False)
+    location = models.CharField(help_text=_("Enter your location, e.g 123 St, KZN, 3915"), max_length=350, blank=True, null=True)
+    call_at = models.CharField(help_text=_("When should we contact you?"), choices=CALL_CHOICES, max_length=150)
+    time = models.CharField(max_length=150, choices=TIME_CHOICES, help_text=_("When do you need the service to be completed?"))
+    date = models.DateField(null=True, blank=True, validators=[MinValueValidator(timezone.now(), "Date should not be less that today's date")])
+
+
+    def __str__(self):
+        return self.full_names + self.call_at
+    
+    class Meta:
+        verbose_name = _("Qoutation Request")
+        verbose_name_plural = _("Qoutation Requests")
+        ordering = ["-created"]

@@ -12,6 +12,7 @@ from listings.models import Business
 from markets.models import Service
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.contrib.auth import get_user_model
 import logging
 
 logger = logging.getLogger("tasks")
@@ -62,7 +63,8 @@ def dashboard(request):
     campaigns = CampaignModel.objects.all()
     listings = Business.objects.all()
     popular_services = Service.objects.filter(is_popular=True, on_discount=True)
-    return render(request, "dashboard/dashboard.html", {"listings": listings, "events": events, "campaigns": campaigns, "popular_services": popular_services})
+    users = get_user_model().objects.count()
+    return render(request, "dashboard/dashboard.html", {"listings": listings, "events": events, "campaigns": campaigns, "popular_services": popular_services, "users": users})
 
 def search(request):
 

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from listings.models import Business
 from markets.models import Service, Qoutation
-from markets.forms import QoutationForm
+from markets.forms import QoutationForm, RequestServiceForm
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 
@@ -47,6 +47,27 @@ def create_quotation(request, service_id):
         
     
     return render(request, "markets/quotations/create-quotation.html", {"form": form, "service":service})
+
+@login_required
+def request_service(request):
+    
+    
+    form = RequestServiceForm()
+    if request.method == "POST":
+        form = RequestServiceForm(request.POST, request.FILES)
+        if form.is_valid():
+            quote = form.save(commit=False)
+            quote.save()
+            domain = get_current_site(request).domain
+            protocol = "https" if request.is_secure() else "http"
+            send_email_to_owner(domain, protocol, quote.id)
+            messages.success(request, "Quote was successfully sent to business owners")
+            return redirect("markets:request-service")
+        else:
+            messages.error(request, "Something is missing, fix error below")
+        
+    
+    return render(request, "markets/quotations/create-quotation.html", {"form": form})
 
 @login_required
 def delete_quote(request, quotation_id, service_slug):
