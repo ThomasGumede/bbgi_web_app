@@ -62,7 +62,7 @@ def request_service(request):
             protocol = "https" if request.is_secure() else "http"
             send_email_to_owner(domain, protocol, quote.id)
             messages.success(request, "Quote was successfully sent to business owners")
-            return redirect("markets:request-service")
+            return redirect("markets:request-qoutations")
         else:
             messages.error(request, "Something is missing, fix error below")
         
