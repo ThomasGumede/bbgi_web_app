@@ -127,6 +127,9 @@ class SubscriptionOrder(AbstractCreate, AbstractPayment):
         verbose_name = _("Subscription Order")
         verbose_name_plural = _("Subscription Orders")
         ordering = ["-created"]
+        
+    def __str__(self):
+        return f"Subscription order by {self.client_first_name} {self.client_last_name}"
 
 class AboutCompany(AbstractCreate, AbstractProfile):
     title = models.CharField(max_length=300, null=True, blank=True, unique=True)

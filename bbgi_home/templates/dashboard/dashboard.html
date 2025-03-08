@@ -11,12 +11,7 @@
                 <div class="flex items-center p-8 bg-white shadow rounded-lg">
                     <div
                         class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
-                        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            class="stroke-current text-custom-h  transform transition-transform duration-500 ease-in-out">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
-                            </path>
-                        </svg>
+                        <i class="fa-solid fa-calendar-plus fa-xl text-custom-primary"></i>
                     </div>
                     <div>
                         <span class="block text-2xl font-bold">{{events.count}}</span>
@@ -26,12 +21,7 @@
                 <div class="flex items-center p-8 bg-white shadow rounded-lg">
                     <div
                         class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
-                        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            class="stroke-current text-custom-h  transform transition-transform duration-500 ease-in-out">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
-                            </path>
-                        </svg>
+                        <i class="fa-solid fa-hand-holding-dollar fa-xl text-custom-primary"></i>
                     </div>
                     <div>
                         <span class="block text-2xl font-bold">{{campaigns.count}}</span>
@@ -41,31 +31,41 @@
                 <div class="flex items-center p-8 bg-white shadow rounded-lg">
                     <div
                         class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
-                        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            class="stroke-current text-custom-h  transform transition-transform duration-500 ease-in-out">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
-                            </path>
-                        </svg>
+                        <i class="fa-solid fa-briefcase fa-xl text-custom-primary"></i>
                     </div>
                     <div>
                         <span class="block text-2xl font-bold">{{listings.count}}</span>
-                        <span class="block text-gray-500">Listings</span>
+                        <span class="block text-gray-500">Businesses</span>
                     </div>
                 </div>
                 <div class="flex items-center p-8 bg-white shadow rounded-lg">
                     <div
                         class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
-                        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            class="stroke-current text-custom-h  transform transition-transform duration-500 ease-in-out">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
-                            </path>
-                        </svg>
+                        <i class="fa-solid fa-users fa-xl text-custom-primary"></i>
                     </div>
                     <div>
-                        <span class="block text-2xl font-bold">{{users}}</span>
+                        <span class="block text-2xl font-bold">{{users.count}}</span>
                         <span class="block text-gray-500">Accounts</span>
+                    </div>
+                </div>
+                <div class="flex items-center p-8 bg-white shadow rounded-lg">
+                    <div
+                        class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
+                        <i class="fa-solid fa-wallet fa-xl text-custom-primary"></i>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-bold">R2000</span>
+                        <span class="block text-gray-500">Earnings</span>
+                    </div>
+                </div>
+                <div class="flex items-center p-8 bg-white shadow rounded-lg">
+                    <div
+                        class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
+                        <i class="fa-solid fa-ticket fa-xl text-custom-primary"></i>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-bold">{{tickets}}+</span>
+                        <span class="block text-gray-500">Tickets sold</span>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                 <div class="py-7">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-2">
                         <div class="bg-white p-4 rounded-md">
-                            <h2 class="text-gray-500 text-lg font-semibold pb-4">Latest Campaigns</h2>
+                            <h2 class="text-gray-500 text-lg font-semibold pb-4">Latest Accounts</h2>
                             <div class="my-1"></div>
 
                             <table class="w-full text-left table-auto min-w-max">
@@ -82,14 +82,14 @@
                                         <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
                                             <p
                                                 class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                                                Campaign
+                                                Name
                                             </p>
                                         </th>
 
                                         <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
                                             <p
                                                 class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                                                Status
+                                                last login
                                             </p>
                                         </th>
                                         <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
@@ -100,13 +100,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for campaign in campaigns.all %}
+                                    {% for user in users.all %}
                                     <tr>
                                         <td class="p-2 border-b border-blue-gray-50">
-                                            <a href="{% url 'campaigns:campaign' campaign.slug %}"
+                                            <a href="{{user.get_absolute_url}}"
                                                 class="flex items-center gap-3">
-                                                {% if campaign.image %}
-                                                <img src="{{campaign.image.url}}" alt="{{campaign.title}}"
+                                                {% if user.profile_image %}
+                                                <img src="{{user.profile_image.url}}" alt="{{user.get_full_names}}"
                                                     class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" />
                                                 {% else %}
                                                 <img src="{% static 'imgs/no-image.png' %}"
@@ -115,7 +115,7 @@
                                                 {% endif %}
                                                 <p
                                                     class="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                                                    {{campaign.title|truncatewords:2}}
+                                                    {{user.get_full_name}}
                                                 </p>
                                             </a>
                                         </td>
@@ -124,7 +124,7 @@
                                             <div class="w-max">
                                                 <div
                                                     class="relative grid items-center px-2 py-1 font-sans text-xs font-bold {% if campaign.status == 'APPROVED' %} bg-green-500/20 text-green-900{% elif campaign.status == 'PENDING' %}bg-amber-500/20 text-amber-900 {% else %}bg-red-500/20 text-red-900{% endif %}  uppercase rounded-md select-none whitespace-nowrap ">
-                                                    <span class="">{{campaign.status}}</span>
+                                                    <span class="">{{user.last_login}}</span>
                                                 </div>
                                             </div>
                                         </td>
@@ -134,9 +134,9 @@
                                 </tbody>
                             </table>
 
-                            {% if campaigns.count == 5 %}
+                            {% if users.count == 5 %}
                             <div class="text-right mt-4">
-                                <a href=""
+                                <a href="{% url 'bbgi_home:all-accounts' %}"
                                     class="bg-custom-h hover:bg-custom-h text-white font-semibold py-2 px-4 rounded">
                                     View more
                                 </a>
@@ -216,7 +216,146 @@
                     </div>
                 </div>
                 <div class="py-7">
-                    <h2 class="text-xl font-semibold text-custom-h mb-8">This week's popular deals</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-2">
+                        <div class="bg-white p-4 rounded-md">
+                            <h2 class="text-gray-500 text-lg font-semibold pb-4">Latest Listings</h2>
+                            <div class="my-1"></div>
+                
+                            <table class="w-full text-left table-auto min-w-max">
+                                <thead>
+                                    <tr>
+                                        <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                                            <p
+                                                class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                                Listing
+                                            </p>
+                                        </th>
+                
+                                        <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                                            <p
+                                                class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                                Status
+                                            </p>
+                                        </th>
+                                        <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                                            <p
+                                                class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                            </p>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for listing in listings.all %}
+                                    <tr>
+                                        <td class="p-2 border-b border-blue-gray-50">
+                                            <a href="{% url 'listings:get-listing' listing.slug %}" class="flex items-center gap-3">
+                                                {% if listing.logo %}
+                                                <img src="{{listing.logo.url}}" alt="{{listing.title}}"
+                                                    class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" />
+                                                {% else %}
+                                                <img src="{% static 'imgs/no-image.png' %}" alt="{{listing.title}}"
+                                                    class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" />
+                                                {% endif %}
+                                                <p
+                                                    class="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
+                                                    {{listing.title|truncatewords:2}}
+                                                </p>
+                                            </a>
+                                        </td>
+                
+                                        <td class="p-2 border-b border-blue-gray-50">
+                                            <div class="w-max">
+                                                <div
+                                                    class="relative grid items-center px-2 py-1 font-sans text-xs font-bold {% if listing.status == 'APPROVED' %} bg-green-500/20 text-green-900{% elif listing.status == 'PENDING' %}bg-amber-500/20 text-amber-900 {% else %}bg-red-500/20 text-red-900{% endif %}  uppercase rounded-md select-none whitespace-nowrap ">
+                                                    <span class="">{{listing.status}}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                
+                            {% if listings.count == 5 %}
+                            <div class="text-right mt-4">
+                                <a href="" class="bg-custom-h hover:bg-custom-h text-white font-semibold py-2 px-4 rounded">
+                                    View more
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="bg-white p-4 rounded-md">
+                            <h2 class="text-gray-500 text-lg font-semibold pb-4">Latest Events</h2>
+                            <div class="my-1"></div>
+                
+                            <table class="w-full text-left table-auto min-w-max">
+                                <thead>
+                                    <tr>
+                                        <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                                            <p
+                                                class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                                Event
+                                            </p>
+                                        </th>
+                
+                                        <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                                            <p
+                                                class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                                Status
+                                            </p>
+                                        </th>
+                                        <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                                            <p
+                                                class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                            </p>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for event in events.all %}
+                                    <tr>
+                                        <td class="p-2 border-b border-blue-gray-50">
+                                            <a href="{% url 'events:event-details' event.slug %}" class="flex items-center gap-3">
+                                                {% if event.image %}
+                                                <img src="{{event.image.url}}" alt="{{event.title}}"
+                                                    class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" />
+                                                {% else %}
+                                                <img src="{% static 'imgs/no-image.png' %}" alt="{{event.title}}"
+                                                    class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" />
+                                                {% endif %}
+                                                <p
+                                                    class="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
+                                                    {{event.title|truncatewords:2}}
+                                                </p>
+                                            </a>
+                                        </td>
+                
+                                        <td class="p-2 border-b border-blue-gray-50">
+                                            <div class="w-max">
+                                                <div
+                                                    class="relative grid items-center px-2 py-1 font-sans text-xs font-bold {% if event.status == 'APPROVED' %} bg-green-500/20 text-green-900{% elif event.status == 'PENDING' %}bg-amber-500/20 text-amber-900 {% else %}bg-red-500/20 text-red-900{% endif %}  uppercase rounded-md select-none whitespace-nowrap ">
+                                                    <span class="">{{event.status}}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% if events.count == 5 %}
+                            <div class="text-right mt-4">
+                                <a href="" class="bg-custom-h hover:bg-custom-h text-white font-semibold py-2 px-4 rounded">
+                                    View more
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="py-7">
+                    <h2 class="text-xl font-semibold text-custom-h mb-8">Orders</h2>
                     <div class="relative block">
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
                             {% for service in popular_services %}

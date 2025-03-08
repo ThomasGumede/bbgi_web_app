@@ -17,8 +17,7 @@
                     </p>
 
                     <p class="text-gray-500 text-base font-medium">
-                        Amount of R{{subscription.total_amount|floatformat:2}} subscription {{subscription.order_number}} was created
-                        and successfully paid! Thank you for trusting BBGI and looking forward to working with you.
+                        Amount of R{{subscription.total_amount|floatformat:2}} / Year subscription {{subscription.order_number}} was successfully paid! Thank you for trusting BBGI and looking forward to working with you.
                     </p>
                     <p class="text-custom-h text-sm font-medium">
                         You will receive payment confirmation shortly
@@ -27,11 +26,11 @@
                         Note: If you don't receive payment confirmation shortly, it takes 20 minutes - 12 hours to verify payments.
                     </p>
                     <div>
-                        <button href="{% url 'bbgi_home:bbgi-home' %}"
+                        <button href="{% url 'listings:add-listing' %}"
                             class="w-36 lg:w-40 h-12 border-2 border-custom-h bg-custom-h hover:bg-white hover:text-custom-h text-white font-medium text-sm focus-within:outline-none focus:outline-none lg:text-base duration-500 rounded-md">
-                            <a href="{% url 'bbgi_home:bbgi-home' %}"
+                            <a href="{% url 'listings:add-listing' %}"
                                 >
-                                Home
+                                Add Business
                             </a>
                         </button>
                         

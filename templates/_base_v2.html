@@ -226,7 +226,28 @@
         {% include "includes/messages.html" %}
         {% block content %}
         {% endblock content %}
-
+        <div class="px-[15px] txxl:px-[2%] dxxl:px-[9%] bg-section-bg-1">
+            <div class="swiper brand-slider">
+                <div class="swiper-wrapper px-[15px]">
+                    {% for sponsor in sponsors %}
+                    <a href="" class="swiper-slide py-10">
+                        <img src="{% if sponsor.logo %}{{sponsor.logo.url}}{% else %}{% static 'imgs/team/img1.png' %}{% endif %}" alt="{{sponsor.title}}"
+                            class="hover:scale-110 transition-all duration-300 w-full txxl:w-auto h-20">
+                    </a>
+                    {% endfor %}
+                </div>
+        
+                <!--  navigation -->
+                <div class="hidden">
+                    <div class="swiper-button-next bg-white z-1">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="swiper-button-prev bg-white z-1">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <!-- End Main -->
 

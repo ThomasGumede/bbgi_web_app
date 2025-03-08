@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from listings.models import Business, BusinessLocation, Category, BusinessHour
 from django.core import serializers
 from django.http import JsonResponse
+from listings.tasks import send_on_boarding_email
 from markets.forms import ServiceForm, QoutationForm
 from django.contrib import messages
 
@@ -135,7 +136,8 @@ def add_listing_socials(request, listing_slug):
         if form.is_valid():
             form.save()
             
-            send_html_email('New Listing Added', 'listings@bbgi.co.za', 'emails/listing-confirmation.html', {"listing": listing})
+            
+            send_on_boarding_email.delay(listing.id)
             messages.success(request, "Listing created successfully")
             return redirect("markets:add-service", listing_slug=listing.slug)
         else:

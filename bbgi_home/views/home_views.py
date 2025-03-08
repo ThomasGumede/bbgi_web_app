@@ -2,12 +2,12 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Q
 from django.contrib import messages
 from bbgi_home.forms import EmailForm, SearchForm
-from bbgi_home.models import Blog, Member, Privacy
+from bbgi_home.models import Blog, Member, Sponsor, Review
 from bbgi_home.tasks import send_email_to_admin
 from bbgi_home.utilities.decorators import user_not_superuser_or_staff
 from bbgi_home.utilities.google_recaptcha import validate_recaptcha
 from campaigns.models import CampaignModel
-from events.models import EventModel
+from events.models import EventModel, TicketModel
 from listings.models import Business
 from markets.models import Service
 from django.contrib.auth.decorators import login_required
@@ -62,9 +62,10 @@ def dashboard(request):
     events = EventModel.objects.all()
     campaigns = CampaignModel.objects.all()
     listings = Business.objects.all()
-    popular_services = Service.objects.filter(is_popular=True, on_discount=True)
-    users = get_user_model().objects.count()
-    return render(request, "dashboard/dashboard.html", {"listings": listings, "events": events, "campaigns": campaigns, "popular_services": popular_services, "users": users})
+    # popular_services = Service.objects.filter(is_popular=True, on_discount=True)
+    users = get_user_model().objects.all()
+    tickets = TicketModel.objects.count()
+    return render(request, "dashboard/dashboard.html", {"listings": listings, "events": events, "campaigns": campaigns, "tickets": tickets, "users": users})
 
 def search(request):
 

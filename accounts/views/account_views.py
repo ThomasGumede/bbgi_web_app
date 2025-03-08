@@ -29,7 +29,7 @@ def user_details(request, username):
 def custom_login(request):
     next_page = request.GET.get("next", None)
     template_name = "accounts/login.html"
-    success_url = "bbgi_home:bbgi-home"
+    success_url = "listings:add-listing"
     if next_page:
         success_url = next_page
 

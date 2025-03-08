@@ -338,6 +338,7 @@ const slider = () => {
     var swiper = new Swiper(".brand-slider", {
       slidesPerView: 2,
       spaceBetween: 30,
+      centeredSlides: true,
       speed: 800,
       loop: true,
       navigation: {

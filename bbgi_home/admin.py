@@ -1,5 +1,5 @@
 from django.contrib import admin
-from bbgi_home.models import BlogCategory, Blog, Comment, EmailModel, Privacy, FAQ
+from bbgi_home.models import BlogCategory, Blog, Comment, EmailModel, Privacy, FAQ, Sponsor, Review
 from django_celery_beat.models import PeriodicTask, IntervalSchedule, CrontabSchedule, SolarSchedule, ClockedSchedule
 from django_celery_results.models import TaskResult, GroupResult
 from django_celery_results.admin import TaskResultAdmin, GroupResultAdmin
@@ -12,6 +12,14 @@ class CommentInline(admin.StackedInline):
 
 @admin.register(FAQ)
 class FAQAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Sponsor)
+class SponsorAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(BlogCategory)

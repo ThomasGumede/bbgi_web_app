@@ -13,3 +13,5 @@ s.js
 .env.save.1
 env.py
 migrations
+./migrations
+/migrations
