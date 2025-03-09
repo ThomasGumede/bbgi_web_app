@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
 
     
     {% for ticket in tickets %}
@@ -74,7 +74,7 @@
             font-family: 'Roboto', sans-serif;
             letter-spacing: 0.5px;
             margin:7px 0;">
-                {{ticket.ticket_type.title}} - R{{ticket.ticket_type.total_price}}
+                {{ticket.ticket_type.title.title|truncatewords:5}} - R{{ticket.ticket_type.total_price}}
             </div>
             <div style="font-size: 0.5em;
             font-weight: 300;
@@ -90,7 +90,7 @@
             font-family: 'Roboto', sans-serif;
             letter-spacing: 0.5px;
             margin:7px 0;">
-                {{event.title}}
+                {{event.title|truncatewords:5}}
             </div>
             <div style="display:block;">
                 <div style="width:49%;
@@ -150,7 +150,6 @@
             </div>
         </div>
     </div>
-
     {% endfor %}
     </div>
 </body>

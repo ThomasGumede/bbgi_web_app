@@ -275,8 +275,9 @@
                                                                     </thead>
                                                                     <tbody
                                                                         style="vertical-align: top; font-size: 16px; line-height: 120%;">
+                                                                        {% for ticket in order.tickets.all %}
                                                                         <tr>
-                                                                            {% for ticket in order.tickets.all %}
+                                                                            
                                                                             <td width="25%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 1px solid #dddddd; border-right: 1px solid #dddddd; border-bottom: 1px solid #dddddd; border-left: 1px solid #dddddd;">
                                                                                 {{ticket.ticket_type.title|truncatewords:5}}</td>
@@ -285,8 +286,9 @@
                                                                             <td width="25%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 1px solid #dddddd; border-right: 1px solid #dddddd; border-bottom: 1px solid #dddddd; border-left: 1px solid #dddddd;">
                                                                                 R{{ticket.ticket_type.total_price}}</td>
-                                                                            {% endfor %}
+                                                                            
                                                                         </tr>
+                                                                        {% endfor %}
                                                                         
                                                                     </tbody>
                                                                 </table>
