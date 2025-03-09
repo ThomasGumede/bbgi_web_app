@@ -93,10 +93,10 @@ def update_review(request, review_id):
             messages.success(request, "Review was updated successfully!")
             return redirect("bbgi_home:reviews")
         else:
-            messages.error(request, "Something went wrong trying to update a sponsor")
-            return render(request, "reviews/create-sponsor.html", {"form": form})
+            messages.error(request, "Something went wrong trying to update a review")
+            return render(request, "reviews/create-review.html", {"form": form})
         
-    return render(request, "reviews/create-sponsor.html", {"form": form})
+    return render(request, "reviews/create-review.html", {"form": form})
 
 @login_required
 @user_not_superuser_or_staff
