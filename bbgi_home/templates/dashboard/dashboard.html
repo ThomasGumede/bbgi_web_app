@@ -100,7 +100,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for user in users.all %}
+                                    {% for user in users|slice:":5" %}
                                     <tr>
                                         <td class="p-2 border-b border-blue-gray-50">
                                             <a href="{{user.get_absolute_url}}"
@@ -171,7 +171,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for event in events.all %}
+                                    {% for event in events|slice:":5" %}
                                     <tr>
                                         <td class="p-2 border-b border-blue-gray-50">
                                             <a href="{% url 'events:event-details' event.slug %}"
@@ -245,7 +245,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for listing in listings.all %}
+                                    {% for listing in listings|slice:":5" %}
                                     <tr>
                                         <td class="p-2 border-b border-blue-gray-50">
                                             <a href="{% url 'listings:get-listing' listing.slug %}" class="flex items-center gap-3">
@@ -286,7 +286,7 @@
                             {% endif %}
                         </div>
                         <div class="bg-white p-4 rounded-md">
-                            <h2 class="text-gray-500 text-lg font-semibold pb-4">Latest Events</h2>
+                            <h2 class="text-gray-500 text-lg font-semibold pb-4">Latest Campaigns</h2>
                             <div class="my-1"></div>
                 
                             <table class="w-full text-left table-auto min-w-max">
@@ -295,7 +295,7 @@
                                         <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
                                             <p
                                                 class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                                                Event
+                                                Campaign
                                             </p>
                                         </th>
                 
@@ -313,20 +313,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for event in events.all %}
+                                    {% for campaign in campaigns|slice:":5" %}
                                     <tr>
                                         <td class="p-2 border-b border-blue-gray-50">
-                                            <a href="{% url 'events:event-details' event.slug %}" class="flex items-center gap-3">
-                                                {% if event.image %}
-                                                <img src="{{event.image.url}}" alt="{{event.title}}"
+                                            <a href="{% url 'campaigns:campaign' campaign.slug %}" class="flex items-center gap-3">
+                                                {% if campaign.image %}
+                                                <img src="{{campaign.image.url}}" alt="{{campaign.title}}"
                                                     class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" />
                                                 {% else %}
-                                                <img src="{% static 'imgs/no-image.png' %}" alt="{{event.title}}"
+                                                <img src="{% static 'imgs/no-image.png' %}" alt="{{campaign.title}}"
                                                     class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" />
                                                 {% endif %}
                                                 <p
                                                     class="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                                                    {{event.title|truncatewords:2}}
+                                                    {{campaign.title|truncatewords:2}}
                                                 </p>
                                             </a>
                                         </td>
@@ -334,8 +334,8 @@
                                         <td class="p-2 border-b border-blue-gray-50">
                                             <div class="w-max">
                                                 <div
-                                                    class="relative grid items-center px-2 py-1 font-sans text-xs font-bold {% if event.status == 'APPROVED' %} bg-green-500/20 text-green-900{% elif event.status == 'PENDING' %}bg-amber-500/20 text-amber-900 {% else %}bg-red-500/20 text-red-900{% endif %}  uppercase rounded-md select-none whitespace-nowrap ">
-                                                    <span class="">{{event.status}}</span>
+                                                    class="relative grid items-center px-2 py-1 font-sans text-xs font-bold {% if campaign.status == 'APPROVED' %} bg-green-500/20 text-green-900{% elif campaign.status == 'PENDING' %}bg-amber-500/20 text-amber-900 {% else %}bg-red-500/20 text-red-900{% endif %}  uppercase rounded-md select-none whitespace-nowrap ">
+                                                    <span class="">{{campaign.status}}</span>
                                                 </div>
                                             </div>
                                         </td>
@@ -344,7 +344,7 @@
                                     {% endfor %}
                                 </tbody>
                             </table>
-                            {% if events.count == 5 %}
+                            {% if campaigns.count == 5 %}
                             <div class="text-right mt-4">
                                 <a href="" class="bg-custom-h hover:bg-custom-h text-white font-semibold py-2 px-4 rounded">
                                     View more
