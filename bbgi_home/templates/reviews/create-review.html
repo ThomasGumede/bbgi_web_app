@@ -1,7 +1,7 @@
 {% extends '_company.html' %}
 {% load static %}
 
-{% block title %}Add Sponsor{% endblock title %}
+{% block title %}Add Review{% endblock title %}
 
 {% block businessblock %}
 
@@ -14,13 +14,13 @@
                 <div class="flex items-start flex-col gap-7">
                     <div class="bg-white w-full">
                         <h6 class="text-custom-h text-base mt-3 mb-6 font-bold uppercase">
-                            Sponsor Information
+                            Review Information
                         </h6>
                         <div class="flex flex-wrap">
                             <div class="w-full lg:w-12/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="id_logo">
-                                        sponsor picture*
+                                        Reviewer picture*
                                     </label>
                                     {{form.logo}}
                                     <div class="w-full border rounded-md bg-white border-dotted p-6">
@@ -33,7 +33,7 @@
                                                 </div>
                                                 <div class="space-y-1">
                                                     <p class="text-xs font-bold text-gray-500">Upload image
-                                                        to illustrate your sponsor</p>
+                                                        to illustrate the reviewer</p>
                                                     <p class="text-xs font-light text-gray-500">SVG, PNG,
                                                         JPG, JPEG or GIF</p>
                                                 </div>
@@ -56,40 +56,40 @@
                             <div class="w-full lg:w-12/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="id_title">
-                                        Sponsor Title*
+                                        Reviwer title*
                                     </label>
-                                    {{form.sponsor}}
+                                    {{form.reviewer}}
                                     <span
-                                        class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.sponsor.help_text}}</span>
-                                    {% if form.sponsor.errors %}
+                                        class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.reviewer.help_text}}</span>
+                                    {% if form.reviewer.errors %}
                                     <span
-                                        class="text-[11px] text-red-500 block font-normal lowercase">{{form.sponsor.errors.as_text}}</span>
+                                        class="text-[11px] text-red-500 block font-normal lowercase">{{form.reviewer.errors.as_text}}</span>
                                     {% endif %}
 
                                 </div>
                             </div>
-                            
+
 
                         </div>
                     </div>
                     <div class="w-full relative">
                         <h6 class="text-custom-h text-base mt-3 mb-6 font-bold uppercase">
-                            Description
+                            Review
                         </h6>
                         <div class="flex flex-wrap">
 
                             <div class="w-full px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="id_details">
-                                        Description
+                                        Review
                                     </label>
 
-                                    {{form.decription}}
+                                    {{form.review}}
                                     <span
-                                        class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.decription.help_text}}</span>
-                                    {% if form.decription.errors %}
+                                        class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.review.help_text}}</span>
+                                    {% if form.review.errors %}
                                     <span
-                                        class="text-[11px] text-red-500 block font-normal lowercase">{{form.decription.errors.as_text}}</span>
+                                        class="text-[11px] text-red-500 block font-normal lowercase">{{form.review.errors.as_text}}</span>
                                     {% endif %}
                                 </div>
                             </div>

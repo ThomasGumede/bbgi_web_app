@@ -4,6 +4,7 @@ from bbgi_home.views.blog_views import all_blogs, blog_details, blogs, create_bl
 from bbgi_home.views.campaigns_views import all_campaigns, all_contributions, campaign_details, contribution_details, delete_contribution
 from bbgi_home.views.events_views import all_events, all_ticket_orders, delete_ticket_order, event_details, ticket_order_details
 from bbgi_home.views.home_views import bbgi_home, about_bbgi, contact, dashboard, search, terms_and_conditions, faqs, privacy, refunds
+from bbgi_home.views.company import reviews, sponsor, sponsors, update_sponsor, create_sponsor, delete_sponsor, create_review, update_review, delete_review
 from django.urls import path
 
 from bbgi_home.views.markets_views import all_quotations
@@ -38,6 +39,18 @@ urlpatterns = [
     path("bbgi-admin/member/create", create_member, name="create-member"),
     path("bbgi-admin/member/update/<member_id>", update_member, name="update-member"),
     path("bbgi-admin/member/delete/<member_id>", delete_member, name="delete-member"),
+    
+    path("bbgi-admin/sponsors", sponsors, name="sponsors"),
+    path("about-us/sponsors/<sponsor_id>", sponsor, name="sponsor"),
+    path("bbgi-admin/sponsor/create", create_sponsor, name="create-sponsor"),
+    path("bbgi-admin/sponsor/update/<sponsor_id>", update_sponsor, name="update-sponsor"),
+    path("bbgi-admin/sponsor/delete/<sponsor_id>", delete_sponsor, name="delete-sponsor"),
+    
+    path("bbgi-admin/reviews", reviews, name="reviews"),
+    path("bbgi-admin/review/create", create_review, name="create-review"),
+    path("bbgi-admin/review/update/<review_id>", update_review, name="update-review"),
+    path("bbgi-admin/review/delete/<review_id>", delete_review, name="delete-review"),
+    
     path("bbgi-admin/campaigns", all_campaigns, name="all-campaigns"),
     path("bbgi-admin/campaign/<slug:campaign_slug>", campaign_details, name="campaign-details"),
     path("bbgi-admin/accounts/campaigns/<username>", all_campaigns, name="all-campaigns-by-username"),

@@ -169,7 +169,7 @@ class Review(AbstractCreate):
 class Sponsor(AbstractCreate):
     logo = models.ImageField(help_text="sponsor logo or image", upload_to="home/images/sponsors", null=True, blank=True)
     sponsor = models.CharField(max_length=350, help_text="sponsor names or title")
-    decription = HTMLField(blank=True, null=True, help_text=_("Describe the team member"))
+    decription = models.TextField(blank=True, null=True, help_text=_("Describe the team member"))
     
     class Meta:
         verbose_name = 'Sponsor'
@@ -177,6 +177,10 @@ class Sponsor(AbstractCreate):
         
     def __str__(self):
         return self.sponsor
+    
+    def get_absolute_url(self):
+        return reverse("bbgi_home:sponsor", kwargs={"sponsor_id": self.id})
+    
     
 class Accreditation(AbstractCreate):
     logo = models.ImageField(help_text="Accreditation logo or image", upload_to="home/images/Accreditations", null=True, blank=True)

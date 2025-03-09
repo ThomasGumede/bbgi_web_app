@@ -1,7 +1,7 @@
 {% extends '_company.html' %}
 {% load static %}
 
-{% block title %}All Sponsors{% endblock title %}
+{% block title %}All reviews{% endblock title %}
 
 {% block businessblock %}
 <div class="relative block bg-white">
@@ -14,16 +14,16 @@
                         <div>
                             <h5
                                 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                                All Sponsors
+                                All reviews
                             </h5>
                             <p
                                 class="block mt-1 font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
-                                These are details of all Sponsors listed
+                                These are details of all reviews listed
                             </p>
                         </div>
                         <div>
-                            <a href="{% url 'bbgi_home:create-sponsor' %}"
-                                class="text-base font-normal px-3 py-2 border border-solid text-center">Add sponsor</a>
+                            <a href="{% url 'bbgi_home:create-review' %}"
+                                class="text-base font-normal px-3 py-2 border border-solid text-center">Add review</a>
                         </div>
                     </div>
                     <div class="flex w-full gap-2 shrink-0 md:w-max">
@@ -58,11 +58,11 @@
                             <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
                                 <p
                                     class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                                    Sponsor
+                                    review
                                 </p>
                             </th>
 
-                            
+
                             <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
                                 <p
                                     class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
@@ -78,23 +78,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for sponsor in sponsors %}
+                        {% for review in reviews %}
                         <tr>
                             <td class="p-4 border-b border-blue-gray-50">
-                                <a href="{{sponsor.get_absolute_url}}" class="flex items-center gap-3">
-                                    {% if sponsor.logo %}
-                                    <img src="{{sponsor.logo.url}}" alt="{{sponsor.sponsor}}"
+                                <a href="{% url 'bbgi_home:update-review' review.id %}" class="flex items-center gap-3">
+                                    {% if review.logo %}
+                                    <img src="{{review.logo.url}}" alt="{{review.reviewer}}"
                                         class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" />
                                     {% else %}
                                     <img src="{% static 'imgs/global/no-image-available.webp' %}"
-                                        alt="{{sponsor.sponsor}}"
+                                        alt="{{review.reviewer}}"
                                         class="relative inline-block h-12 w-12 !rounded-full border border-blue-gray-50 bg-blue-gray-50/50 object-contain object-center p-1" />
                                     {% endif %}
                                     <p
                                         class="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
 
 
-                                        {{sponsor.sponsor}}
+                                        {{review.reviewer}}
                                     </p>
                                 </a>
                             </td>
@@ -102,11 +102,11 @@
                             <td class="p-4 border-b border-blue-gray-50">
                                 <p
                                     class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                                    {{sponsor.created}}
+                                    {{review.created}}
                                 </p>
                             </td>
                             <td class="p-4 border-b border-blue-gray-50 space-x-8">
-                                <a href="{% url 'bbgi_home:update-sponsor' sponsor.id %}"
+                                <a href="{% url 'bbgi_home:update-review' review.id %}"
                                     class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                     type="button">
                                     <span class="">
@@ -114,7 +114,7 @@
                                     </span>
                                 </a>
 
-                                <a href="{% url 'bbgi_home:delete-sponsor' sponsor.id %}"
+                                <a href="{% url 'bbgi_home:delete-review' review.id %}"
                                     class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                     type="button">
                                     <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">

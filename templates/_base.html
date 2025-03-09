@@ -3730,7 +3730,7 @@ input[type="range"]::-ms-thumb {
             <div class="swiper brand-slider">
                 <div class="swiper-wrapper px-[15px]">
                     {% for sponsor in sponsors %}
-                    <a href="" class="swiper-slide py-10">
+                    <a href="{{sponsor.get_absolute_url}}" class="swiper-slide py-10">
                         <img src="{% if sponsor.logo %}{{sponsor.logo.url}}{% else %}{% static 'imgs/team/img1.png' %}{% endif %}" alt="{{sponsor.title}}"
                             class="hover:scale-110 transition-all duration-300 w-full txxl:w-auto h-20">
                     </a>

@@ -1,0 +1,133 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block seo_tags %}
+<!-- Primary Meta Tags -->
+<title>BBGI Sponsor &dash; {{sponsor.sponsor}}</title>
+<meta name="title" content="BBGI Sponsor &dash; {{sponsor.sponsor}}" />
+<meta name="description" content="{{sponsor.description|slice:':150'}}" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+<meta property="og:title" content="BBGI Sponsor &dash; {{sponsor.sponsor}}" />
+<meta property="og:description" content="{{sponsor.description|slice:':150'}}" />
+<meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
+<meta property="twitter:title" content="BBGI Sponsor &dash; {{sponsor.sponsor}}" />
+<meta property="twitter:description" content="{{sponsor.description|slice:':150'}}" />
+<meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+
+<!-- Meta Tags Generated with https://metatags.io -->
+{% endblock seo_tags %}
+
+{% block styles %}
+<style>
+    #hero-section-bg {
+        background-image: url("{% static 'imgs/home.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-blend-mode: overlay;
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+
+<!-- banner section -->
+<section>
+    <!-- banner section -->
+    <div id="hero-section-"
+        class="w-full bg-no-repeat bg-cover bg-center relative z-0 after:w-full after:h-full after:absolute after:top-0 after:left-0 after:bg-white after:bg-opacity-30 after:-z-1">
+        <div class="container py-[110px]">
+            <h1 class="text-2xl sm:text-3xl md:text-[26px] lg:text-3xl xl:text-4xl font-bold text-custom-h mb-4">
+                <span class="leading-1.3 md:leading-1.3 lg:leading-1.3 xl:leading-1.3">Sponsor Details</span>
+            </h1>
+            <ul class="breadcrumb flex gap-7 items-center text-sm lg:text-base font-bold pt-4">
+                <li class="home relative leading-1.8 lg:leading-1.8">
+                    <a href="{% url 'bbgi_home:bbgi-home' %}"><i class="fas fa-home text-custom-h"></i> Home</a>
+                </li>
+                <li class="leading-1.8 lg:leading-1.8 text-custom-h">
+                    {{sponsor.sponsor}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- service details section -->
+<section>
+    <div class="container pt-30 pb-[105px]">
+        <div class="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-7">
+            <!-- details -->
+            <div class="lg:col-start-1 lg:col-span-8">
+                <!-- thumbnail -->
+                <div class="mb-10 h-96 overflow-hidden">
+                    <img src="{% if sponsor.logo %}{{sponsor.logo.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}"
+                        alt="{{sponsor.sponsor}} image" class="w-full h-96 object-contain">
+                </div>
+
+                <!-- description -->
+                <div>
+                    <p class="text-sm lg:text-base my-6">
+                        <span
+                            class="w-[60px] h-[60px] md:w-[100px] md:h-[100px] bg-custom-primary mr-5 md:mr-[30px] text-40px md:text-[70px] font-bold text-white uppercase text-center leading-1 md:leading-1 flex justify-center items-center float-left">
+                            {{sponsor.decription.0}}
+                        </span>
+
+                        {{sponsor.decription|slice:"1:"}}
+                    </p>
+                </div>
+            </div>
+            <!-- sidebar -->
+            <div class="lg:col-start-9 w-full lg:col-span-4 space-y-10 mt-[100px] lg:mt-0">
+                <!-- category -->
+                <div class="flex flex-col !w-full gap-y-4">
+                    {% for other_sponsor in sponsors %}
+                    <a href="{{other_sponsor.get_absolute_url}}"
+                        class="px-5 xl:px-[35px] py-[23px] group {% if other_sponsor.sponsor == sponsor.sponsor %} hover:bg-[#f2f6f7] bg-custom-h {% else %} bg-[#f2f6f7] hover:bg-custom-h {% endif %} relative z-0">
+                        <span href="{{other_sponsor.get_absolute_url}}"
+                            class="text-sm font-bold uppercase relative {% if other_sponsor.sponsor == sponsor.sponsor %} text-white group-hover:text-custom-h {% else %} group-hover:text-white text-custom-h {% endif %}">
+                            {{other_sponsor.sponsor}}
+
+                        </span>
+                    </a>
+                    {% endfor %}
+
+
+                </div>
+                <!-- search  -->
+                <div class="px-5 xl:px-[35px] pt-[35px] pb-10 xl:py-[50px] bg-custom-h relative z-0">
+                    <h4 class="text-sm md:t4 lg:text-base text-custom-primary font-bold mb-[5px]">
+                        <span class="leading-1.3 md:leading-1.3 lg:leading-1.3">// More about BBGI?</span>
+                    </h4>
+                    <h4 class="text-4xl text-white font-bold mb-[25px]">
+                        <span class="leading-1.3">Company Profile</span>
+                    </h4>
+                    <div>
+                        <a href="" class="w-fit mx-auto">
+                            <h5
+                                class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-white inline-block z-0">
+                                <span
+                                    class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-white -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                <div
+                                    class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px] group-hover:text-white leading-1.5 uppercase">
+                                    <p>Download</p>
+                                </div>
+                            </h5>
+                        </a>
+                    </div>
+                    <div class="text-[120px] text-color-1 absolute right-5 top-[15%] -z-1 opacity-10 leading-1">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
