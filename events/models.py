@@ -53,6 +53,7 @@ class EventModel(AbstractCreate):
     class Meta:
         verbose_name = 'Event'
         verbose_name_plural = 'Events'
+        ordering = ['-created']
 
     def date_time_formatter(self):
         start_local = timezone.localtime(self.event_startdate)

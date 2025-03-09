@@ -49,11 +49,11 @@ function get_ticket_types() {
                                     <div class="flex flex-wrap gap-4 w-full md:items-center justify-between">
                                         
                                         <select class="hidden" name="form-${index}-ticket_type" id="id_form-${index}-ticket_type" value="${ticket_type.pk}">
-                                            <option selected value="${ticket_type.pk}">${ticket_type.fields.title.slice(0, 10)}</option>    
+                                            <option selected value="${ticket_type.pk}">${ticket_type.fields.title.slice(0, 35)}</option>    
                                         </select>
                                         <div id="ticket_title">
                                             <h6 class="text-base">
-                                                ${ticket_type.fields.title.slice(0, 10)}...
+                                                ${ticket_type.fields.title.slice(0, 35)}...
                                             </h6>
                               
                                             <p class="text-sm" id="form-${index}-price-text">
