@@ -279,7 +279,7 @@
                                                                             {% for ticket in order.tickets.all %}
                                                                             <td width="25%"
                                                                                 style="padding: 10px; word-break: break-word; border-top: 1px solid #dddddd; border-right: 1px solid #dddddd; border-bottom: 1px solid #dddddd; border-left: 1px solid #dddddd;">
-                                                                                {{ticket.ticket_type.title}}</td>
+                                                                                {{ticket.ticket_type.title|truncatewords:5}}</td>
 
 
                                                                             <td width="25%"
@@ -287,6 +287,7 @@
                                                                                 R{{ticket.ticket_type.total_price}}</td>
                                                                             {% endfor %}
                                                                         </tr>
+                                                                        
                                                                     </tbody>
                                                                 </table>
                                                             </td>
