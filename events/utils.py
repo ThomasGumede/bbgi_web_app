@@ -120,7 +120,7 @@ def generate_qr_and_bacode(order: TicketOrderModel, request):
             ticket.barcode_value = barcode_value
             ticket.qrcode_image = f'tickets/qrcodes/' + order.order_number + '_qrcode.png'
             ticket.barcode_image = f'tickets/barcodes/' + order.order_number + '.png'
-            ticket.save(update_fields=["qrcode_url", "qrcode_image"])
+            ticket.save(update_fields=["qrcode_url", "barcode_value", "qrcode_image", "barcode_image"])
         
         return True
 
@@ -152,7 +152,7 @@ def generate_tickets_in_pdf(order: TicketOrderModel, request):
         # generate_qr_and_bacode(order, request)
         domain = get_current_site(request).domain
         protocol = "https" if request.is_secure() else "http"
-        template = get_template("ticket/tickets_new.html")
+        template = get_template("ticket/tickets.html")
         context = {"tickets": TicketModel.objects.filter(ticket_order=order), 
                     "event": order.event, 
                     "buyer_full_name": order.buyer.get_full_name(),

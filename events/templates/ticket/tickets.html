@@ -7,8 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tickets</title>
     <style rel="stylesheet" type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders:opsz,wght@10..72,100..900&display=swap');
         * {
             box-sizing: border-box;
+            font-family: "Big Shoulders", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
         }
 
         .ts-row::after {
@@ -23,11 +28,11 @@
 <body>
     {% for ticket in tickets %}
 
-    <div style="border: dotted 1px #1e3737;padding: 25px;position: relative;height: 345px;width: 624px;">
+    <div style="border: dotted 1px #1e3737;padding: 25px;position: relative;height: 345px;width: 624px; font-family: 'Roboto' sans-serif; border-radius: 20px;">
 
 
         <div
-            style="font-size: 18px; font-family: azo-sans-web; font-weight: 900; height: 10px; padding-bottom: 30px; display: flex; align-items: center; width: 100%; justify-content: space-between;">
+            style="font-size: 18px; font-family: 'Roboto' sans-serif; font-weight: 900; height: 10px; padding-bottom: 30px; display: flex; align-items: center; width: 100%; justify-content: space-between;">
             <div style="padding: 1px; color: #1e3737;"><span>Ticket</span></div>
 
             <div style="padding: 1px; word-wrap: break-word;">
@@ -37,14 +42,14 @@
         </div>
         <div style="display: flex; justify-content: space-between; margin-bottom: 20px; width: 100%;">
             <div style="display: block; align-items: center; justify-content: center; width: 35%; margin-right: 30px;">
-                <div style=" padding: 10px; width: 100%; margin-bottom:10px; background-color: aliceblue;">
+                <div style=" padding: 10px; width: 100%; margin-bottom:10px; ">
                     <div style="position: relative; width: 100px; height: 100px; overflow: hidden; margin: auto;">
                         <img src="{{protocol}}://{{domain}}{{ticket.qrcode_image.url}}"
                             style="width: 100px; height: 100px; object-fit: cover;" alt="{{ticket.qrcode_url}}">
                     </div>
                 </div>
-                <div style="padding: 1px; font-family: Museo Sans W01_700;background-color: aliceblue;">
-                    <div style="padding: 10px; font-family: Museo Sans W01_700;">
+                <div style="padding: 1px; ">
+                    <div style="padding: 10px; ">
                         <div style="position: relative; width:170px;height:100px">
                             <div><img src="{{protocol}}://{{domain}}{{ticket.barcode_image.url}}"
                                     style="width:170px;height:100px" alt="{{ticket.barcode_url}}" /></div>
@@ -57,7 +62,7 @@
                     <div style="padding-bottom: 8px;">
                         <div style="display: flex;">
                             <div
-                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; font-family: Museo Sans W01_700;">
+                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; ">
                                 <span>VENUE</span>
                             </div>
 
@@ -68,7 +73,7 @@
 
                         <div style="display: flex;">
                             <div
-                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; font-family: Museo Sans W01_700;">
+                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; ">
                                 &nbsp;
                             </div>
 
@@ -82,7 +87,7 @@
                     <div style="padding-bottom: 8px;">
                         <div style="display: flex; margin-bottom: 5px;">
                             <div
-                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; font-family: Museo Sans W01_700;">
+                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; ">
                                 <span>WHEN</span>
                             </div>
 
@@ -93,12 +98,12 @@
 
                         <div style="display: flex;">
                             <div
-                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; font-family: Museo Sans W01_700;">
+                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; ">
                                 <span>PRICE</span>
                             </div>
 
                             <div style="padding: 1px; width: 75%; font-family: Museo Sans W01_500;">
-                                <span>{{ticket.ticket_type.title}} - R{{ticket.ticket_type.total_price}}</span>
+                                <span>{{ticket.ticket_type.title|truncatewords:5}} - R{{ticket.ticket_type.total_price}}</span>
                             </div>
                         </div>
                     </div>
@@ -107,7 +112,7 @@
                     <div style="padding-bottom: 8px;">
                         <div style="margin-bottom: 5px; display: flex;">
                             <div
-                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; font-family: Museo Sans W01_700;">
+                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; ">
                                 <span>GUEST NAME</span>
                             </div>
 
@@ -117,7 +122,7 @@
 
                         <div style="margin-bottom: 5px; display: flex;">
                             <div
-                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; font-family: Museo Sans W01_700;">
+                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; ">
                                 <span>GUEST EMAIL</span>
                             </div>
 
@@ -128,7 +133,7 @@
                     <div>
                         <div style="margin-bottom: 5px; display: flex;">
                             <div
-                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; font-family: Museo Sans W01_700;">
+                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; ">
                                 <span>DATE ISSUED</span>
                             </div>
 
@@ -138,7 +143,7 @@
 
                         <div style="margin-bottom: 5px; display: flex;">
                             <div
-                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; font-family: Museo Sans W01_700;">
+                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; ">
                                 <span>ORDER REF</span>
                             </div>
 
@@ -147,7 +152,7 @@
                         </div>
                         <div style="margin-bottom: 5px; display: flex;">
                             <div
-                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; font-family: Museo Sans W01_700;">
+                                style="padding: 1px; width: 25%; color: #1e3737; font-weight: 500; ">
                                 <span>BUYER NAME</span>
                             </div>
 
@@ -161,10 +166,10 @@
         </div>
         <div class="ts-row ts-note">
             <div class="ts-col-2 ts-col-m-12 ts-value"
-                style="padding: 1px; width: 16.66%; font-family: Museo Sans W01_700;">&nbsp;</div>
+                style="padding: 1px; width: 16.66%; ">&nbsp;</div>
 
             <div class="ts-col-10 ts-col-m-12"
-                style="padding: 1px; width: 83.33%; font-size: 7px; font-family: Museo Sans W01_500; margin: auto;">
+                style="padding: 1px; width: 83.33%; font-size: 7px; font-weight: 600; margin: auto;">
                 <span style="padding: 2px; position: absolute; bottom: 15px;">USE OF THIS TICKET MEANS THAT THE
                     ATTENDEE IS
                     BOUND BY ALL EVENT ORGANISER TERMS AND CONDITIONS</span>

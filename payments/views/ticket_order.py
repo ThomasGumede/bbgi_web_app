@@ -1,4 +1,5 @@
 from accounts.utilities.custom_email import send_html_email_with_attachments
+from events.utils import generate_qr_and_bacode
 from payments.utilities.custom_email import send_ticket_order_received_to_admin, send_tickets_email
 from payments.utilities.yoco_func import headers
 import requests, logging, json, decimal, base64
@@ -149,6 +150,9 @@ def verify_ticket_payment_order(request, ticket_order_id):
     ticket_order = get_object_or_404(TicketOrderModel, id=ticket_order_id)
     if ticket_order.paid == PaymentStatus.PENDING:
         try:
+            if ticket_order.tickets_pdf_file == None:
+                generate_qr_and_bacode(ticket_order, request)
+                
             payment_information = PaymentInformation.objects.get(id = ticket_order.checkout_id)
             updated = update_payment_status_ticket_order(json.loads(payment_information.data), request, ticket_order)
 
@@ -190,6 +194,9 @@ def verify_ticket_payment_order(request, ticket_order_id):
             }
 
             if ticket_order.paid == PaymentStatus.PAID:
+                if ticket_order.tickets_pdf_file == None:
+                    generate_qr_and_bacode(ticket_order, request)
+                    
                 mail_subject = f"Your tickets for {ticket_order.event.title} on {ticket_order.event.date_time_formatter()}"
                 message_template = "emails/tickets/ticket-order-email.html"
                 
