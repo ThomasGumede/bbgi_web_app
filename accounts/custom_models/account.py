@@ -99,6 +99,7 @@ class SubscriptionOrder(AbstractCreate, AbstractPayment):
     client_address_two = models.CharField(max_length=300, blank=True, null=True)
     client_city = models.CharField(max_length=300, blank=True, null=True)
     client_province = models.CharField(max_length=300, blank=True, null=True)
+    checkout_details = models.TextField(max_length=300, blank=True, null=True)
     client_country = models.CharField(max_length=300, default="South Africa")
     client_zipcode = models.BigIntegerField(blank=True, null=True)
 
