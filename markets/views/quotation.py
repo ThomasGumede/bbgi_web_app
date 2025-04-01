@@ -6,7 +6,7 @@ from markets.forms import QoutationForm, RequestServiceForm
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 
-from markets.tasks import send_email_to_owner
+from markets.tasks import send_email_to_bbgi_community, send_email_to_owner
 
 @login_required
 def manage_quotations(request):
@@ -48,7 +48,7 @@ def create_quotation(request, service_id):
     
     return render(request, "markets/quotations/create-quotation.html", {"form": form, "service":service})
 
-@login_required
+
 def request_service(request):
     
     
@@ -60,7 +60,7 @@ def request_service(request):
             quote.save()
             domain = get_current_site(request).domain
             protocol = "https" if request.is_secure() else "http"
-            send_email_to_owner(domain, protocol, quote.id)
+            send_email_to_bbgi_community.delay(domain, protocol, quote.id)
             messages.success(request, "Quote was successfully sent to business owners")
             return redirect("markets:request-qoutations")
         else:

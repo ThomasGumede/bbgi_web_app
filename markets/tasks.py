@@ -29,7 +29,7 @@ def send_email_to_bbgi_community(domain, protocol, qoute_id):
                 }
         # message = render_to_string("emails/quotation_request_email.html", context,
         #     )
-        html_content = render_to_string("emails/quotation_request_email.html", context)
+        html_content = render_to_string("emails/service_request.html", context)
         for recipient in recipients:
         
             email = EmailMessage(
@@ -45,7 +45,7 @@ def send_email_to_bbgi_community(domain, protocol, qoute_id):
                 
             sent = email.send(fail_silently=False)
             if not sent:
-                logger.error(f"Email not sent to {qoute.service.business.email} for qoute {qoute.id}")
+                logger.error(f"Email not sent to {recipient} for qoute {qoute.id}")
             
     except RequestService.DoesNotExist as ex:
         logger.error(ex)

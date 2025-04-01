@@ -87,7 +87,7 @@ class Account(AbstractUser, AbstractProfile):
 
 class SubscriptionOrder(AbstractCreate, AbstractPayment):
     package = models.ForeignKey(SubscriptionPackage, null=True, blank=True, on_delete=models.SET_NULL, related_name="subscription_orders")
-    subscriber = models.OneToOneField(Account, null=True, blank=True, on_delete=models.SET_NULL, related_name="subscription_order")
+    subscriber = models.ForeignKey(Account, null=True, blank=True, on_delete=models.SET_NULL, related_name="subscription_order")
     order_id = models.CharField(max_length=150, editable=False, unique=True)
 
     client_first_name = models.CharField(max_length=250, null=True, blank=True)

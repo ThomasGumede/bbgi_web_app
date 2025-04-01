@@ -21,7 +21,7 @@
                         Your subscription order was created and ready for futher process! Use this order number <span
                             class="text-custom-h">{{subscription_order.order_id}}</span> for future references.
                     </p>
-                    <div class="flex w-full items-center justify-between">
+                    <div class="flex w-full gap-4 items-center justify-between">
                         <div
                             class="w-36 lg:w-40 text-center grid items-center justify-center h-12 border-2 border-custom-h bg-custom-h hover:bg-white hover:text-custom-h text-white font-medium text-sm focus-within:outline-none focus:outline-none lg:text-base duration-500 rounded-md">
                             <a href="{% url 'accounts:cancel-subscription-order' subscription_order.id %}"

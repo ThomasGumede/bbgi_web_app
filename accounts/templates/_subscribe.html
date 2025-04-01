@@ -2,14 +2,20 @@
 {% load static %}
 
 {% block seo_tags %}
-<title>Ticket Order</title>
-<meta name="description" content="{{event.content|truncatechars:157}}">
-<meta name="title" content="Ticket Order" />
+<title>Subscribe To BBGI</title>
+<meta name="description" content="Whether you have
+                        a new or already established business, we can help it thrive through the use of our digitally
+                        enabled
+                        marketplace, offering you better customer connection, insights and advertising ability.">
+<meta name="title" content="Subscribe To BBGI" />
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/ticket-order/create" />
-<meta property="og:title" content="Ticket Order" />
-<meta property="og:description" content="{{event.content|truncatechars:157}}" />
+<meta property="og:url" content="https://bbgi.co.za/accounts/subscribe/" />
+<meta property="og:title" content="Subscribe To BBGI" />
+<meta property="og:description" content="Whether you have
+                        a new or already established business, we can help it thrive through the use of our digitally
+                        enabled
+                        marketplace, offering you better customer connection, insights and advertising ability." />
 {% if event.image %}
 <meta property="og:image" content="https://bbgi.co.za{{event.image.url}}" />
 {% else %}
@@ -17,9 +23,12 @@
 {% endif %}
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/ticket-order/create" />
-<meta property="twitter:title" content="Ticket Order" />
-<meta property="twitter:description" content="{{event.content|truncatechars:157}}" />
+<meta property="twitter:url" content="https://bbgi.co.za/accounts/subscribe/" />
+<meta property="twitter:title" content="Subscribe To BBGI" />
+<meta property="twitter:description" content="Whether you have
+                        a new or already established business, we can help it thrive through the use of our digitally
+                        enabled
+                        marketplace, offering you better customer connection, insights and advertising ability." />
 {% if event.image %}
 <meta property="twitter:image" content="https://bbgi.co.za{{event.image.url}}" />
 {% else %}
