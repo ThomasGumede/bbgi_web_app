@@ -131,7 +131,7 @@
                             Business</a>
                     </li>
                     <li class="group relative">
-                        <a href=""
+                        <a
                             class="h-[50px] w-[50px] text-heading-color overflow-hidden shadow-box-shadow-1 flex justify-center items-center hover:bg-custom-primary hover:text-white transition-all duration-300">
                             {% if request.user.profile_image %}
                             <img src="{% if request.user.profile_image %}{{request.user.profile_image.url}}{% else %}{% static 'imgs/R.png' %}{% endif %}"
