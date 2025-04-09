@@ -36,7 +36,7 @@ def send_email_to_bbgi_community(domain, protocol, qoute_id):
                 subject=f"Quote Request for Service - {qoute.service_title}",
                 body=html_content,
                 from_email="BBGI Quotes <orders@bbgi.co.za>",
-                to=['gumedethomas12@gmail.com']
+                to=[recipient]
             )
             email.content_subtype = 'html'
 
