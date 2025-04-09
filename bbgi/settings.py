@@ -67,15 +67,22 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SILENCED_SYSTEM_CHECKS = ['security.W019']
 TEST_MODE = config('YOCO_TEST_MODE')
-# YOCO
-if DEBUG or TEST_MODE == 'yes':
+
+if TEST_MODE == 'yes':
     YOCO_WEBHOOK_KEY = config('YOCO_TEST_WEBHOOK_KEY')
     YOCO_API_KEY = config('YOCO_TEST_API_KEY')
-    ALLOWED_HOSTS=['*']
-
 else:
     YOCO_WEBHOOK_KEY = config('YOCO_LIVE_WEBHOOK_KEY')
     YOCO_API_KEY = config('YOCO_LIVE_API_KEY')
+
+
+# YOCO
+if DEBUG:
+    
+    ALLOWED_HOSTS=['*']
+
+else:
+    
     
 
     # SSL SETTINGS

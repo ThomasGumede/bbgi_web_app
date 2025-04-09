@@ -86,7 +86,7 @@ def subscription_payment_cancelled(request, subscription_id):
     subscription = get_object_or_404(SubscriptionOrder, id=subscription_id)
     subscription.delete()
     messages.success(request, "Payment cancelled successfully")
-    return redirect("campaigns:campaigns")
+    return redirect("listings:add-listing")
 
 @login_required
 def subscription_payment_success(request, subscription_id):
