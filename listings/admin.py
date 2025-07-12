@@ -20,3 +20,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Business)
 class BusinessAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(ListingOrder)
+class ListingOrderAdmin(admin.ModelAdmin):
+    pass

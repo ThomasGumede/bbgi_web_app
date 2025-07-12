@@ -143,7 +143,6 @@ class Business(AbstractCreate):
                 else:
                     return False
 
-    
 class BusinessContent(AbstractCreate):
     image = models.ImageField(help_text=_("Upload company/business images."), upload_to=handle_business_file_upload, blank=True, null=True)
     business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name="images")
@@ -217,6 +216,8 @@ class ListingOrder(AbstractCreate, AbstractPayment):
     checkout_details = models.TextField(max_length=300, blank=True, null=True)
     client_country = models.CharField(max_length=300, default="South Africa")
     client_zipcode = models.BigIntegerField(blank=True, null=True)
+
+    hide_client = models.BooleanField(default=True)
 
     vat = models.DecimalField(max_digits=1000, decimal_places=2)
     total_amount = models.DecimalField(max_digits=1000, decimal_places=2)
