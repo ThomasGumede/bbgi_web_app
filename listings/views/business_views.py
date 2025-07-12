@@ -102,9 +102,6 @@ def add_listing(request, listing_slug=None):
         return render(request, "business/create-listing/add-listing.html", {"listing": listing, "form": buniness_form})
     
     else:
-        if request.user.subscription == None:
-            messages.warning(request, "Sorry, you cannot add listing without subscription. <u>Scroll down to subscribe!</u>")
-            return redirect("accounts:choose-package")
         
         buniness_form = BusinessForm()
         

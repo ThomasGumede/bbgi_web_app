@@ -68,7 +68,7 @@ def subscription_checkout(request, order_id):
     if request.method == "POST":
         form = SubscriptionOrderForm(instance=order, data=request.POST)
         if form.is_valid():
-            form.save()
+            form.save() 
             request.session['coupon_id'] = ''
             messages.success(request, "Billing details successfully saved")
             return redirect("payments:subscription-payment", order.id)

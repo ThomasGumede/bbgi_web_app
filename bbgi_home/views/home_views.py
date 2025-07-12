@@ -20,8 +20,9 @@ logger = logging.getLogger("tasks")
 def bbgi_home(request):
     blogs = Blog.objects.all()[:5]
     listings = Business.objects.all()[:5]
+    events = Business.objects.all()[:5]
     popular_services = Service.objects.filter(is_popular=True, on_discount=True)[:3]
-    return render(request, "home/home_v2.html", {"posts": blogs, "listings": listings, "popular_services": popular_services})
+    return render(request, "home/home_v2.html", {"posts": blogs, "listings": listings, "popular_services": popular_services, "events": events})
 
 def about_bbgi(request):
     members = Member.objects.all()

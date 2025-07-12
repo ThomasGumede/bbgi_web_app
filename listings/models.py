@@ -1,7 +1,8 @@
 from django.db import models
 from django.db.models import Avg, Count
 from django.urls import reverse
-from accounts.custom_models.abstracts import PHONE_VALIDATOR
+import decimal
+from accounts.custom_models.abstracts import PHONE_VALIDATOR, AbstractPayment
 from accounts.custom_models.choices import StatusChoices
 from accounts.models import AbstractCreate
 from django.dispatch import receiver
@@ -12,6 +13,7 @@ from django.contrib.auth import get_user_model
 from django.template.defaultfilters import slugify
 from django.core.validators import MinValueValidator, MaxValueValidator
 from accounts.utilities.validators import validate_fcbk_link, validate_in_link, validate_insta_link, validate_twitter_link
+from campaigns.utils import PaymentStatus
 from listings.utilities.file_handlers import handle_business_file_upload, handle_business_verification_file_upload
 
 DAYCHOICES = [
@@ -198,7 +200,54 @@ class BusinessLocation(AbstractCreate):
     def __str__(self):
         return self.address
     
+class ListingOrder(AbstractCreate, AbstractPayment):
+    listing = models.OneToOneField(Business, null=True, blank=True, on_delete=models.SET_NULL, related_name="listing_order")
+    subscriber = models.ForeignKey(get_user_model(), null=True, blank=True, on_delete=models.SET_NULL, related_name="listing_orders")
+    order_id = models.CharField(max_length=150, editable=False, unique=True)
 
+    client_first_name = models.CharField(max_length=250, null=True, blank=True)
+    client_last_name = models.CharField(max_length=250, null=True, blank=True)
+    client_phone = models.CharField(max_length=15, validators=[PHONE_VALIDATOR], null=True, blank=True)
+    client_email = models.EmailField(null=True, blank=True)
+
+    client_address_one = models.CharField(max_length=300, blank=True, null=True)
+    client_address_two = models.CharField(max_length=300, blank=True, null=True)
+    client_city = models.CharField(max_length=300, blank=True, null=True)
+    client_province = models.CharField(max_length=300, blank=True, null=True)
+    checkout_details = models.TextField(max_length=300, blank=True, null=True)
+    client_country = models.CharField(max_length=300, default="South Africa")
+    client_zipcode = models.BigIntegerField(blank=True, null=True)
+
+    vat = models.DecimalField(max_digits=1000, decimal_places=2)
+    total_amount = models.DecimalField(max_digits=1000, decimal_places=2)
+    discount = models.DecimalField(max_digits=1000, decimal_places=2, default=0.00)
+    checkout_id = models.CharField(max_length=200, unique=True, null=True, blank=True, db_index=True)
+    payment_status = models.CharField(max_length=40, choices=PaymentStatus.choices, default=PaymentStatus.NOT_PAID)
+    subscription_starts = models.DateTimeField(null=True, blank=True)
+    subscription_ends = models.DateTimeField(null=True, blank=True)
+
+    def calculate_total_price(self):
+        initial_amount = 1000
+        discount_amount = decimal.Decimal(initial_amount * decimal.Decimal((self.discount / 100)))
+        discounted_amount = initial_amount - discount_amount
+        self.total_amount = discounted_amount
+        self.vat = decimal.Decimal(discounted_amount * decimal.Decimal((14/100)))
+
+        return self.total_amount
+    
+    def save(self, *args, **kwargs):
+        if not self.order_id:
+            self.order_id = f"BBGIS{timezone.now().strftime('%Y%m%dH%M%S')}{self.subscriber.id}"
+        self.calculate_total_price()
+        super(ListingOrder, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = _("Listing Order")
+        verbose_name_plural = _("Listing Orders")
+        ordering = ["-created"]
+        
+    def __str__(self):
+        return f"Listing order by {self.client_first_name} {self.client_last_name}"
 
 @receiver(pre_delete, sender=Business)
 def delete_business_images_hook(sender, instance, using, **kwargs):

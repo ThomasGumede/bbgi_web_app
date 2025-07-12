@@ -126,7 +126,7 @@
                     
                     {% if request.user.is_authenticated %}
                     <li>
-                        <a href="{% if request.user.is_authenticated and request.user.is_paid %}{% url 'listings:add-listing' %}{% else %}{% url 'listings:get-started-with-listing' %}{% endif %}"
+                        <a href="{% url 'listings:get-started-with-listing' %}"
                             class="px-4 md:px-5 !text-white py-0.5 md:py-3 font-bold  bg-custom-primary inline-block bg-opacity-100 hover:bg-opacity-60 hover:text-white">Add
                             Business</a>
                     </li>
@@ -169,7 +169,7 @@
                         
                     </li>
                     <li>
-                        <a href="{% if request.user.is_authenticated and request.user.is_paid %}{% url 'listings:add-listing' %}{% else %}{% url 'listings:get-started-with-listing' %}{% endif %}"
+                        <a href="{% url 'listings:get-started-with-listing' %}"
                             class="px-4 md:px-5 !text-white py-3 font-bold  bg-custom-primary inline-block bg-opacity-100 hover:bg-opacity-60 hover:text-white">Add
                             Business</a>
                     </li>

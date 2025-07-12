@@ -1,6 +1,7 @@
 from django.urls import path
 from listings.views.business_hours import get_business_hours, update_business_hour, add_business_hours
 from listings.views.business_lcation import create_location, delete_location, get_locations, update_location, add_main_location, update_main_location
+from listings.views.business_order import order_subscription, cancel_listing_order
 from listings.views.business_views import add_listing, add_listing_socials, delete_listing, \
     delete_listing_content, get_business_hours_api, get_listing, get_listings, manage_listing, \
         manage_listings, update_listing, update_listing_content, get_started_with_listing, update_listing_socials
@@ -18,6 +19,8 @@ urlpatterns = [
     path("listing/<slug:listing_slug>/create-listing-hours", add_business_hours, name = "add-business-hours"),
     path("listing/<slug:listing_slug>/add-contact-info", add_listing_socials, name = "add-business-socials"),
     path("listing/<slug:listing_slug>/add-main-location", add_main_location, name = "add-business-main-location"),
+    path("listing/<slug:listing_slug>/payment-checkout", order_subscription, name = "order-subscription"),
+    path("listing/<uuid:order_id>/cancel-payment-checkout", cancel_listing_order, name = "cancel-listing-order"),
 
     
     path("listing/get-started", get_started_with_listing, name = "get-started-with-listing"),

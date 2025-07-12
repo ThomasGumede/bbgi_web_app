@@ -1,9 +1,10 @@
 import logging, json, base64
 from celery import shared_task
-from accounts.custom_models.account import SubscriptionOrder, WalletModel
+from accounts.custom_models.account import WalletModel
 from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 from accounts.utilities.custom_email import send_html_email_with_attachments
+from listings.models import ListingOrder
 from payments.models import BBGIBankModel, PaymentInformation
 from events.models import TicketOrderModel, reservation_time
 from campaigns.models import ContributionModel, in_fourteen_days
@@ -182,13 +183,13 @@ def update_payment_details(order, data, payment_status: PaymentStatus):
     order.payment_date = str(payload.get("createdDate", "-"))
     order.save(update_fields=["paid", "payment_method_card_holder", "payment_method_type","payment_method_masked_card", "payment_method_scheme"])
 
-def send_subscription_confirm_email(order: SubscriptionOrder, protocol, domain, status):
+def send_subscription_confirm_email(order: ListingOrder, protocol, domain, status):
     try:
         
         context = {
                         "protocol": protocol,
                         "domain": domain,
-                        "user": order.contributor.get_full_name(),
+                        "user": order.subscriber.get_full_name(),
                         "order": order,
                         # "facebook": COMPANY.facebook,
                         # "twitter": COMPANY.twitter,
@@ -317,17 +318,12 @@ def check_payment_update_2_subscription(checkout_id, protocol, domain):
         payment_information = PaymentInformation.objects.get(id=checkout_id)
         data = json.loads(payment_information.data)
         try:
-            subscription = SubscriptionOrder.objects.get(checkout_id=checkout_id)
+            subscription = ListingOrder.objects.get(checkout_id=checkout_id)
             payment_status = PaymentStatus.NOT_PAID
             if data["type"] == "payment.succeeded":
                 payment_status = PaymentStatus.PAID
-                if subscription.subscriber:
-                    subscription.subscriber.subscription = subscription.package
-                    subscription.subscriber.is_paid = True
-                    subscription.subscriber.subscription_starts = timezone.now()
-                    subscription.subscriber.subscription_ends = timezone.now() + relativedelta(months=12)
-                    subscription.subscriber.save(update_fields=["subscription", "is_paid", "subscription_starts", "subscription_ends"])
-                
+                subscription.subscription_starts = timezone.now()
+                subscription.subscription_ends = timezone.now() + relativedelta(months=12)
                 
 
             payload = data["payload"]
@@ -341,7 +337,7 @@ def check_payment_update_2_subscription(checkout_id, protocol, domain):
                 subscription.payment_method_scheme = card_details.get("scheme", "-")
 
             subscription.payment_date = str(payload.get("createdDate", "-"))
-            subscription.save(update_fields=["payment_status", "payment_method_card_holder", "payment_method_type","payment_method_masked_card", "payment_method_scheme"])
+            subscription.save(update_fields=["payment_status", "payment_method_card_holder", "subscription_starts", "subscription_ends", "payment_method_type","payment_method_masked_card", "payment_method_scheme"])
 
             sent = send_subscription_confirm_email(subscription, protocol, domain, data["type"])
             
@@ -353,7 +349,7 @@ def check_payment_update_2_subscription(checkout_id, protocol, domain):
             else:
                 return f"subscription confirmation email - email was not sent to {subscription.subscriber.get_full_name()}"
             
-        except SubscriptionOrder.DoesNotExist:
+        except ListingOrder.DoesNotExist:
             campaign_logger.error("subscription not found")
             return f"subscription {checkout_id} was not found"
         

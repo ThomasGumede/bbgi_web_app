@@ -22,19 +22,29 @@
                             class="text-custom-h">{{subscription_order.order_id}}</span> for future references.
                     </p>
                     <div class="flex w-full gap-4 items-center justify-between">
-                        <div
-                            class="w-36 lg:w-40 text-center grid items-center justify-center h-12 border-2 border-custom-h bg-custom-h hover:bg-white hover:text-custom-h text-white font-medium text-sm focus-within:outline-none focus:outline-none lg:text-base duration-500 rounded-md">
-                            <a href="{% url 'accounts:cancel-subscription-order' subscription_order.id %}"
-                                class="">cancel</a>
-                        </div>
+                        
+                        <a  href="{% url 'listings:cancel-listing-order' subscription_order.id %}">
+                            <h5
+                                class="uppercase text-sm md:text-base !text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-h hover:border-custom-primary inline-block z-0">
+                                <span
+                                    class="inline-block absolute top-0 left-0 w-full h-full bg-custom-h group-hover:bg-custom-primary -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                <div
+                                    class="relative z-1 px-5 font-sans md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                    cancel
+                                </div>
+                            </h5>
+                        </a>
                         <form method="post">
                             {% csrf_token %}
-                            <button value="submit" type="submit"
-                                class="w-36 lg:w-40 h-12 border-2 border-custom-h bg-custom-h hover:bg-white hover:text-custom-h text-white font-medium text-sm focus-within:outline-none focus:outline-none lg:text-base duration-500 rounded-md">
-                                
-                                    Pay
-                                
-                            </button>
+                            <h5
+                                class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                                <span
+                                    class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                <button type="submit"
+                                    class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                    Checkout
+                                </button>
+                            </h5>
                         </form>
                     </div>
                 </div>

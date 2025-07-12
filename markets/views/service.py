@@ -37,10 +37,12 @@ def add_service(request, listing_slug):
             service = form.save(commit=False)
             service.business = listing
             service.save()
-            messages.success(request, f"Service ({title}) added successfully")
+            
             if add_another:
+                messages.success(request, f"Service ({title}) added successfully")
                 return redirect("markets:add-service", listing.slug)
-            return redirect("listings:get-listing", listing.slug)
+            messages.success(request, f"Your business was added successfully. To verify, please make payment")
+            return redirect("listings:order-subscription", listing.slug)
         else:
             messages.error(request, "Error trying to create service")
             

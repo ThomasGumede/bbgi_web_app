@@ -24,7 +24,7 @@ urlpatterns = [
     path("", include("events.urls", namespace="events")),
     path("", include("coupons.urls", namespace="coupons")),
     path("", include("markets.urls", namespace="markets")),
-    path("payments/", include("payments.urls", namespace="payments")),
+    path("", include("payments.urls", namespace="payments")),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
     

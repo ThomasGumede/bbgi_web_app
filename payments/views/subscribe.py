@@ -4,7 +4,7 @@ from payments.utilities.yoco_func import headers
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from accounts.models import SubscriptionOrder
+from listings.models import ListingOrder
 from payments.models import PaymentInformation
 from payments.tasks import check_payment_update_2_subscription
 from coupons.models import Coupon
@@ -28,7 +28,7 @@ def update_coupon(order_id):
 
 @login_required
 def subscription_payment(request, subscription_id):
-    subscription_orders = SubscriptionOrder.objects.filter(Q(payment_status=PaymentStatus.NOT_PAID) | Q(payment_status=PaymentStatus.PENDING))
+    subscription_orders = ListingOrder.objects.filter(Q(payment_status=PaymentStatus.NOT_PAID) | Q(payment_status=PaymentStatus.PENDING))
     subscription_order = get_object_or_404(subscription_orders, id=subscription_id, subscriber=request.user)
 
     
@@ -77,13 +77,13 @@ def subscription_payment(request, subscription_id):
     return render(request, "payments/subscriptions/payment.html", {"subscription_order": subscription_order})
 
 def subscription_payment_failed(request, subscription_id):
-    subscription = get_object_or_404(SubscriptionOrder, id=subscription_id)
+    subscription = get_object_or_404(ListingOrder, id=subscription_id)
     subscription.payment_status = PaymentStatus.NOT_PAID
     subscription.save(update_fields=["payment_status"])
     return render(request, "payments/subscriptions/failed.html")
 
 def subscription_payment_cancelled(request, subscription_id):
-    subscription = get_object_or_404(SubscriptionOrder, id=subscription_id)
+    subscription = get_object_or_404(ListingOrder, id=subscription_id)
     subscription.delete()
     messages.success(request, "Payment cancelled successfully")
     return redirect("listings:add-listing")
@@ -93,7 +93,7 @@ def subscription_payment_success(request, subscription_id):
     domain = get_current_site(request).domain
     protocol = "https" if request.is_secure() else "http"
     
-    subscription = get_object_or_404(SubscriptionOrder, id=subscription_id)
+    subscription = get_object_or_404(ListingOrder, id=subscription_id)
     send_subscription_order_received_to_admin(subscription, request)
     if subscription.total_amount == decimal.Decimal(0.00):
         update_payment_status_zero_balance_subscription_order(request, subscription)

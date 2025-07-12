@@ -24,7 +24,8 @@
                     </h6>
                 </div>
                 <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
-                    <form action="{% url 'coupons:apply-coupon' %}" method="post" class="content-wrapper form-primary bg-white p-[30px] border border-[#e5eaee] mt-[15px]">
+                    <form action="{% url 'coupons:apply-coupon' %}" method="post"
+                        class="content-wrapper form-primary bg-white p-[30px] border border-[#e5eaee] mt-[15px]">
                         {% csrf_token %}
                         <p class="text-sm md:text-base mb-5 lg:mb-6">
                             <span class="leading-[1.8] lg:leading-[1.8]">
@@ -37,8 +38,8 @@
                                 <input type="text" placeholder="Coupon code" name="code" id="id_code" required
                                     class="text-base text-custom-text pl-5 pr-[50px] focus:outline-none focus:ring-0 outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-sm placeholder:text-custom-text">
                             </div>
-                            <input type="hidden" value="{% url 'accounts:subscription-checkout' order.id %}" name="return_url" id="id_return_url"
-                                class="">
+                            <input type="hidden" value="{% url 'accounts:subscription-checkout' order.id %}"
+                                name="return_url" id="id_return_url" class="">
                         </div>
 
                         <!-- submit button -->
@@ -213,16 +214,16 @@
                                 Cart Totals
                             </h4>
                             <ul class="text-sm lg:text-base text-custom-h">
-                                
+
                                 <li class="p-2 border-b border-[#e5eaee]7 bg-table-bg">
                                     <div class="flex justify-between items-center">
                                         <span class="leading-[1.8] lg:leading-[1.8]">
                                             BBGI Premium Subscription <strong> x 1</strong></span>
                                         <span class="leading-[1.8] lg:leading-[1.8]">
-                                            R{{order.package.amount|floatformat:2}}</span>
+                                            R1000</span>
                                     </div>
                                 </li>
-                                
+
 
                                 <li class="p-2 border-b border-[#e5eaee]7">
                                     <div class="flex justify-between items-center">
@@ -236,7 +237,8 @@
                                 <li class="p-2 border-b border-[#e5eaee]7 bg-table-bg">
                                     <div class="flex justify-between items-center">
                                         <span class="leading-[1.8] lg:leading-[1.8]"> Vat</span>
-                                        <span class="leading-[1.8] lg:leading-[1.8]"> R{{order.vat|floatformat:2}}</span>
+                                        <span class="leading-[1.8] lg:leading-[1.8]">
+                                            R{{order.vat|floatformat:2}}</span>
                                     </div>
                                 </li>
 
@@ -258,18 +260,21 @@
                                 Your personal data will be used to process your order,
                                 support your experience throughout this website, and for
                                 other purposes described in our privacy policy.
-                               
+
                             </span>
                         </p>
-                        <h5
-                            class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
-                            <span
-                                class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
-                            <a href="{% url 'accounts:cancel-subscription-order' order.id %}" type="submit"
-                                class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
-                                Cancel
-                            </a>
-                        </h5>
+                        <a href="{% url 'listings:cancel-listing-order' order.id %}">
+                            <h5
+                                class="uppercase text-sm md:text-base !text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-h hover:border-custom-primary inline-block z-0">
+                                <span
+                                    class="inline-block absolute top-0 left-0 w-full h-full bg-custom-h group-hover:bg-custom-primary -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                <div
+                                    class="relative z-1 px-5 font-sans md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                    cancel
+                                </div>
+                            </h5>
+                        </a>
+                        
                         <h5
                             class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
                             <span
