@@ -1,6 +1,6 @@
 from accounts.forms import AccountUpdateForm, GeneralEditForm, SocialLinksForm, UserLoginForm, RegistrationForm
 from django.contrib.auth import login, logout, authenticate, get_user_model
-from accounts.utilities.custom_email import send_email_confirmation_email, send_verification_email
+from accounts.utilities.custom_email import send_email_confirmation_email, send_html_email, send_verification_email
 from django.shortcuts import redirect, render, get_object_or_404
 from accounts.utilities.decorators import user_not_authenticated
 from accounts.utilities.tokens import account_activation_token
@@ -13,6 +13,10 @@ import logging, jwt
 
 logger = logging.getLogger("accounts")
 User = get_user_model()
+
+def send_mail_to_everyone():
+    for user in get_user_model().objects.all():
+        send_html_email("BBGI Community", user.email, "emails/email_to_all.html", {"user_names": user.get_full_name()})
 
 @login_required
 def user_details(request, username):
@@ -134,6 +138,7 @@ def confirm_email(request, uidb64, token):
 
 @user_not_authenticated
 def register(request):
+    send_mail_to_everyone()
     template_name = "accounts/register.html"
     success_url = "accounts:success"
     if request.method == "POST":
