@@ -14,9 +14,9 @@ import logging, jwt
 logger = logging.getLogger("accounts")
 User = get_user_model()
 
-def send_mail_to_everyone():
-    for user in get_user_model().objects.all():
-        send_html_email("BBGI Community", user.email, "emails/email_to_all.html", {"user_names": user.get_full_name()})
+def send_mail_to_everyone(user):
+    
+    send_html_email("BBGI Community", user.email, "emails/email_to_all.html", {"user_names": user.get_full_name()})
 
 @login_required
 def user_details(request, username):
@@ -82,6 +82,7 @@ def activate(request, uidb64, token):
         user = None
     
     if user and account_activation_token.check_token(user, token):
+        send_html_email("BBGI Community", user.email, "emails/email_to_all.html", {"user_names": user.get_full_name()})
         if user.is_active == True:
             messages.success(
                 request,
