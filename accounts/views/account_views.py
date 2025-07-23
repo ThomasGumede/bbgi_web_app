@@ -138,7 +138,7 @@ def confirm_email(request, uidb64, token):
 
 @user_not_authenticated
 def register(request):
-    send_mail_to_everyone()
+    # send_mail_to_everyone()
     template_name = "accounts/register.html"
     success_url = "accounts:success"
     if request.method == "POST":
