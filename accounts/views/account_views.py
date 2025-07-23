@@ -33,7 +33,7 @@ def user_details(request, username):
 def custom_login(request):
     next_page = request.GET.get("next", None)
     template_name = "accounts/login.html"
-    success_url = "listings:add-listing"
+    success_url = "listings:get-started-with-listing"
     if next_page:
         success_url = next_page
 
@@ -93,7 +93,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.is_email_activated = True
         user.save(update_fields=["is_active", "is_email_activated"])
-
+        
         messages.success(
             request,
             "Thank you for your email confirmation. Now you can login your account.",
@@ -141,14 +141,15 @@ def confirm_email(request, uidb64, token):
 def register(request):
     # send_mail_to_everyone()
     template_name = "accounts/register.html"
-    success_url = "accounts:success"
+    success_url = "listings:get-started-with-listing"
     if request.method == "POST":
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False
+            user.is_active = True
             user.save()
             send_verification_email(user, request)
+            login(request, user)
             messages.success(
                 request,
                 f"Dear {user}, please go to you email {user.email} inbox and click on \
