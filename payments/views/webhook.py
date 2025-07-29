@@ -55,7 +55,7 @@ def webhook(request):
 def create_webhook(request):
     if request.user.is_superuser and request.user.is_technical:
         data = {
-                    "name": "bbgi_webhook",
+                    "name": "bbgi_webhook2",
                     "url": request.build_absolute_uri(reverse('payments:webhook'))
                 }
         try:
