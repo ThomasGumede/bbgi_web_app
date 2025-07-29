@@ -9,11 +9,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
 logger = logging.getLogger("payments")
+infologger = logging.getLogger("infos")
 
 @csrf_exempt
 def webhook(request):
     try:
         if request.method == 'POST':
+            infologger.debug("Request received")
             headers = request.headers
             id = headers.get('webhook-id')
             timestamp = headers.get('webhook-timestamp')

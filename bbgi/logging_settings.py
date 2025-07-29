@@ -80,6 +80,12 @@ LOGGING = {
             'filename': os.path.join(LOGGING_DIR, 'smtp.log'),
             'formatter': 'custom'
         },
+        'info_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(LOGGING_DIR, 'infos.log'),
+            'formatter': 'custom'
+        },
         
     },
     'loggers': {
@@ -130,6 +136,10 @@ LOGGING = {
         },
         'smtplib': {
             'handlers': ['smtp_file'],
+            'level': 'DEBUG',
+        },
+        'infos': {
+            'handlers': ['info_file'],
             'level': 'DEBUG',
         },
         
