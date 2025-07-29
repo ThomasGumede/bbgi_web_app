@@ -390,7 +390,8 @@ def check_payment_update_2_ticket_order(checkout_id, protocol, domain):
             return f"Ticket order {checkout_id} was not found"
         
     except PaymentInformation.DoesNotExist:
-        pass
+        logger.error(f"No payment informatio was found for checkout: {checkout_id}")
+        return
 
 @shared_task
 def resend_tickets_2_task(order_checkout, protocol, domain):
