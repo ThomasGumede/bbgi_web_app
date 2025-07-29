@@ -58,6 +58,8 @@ def create_webhook(request):
                     "name": "bbgi_webhook2",
                     "url": request.build_absolute_uri(reverse('payments:webhook'))
                 }
+        print(data)
+        print(headers)
         try:
             response = requests.request("POST", "https://payments.yoco.com/api/webhooks", data=json.dumps(data), headers=headers)
             
@@ -101,4 +103,28 @@ def get_webhooks(request):
         
     else:
         return redirect("bbgi_home:bbgi-home")
+
+@login_required  
+def delete_webhook(request, webhook_id):
+    if request.user.is_superuser and request.user.is_technical:
     
+        try:
+            response = requests.request("DELETE", f"https://payments.yoco.com/api/webhooks/{webhook_id}", headers=headers)
+            
+            response.raise_for_status()
+            new_respone = response.json()
+            return JsonResponse(new_respone)
+        except requests.ConnectionError as err:
+            return render(request, "payments/timeout.html", {"err": err})
+            
+        except requests.HTTPError as err:
+            logger.error(f"Webhook Yoco - HTTP Error - {err}")
+            return render(request, "payments/error.html", {"message": "Your payment was not processed due to internal error from our payment system, Please try again later"})
+        
+        except Exception as err:
+            logger.error(f"Webhook Yoco - Exception Error - {err}")
+            return render(request, "payments/error.html", {"message": "Your payment was not processed due to internal error from our payment system, Please try again later"})
+        
+    else:
+        return redirect("bbgi_home:bbgi-home")
+

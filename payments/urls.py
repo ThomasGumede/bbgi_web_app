@@ -2,7 +2,7 @@ from django.urls import path
 from payments.views.contribution import contributions_payment_cancelled, contributions_payment_success, contribution_payment, contributions_payment_failed
 from payments.views.subscribe import subscription_payment, subscription_payment_cancelled, subscription_payment_failed, subscription_payment_success
 from payments.views.ticket_order import tickets_payment_cancelled, tickets_payment_failed, verify_ticket_payment_order, tickets_payment_success, payment, resend_tickets
-from payments.views.webhook import create_webhook, get_webhooks, webhook
+from payments.views.webhook import create_webhook, get_webhooks, webhook, delete_webhook
 
 app_name = "payments"
 urlpatterns = [
@@ -10,6 +10,7 @@ urlpatterns = [
     path("payments/webhook", webhook, name="webhook"),
     path("webhook/create", create_webhook, name="create_webhook"),
     path("get/webhooks", get_webhooks, name="get_webhook"),
+    path("delete/webhook/<webhook_id>", delete_webhook, name="delete_webhook"),
     path("contributions/payment/<contribution_id>", contribution_payment, name="contribution-payment"),
     path("contributions/payment/cancelled/<contribution_id>", contributions_payment_cancelled, name="contribution-payment-cancelled"),
     path("contributions/payment/failed/<contribution_id>", contributions_payment_failed, name="contribution-payment-failed"),
