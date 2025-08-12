@@ -84,7 +84,7 @@
                                             class="flex items-center flex-col md:flex-row gap-4 w-full justify-between">
                                             <div class="flex items-center space-x-4">
                                                 <div id="img_container_1"
-                                                    data-background-image="{{form.background_image.value.url}}"
+                                                    data-background-image="{% if form.background_image.value %}{{form.background_image.value.url}}{% endif %}"
                                                     class="h-16 w-20 overflow-hidden rounded bg-gray-300">
                                                     <div id="no_background_image"></div>
                                                 </div>
@@ -117,7 +117,7 @@
                                         <div
                                             class="flex items-center flex-col md:flex-row gap-4 w-full justify-between">
                                             <div class="flex items-center space-x-4">
-                                                <div id="img_container_2" data-logo="{{form.logo.value.url}}"
+                                                <div id="img_container_2" data-logo="{% if form.logo.value %}{{form.logo.value.url}}{% endif %}"
                                                     class="h-16 w-20 overflow-hidden rounded bg-gray-300">
                                                     <div id="no_logo"></div>
                                                 </div>
@@ -158,7 +158,7 @@
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="id_title">
-                                        slogan*
+                                        slogan
                                     </label>
                                     {{form.slogan}}
                                     <span
@@ -186,7 +186,7 @@
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="id_bbbee_level">
-                                        BBBEEE Level*
+                                        B-BBEEE Level*
                                     </label>
                                     {{form.bbbee_level}}
                                     <span

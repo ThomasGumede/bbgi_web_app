@@ -12,7 +12,7 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.template.defaultfilters import slugify
 from django.core.validators import MinValueValidator, MaxValueValidator
-from accounts.utilities.validators import validate_fcbk_link, validate_in_link, validate_insta_link, validate_twitter_link
+from accounts.utilities.validators import validate_fcbk_link, validate_in_link, validate_insta_link, validate_rsa_phone, validate_twitter_link
 from campaigns.utils import PaymentStatus
 from listings.utilities.file_handlers import handle_business_file_upload, handle_business_verification_file_upload
 
@@ -27,13 +27,13 @@ DAYCHOICES = [
     ]
 
 BBBEE_RATINGS = [
-    ("BEL1", "BEE Level 1"),
-    ("BEL2", "BEE Level 2"),
-    ("BEL3", "BEE Level 3"),
-    ("BEL4", "BEE Level 4"),
-    ("BEL5", "BEE Level 5"),
-    ("BEL6", "BEE Level 6"),
-    ("BEL7", "BEE Level 7"),
+    ("BEL1", "Level 1"),
+    ("BEL2", "Level 2"),
+    ("BEL3", "Level 3"),
+    ("BEL4", "Level 4"),
+    ("BEL5", "Level 5"),
+    ("BEL6", "Level 6"),
+    ("BEL7", "Level 7"),
     ("NOT", "Not sure"),
     ("NC", "Non-compliance")
     ]
@@ -85,11 +85,11 @@ class Business(AbstractCreate):
     main_address = models.CharField(max_length=300, help_text=_("Enter main office address seperated by comma"), null=True, blank=True)
     map_coordinates  = models.CharField(max_length=300, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
-    email = models.EmailField(_("Enter your business email"), max_length=250, blank=True, null=True)
+    email = models.EmailField(_("Enter your business email (e.g info@business.co.za)"), max_length=250, blank=True, null=True)
     bbbee_level = models.CharField(max_length=100, choices=BBBEE_RATINGS)
     province = models.CharField(max_length=300, choices=PROVINCES)
-    phone = models.CharField(help_text=_("Enter your business number"), max_length=15, validators=[PHONE_VALIDATOR], null=True, blank=True)
-    alternative_phone = models.CharField(help_text=_("Enter your business number"), max_length=15, validators=[PHONE_VALIDATOR], null=True, blank=True)
+    phone = models.CharField(help_text=_("Enter your business number (e.g. 021 340 9363 or +27 21 340 9363)"), max_length=15, validators=[validate_rsa_phone], null=True, blank=True)
+    alternative_phone = models.CharField(help_text=_("Enter your other business number (e.g. 021 340 9363 or +27 21 340 9363)"), max_length=15, validators=[validate_rsa_phone], null=True, blank=True)
     facebook = models.URLField(validators=[validate_fcbk_link], blank=True, null=True)
     twitter = models.URLField(validators=[validate_twitter_link], blank=True, null=True)
     instagram = models.URLField(validators=[validate_insta_link], blank=True, null=True)

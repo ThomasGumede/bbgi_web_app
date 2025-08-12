@@ -188,6 +188,7 @@ def update_listing(request, listing_slug):
 def update_listing_content(request, listing_slug):
     queryset = Business.objects.all().prefetch_related("business_hours")
     listing = get_object_or_404(queryset, slug=listing_slug, owner=request.user)
+    
     if request.method == "POST":
         files = request.FILES.getlist("files")
         if len(files) > 0:

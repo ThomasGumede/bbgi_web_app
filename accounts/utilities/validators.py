@@ -1,6 +1,6 @@
 import uuid, re, logging
 from datetime import datetime
-from django.core.validators import URLValidator
+from django.core.validators import URLValidator, RegexValidator, ValidationError
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 
@@ -32,3 +32,12 @@ def validate_in_link(value):
 def verify_rsa_phone():
     PHONE_REGEX = RegexValidator(r'^(\+27|0)[1-9][0-9]{8}$', 'RSA phone number is required')
     return PHONE_REGEX
+
+def validate_rsa_phone(value):
+
+    cleaned_value = value.replace(" ", "")
+    pattern = r'^(\+27|0)[1-9][0-9]{8}$'
+    
+    if not re.match(pattern, cleaned_value):
+        raise ValidationError('Enter a valid South African phone number (e.g. +27831234567 or 0831234567).')
+

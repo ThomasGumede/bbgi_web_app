@@ -6,7 +6,7 @@
 {% block seo_tags %}
 <!-- Primary Meta Tags -->
 <title>BBGI - Manage business</title>
-<meta name="title" content="BBGI - Manage business" />
+<meta name="title" content="BBGI - Manage {{listing.title}}" />
 <meta name="description"
     content="Black Business Growth Initiative was formed with the intention of creating a gathering of black African business owners  and professionals. It is..." />
 
@@ -80,8 +80,8 @@
                         class="border-b border-border-color-1 {% if request.resolver_match.url_name == 'get-qoutations' %}active{% endif %}">
                         <a href="{% url 'markets:get-qoutations' listing.slug %}"
                             class="flex justify-between items-center px-5 py-[15px] w-full text-sm lg:text-base hover:text-secondary-color transition-all duration-300 capitalize">
-                            <span class="leading-1.8 lg:leading-1.8">Qoutations</span>
-                            <i class="fas fa-cart-plus text-sm"></i>
+                            <span class="leading-1.8 lg:leading-1.8">Quotations</span>
+                            <i class="fa-solid fa-file-invoice-dollar text-sm"></i>
                         </a>
                     </li>
                     <li
@@ -89,9 +89,9 @@
                         <a href="{% url 'listings:get-locations' listing.slug %}"
                             class="flex justify-between items-center px-5 py-[15px] w-full text-sm lg:text-base hover:text-secondary-color transition-all duration-300 capitalize">
                             <span class="leading-1.8 lg:leading-1.8">
-                                Locations
+                                Business Locations
                             </span>
-                            <i class="fa-solid fa-cart-plus text-sm"></i>
+                            <i class="fa-solid fa-location-dot text-sm"></i>
                         </a>
                     </li>
                     <li
@@ -99,21 +99,21 @@
                         <a href="{% url 'listings:get-business-hours' listing.slug %}"
                             class="flex justify-between items-center px-5 py-[15px] w-full text-sm lg:text-base hover:text-secondary-color transition-all duration-300 capitalize">
                             <span class="leading-1.8 lg:leading-1.8"> Business hours </span>
-                            <i class="fas fa-user-group text-sm"></i>
+                            <i class="fa-solid fa-clock text-sm"></i>
                         </a>
                     </li>
 
                     <li class="border-b border-border-color-1 {% if request.resolver_match.url_name == 'get-services' %}active{% endif %}">
                         <a href="{% url 'markets:get-services' listing.slug %}"
                             class="flex justify-between items-center px-5 py-[15px] w-full text-sm lg:text-base hover:text-secondary-color transition-all duration-300 capitalize">
-                            <span class="leading-1.8 lg:leading-1.8">Services </span>
+                            <span class="leading-1.8 lg:leading-1.8">Business Services</span>
                             <i class="fas fa-pen text-sm"></i>
                         </a>
                     </li>
                     <li class="border-b border-border-color-1 {% if request.resolver_match.url_name == 'update-listing' %}active{% endif %}">
                         <a href="{% url 'listings:update-listing' listing.slug %}"
                             class="flex justify-between items-center px-5 py-[15px] w-full text-sm lg:text-base hover:text-secondary-color transition-all duration-300 capitalize">
-                            <span class="leading-1.8 lg:leading-1.8">Update </span>
+                            <span class="leading-1.8 lg:leading-1.8">Update Business</span>
                             <i class="fas fa-pen text-sm"></i>
                         </a>
                     </li>

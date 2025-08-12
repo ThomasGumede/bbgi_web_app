@@ -25,8 +25,8 @@ def add_business_hours(request, listing_slug):
                 business_hours.business = listing
                 business_hours.save()
             
-            messages.success(request, "Business Hours created successfully")
-            return redirect("listings:add-business-socials", listing_slug=listing.slug)
+            messages.success(request, "Business listed successfully. It will take 2 - 4 hours to verify your business. For now, you can manage your business. Thank you")
+            return redirect("listings:manage-listing", listing_slug=listing.slug)
         else:
             messages.error(request, "Something went wrong while trying to add your business hours")
             return render(request, "business/create-listing/add-hours.html", {"listing": listing, "forms": forms})

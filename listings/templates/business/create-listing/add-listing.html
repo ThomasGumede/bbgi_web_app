@@ -85,7 +85,7 @@
                 {% csrf_token %}
                 <div class="grid items-start gap-7">
                     <div class=" w-full">
-                        <h6 class="text-custom-h text-base mt-3 mb-6 font-bold uppercase">
+                        <h6 class="text-custom-h text-base mt-3 mb-6 font-bold capitalize">
                             Listing Information
                         </h6>
                         <div class="flex flex-wrap">
@@ -117,7 +117,7 @@
                                     </div>
                                     {% if form.background_image.errors %}
                                     <span
-                                        class="text-[11px] text-red-500 block font-normal lowercase">{{form.background_image.errors.as_text}}</span>
+                                        class="text-[11px] text-red-500 block font-normal capitalize">{{form.background_image.errors.as_text}}</span>
                                     {% endif %}
                                 </div>
                             </div>
@@ -147,7 +147,7 @@
                                     </div>
                             
                                     {% if form.logo.errors %}
-                                    <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.logo.errors.as_text}}</span>
+                                    <span class="text-[11px] text-red-500 block font-normal capitalize">{{form.logo.errors.as_text}}</span>
                                     {% endif %}
                                 </div>
                             </div>
@@ -158,21 +158,21 @@
                                     </label>
                                     {{form.title}}
                                     <span
-                                        class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.title.help_text}}</span>
+                                        class="text-[11px] text-custom-tertiary block font-normal capitalize">{{form.title.help_text}}</span>
                                     {% if form.title.errors %}
-                                    <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.title.errors.as_text}}</span>
+                                    <span class="text-[11px] text-red-500 block font-normal capitalize">{{form.title.errors.as_text}}</span>
                                     {% endif %}
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="id_title">
-                                        slogan*
+                                        Slogan (Optional)
                                     </label>
                                     {{form.slogan}}
-                                    <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.slogan.help_text}}</span>
+                                    <span class="text-[11px] text-custom-tertiary block font-normal capitalize">{{form.slogan.help_text}}</span>
                                     {% if form.slogan.errors %}
-                                    <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.slogan.errors.as_text}}</span>
+                                    <span class="text-[11px] text-red-500 block font-normal capitalize">{{form.slogan.errors.as_text}}</span>
                                     {% endif %}
                                 </div>
                             </div>
@@ -183,26 +183,89 @@
                                     </label>
                                     {{form.category}}
                                     <span
-                                        class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.category.help_text}}</span>
+                                        class="text-[11px] text-custom-tertiary block font-normal capitalize">{{form.category.help_text}}</span>
                                     {% if form.category.errors %}
-                                        <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.category.errors.as_text}}</span>
+                                        <span class="text-[11px] text-red-500 block font-normal capitalize">{{form.category.errors.as_text}}</span>
                                     {% endif %}
                                     </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="id_bbbee_level">
-                                        BBBEEE Level*
+                                        B-BBEEE Level*
                                     </label>
                                     {{form.bbbee_level}}
-                                    <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.bbbee_level.help_text}}</span>
+                                    <span class="text-[11px] text-custom-tertiary block font-normal capitalize">{{form.bbbee_level.help_text}}</span>
                                     {% if form.bbbee_level.errors %}
-                                    <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.bbbee_level.errors.as_text}}</span>
+                                    <span class="text-[11px] text-red-500 block font-normal capitalize">{{form.bbbee_level.errors.as_text}}</span>
                                     {% endif %}
                                 </div>
                             </div>
                             
+                            <div class="w-full relative">
+                                <h6 class="text-custom-h text-base mt-3 mb-6 font-bold capitalize">
+                                    Contact details
+                                </h6>
+                                <div class="flex flex-wrap">
                             
+                                    <div class="w-full lg:w-6/12 px-4">
+                                        <div class="relative w-full mb-3">
+                                            <label for="id_phone">
+                                                Cellphone / Telphone (Required)
+                                            </label>
+                                            <input value="{% if form.phone.value %}{{form.phone.value}}{% endif %}" id="id_phone" name="phone"
+                                                required maxlength="15" type="tel"
+                                                class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm">
+                                            <span
+                                                class="text-[11px] text-custom-tertiary block font-normal capitalize">{{form.phone.help_text}}</span>
+                                            {% if form.phone.errors %}
+                                            <span class="text-[11px] text-red-500 block font-normal capitalize">{{form.phone.errors.as_text}}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="w-full lg:w-6/12 px-4">
+                                        <div class="relative w-full mb-3">
+                                            <label for="id_alternative_phone">
+                                                Alternative Cellphone / Telphone Number (Optional)
+                                            </label>
+                                            {{form.alternative_phone}}
+                                            <span class="text-[11px] text-custom-tertiary block font-normal capitalize">{{form.alternative_phone.help_text}}</span>
+                                                {% if form.alternative_phone.errors %}
+                                            <span
+                                                class="text-[11px] text-red-500 block font-normal capitalize">{{form.alternative_phone.errors.as_text}}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="w-full lg:w-6/12 px-4">
+                                        <div class="relative w-full mb-3">
+                                            <label for="id_title">
+                                                Email
+                                            </label>
+                                            {{form.email}}
+                                            <span
+                                                class="text-[11px] text-custom-tertiary block font-normal capitalize">{{form.email.help_text}}</span>
+                                            {% if form.email.errors %}
+                                            <span class="text-[11px] text-red-500 block font-normal capitalize">{{form.email.errors.as_text}}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="w-full lg:w-6/12 px-4">
+                                        <div class="relative w-full mb-3">
+                                            <label for="id_title">
+                                                website
+                                            </label>
+                                            {{form.website}}
+                                            <span
+                                                class="text-[11px] text-custom-tertiary block font-normal capitalize">{{form.website.help_text}}</span>
+                                            {% if form.website.errors %}
+                                            <span
+                                                class="text-[11px] text-red-500 block font-normal capitalize">{{form.website.errors.as_text}}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                            
+                                </div>
+                            </div>
                             <div class="w-full px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="id_details">
@@ -210,9 +273,9 @@
                                     </label>
                             
                                     {{form.details}}
-                                    <span class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.details.help_text}}</span>
+                                    <span class="text-[11px] text-custom-tertiary block font-normal capitalize">{{form.details.help_text}}</span>
                                     {% if form.details.errors %}
-                                    <span class="text-[11px] text-red-500 block font-normal lowercase">{{form.details.errors.as_text}}</span>
+                                    <span class="text-[11px] text-red-500 block font-normal capitalize">{{form.details.errors.as_text}}</span>
                                     {% endif %}
                                 </div>
                             </div>  
@@ -229,11 +292,11 @@
                 
                 <div class="flex mt-4 justify-start">
                     <h5
-                        class="uppercase text-sm md:text-base !text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                        class="capitalize text-sm md:text-base !text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
                         <span
                             class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
                         <button type="submit"
-                            class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                            class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 capitalize">
                             Save & Next Step
                         </button>
                     </h5>
