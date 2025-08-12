@@ -68,8 +68,7 @@
             <div class="lg:col-start-1 lg:col-span-4">
                 <ul class="tab-links lg:mr-[30px] border border-b-0 border-border-color-1">
                     <li class="border-b border-border-color-1 {% if request.resolver_match.url_name == 'profile-update' %}active{% endif %}">
-                        <a href="{% url 'accounts:profile-update' %}"
-                            class="flex justify-between items-center  px-5 py-[15px] w-full text-sm lg:text-base hover:text-secondary-color transition-all duration-300 capitalize">
+                        <a href="{% url 'accounts:profile-update' %}" class="flex justify-between items-center  px-5 py-[15px] w-full text-sm lg:text-base hover:text-secondary-color transition-all duration-300 capitalize">
                             <span class="leading-1.8 lg:leading-1.8"> Dashboard </span>
                             <i class="fas fa-home text-sm"></i>
                         </a>
