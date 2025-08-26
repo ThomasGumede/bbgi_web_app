@@ -99,7 +99,7 @@
                                         <div
                                             class="flex items-center flex-col md:flex-row gap-4 w-full justify-between">
                                             <div class="flex items-center space-x-4">
-                                                <div id="img_container_1" data-background-image="{{form.background_image.value.url}}"
+                                                <div id="img_container_1" data-background-image="{% if form.background_image.value %}{{form.background_image.value.url}}{% endif %}"
                                                     class="h-16 w-20 overflow-hidden rounded bg-gray-300">
                                                     <div id="no_background_image"></div>
                                                 </div>
@@ -130,7 +130,7 @@
                                     <div class="w-full border rounded-md bg-white border-dotted p-6">
                                         <div class="flex items-center flex-col md:flex-row gap-4 w-full justify-between">
                                             <div class="flex items-center space-x-4">
-                                                <div id="img_container_2" data-logo="{{form.logo.value.url}}"
+                                                <div id="img_container_2" data-logo="{% if form.logo.value %}{{form.logo.value.url}}{% endif %}"
                                                     class="h-16 w-20 overflow-hidden rounded bg-gray-300">
                                                     <div id="no_logo"></div>
                                                 </div>

@@ -396,7 +396,7 @@
         <div class="text-center mb-[50px]">
             <p
                 class="text-sm md:text-[15px] lg:text-base text-secondary-color bg-[#c2a6404d] capitalize py-0.5 px-5 mb-5 rounded-full inline-block font-semibold">
-                <span class="leading-1.3">Properties</span>
+                <span class="leading-1.3">Businesses</span>
             </p>
             <h2 class="text-2xl sm:text-3xl md:text-[26px] lg:text-3xl xl:text-[44px] text-heading-color font-bold">
                 <span class="leading-1.3">Featured Listings </span>
@@ -445,15 +445,15 @@
                                         <div class="block">
                     
                                             <p class="text-sm py-0.5 font-normal"><span><i
-                                                        class="fa-solid fa-location-dot text-custom-primary mr-2"></i></span>{{listing.get_location|truncatewords:5}}
+                                                        class="fa-solid fa-location-dot text-custom-primary mr-2"></i></span>{% if listing.get_location %}{{listing.get_location|truncatewords:5}}{% else %} No Location {% endif %}
                                             </p>
                                             <a href="tel:{{listing.phone}}"
                                                 class="text-sm block hover:text-custom-h py-0.5 font-normal"><span><i
-                                                        class="fa-solid fa-phone text-custom-primary mr-2"></i></span>{{listing.phone}}
+                                                        class="fa-solid fa-phone text-custom-primary mr-2"></i></span>{% if listing.phone %}{{listing.phone}}{% else %} No Phone {% endif %}
                                             </a>
                                             <a href="emailto:{{listing.email}}"
                                                 class="text-sm block hover:text-custom-h py-0.5 font-normal"><span><i
-                                                        class="fa-solid fa-envelope text-custom-primary mr-2"></i></span>{{listing.email}}
+                                                        class="fa-solid fa-envelope text-custom-primary mr-2"></i></span>{% if listing.email %}{{listing.email}}{% else %} No Email {% endif %}
                                             </a>
                                         </div>
                                     </div>
@@ -768,6 +768,7 @@
 </section>
 
 <!-- testimonials section -->
+ {% if testimonials %}
 <section>
     <div class="bg-[url('../img/bg/20.jpg')] bg-top bg-no-repeat">
         <div class="container pt-[115px] pb-[55px]">
@@ -787,6 +788,7 @@
                 <!-- apartment cards  -->
                 <div class="swiper testimonials-slider static">
                     <div class="swiper-wrapper">
+                        {% for testimonial in testimonials %}
                         <!-- card 1 -->
                         <div class="swiper-slide mb-[65px] lg:mb-[50px] px-[15px]">
                             <div
@@ -797,8 +799,7 @@
                                         <span class="text-3xl mr-0.5 translate-y-2 inline-block"><i
                                                 class="flaticon-left-quote-1 group-hover:text-secondary-color transition-all duration-300"></i></span>
                                         <span class="leading-1.8">
-                                            Choosing BBGI was one of the best decisions we made. Their comprehensive approach to managing our listings not only
-                                            saved us valuable time but also ensured accuracy across all platforms.</span>
+                                            {{testimonial.review}}</span>
                                     </p>
                                 </div>
                                 <!-- cart footer -->
@@ -812,7 +813,7 @@
                                             </div>
                                             <div>
                                                 <h4 class="text-base lg:text-lg font-semibold text-heading-color mb-0">
-                                                    <span class="leading-1.3 hover:text-secondary-color">Lebo Sekwela</span>
+                                                    <span class="leading-1.3 hover:text-secondary-color">{{testimonial.reviewer}}</span>
                                                 </h4>
 
                                                 <span class="text-sm uppercase">
@@ -826,43 +827,9 @@
                                     class="hover-line absolute bottom-0 left-0 w-0 group-hover:w-full h-1 bg-secondary-color transition-all duration-300 block"></span>
                             </div>
                         </div>
-                        <!-- card 2 -->
-                        <div class="swiper-slide mb-[65px] px-[15px]">
-                            <div
-                                class="pt-[25px] pb-10 px-[35px] group border border-border-color-13 shadow-box-shadow-4 rounded-[10px] bg-white cursor-default relative">
-                                <!-- card body -->
-                                <div>
-                                    <p class="text-sm md:text-base mb-5 md:mb-6 xl:mb-[27px]">
-                                        <span class="text-3xl mr-0.5 translate-y-2 inline-block"><i
-                                                class="flaticon-left-quote-1 group-hover:text-secondary-color transition-all duration-300"></i></span>
-                                        <span class="leading-1.8">
-                                            Working with BBGI has been a game-changer for our business. Their meticulous expertise in optimizing our business
-                                            listings across various platforms have significantly enhanced our online visibility</span>
-                                    </p>
-                                </div>
-                                <!-- cart footer -->
-                                <div>
-                                    <div>
-                                        <div class="flex gap-x-[15px] gap-y-[10px] items-center">
-                                            <div class="w-[60px] h-[60px] flex-shrink-0">
-                                                <img src="{% static 'imgs/R.png' %}" alt="Avatar" class="w-full h-full rounded-full">
-                                            </div>
-                                            <div>
-                                                <h4 class="text-base lg:text-lg font-semibold text-heading-color mb-0">
-                                                    <span class="leading-1.3 hover:text-secondary-color">Kamogelo Motswiane</span>
-                                                </h4>
+                        {% endfor %}
+                        
 
-                                                <span class="text-sm uppercase">
-                                                    Customer
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span
-                                    class="hover-line absolute bottom-0 left-0 w-0 group-hover:w-full h-1 bg-secondary-color transition-all duration-300 block"></span>
-                            </div>
-                        </div>
                        
                     </div>
 
@@ -885,8 +852,7 @@
         </div>
     </div>
 </section>
-
-
+{% endif %}
 
 <section>
     <div>

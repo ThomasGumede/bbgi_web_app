@@ -471,8 +471,13 @@
                                                     <a href="{{listing.get_absolute_url}}"
                                                         class="text-custom-h transition-all duration-500 ease-in group-hover:text-custom-primary">{{listing.title|truncatewords:3}}</a>
                                                 </h3>
+                                                {% if listing.slogan %}
                                                 <p class="text-gray-500 text-sm">
                                                     {{listing.slogan}}
+                                                </p>
+                                                {% endif %}
+                                                <p class="text-gray-500 text-sm">
+                                                    {{listing.bbee_level}}
                                                 </p>
                                             </div>
                                 
@@ -480,15 +485,15 @@
                                                 <div class="block">
                                 
                                                     <p class="text-xs text-gray-500 font-normal"><span><i
-                                                                class="fa-solid fa-location-dot text-custom-primary mr-2"></i></span>{{listing.get_location|truncatewords:5}}
+                                                                class="fa-solid fa-location-dot text-custom-primary mr-2"></i></span>{% if listing.get_location %}{{listing.get_location|truncatewords:5}}{% else %} No Location {% endif %}
                                                     </p>
                                                     <a href="tel:{{listing.phone}}"
                                                         class="text-xs block hover:text-custom-h text-gray-500 font-normal"><span><i
-                                                                class="fa-solid fa-phone text-custom-primary mr-2"></i></span>{{listing.phone}}
+                                                                class="fa-solid fa-phone text-custom-primary mr-2"></i></span>{% if listing.phone %}{{listing.phone}}{% else %} - {% endif %}
                                                     </a>
                                                     <a href="emailto:{{listing.email}}"
                                                         class="text-xs block hover:text-custom-h text-gray-500 font-normal"><span><i
-                                                                class="fa-solid fa-envelope text-custom-primary mr-2"></i></span>{{listing.email}}
+                                                                class="fa-solid fa-envelope text-custom-primary mr-2"></i></span>{% if listing.email %}{{listing.email}}{% else %} - {% endif %}
                                                     </a>
                                                 </div>
                                             </div>

@@ -38,6 +38,14 @@ BBBEE_RATINGS = [
     ("NC", "Non-compliance")
     ]
 
+HOURS_TYPE = [
+    ("Open with main hours", "Open with main hours"),
+    ("Open with No main hours", "Open with No main hours"),
+    ("Temporary Closed", "Temporary Closed"),
+    ("Permanently Closed", "Permanently Closed"),
+    ("Open Online 24 hours", "Open Online 24 hours")
+    ]
+
 PROVINCES = [
     ("kzn", "KwaZulu-Natal"),
     ("mp", "Mpumalanga"),
@@ -84,11 +92,14 @@ class Business(AbstractCreate):
     details = models.TextField(help_text=_("Enter additional details about your company/business"), null=True, blank=True)
     main_address = models.CharField(max_length=300, help_text=_("Enter main office address seperated by comma"), null=True, blank=True)
     map_coordinates  = models.CharField(max_length=300, blank=True, null=True)
+    
     website = models.URLField(blank=True, null=True)
     email = models.EmailField(_("Enter your business email (e.g info@business.co.za)"), max_length=250, blank=True, null=True)
     bbbee_level = models.CharField(max_length=100, choices=BBBEE_RATINGS)
     province = models.CharField(max_length=300, choices=PROVINCES)
-    phone = models.CharField(help_text=_("Enter your business number (e.g. 021 340 9363 or +27 21 340 9363)"), max_length=15, validators=[validate_rsa_phone], null=True, blank=True)
+    is_hours = models.BooleanField(default=True)
+    hours_type = models.CharField(max_length=250, choices=HOURS_TYPE, default=HOURS_TYPE[0][0])
+    phone = models.CharField(help_text=_("Enter your business number (e.g. 021 340 9363 or +27 21 340 9363)"), max_length=15, validators=[validate_rsa_phone])
     alternative_phone = models.CharField(help_text=_("Enter your other business number (e.g. 021 340 9363 or +27 21 340 9363)"), max_length=15, validators=[validate_rsa_phone], null=True, blank=True)
     facebook = models.URLField(validators=[validate_fcbk_link], blank=True, null=True)
     twitter = models.URLField(validators=[validate_twitter_link], blank=True, null=True)
@@ -129,6 +140,7 @@ class Business(AbstractCreate):
         return self.main_address
 
     def is_open(self):
+        if self.is_hours:
             now = timezone.now()
             current_day = now.strftime('%a').upper()[:2]
             current_time = now.time()
@@ -142,6 +154,11 @@ class Business(AbstractCreate):
                         return False
                 else:
                     return False
+        else:
+            if self.hours_type == "Temporary Closed" or self.hours_type == "Permanently Closed":
+                return False
+            
+            return True
 
 class BusinessContent(AbstractCreate):
     image = models.ImageField(help_text=_("Upload company/business images."), upload_to=handle_business_file_upload, blank=True, null=True)

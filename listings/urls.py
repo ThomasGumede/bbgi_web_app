@@ -1,5 +1,5 @@
 from django.urls import path
-from listings.views.business_hours import get_business_hours, update_business_hour, add_business_hours
+from listings.views.business_hours import get_business_hours, update_business_hour, add_business_hours, update_business_hours
 from listings.views.business_lcation import create_location, delete_location, get_locations, update_location, add_main_location, update_main_location
 from listings.views.business_order import order_subscription, cancel_listing_order
 from listings.views.business_views import add_listing, add_listing_socials, delete_listing, \
@@ -36,6 +36,7 @@ urlpatterns = [
     path("dashboard/delete/content/<slug:listing_slug>/<uuid:content_id>", delete_listing_content, name="delete-listing-content"),
     path("listing/manage/<slug:listing_slug>", manage_listing, name="manage-listing"),
     path("listing/manage/business-hours/<slug:listing_slug>", get_business_hours, name="get-business-hours"),
+    path("listing/manage/update-business-hours/<slug:listing_slug>", update_business_hours, name="update-listing-hours-big"),
     path("listing/manage/update-business-hours/<slug:listing_slug>/<uuid:hour_id>", update_business_hour, name="update-business-hour"),
 
     # API URLS

@@ -76,6 +76,10 @@
                     class="p-1px border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 {% if request.resolver_match.url_name == 'update-listing-socials' %}active{% endif %} after:translate-y-1/2 after:z-10 after:rounded-[100%]">
                     4. Listing Contact
                 </a>
+                <a href="{% url 'listings:update-listing-hours-big' listing.slug %}"
+                    class="p-1px border-b-2 border-transparent font-semibold relative leading-1.2 after:w-[10px] after:h-[10px] after:border-[3px] after:border-white after:bg-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 {% if request.resolver_match.url_name == 'update-listing-hours-big' %}active{% endif %} after:translate-y-1/2 after:z-10 after:rounded-[100%]">
+                    5. Listing Hours
+                </a>
             </div>
 
             <div class="tab-contents">

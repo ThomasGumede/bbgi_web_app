@@ -77,7 +77,9 @@
                                 </div>
                                 <div class="text-white w-fit">
                                     <h1 class="text-xl md:text-3xl font-bold">{{listing.title}}</h1>
+                                    {% if listing.slogan %}
                                     <p class="text-xs md:text-base">{{listing.slogan}}</p>
+                                    {% endif %}
                                     <div class="py-2 space-y-1">
                                         <div class="relative flex items-center">
                                             <div class="text-sm text-custom-primary">
@@ -92,7 +94,7 @@
                                                 <i class="fa-solid fa-phone fa-lg font-bold"></i>
                                             </div>
                                             <div class="ml-2">
-                                                <p class="text-sm font-normal">{{listing.phone}}</p>
+                                                <p class="text-sm font-normal">{% if listing.phone %}{{listing.phone}}{% else %} No Phone {% endif %}</p>
                                             </div>
                                         </div>
                                         <div class="relative flex items-center">

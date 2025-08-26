@@ -1,8 +1,8 @@
-{% extends '_business_create.html' %}
+{% extends '_business_update.html' %}
 {% load static %}
 
 {% block seo_tags %}
-<title>BBGI - Create Listing</title>
+<title>BBGI - Update Listing Hours</title>
 <meta name="description" content="We serves as a unified community of Black enterpreneurs and professionals, providing a space
                             to showcase businesses and expertise">
 <meta name="title" content="BBGI - Create Listing" />
@@ -27,7 +27,6 @@
 
 <section class="w-full  font-sans py-10 h-full bg-white">
     <div class="">
-
         <div class="px-4">
             {% if forms.errors or form.errors %}
             <div class="w-full mx-auto">
@@ -102,13 +101,14 @@
                                 <span
                                     class="text-[11px] text-custom-tertiary block font-normal capitalize">{{form2.hours_type.help_text}}</span>
                                 {% if form2.hours_type.errors %}
-                                <span class="text-[11px] text-red-500 block font-normal capitalize">{{form2.hours_type.errors.as_text}}</span>
+                                <span
+                                    class="text-[11px] text-red-500 block font-normal capitalize">{{form2.hours_type.errors.as_text}}</span>
                                 {% endif %}
                             </div>
                         </div>
                         <div class="space-y-5 w-full">
-                            
-                            
+
+
                             <div class="">
                                 <input type="hidden" name="form-TOTAL_FORMS" value="7" id="id_form-TOTAL_FORMS">
                                 <input type="hidden" name="form-INITIAL_FORMS" value="0" id="id_form-INITIAL_FORMS">
@@ -121,7 +121,8 @@
                                     <div>
                                         <input id="id_form-0-day" type="text" name="form-0-day" value="MO"
                                             class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
-                                        <label for="id_form-0-day" class="text-xl font-normal text-custom-h">Monday</label for="">
+                                        <label for="id_form-0-day"
+                                            class="text-xl font-normal text-custom-h">Monday</label for="">
                                     </div>
                                     <div class="space-y-1 flex gap-4 md:gap-7 items-center flex-wrap">
                                         <label for="id_form-0-operating"
@@ -165,7 +166,8 @@
                                     <div>
                                         <input id="id_form-1-day" type="text" name="form-1-day" value="TU"
                                             class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
-                                        <label for="id_form-1-day" class="text-xl font-normal text-custom-h">Tuesday</label>
+                                        <label for="id_form-1-day"
+                                            class="text-xl font-normal text-custom-h">Tuesday</label>
                                     </div>
                                     <div class="space-y-1 flex gap-4 md:gap-7 items-center flex-wrap">
                                         <label for="id_form-1-operating"
@@ -210,7 +212,8 @@
                                     <div>
                                         <input id="id_form-2-day" type="text" name="form-2-day" value="WE"
                                             class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
-                                        <label for="id_form-2-day" class="text-xl font-normal text-custom-h">Wednesday</label>
+                                        <label for="id_form-2-day"
+                                            class="text-xl font-normal text-custom-h">Wednesday</label>
                                     </div>
                                     <div class="space-y-1 flex gap-4 md:gap-7 items-center flex-wrap">
                                         <label for="id_form-2-operating"
@@ -256,7 +259,8 @@
                                     <div>
                                         <input id="id_form-3-day" type="text" name="form-3-day" value="TH"
                                             class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
-                                        <label for="id_form-3-day" class="text-xl font-normal text-custom-h">Thursday</label>
+                                        <label for="id_form-3-day"
+                                            class="text-xl font-normal text-custom-h">Thursday</label>
                                     </div>
                                     <div class="space-y-1 flex gap-4 md:gap-7 items-center flex-wrap">
                                         <label for="id_form-3-operating"
@@ -301,7 +305,8 @@
                                     <div>
                                         <input id="id_form-4-day" type="text" name="form-4-day" value="FR"
                                             class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
-                                        <label for="id_form-4-day" class="text-xl font-normal text-custom-h">Friday</label>
+                                        <label for="id_form-4-day"
+                                            class="text-xl font-normal text-custom-h">Friday</label>
                                     </div>
                                     <div class="space-y-1 flex gap-4 md:gap-7 items-center flex-wrap">
                                         <label for="id_form-4-operating"
@@ -346,7 +351,8 @@
                                     <div>
                                         <input id="id_form-5-day" type="text" name="form-5-day" value="SA"
                                             class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
-                                        <label for="id_form-5-day" class="text-xl font-normal text-custom-h">Saturday</label>
+                                        <label for="id_form-5-day"
+                                            class="text-xl font-normal text-custom-h">Saturday</label>
                                     </div>
                                     <div class="space-y-1 flex gap-4 md:gap-7 items-center flex-wrap">
                                         <label for="id_form-5-operating"
@@ -391,7 +397,8 @@
                                     <div>
                                         <input id="id_form-6-day" type="text" name="form-6-day" value="SU"
                                             class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]">
-                                        <label for="id_form-6-day" class="text-xl font-normal text-custom-h">Sunday</label>
+                                        <label for="id_form-6-day"
+                                            class="text-xl font-normal text-custom-h">Sunday</label>
                                     </div>
                                     <div class="space-y-1 flex gap-4 md:gap-7 items-center flex-wrap">
                                         <label for="id_form-6-operating"
@@ -432,7 +439,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
 
@@ -440,14 +447,14 @@
 
 
                 <div class="flex flex-wrap items-center justify-between gap-4 mt-6 ">
-                    <a href="{% url 'listings:add-business-main-location' listing.slug %}">
+                    <a href="{% url 'listings:manage-listing' listing.slug %}">
                         <h5
                             class="uppercase text-sm md:text-base !text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
                             <span
                                 class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
                             <div
                                 class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
-                                <p>Previous step</p>
+                                <p>Cancel Updating Hours</p>
                             </div>
                         </h5>
                     </a>
@@ -458,7 +465,7 @@
                                 class="inline-block absolute top-0 left-0 w-full h-full bg-custom-h group-hover:bg-custom-primary -z-1 group-hover:w-0 transition-all duration-300"></span>
                             <button type="submit"
                                 class="relative z-1 px-5 font-sans md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
-                                Save & Proceed
+                                Save & Continue
                             </button>
                         </h5>
                     </div>
@@ -471,16 +478,16 @@
 {% endblock businessblock %}
 {% block js %}
 <script>
-    document.addEventListener("DOMContentLoaded", function(){
+    document.addEventListener("DOMContentLoaded", function () {
         const checkboxes = document.querySelectorAll(".checkboxes")
         const hours_type = document.getElementById("id_hours_type")
         const form_values = document.getElementById("hours_values")
 
-        if(hours_type.value === "Open with main hours"){
+        if (hours_type.value === "Open with main hours") {
             form_values.classList.remove("hidden")
             form_values.classList.add("block")
         }
-        
+
         checkboxes.forEach(element => {
             element.addEventListener("change", function (e) {
                 let target_element = e.target
@@ -506,6 +513,6 @@
             }
         })
     })
-    
+
 </script>
 {% endblock js %}

@@ -1,5 +1,5 @@
 from django import forms
-from listings.models import Business, BusinessContent, BusinessHour, BusinessLocation, BusinessReview, ListingOrder
+from listings.models import HOURS_TYPE, Business, BusinessContent, BusinessHour, BusinessLocation, BusinessReview, ListingOrder
 from tinymce.widgets import TinyMCE
 
 
@@ -47,8 +47,10 @@ class BusinessForm(forms.ModelForm):
 class BusinessUpdateForm(forms.ModelForm):
     class Meta:
         model = Business
-        fields = ("title", "background_image", "logo", 
-            "details", "slogan", "category", "bbbee_level", "main_address", "map_coordinates", "facebook", "twitter", "instagram", "linkedIn", "phone", "website", "email", "alternative_phone")
+        fields = (
+            "title", "background_image", "logo", 
+            "details", "slogan", "category", "bbbee_level" 
+        )
 
         widgets = {
             'background_image': forms.FileInput(attrs={"class": "w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]"}),
@@ -104,7 +106,27 @@ class BusinessSocialForm(forms.ModelForm):
              
         }
 
+class HoursTypeForm(forms.ModelForm):
+    # hours_type = forms.ChoiceField(choices=HOURS_TYPE, help_text="Set main business hours or mark your business as closed", initial=HOURS_TYPE[1], widget=forms.Select(attrs={"class": "selectize"}))
+
+    class Meta:
+        model = Business
+        fields = ("hours_type", "is_hours")
+        
+        widgets = {
+            "hours_type": forms.Select(attrs={"class": "selectize"}),
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data["hours_type"] == "Open with main hours":
+            cleaned_data["is_hours"] = True
+        else:
+            cleaned_data["is_hours"] = False
+        return super().clean()
+        
 class BusinessHourForm(forms.ModelForm):
+    
     class Meta:
         model = BusinessHour
         exclude=["id"]

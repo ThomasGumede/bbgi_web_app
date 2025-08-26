@@ -168,11 +168,11 @@ def update_listing_socials(request, listing_slug):
 def update_listing(request, listing_slug):
     queryset = Business.objects.all().select_related("category").prefetch_related("business_hours", "reviews", "images")
     listing = get_object_or_404(queryset, slug=listing_slug, owner=request.user)
-    buniness_form = BusinessForm(instance=listing)
+    buniness_form = BusinessUpdateForm(instance=listing)
     
 
     if request.method == "POST":
-        form = BusinessForm(instance=listing, data=request.POST, files=request.FILES)
+        form = BusinessUpdateForm(instance=listing, data=request.POST, files=request.FILES)
         
         if form.is_valid() and form.is_multipart():
             form.save()
