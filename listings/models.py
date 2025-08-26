@@ -107,6 +107,7 @@ class Business(AbstractCreate):
     linkedIn = models.URLField(validators=[validate_in_link], blank=True, null=True)
     status = models.CharField(max_length=50, choices=StatusChoices.choices, default=StatusChoices.NOT_APPROVED)
     is_completed = models.BooleanField(default=False)
+    is_ignored = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Business'
