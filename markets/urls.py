@@ -12,7 +12,7 @@ urlpatterns = [
     path("markets/services", all_services, name="all-services"),
     path("markets/shop", shop, name="shop"),
     path("listing/manage/quotations/<slug:listing_slug>", get_qoutations, name="get-qoutations"),
-    path("quotes/get-service", request_service, name="request-qoutations"),
+    # path("quotes/get-service", request_service, name="request-qoutations"),
     path("account/quotations/manage", manage_quotations, name="manage-qoutations"),
     path("dashboard/quotations/<service_slug>/delete=<uuid:quotation_id>", delete_quote, name="delete-quote"),
     path("<uuid:service_id>/update/business=<slug:listing_slug>", update_service, name="update-service"),
