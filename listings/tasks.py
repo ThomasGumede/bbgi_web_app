@@ -43,7 +43,7 @@ def send_on_boarding_email(listing_id):
             email = EmailMessage(
                 subject=f"BBGI | Company Added Successfully",
                 body=html_content,
-                from_email="BBGI Business Admin",
+                from_email="BBGI Business Admin <noreply@bbgi.co.za>",
                 to=[listing.owner.email]
             )
             email.content_subtype = 'html'
@@ -51,7 +51,7 @@ def send_on_boarding_email(listing_id):
             email2 = EmailMessage(
                 subject=f"BBGI | Company Added Successfully",
                 body=html_content,
-                from_email="BBGI Business Admin",
+                from_email="BBGI Business Admin <noreply@bbgi.co.za>",
                 to=["gumedethomas12@gmail.com"]
             )
             email2.content_subtype = 'html'

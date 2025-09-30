@@ -20,7 +20,7 @@ def send_html_email(subject, to_email, template_name, context):
         email = EmailMessage(
             subject=subject,
             body=html_content,
-            from_email='BBGI Community',
+            from_email='BBGI Community <noreply@bbgi.co.za>',
             to=[to_email],
         )
         email.content_subtype = 'html' 
