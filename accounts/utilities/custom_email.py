@@ -20,7 +20,7 @@ def send_html_email(subject, to_email, template_name, context):
         email = EmailMessage(
             subject=subject,
             body=html_content,
-            from_email='BBGI Community <info@bbgi.co.za>',
+            from_email='BBGI Community',
             to=[to_email],
         )
         email.content_subtype = 'html' 
@@ -33,7 +33,7 @@ def send_html_email(subject, to_email, template_name, context):
 
 def custom_send_email(to_email, subject, html_content):
     message = Mail(
-        from_email='Black Business Growth Initiative <noreply@bbgi.co.za>',
+        from_email='Black Business Growth Initiative',
         to_emails=to_email,
         subject=subject,
         html_content=html_content,
