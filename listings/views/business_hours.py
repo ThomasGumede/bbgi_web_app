@@ -5,6 +5,8 @@ from django.shortcuts import get_object_or_404, render, redirect
 from listings.models import Business, BusinessLocation, BusinessHour
 from django.contrib import messages
 
+from listings.tasks import send_on_boarding_email
+
 @login_required
 def add_business_hours(request, listing_slug):
     listing = get_object_or_404(Business, slug=listing_slug, owner=request.user)
@@ -30,7 +32,8 @@ def add_business_hours(request, listing_slug):
                         business_hours = hours.save(commit=False)
                         business_hours.business = listing
                         business_hours.save()
-                    
+                        
+                    send_on_boarding_email.delay(listing.id)
                     messages.success(request, "Business listed successfully. It will take 2 - 4 hours to verify your business. For now, you can manage your business. Thank you")
                     return redirect("listings:manage-listing", listing_slug=listing.slug)
                 else:
@@ -41,6 +44,8 @@ def add_business_hours(request, listing_slug):
                     for hour in listing.business_hours.all():
                         hour.delete()
                 form_hours.save()
+                
+                send_on_boarding_email.delay(listing.id)
                 messages.success(request, "Business listed successfully. It will take 2 - 4 hours to verify your business. For now, you can manage your business. Thank you")
                 return redirect("listings:manage-listing", listing_slug=listing.slug)
         else:
