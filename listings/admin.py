@@ -22,10 +22,10 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Business)
 class BusinessAdmin(admin.ModelAdmin):
     # Columns to display in list view
-    list_display = ('title', 'owner', 'category', 'province', 'status_colored', 'is_completed', 'phone', 'website', 'logo_tag')
+    list_display = ('title', 'owner', 'category', 'province', 'status', 'is_completed', 'phone', 'website')
     
     # Editable directly in list view
-    list_editable = ('status_colored', 'is_completed')
+    list_editable = ('status', 'is_completed')
     
     # Filters in sidebar
     list_filter = ('status', 'category', 'province', 'is_completed')
@@ -51,21 +51,6 @@ class BusinessAdmin(admin.ModelAdmin):
         }),
     )
     
-    # Read-only fields
-    readonly_fields = ('logo_tag',)
-    
-    # Display colored status
-    def status_colored(self, obj):
-        color = 'green' if obj.status == 'APPROVED' else 'red'
-        return format_html('<strong><span style="color: {};">{}</span></strong>', color, obj.status)
-    status_colored.short_description = 'Status'
-    
-    # Show image preview in admin form
-    def logo_tag(self, obj):
-        if obj.logo:
-            return format_html('<img src="{}" width="50" height="50" style="object-fit: cover;" />', obj.logo.url)
-        return "-"
-    logo_tag.short_description = 'Logo'
 
   
 
