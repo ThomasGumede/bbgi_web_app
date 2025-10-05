@@ -118,6 +118,8 @@ if not os.path.exists(TICKETS_QRCODE_DIR):
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_interface',
+    'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

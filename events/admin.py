@@ -46,8 +46,24 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ("title", "total_seats_sold", "category", "date_time_formatter", "status")
     exclude = ("title", "event_startdate", "event_enddate")
     list_editable = ("status",)
+    list_filter = ('status', 'category', 'event_startdate', 'event_enddate')
     list_per_page = 10
-    search_fields = ("title",)
-    list_filter = ("category", "created")
+    search_fields = ('title', 'small_description', 'venue_name', 'event_address', 'organiser__username')
+    ordering = ('-event_startdate',)
     actions = [make_approve, make_pending]
     inlines = [EventTicketTypeInline]
+    
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'slug', 'category', 'image', 'small_description', 'content')
+        }),
+        ('Event Details', {
+            'fields': ('venue_name', 'event_address', 'map_coordinates', 'event_link', 'phone', 'email', 'organiser'),
+            'classes': ('collapse',)
+        }),
+        ('Event Timing & Stats', {
+            'fields': ('event_startdate', 'event_enddate', 'total_seats_sold', 'status'),
+            'classes': ('collapse',)
+        }),
+    )
+    
