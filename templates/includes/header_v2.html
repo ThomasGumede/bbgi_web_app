@@ -149,7 +149,7 @@
                             </li>
                             {% if request.user.is_staff %}
                             <li>
-                                <a class="whitespace-nowrap px-[15px] py-[5px]" href="{% url 'bbgi_home:dashboard' %}">admin</a>
+                                <a class="whitespace-nowrap px-[15px] py-[5px]" href="{% url 'admin:index' %}">admin</a>
                             </li>
                             {% endif %}
                             <li>

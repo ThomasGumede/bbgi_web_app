@@ -44,7 +44,7 @@ class TicketOrderAdmin(admin.ModelAdmin):
 @admin.register(EventModel)
 class EventAdmin(admin.ModelAdmin):
     list_display = ("title", "total_seats_sold", "category", "date_time_formatter", "status")
-    exclude = ("title", "event_startdate", "event_enddate")
+    # exclude = ("title", "event_startdate", "event_enddate")
     list_editable = ("status",)
     list_filter = ('status', 'category', 'event_startdate', 'event_enddate')
     list_per_page = 10

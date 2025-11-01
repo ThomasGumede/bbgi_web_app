@@ -34,8 +34,8 @@ class CampaignUpdateInline(admin.TabularInline):
 class CampaignAdmin(admin.ModelAdmin):
     list_display = ("thumpnail","title", "category","target", "current_amount","get_days", "status")
     list_editable = ("status", )
-    exclude = ("slug", "image", "details", "tags")
-    readonly_fields = ("title", "category", "content_safe", "image_tag","target", "start_date", "end_date", "organiser", "created", "updated")
+    # exclude = ("slug", "image", "details", "tags")
+    # readonly_fields = ("title", "category", "content_safe", "image_tag","target", "start_date", "end_date", "organiser", "created", "updated")
     date_hierarchy = "created"
     empty_value_display = "Empty"
     actions = [make_approve, make_pending]
