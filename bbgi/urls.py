@@ -16,7 +16,7 @@ sitemaps = {
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('bbgi-admin/', admin.site.urls),
     path("", include("bbgi_home.urls", namespace="bbgi_home")),
     path("accounts/", include("accounts.urls", namespace="accounts")),
     path("", include("listings.urls", namespace="listings")),
