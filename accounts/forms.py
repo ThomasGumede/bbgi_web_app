@@ -8,7 +8,7 @@ class UserLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
     
-    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username or Email', 'id': 'id_username'}), label="Username or Email*")
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter your email address', 'id': 'id_username'}), label="Enter your email address*")
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'id': 'id_password'}))
 
 class RegistrationForm(UserCreationForm):

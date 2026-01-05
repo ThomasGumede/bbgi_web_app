@@ -5,7 +5,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 @admin.register(Account)
-class AccountAdmin(admin.ModelAdmin):
+class AccountAdmin(UserAdmin):
     def profile_image_tag(self, obj):
         """Display user profile image thumbnail in admin."""
         if obj.profile_image:
