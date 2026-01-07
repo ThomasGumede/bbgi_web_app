@@ -283,12 +283,23 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+USE_GMAIL = config('USE_GMAIL', default=False, cast=bool)
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.bbgi.co.za'
-EMAIL_PORT = 465
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'noreply@bbgi.co.za'
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
-DEFAULT_FROM_EMAIL = 'BBGI <noreply@bbgi.co.za>'
+if USE_GMAIL:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_USE_SSL = False
+    EMAIL_HOST_USER = 'bbgiptyltd@gmail.com'
+    EMAIL_HOST_PASSWORD = config("GMAIL_HOST_PASSWORD")
+    DEFAULT_FROM_EMAIL = 'BBGI (Pty) Ltd <bbgiptyltd@gmail.com>'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'mail.bbgi.co.za'
+    EMAIL_PORT = 465
+    EMAIL_USE_TLS = False
+    EMAIL_USE_SSL = True
+    EMAIL_HOST_USER = 'noreply@bbgi.co.za'
+    EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+    DEFAULT_FROM_EMAIL = 'BBGI <noreply@bbgi.co.za>'
