@@ -1,7 +1,9 @@
 from django.contrib import admin
 # from events.tasks import notify_2_organiser_event_of_status_change
 # from django.contrib.sites.shortcuts import get_current_site
+from accounts.custom_models.choices import PaymentStatus
 from events.models import EventModel, TicketModel, TicketOrderModel, EventTicketTypeModel
+from events.tasks import send_tickets_to_attendees
 
 # Actions
 @admin.action(description="Approve selected events")
@@ -15,6 +17,13 @@ def make_pending(modeladmin, request, querset):
     querset.update(status="PENDING")
     # for campaign in querset:
     #     notify_2_organiser_event_of_status_change.delay(campaign.id)
+
+@admin.action(description="Mark selected orders as paid")
+def mark_orders_paid(modeladmin, request, querset):
+    for order in querset:
+        order.paid = PaymentStatus.PAID
+        order.save()
+        send_tickets_to_attendees.delay(order.id)
 
 class EventTicketTypeInline(admin.TabularInline):
     model = EventTicketTypeModel
@@ -39,6 +48,7 @@ class TicketOrderAdmin(admin.ModelAdmin):
     empty_value_display = "Empty"
     list_editable = ("paid", )
     search_fields = ("order_number", "checkout_id", "payment_date")
+    actions = [mark_orders_paid]
     inlines = [TicketInline]
 
 @admin.register(EventModel)

@@ -236,7 +236,7 @@
         <table border="0" cellspacing="0" cellpadding="0">
             <thead>
                 <tr>
-                    <th class="no">#</th>
+                    
                     <th class="desc">DESCRIPTION</th>
                     <th class="unit">UNIT PRICE</th>
                     <th class="qty">QUANTITY</th>
@@ -246,7 +246,7 @@
             <tbody>
                 {% for ticket in order.tickets.all %}
                 <tr>
-                    <td class="no">00</td>
+                    
                     <td class="desc">
                         <h3>{{ticket.ticket_type.title}}</h3>{{order.event.title}}
                     </td>
