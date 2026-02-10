@@ -222,6 +222,7 @@ def order_checkout(request, ticket_order_id):
         coupon = get_coupon(coupon_id)
         if coupon:
             apply_order_discount(ticket_order, coupon)
+            request.session["coupon_id"] = None
             
     if request.method == "POST":
         form = TicketOrderUpdateForm(instance=ticket_order, data=request.POST)

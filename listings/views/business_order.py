@@ -38,6 +38,7 @@ def order_subscription(request, listing_slug):
         coupon = get_coupon(coupon_id)
         if coupon:
             apply_order_discount(listing_order, coupon)
+            request.session["coupon_id"] = None
 
     if request.method == "POST":
         form = ListingOrderForm(instance=listing_order, data=request.POST)
