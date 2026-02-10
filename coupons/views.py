@@ -21,14 +21,18 @@ def apply_coupon_for_event(request):
         event_id = form.cleaned_data["event_id"]
         try:
             event = EventModel.objects.get(id=event_id)
-            coupon = Coupon.objects.get(code__iexact=code, event=event, valid_from__lte=now, valid_to__gte=now, active=True)
+            coupon = Coupon.objects.get(code__iexact=code, event=event,  active=True)
             messages.success(request, "Coupon successfully applied")
             request.session["coupon_id"] = str(coupon.id)
+            return redirect(return_url)
         except Coupon.DoesNotExist:
             messages.error(request, "Coupon either not valid or already used")
             request.session["coupon_id"] = None
+            return redirect(return_url)
         
     return redirect(return_url)
+        
+    
 
 @require_POST
 def apply_coupon(request):

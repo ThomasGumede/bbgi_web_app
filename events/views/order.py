@@ -222,6 +222,7 @@ def order_checkout(request, ticket_order_id):
         coupon = get_coupon(coupon_id)
         if coupon:
             apply_order_discount(ticket_order, coupon)
+            messages.info(request, f"Coupon applied successfully. You got a discount of R{coupon.discount} on your order.")
             request.session["coupon_id"] = None
             
     if request.method == "POST":
