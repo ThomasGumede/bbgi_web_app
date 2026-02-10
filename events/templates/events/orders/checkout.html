@@ -69,7 +69,7 @@
                         <div class="mb-[30px]">
                             
                             <div class="relative">
-                                <input type="text" placeholder="Coupon code" name="code" id="id_code" required
+                                <input type="text" placeholder="Coupon code" name="code" id="id_code" required value="{% if ticketorder.coupon_code %}{{ ticketorder.coupon_code }}{% endif %}"
                                     class="text-base text-custom-text pl-5 pr-[50px] focus:outline-none focus:ring-0 outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-sm placeholder:text-custom-text">
                             </div>
                             <input type="hidden" value="{% url 'events:order-checkout' ticketorder.id %}" name="return_url" id="id_return_url"
@@ -79,17 +79,25 @@
                         </div>
 
                         
-                        <div>
-                            <h5
-                                class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-h hover:border-custom-primary inline-block z-0">
-                                <span
-                                    class="inline-block absolute top-0 left-0 w-full h-full bg-custom-h group-hover:bg-custom-primary -z-1 group-hover:w-0 transition-all duration-300"></span>
-                                <button type="submit"
-                                    class="relative z-1 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
-                                    Apply Coupon
-                                </button>
-                            </h5>
-                        </div>
+                        {% if ticketorder.coupon_code %}
+                            <div class="text-sm text-custom-primary">
+                                <span class="font-bold">Coupon Applied:</span> {{ ticketorder.coupon_code }}
+                            </div>
+                        {% else %}
+                            <div>
+                                <h5
+                                    class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-h hover:border-custom-primary inline-block z-0">
+                                    <span
+                                        class="inline-block absolute top-0 left-0 w-full h-full bg-custom-h group-hover:bg-custom-primary -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                    <button type="submit"
+                                        class="relative z-1 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                        Apply Coupon
+                                    </button>
+                                </h5>
+                            </div>
+                        {% endif %}
+                            
+                        
                     </form>
                 </div>
             </div>
