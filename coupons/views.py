@@ -4,8 +4,10 @@ from django.views.decorators.http import require_POST
 from coupons.models import Coupon
 from coupons.forms import CouponApplyForm, CreateCouponForm, CouponApplyForEventForm
 from django.contrib import messages
-
+import logging
 from events.models import EventModel
+
+logger = logging.getLogger("utils")
 
 def coupons(request):
     return render(request, "coupons/all-coupons.html", {"coupons": Coupon.objects.all()})
@@ -30,6 +32,7 @@ def apply_coupon_for_event(request):
             request.session["coupon_id"] = None
             return redirect(return_url)
     else:
+        logger.error(f"Invalid form data: {form.errors}")
         messages.error(request, "Invalid form data")  
           
     return redirect(return_url)
