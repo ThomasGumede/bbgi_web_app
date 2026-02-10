@@ -2,19 +2,31 @@ from django.contrib import admin
 from campaigns.tasks import notify_2_organiser_of_status_change
 from django.contrib.sites.shortcuts import get_current_site
 from campaigns.models import CampaignModel, ContributionModel, CampaignUpdateModel
+import logging
 
+logger = logging.getLogger("tasks")
 # Actions
 @admin.action(description="Approve selected campaigns")
 def make_approve(modeladmin, request, querset):
     querset.update(status="APPROVED")
-    for campaign in querset:
-        notify_2_organiser_of_status_change.delay(campaign.id)
+    # try:
+    #     logger.info("Notifying organiser of status change for %d campaigns", querset.count())
+    #     for campaign in querset:
+    #         notify_2_organiser_of_status_change.delay(campaign.id)                                                                                  
+    # except Exception as e:
+    #     logger.error("Error notifying organiser of status change: %s", e)
+        
 
 @admin.action(description="Pending selected campaigns")
 def make_pending(modeladmin, request, querset):
     querset.update(status="PENDING")
-    for campaign in querset:
-        notify_2_organiser_of_status_change.delay(campaign.id)
+    
+    # try:
+    #     logger.info("Notifying organiser of status change for %d campaigns", querset.count())
+    #     for campaign in querset:
+    #         notify_2_organiser_of_status_change.delay(campaign.id) 
+    # except Exception as e:
+    #     logger.error("Error notifying organiser of status change: %s", e)                                                                           
 
 
 class ContributionInline(admin.TabularInline):
