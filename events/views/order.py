@@ -1,4 +1,5 @@
 import logging, decimal
+import uuid
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest
 from django.forms import formset_factory
@@ -6,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Prefetch, Q
+from coupons.forms import CouponApplyForEventForm
 from events.models import EventModel, TicketModel, TicketOrderModel, EventTicketTypeModel
 from events.forms import TicketOrderForm, TicketForm, TicketOrderUpdateForm
 from coupons.models import Coupon
@@ -28,6 +30,18 @@ def generate_coupon_number() -> str:
         queryset = Coupon.objects.all().filter(code__iexact=code).count()
 
     return code
+
+def get_coupon(coupon_id):
+    try:
+        return Coupon.objects.get(id=uuid.UUID(coupon_id), active=True)
+    except Coupon.DoesNotExist:
+        return None
+
+def apply_order_discount(order: TicketOrderModel, coupon: Coupon):
+    order.discount = coupon.discount
+    coupon.order_id = order.id
+    coupon.save(update_fields=["order_id"])
+    order.save(update_fields=["discount"])
 
 def update_order_transaction_cost_subtotal(order_id) -> None:
     """
@@ -201,6 +215,14 @@ def add_guest_details(request, ticket_order_id):
 def order_checkout(request, ticket_order_id):
     ticket_order = get_object_or_404(TicketOrderModel, buyer=request.user, id=ticket_order_id)
     form = TicketOrderUpdateForm(instance=ticket_order)
+    form2 = CouponApplyForEventForm()
+    
+    coupon_id = request.session.get("coupon_id")
+    if coupon_id:
+        coupon = get_coupon(coupon_id)
+        if coupon:
+            apply_order_discount(ticket_order, coupon)
+            
     if request.method == "POST":
         form = TicketOrderUpdateForm(instance=ticket_order, data=request.POST)
         if form.is_valid():
@@ -213,8 +235,8 @@ def order_checkout(request, ticket_order_id):
             return redirect("payments:ticket-payment", ticket_order_id=ticket_order.id)
         else:
             messages.error(request, "Something went wrong trying to checkout")
-            return render(request, "events/orders/checkout.html", {"ticketorder": ticket_order, "form": form})
-    return render(request, "events/orders/checkout.html", {"ticketorder": ticket_order, "form": form})
+            return render(request, "events/orders/checkout.html", {"ticketorder": ticket_order, "form": form, "form2": form2})
+    return render(request, "events/orders/checkout.html", {"ticketorder": ticket_order, "form": form, "form2": form2})
 
 @login_required
 def cancel_ticket_order(request, order_id):
