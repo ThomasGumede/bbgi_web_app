@@ -92,6 +92,24 @@
 
                                         </div>
                                     </div>
+                                    <div class="w-full md:px-4">
+                                        <div class="relative w-full mb-3">
+                                            <label for="id_generate_coupons" class="flex items-center gap-2">
+                                                {{form.generate_coupons}}
+                                                <span>
+                                                    Generate coupons for this ticket type?
+                                                </span>
+                                            </label>
+                                            
+                                            <span
+                                                class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.generate_coupons.help_text}}</span>
+                                            {% if form.generate_coupons.errors %}
+                                            <span
+                                                class="text-[11px] text-red-500 block font-normal lowercase">{{form.generate_coupons.errors.as_text}}</span>
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
 
                                     
 

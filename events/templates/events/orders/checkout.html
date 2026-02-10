@@ -46,7 +46,7 @@
         </div>
         {% endif %}
         <!-- apply  coupon -->
-        <!-- <div class="accordion-container">
+        <div class="accordion-container">
             <div class="accordion mb-[30px]">
                 <div class="px-[30px] py-5 lg:py-[17px] bg-[#f2f6f7]">
                     <h6 class="text-base lg:text-lg text-custom-h font-bold mb-0 leading-1">
@@ -59,7 +59,8 @@
                     </h6>
                 </div>
                 <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
-                    <form class="content-wrapper form-primary bg-white p-[30px] border border-[#e5eaee] mt-[15px]">
+                    <form method="post" class="content-wrapper form-primary bg-white p-[30px] border border-[#e5eaee] mt-[15px]">
+                        {% csrf_token %}
                         <p class="text-sm md:text-base mb-5 lg:mb-6">
                             <span class="leading-[1.8] lg:leading-[1.8]">
                                 If you have a coupon code, please apply it below.
@@ -90,7 +91,7 @@
                 </div>
             </div>
         </div> -->
-        <!-- billing details -->
+        <!-- billing details
         <form method="post">
             {% csrf_token %}
         

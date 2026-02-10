@@ -11,6 +11,30 @@ from django.utils import timezone
 
 from events.utils import send_email_to_admins
 
+def generate_coupon_for_event(event: EventModel):
+    from coupons.models import Coupon
+    
+    order_id_start = f'BBGIPARTNER{timezone.now().year}{timezone.now().month}'
+    queryset = Coupon.objects.filter(code__iexact=order_id_start).count()
+      
+    count = 1
+    code = order_id_start
+    while(queryset):
+        code = f'BBGIPARTNER{timezone.now().year}{timezone.now().month}{count}'
+        count += 1
+        queryset = Coupon.objects.all().filter(code__iexact=code).count()
+
+    coupon = Coupon.objects.create(
+        code = code,
+        discount = event.tickettypes.first().price,
+        event = event,
+        valid_from = timezone.now(),
+        valid_to = event.event_enddate,
+        active = True
+    )
+    
+    coupon.save()
+
 def confirm_attandance(request, order_number, ticket_id):
     order = get_object_or_404(TicketOrderModel, order_number=order_number)
     if order.paid == PaymentStatus.PAID:
@@ -54,10 +78,14 @@ def create_new_ticket_types(request, event_slug):
 
         if form.is_valid():
             add_another = form.cleaned_data.get("add_another", None)
+            generate_coupons = form.cleaned_data.get("generate_coupons", None)
             title = form.cleaned_data.get("title", None)
             ticket_type = form.save(commit=False)
             ticket_type.event = event
             ticket_type.save()
+            
+            if generate_coupons:
+                generate_coupon_for_event(event)
             
             if add_another:
                 messages.success(request, f"Your Ticket type({title}) was successfully created")

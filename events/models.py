@@ -171,8 +171,7 @@ class EventTicketTypeModel(AbstractCreate):
         return Decimal(round(cost, 2))
     
     def save(self, *args, **kwargs):
-        self.transaction_cost = self.calculate_transaction_cost()
-        self.total_price = self.calculate_transaction_cost() + Decimal(self.price)
+        
         super(EventTicketTypeModel, self).save(*args, **kwargs)
 
 class TicketOrderModel(AbstractCreate, AbstractPayment):

@@ -126,6 +126,7 @@ class EventOrganisorForm(forms.ModelForm):
  
 class EventTicketTypeForm(forms.ModelForm):
     add_another = forms.CharField(max_length=100, required=False)
+    generate_coupons = forms.BooleanField(required=False, initial=False)
     class Meta:
         model = EventTicketTypeModel
         fields = ("title", "available_seats", "price", "sale_start", "sale_end")
