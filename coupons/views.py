@@ -29,7 +29,9 @@ def apply_coupon_for_event(request):
             messages.error(request, "Coupon either not valid or already used")
             request.session["coupon_id"] = None
             return redirect(return_url)
-        
+    else:
+        messages.error(request, "Invalid form data")  
+          
     return redirect(return_url)
         
     
