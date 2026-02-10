@@ -80,12 +80,12 @@ class CampaignModel(AbstractCreate):
         return str(self.title)
     
     def image_tag(self):
-        if self.image.url is not None:
+        if self.image:
             return mark_safe(f"<img src={self.image.url} alt={self.title}-image height='60' width='90' />")
         return ""
     
     def thumpnail(self):
-        if self.image.url is not None:
+        if self.image:
             return mark_safe(f"<img src={self.image.url} alt={self.organiser.first_name}-image height='60' width='60' style='border-radius: 50%; height: 40px; width: 40px;' />")
         return ""
 
