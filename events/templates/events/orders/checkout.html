@@ -59,7 +59,7 @@
                     </h6>
                 </div>
                 <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
-                    <form method="post" class="content-wrapper form-primary bg-white p-[30px] border border-[#e5eaee] mt-[15px]">
+                    <form method="post" action="{% url 'coupons:apply-coupon-for-event' %}" class="content-wrapper form-primary bg-white p-[30px] border border-[#e5eaee] mt-[15px]">
                         {% csrf_token %}
                         <p class="text-sm md:text-base mb-5 lg:mb-6">
                             <span class="leading-[1.8] lg:leading-[1.8]">
@@ -69,13 +69,16 @@
                         <div class="mb-[30px]">
                             
                             <div class="relative">
-                                <input type="text" placeholder="Coupon code"
+                                <input type="text" placeholder="Coupon code" name="code" id="id_code"
                                     class="text-base text-custom-text pl-5 pr-[50px] focus:outline-none focus:ring-0 outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none placeholder:text-sm placeholder:text-custom-text">
                             </div>
+                            <input type="hidden" value="{% url 'events:order-checkout' ticketorder.id %}" name="return_url" id="id_return_url"
+                                class="">
+                            <input type="hidden" value="{{ ticketorder.event.id }}" name="event_id" id="id_event_id"
+                                class="">
                         </div>
 
                         
-
                         <div>
                             <h5
                                 class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-h hover:border-custom-primary inline-block z-0">
@@ -90,7 +93,7 @@
                     </form>
                 </div>
             </div>
-        </div> -->
+        </div>
         <!-- billing details
         <form method="post">
             {% csrf_token %}

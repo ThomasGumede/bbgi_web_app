@@ -5,6 +5,11 @@ from coupons.models import Coupon
 class CouponApplyForm(forms.Form):
     code = forms.CharField()
     return_url = forms.CharField()
+
+class CouponApplyForEventForm(forms.Form):
+    code = forms.CharField()
+    event_id = forms.IntegerField()
+    return_url = forms.CharField()
     
 class CreateCouponForm(forms.ModelForm):
     class Meta:
