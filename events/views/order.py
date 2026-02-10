@@ -39,9 +39,11 @@ def get_coupon(coupon_id):
 
 def apply_order_discount(order: TicketOrderModel, coupon: Coupon):
     order.discount = coupon.discount
+    order.total_price = order.subtotal - coupon.discount
+    order.coupon_code = coupon.code
     coupon.order_id = order.id
     coupon.save(update_fields=["order_id"])
-    order.save(update_fields=["discount"])
+    order.save(update_fields=["discount", "total_price", "coupon_code"])
 
 def update_order_transaction_cost_subtotal(order_id) -> None:
     """

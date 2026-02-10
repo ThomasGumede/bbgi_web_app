@@ -237,6 +237,7 @@ class TicketOrderModel(AbstractCreate, AbstractPayment):
         return reverse("events:order", kwargs={"order_id": self.id, "event_slug": self.event.slug})
     
     def save(self, *args, **kwargs):
+            
         self.order_number = generate_order_number(TicketOrderModel)
         super(TicketOrderModel, self).save(*args, **kwargs)
 
