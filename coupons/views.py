@@ -14,6 +14,7 @@ def coupons(request):
 def apply_coupon_for_event(request):
     now = timezone.now()
     form = CouponApplyForEventForm(request.POST)
+    return_url = request.POST.get("return_url", "/")
     if form.is_valid():
         code = form.cleaned_data['code']
         return_url = form.cleaned_data["return_url"]
