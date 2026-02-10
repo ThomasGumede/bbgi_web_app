@@ -8,7 +8,7 @@ class CouponApplyForm(forms.Form):
 
 class CouponApplyForEventForm(forms.Form):
     code = forms.CharField()
-    event_id = forms.IntegerField()
+    event_id = forms.UUIDField()
     return_url = forms.CharField()
     
 class CreateCouponForm(forms.ModelForm):
