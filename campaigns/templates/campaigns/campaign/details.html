@@ -362,7 +362,7 @@
                             {% for campaign in recent_campaigns %}
                             <li class="flex items-center ">
                                 <div class="pr-5 w-20 h-16 overflow-hidden">
-                                    {% if campaign.image.url %}
+                                    {% if campaign.image %}
                                         <img src="{{campaign.image.url}}" alt="{{campaign.title}}" class="w-full h-full object-cover">
                                     {% else %}
                                         <div class="w-full h-full grid items-center justify-center bg-custom-h">
