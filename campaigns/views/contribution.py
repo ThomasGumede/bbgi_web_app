@@ -82,13 +82,14 @@ def create_contribution(request, campaign_id):
 @login_required
 def cancel_contribution(request, contribution_id):
     contribution = get_object_or_404(ContributionModel, contributor = request.user, id = contribution_id)
+    campaign = contribution.campaign
     if contribution.paid == PaymentStatus.PAID:
         messages.warning(request, "You cannot cancel an already paid or pending payment contribution, please visit our <a href='' class='text-custom-primary'>refund policy</a>")
-        return redirect("accounts:contributions")
+        return redirect("campaigns:campaign", campaign_slug=campaign.slug)
     
     
     contribution.delete()
     messages.success(request, "Your contribution was cancelled successfully")
-    return redirect("accounts:contributions")
+    return redirect("campaigns:campaign", campaign_slug=campaign.slug)
     
     
