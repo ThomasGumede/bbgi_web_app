@@ -60,7 +60,7 @@ class CampaignContactForm(forms.ModelForm):
 class ContributionForm(forms.ModelForm):
     class Meta:
         model = ContributionModel
-        fields = ("amount", "tip", "anonymous", "accepted_laws", "message")
+        fields = ("amount", "anonymous", "accepted_laws", "message")
 
 class CampaignUpdateForm(forms.ModelForm):
     class Meta:

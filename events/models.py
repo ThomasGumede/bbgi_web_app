@@ -153,9 +153,12 @@ class EventTicketTypeModel(AbstractCreate):
     
     event = models.ForeignKey(EventModel, related_name="tickettypes", on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = 'Event Ticket Type'
+        verbose_name_plural = 'Event Ticket Types'
 
     def __str__(self) -> str:
-        return f"{self.title} - R{self.price}(+ R{self.transaction_cost})"
+        return f"{self.title} - R{self.price}"
     
     def sales_days_left(self):
         date = self.sale_end - timezone.now()
@@ -167,11 +170,11 @@ class EventTicketTypeModel(AbstractCreate):
             return f"{date.days} day"
     
     def calculate_transaction_cost(self):
-        cost = Decimal(self.price) * Decimal(3/100)
+        cost = Decimal(self.price)
         return Decimal(round(cost, 2))
     
     def save(self, *args, **kwargs):
-        
+        self.total_price = self.calculate_transaction_cost()
         super(EventTicketTypeModel, self).save(*args, **kwargs)
 
 class TicketOrderModel(AbstractCreate, AbstractPayment):

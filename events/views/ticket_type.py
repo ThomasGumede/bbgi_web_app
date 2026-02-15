@@ -56,7 +56,7 @@ def confirm_attandance(request, order_number, ticket_id):
 def get_event_ticket_types(request, event_id):
     try:
         event = EventModel.objects.get(id=event_id)
-        event_ticket_types = EventTicketTypeModel.objects.filter(event = event, available_seats__gte=1, sale_start__lte=timezone.now(), sale_end__gte=timezone.now())
+        event_ticket_types = EventTicketTypeModel.objects.filter(event = event, available_seats__gte=1, sale_end__gte=timezone.now())
 
         json_event_ticket_types = serializers.serialize("json", event_ticket_types)
         return JsonResponse({"success": True, "event_ticket_types": json_event_ticket_types}, status=200)

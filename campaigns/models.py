@@ -163,7 +163,7 @@ class ContributionModel(AbstractCreate, AbstractPayment):
 
     def calculate_total(self):
         
-        return decimal.Decimal(self.amount) + self.calculate_tip_amount()
+        return decimal.Decimal(self.amount)
     
     
 

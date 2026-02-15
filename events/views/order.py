@@ -152,7 +152,7 @@ def create_ticket_order(request, event_slug):
     queryset = EventModel.objects.filter(
         status=StatusChoices.APPROVED
     ).prefetch_related(
-        Prefetch("tickettypes", queryset=EventTicketTypeModel.objects.filter(available_seats__gte=1, sale_start__lte=timezone.now(), sale_end__gte=timezone.now()))
+        Prefetch("tickettypes", queryset=EventTicketTypeModel.objects.filter(available_seats__gte=1, sale_end__gte=timezone.now()))
     )
     event = get_object_or_404(queryset, slug=event_slug)
     time_remaining = (event.event_enddate - timezone.now()).days

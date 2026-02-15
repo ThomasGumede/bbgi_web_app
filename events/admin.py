@@ -67,3 +67,9 @@ class EventAdmin(admin.ModelAdmin):
         }),
     )
     
+@admin.register(EventTicketTypeModel)
+class EventTicketTypeAdmin(admin.ModelAdmin):
+    list_display = ("event", "title", "price", "available_seats", "sale_start", "sale_end")
+    list_filter = ("event", "sale_start", "sale_end")
+    search_fields = ("event__title", "title")
+    ordering = ("-sale_start",)
