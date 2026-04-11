@@ -8,6 +8,7 @@ from accounts.models import AbstractCreate
 from django.dispatch import receiver
 from django.db.models.signals import pre_delete
 from django.utils.translation import gettext as _
+from taggit_autosuggest.managers import TaggableManager
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.template.defaultfilters import slugify
@@ -82,6 +83,8 @@ class Category(AbstractCreate):
         verbose_name_plural = _("Categories")
 
 class Business(AbstractCreate):
+    from bbgi_home.models import UUIDTaggedItem
+    
     background_image = models.ImageField(help_text=_("Upload company/business background image."), upload_to=handle_business_file_upload, blank=True, null=True)
     logo = models.ImageField(help_text=_("Upload company/business logo."), upload_to=handle_business_file_upload, blank=True, null=True)
     title = models.CharField(help_text=_("Enter title for your company/business"), max_length=150, unique=True)
@@ -107,6 +110,10 @@ class Business(AbstractCreate):
     linkedIn = models.URLField(validators=[validate_in_link], blank=True, null=True)
     status = models.CharField(max_length=50, choices=StatusChoices.choices, default=StatusChoices.NOT_APPROVED)
     is_completed = models.BooleanField(default=False)
+    tags = TaggableManager(
+        through=UUIDTaggedItem,
+        help_text="Add tags separated by commas"
+    )
 
     class Meta:
         verbose_name = 'Business'

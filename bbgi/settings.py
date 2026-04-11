@@ -143,6 +143,8 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'django_celery_results',
     'fontawesomefree',
+    'taggit',
+    'taggit_autosuggest',
     # "django.contrib.sites",
     # 'django.contrib.sitemaps',
 ]
@@ -150,7 +152,8 @@ INSTALLED_APPS = [
 GOOGLE_ANALYTICS_MEASUREMENT_ID = config('GOOGLE_G')
 
 TAILWIND_APP_NAME = 'theme'
-NPM_BIN_PATH = "/usr/bin/npm"
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+# NPM_BIN_PATH = "/usr/bin/npm"
 INTERNAL_IPS = [
     "127.0.0.1", '0.0.0.0'
 ]

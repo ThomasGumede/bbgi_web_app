@@ -1,6 +1,6 @@
 
 from bbgi_home.views.admin_views import all_accounts, all_listings, delete_listing, send_email_to_users, export_accounts
-from bbgi_home.views.blog_views import all_blogs, blog_details, blogs, create_blog, delete_blog, update_blog
+from bbgi_home.views.blog_views import all_blogs, blog_details, blogs, create_blog, delete_blog, tinymce_image_upload, update_blog
 from bbgi_home.views.campaigns_views import all_campaigns, all_contributions, campaign_details, contribution_details, delete_contribution
 from bbgi_home.views.events_views import all_events, all_ticket_orders, delete_ticket_order, event_details, ticket_order_details
 from bbgi_home.views.home_views import bbgi_home, about_bbgi, contact, dashboard, search, terms_and_conditions, faqs, privacy, refunds
@@ -65,4 +65,6 @@ urlpatterns = [
     path("bbgi-admin/ticket-orders/delete/<uuid:order_id>", delete_ticket_order, name="cancel-ticket-order"),
 
     path("bbgi-admin/quotations/manage", all_quotations, name="all-quotations"),
+    path('tinymce-upload/', tinymce_image_upload, name='tinymce_upload'),
+
 ]

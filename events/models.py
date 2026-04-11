@@ -18,6 +18,7 @@ from django.urls import reverse
 from tinymce.models import HTMLField
 from datetime import timedelta
 from django.utils.safestring import mark_safe
+from taggit_autosuggest.managers import TaggableManager
 
 PHONE_REGEX = verify_rsa_phone()
 
@@ -31,6 +32,7 @@ def reservation_time():
 
 
 class EventModel(AbstractCreate):
+    from bbgi_home.models import UUIDTaggedItem
     category = models.ForeignKey(BlogCategory, on_delete=models.PROTECT, related_name="events", null=True, blank=True)
     image = models.ImageField(help_text=_("Upload campaign image."), upload_to=handle_event_file_upload, null=True, blank=True)
     title = models.CharField(help_text=_("Enter title for your event"), max_length=150)
@@ -45,6 +47,10 @@ class EventModel(AbstractCreate):
     map_coordinates  = models.CharField(max_length=300, blank=True, null=True)
     total_seats_sold = models.PositiveIntegerField(default=0)
     event_link = models.URLField(blank=True, null=True)
+    tags = TaggableManager(
+        through=UUIDTaggedItem,
+        help_text="Add tags separated by commas"
+    )
     event_startdate = models.DateTimeField(validators = [MinValueValidator(timezone.now(), "Event start date and time cannot be in the past")])
     event_enddate = models.DateTimeField(validators = [MinValueValidator(timezone.now(), "Event end date and time cannot be in the past")])
     status = models.CharField(max_length=50, choices=StatusChoices.choices, default=StatusChoices.NOT_APPROVED)

@@ -46,7 +46,7 @@ class BusinessAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
         ('Business Info', {
-            'fields': ('bbbee_level', 'province', 'is_hours', 'hours_type', 'status', 'is_completed'),
+            'fields': ('bbbee_level', 'province', 'is_hours', 'hours_type', 'status', 'tags'),
             'classes': ('collapse',)
         }),
     )

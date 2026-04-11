@@ -18,7 +18,7 @@ def sort_listing(sort_by=None, province=None, bbee_level=None, query=None, place
         listings = listings.filter(bbbee_level=bbee_level)
 
     if query:
-        listings = listings.filter(Q(title__icontains=query) | Q(category__label__icontains=query) | Q(slogan__icontains=query) | Q(main_address__icontains=place or query))
+        listings = listings.filter(Q(title__icontains=query) | Q(tags__icontains=query) | Q(category__label__icontains=query) | Q(slogan__icontains=query) | Q(main_address__icontains=place or query))
 
     if sort_by:
         

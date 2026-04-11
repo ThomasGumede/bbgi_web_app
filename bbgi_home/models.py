@@ -7,8 +7,14 @@ from django.db.models.signals import pre_delete
 from django.urls import reverse
 from django.template.defaultfilters import slugify
 from tinymce.models import HTMLField
-
+from taggit_autosuggest.managers import TaggableManager
+from taggit.models import TagBase, GenericUUIDTaggedItemBase, TaggedItemBase
 from bbgi_home.utilities.file_handlers import handle_post_file_upload
+
+class UUIDTaggedItem(GenericUUIDTaggedItemBase, TaggedItemBase):    
+    class Meta:
+        verbose_name = _("Tag")
+        verbose_name_plural = _("Tags")
 
 class BlogCategory(AbstractCreate):
     thumbnail = models.ImageField(upload_to="category/", null=True, blank=True)
@@ -35,6 +41,10 @@ class Blog(AbstractCreate):
     author = models.ForeignKey(get_user_model(), on_delete=models.SET_DEFAULT, default=None, related_name="posts", null=True)
     category = models.ForeignKey(BlogCategory, on_delete=models.PROTECT, related_name="posts")
     content = HTMLField()
+    tags = TaggableManager(
+        through=UUIDTaggedItem,
+        help_text="Add tags separated by commas"
+    )
 
     class Meta:
         verbose_name = 'Post'

@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Q
 from django.contrib import messages
 from bbgi_home.forms import EmailForm, SearchForm
-from bbgi_home.models import Blog, Member, Sponsor, Review
+from bbgi_home.models import Blog, Member, Sponsor, Review, Privacy
 from bbgi_home.tasks import send_email_to_admin
 from bbgi_home.utilities.decorators import user_not_superuser_or_staff
 from bbgi_home.utilities.google_recaptcha import validate_recaptcha
@@ -114,14 +114,29 @@ def search(request):
     return render(request, "home/search.html", context=context)
 
 def terms_and_conditions(request):
-    return render(request, "home/terms_and_conditions.html")
+    try:
+        data = Privacy.objects.get(slug="website-terms-and-community-guidlines")
+    except Privacy.DoesNotExist:
+        data = None
+        messages.error(request, "Terms and conditions not found.")
+    return render(request, "home/terms.html", {"data": data})
 
 def privacy(request):
-    return render(request, "home/privacy.html")
+    try:
+        data = Privacy.objects.get(slug="privacy-policy")
+    except Privacy.DoesNotExist:
+        data = None
+        messages.error(request, "Privacy policy not found.")
+    return render(request, "home/terms.html", {"data": data})
 
 def refunds(request):
-    return render(request, "home/refunds.html")
-
+    try:
+        data = Privacy.objects.get(slug="refund-policy")
+    except Privacy.DoesNotExist:
+        data = None
+        messages.error(request, "Refund policy not found.") 
+    return render(request, "home/terms.html", {"data": data})
+    
 def faqs(request):
     blogs = Blog.objects.all()[:5]
     return render(request, "home/faqs.html", {"posts": blogs})
