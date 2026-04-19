@@ -47,12 +47,14 @@ class EventCreateForm(forms.ModelForm):
     
     class Meta:
         model = EventModel
-        fields = ("image", "title", "email", "phone", "category", "content", "small_description", "event_startdate", "event_enddate", "event_link")
+        fields = ("image", "title", "email", "phone", "category", "content", "small_description", "event_startdate", "event_enddate", "event_link", "tags")
 
         widgets = {
             'title': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g John Snow's 30th Birthday"}),
             'category': forms.Select(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
             'image': forms.FileInput(attrs={"class": "w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]"}),
+            'tags': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            
             'map_coordinates': forms.HiddenInput(),
             'phone': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "type": "tel"}),
             'email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
@@ -203,7 +205,7 @@ class EventTicketTypeUpdateForm(forms.ModelForm):
 class TicketOrderForm(forms.ModelForm):
     class Meta:
         model = TicketOrderModel
-        fields = ("accepted_laws", "email", "quantity", "total_price")
+        fields = ("accepted_laws", "quantity", "total_price")
 
 class TicketOrderUpdateForm(forms.ModelForm):
     class Meta:

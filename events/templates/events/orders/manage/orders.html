@@ -5,17 +5,8 @@
 
 {% block content_v2 %}
 <div class="relative block bg-white">
-    <div class=" py-2 overflow-x-auto">
-        <div class="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-white px-12">
-            <div class="flex justify-between">
+    <div class="  overflow-x-auto">
         
-                <div>
-                    <a href="{% url 'events:create-event' %}"
-                        class="px-5 py-2 border-custom-h border text-custom-h  rounded transition duration-300 hover:bg-custom-h hover:text-white focus:outline-none">Add
-                        event</a>
-                </div>
-            </div>
-        </div>
         <div class="relative flex flex-col w-full h-full text-gray-700 bg-white">
 
 
@@ -72,7 +63,7 @@
                                     <p class="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
         
         
-                                        {{order.event.title|truncatewords:4}}
+                                        {{order.event.title|truncatewords:2}}
                                     </p>
                                 </a>
                             </td>
@@ -108,6 +99,17 @@
                                         </svg>
                                     </span>
                                 </a>
+                                
+                                {% if order.paid == 'NOT PAID' %}
+                                    <a href="{% url 'events:cancel-ticket-order' order.id %}"
+                                        class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                        type="button">
+                                        <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                                            <i class="fa-solid text-red-600 fa-trash text-base"></i>
+                                        </span>
+                                    </a>
+                                {% endif %}
+                                    
                             </td>
                         </tr>
                         {% endfor %}

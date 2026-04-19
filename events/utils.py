@@ -172,3 +172,4 @@ def generate_tickets_in_pdf(order: TicketOrderModel, request):
         logger.error(ex)
         return False
     
+    

@@ -185,7 +185,7 @@ def delete_event(request, event_slug):
         
         messages.success(request, "Event deleted successfully")
         return redirect("events:manage-events")
-    return render(request, "events/event/delete.html", {"message": f"Are you sure you want to delete this event ({event.title})?", "title": "Delete event"})
+    return render(request, "events/event/delete-event.html", {"message": f"Are you sure you want to delete this event ({event.title})?", "title": "Delete event", "event": event })
 
 @login_required
 def add_event_organisor(request, event_slug):

@@ -19,6 +19,7 @@ from tinymce.models import HTMLField
 from datetime import timedelta
 from django.utils.safestring import mark_safe
 from taggit_autosuggest.managers import TaggableManager
+from listings.models import Business
 
 PHONE_REGEX = verify_rsa_phone()
 
@@ -40,6 +41,7 @@ class EventModel(AbstractCreate):
     phone = models.CharField(help_text=_("Enter cellphone number"), max_length=15, validators=[PHONE_REGEX])
     email = models.EmailField()
     organiser = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=None, related_name="events")
+    company_organiser = models.ForeignKey(Business, on_delete=models.SET_NULL, default=None, null=True, related_name="company_events", blank=True)
     small_description = models.TextField(help_text=_("Small description about your event for search"), null=True, blank=True)
     content = HTMLField()
     venue_name = models.CharField(max_length=400, help_text=_("Enter event venue name"), null=True, blank=True)
@@ -49,7 +51,7 @@ class EventModel(AbstractCreate):
     event_link = models.URLField(blank=True, null=True)
     tags = TaggableManager(
         through=UUIDTaggedItem,
-        help_text="Add tags separated by commas"
+        help_text="Add tags separated by commas", blank=True
     )
     event_startdate = models.DateTimeField(validators = [MinValueValidator(timezone.now(), "Event start date and time cannot be in the past")])
     event_enddate = models.DateTimeField(validators = [MinValueValidator(timezone.now(), "Event end date and time cannot be in the past")])
@@ -91,6 +93,9 @@ class EventModel(AbstractCreate):
         text = round(average_rating, 1)
         
         return text
+    
+    def get_event_location(self):
+        return f"{self.event_address}, {self.venue_name}"
     
     def get_avg_rating(self):
         return self.reviews.aggregate(avg_rating_value=Avg('rating_value'))['avg_rating_value']
@@ -246,7 +251,7 @@ class TicketOrderModel(AbstractCreate, AbstractPayment):
         return reverse("events:order", kwargs={"order_id": self.id, "event_slug": self.event.slug})
     
     def save(self, *args, **kwargs):
-            
+        self.email = self.buyer.email if self.buyer else self.client_email     
         self.order_number = generate_order_number(TicketOrderModel)
         super(TicketOrderModel, self).save(*args, **kwargs)
 

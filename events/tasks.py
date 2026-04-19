@@ -1,5 +1,6 @@
 from celery import shared_task
 import logging, json, base64
+from io import BytesIO
 from accounts.custom_models.choices import StatusChoices
 from accounts.utilities.custom_email import send_html_email_with_attachments
 from events.models import TicketOrderModel, EventModel, reservation_time
@@ -123,11 +124,12 @@ def notify_2_organiser_event_of_status_change(event_id, domain = 'bbgi.co.za', p
 def generate_qr_and_bacode_task(order_id):
     try:
         order = TicketOrderModel.objects.get(id=order_id)
-        for ticket in TicketModel.objects.filter(ticket_order=order):
+        tickets = TicketModel.objects.filter(ticket_order=order)
+        for ticket in tickets:
             ticket_url = f'https://bbgi.co.za/ticket-types/verify/{order.order_number}/{ticket.id}'
             barcode_value = create_new_barcode_number()
             barcode_image = barcode.Code128(barcode_value, writer=ImageWriter())
-            barcode_image.save(f'media/tickets/barcodes/' + order.order_number)
+            barcode_image.save(f'media/tickets/barcodes/' + order.order_number + '_' + str(ticket.id))
                     
             qr = qrcode.QRCode(
                         version=1,
@@ -139,15 +141,37 @@ def generate_qr_and_bacode_task(order_id):
             qr.add_data(ticket_url)
             qr.make(fit=True)
             qr_image = qr.make_image(fill_color="black", back_color="white")
-            qr_image.save(f'media/tickets/qrcodes/' + order.order_number + '_qrcode.png')
+            qr_image.save(f'media/tickets/qrcodes/' + order.order_number + '_' + str(ticket.id) + '_qrcode.png')
             
             ticket.qrcode_url = ticket_url
             ticket.barcode_value = barcode_value
-            ticket.qrcode_image = f'tickets/qrcodes/' + order.order_number + '_qrcode.png'
-            ticket.barcode_image = f'tickets/barcodes/' + order.order_number + '.png'
+            ticket.qrcode_image = f'tickets/qrcodes/' + order.order_number + '_' + str(ticket.id) + '_qrcode.png'
+            ticket.barcode_image = f'tickets/barcodes/' + order.order_number + '_' + str(ticket.id) + '.png'
             ticket.save(update_fields=["qrcode_url", "barcode_value", "qrcode_image", "barcode_image"])
+            
+        try:
+                
+            template = get_template("ticket/tickets.html")
+            context = {"tickets": tickets, 
+                            "event": order.event, 
+                            "buyer_full_name": order.buyer.get_full_name(),
+                            "order_number": order.order_number,
+                            "created": order.created,
+                            "domain": 'bbgi.co.za', 
+                            "protocol": 'https'}
+                
+            render_template = template.render(context)
+            pdf_file = HTML(string=render_template).write_pdf()
+                    
+            buffer = BytesIO(pdf_file)
+
+            order.tickets_pdf_file.save(f'{order.order_number}_tickets.pdf', buffer)
+            return "Successfully created tickets"
+        except Exception as ex:
+            logger.error(ex)
+            return "Failed to create tickets"
+            
         
-        return "Successfully created tickets"
 
     except TicketOrderModel.DoesNotExist as ex:
         logger.error(ex)

@@ -71,23 +71,23 @@ def campaigns(request, category_slug=None):
     if category_slug:
         category = get_object_or_404(BlogCategory, slug=category_slug)
         if query:
-            campaigns = queryset.filter(Q(category = category) & Q(title__icontains=query)| Q(organiser__first_name__icontains=query))
+            campaigns = queryset.filter(Q(category = category) & Q(title__icontains=query)| Q(organiser__first_name__icontains=query) | Q(tags__name=[query]))
         else:
             campaigns = queryset.filter(category = category)
     else:
         if query:
-            campaigns = queryset.filter(Q(title__icontains=query)| Q(organiser__first_name__icontains=query))
+            campaigns = queryset.filter(Q(title__icontains=query)| Q(organiser__first_name__icontains=query) | Q(tags__name=[query]))
         else:
             campaigns = queryset
     
     return render(request, "campaigns/campaign/list.html", {"campaigns": campaigns, "query": query})
 
 def campaign_details(request, campaign_slug):
-    queryset = CampaignModel.objects.select_related("organiser", "category").order_by("-created")
+    queryset = CampaignModel.objects.select_related("organiser", "category").prefetch_related('tags').order_by("-created")
     campaign = get_object_or_404(queryset, slug = campaign_slug)
-    recent_campaigns = queryset[:5]
+    contributions = ContributionModel.objects.filter(campaign=campaign, paid=PaymentStatus.PAID).order_by('-created')[:5]
 
-    return render(request, "campaigns/campaign/details.html", {"campaign": campaign, "recent_campaigns":recent_campaigns})
+    return render(request, "campaigns/campaign/details.html", {"campaign": campaign, "contributions": contributions})
 
 @login_required
 def create_campaign(request, campaign_slug=None):
@@ -210,4 +210,4 @@ def delete_campaign(request, campaign_slug):
         campaign.delete()
         return redirect("campaigns:manage-campaigns")
     
-    return render(request, "campaigns/delete/confirm_delete.html", {"message": f"Are you sure you want to delete this campaign ({campaign.title})?", "title": "Delete campaign"})
+    return render(request, "campaigns/campaign/delete-campaign.html", {"message": f"Are you sure you want to delete this campaign ({campaign.title})?", "title": "Delete campaign", "campaign": campaign})

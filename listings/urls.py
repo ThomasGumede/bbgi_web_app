@@ -5,6 +5,7 @@ from listings.views.business_order import order_subscription, cancel_listing_ord
 from listings.views.business_views import add_listing, add_listing_socials, delete_listing, \
     delete_listing_content, get_business_hours_api, get_listing, get_listings, manage_listing, \
         manage_listings, update_listing, update_listing_content, get_started_with_listing, update_listing_socials
+from listings.views.business_messages import send_message
 
 
 app_name = "listings"
@@ -22,7 +23,6 @@ urlpatterns = [
     path("listing/<slug:listing_slug>/payment-checkout", order_subscription, name = "order-subscription"),
     path("listing/<uuid:order_id>/cancel-payment-checkout", cancel_listing_order, name = "cancel-listing-order"),
 
-    
     path("listing/get-started", get_started_with_listing, name = "get-started-with-listing"),
     path("listing/manage/delete/<slug:listing_slug>", delete_listing, name="delete-listing"),
     path("listing/manage/update/<slug:listing_slug>", update_listing, name="update-listing"),
@@ -40,5 +40,6 @@ urlpatterns = [
     path("listing/manage/update-business-hours/<slug:listing_slug>/<uuid:hour_id>", update_business_hour, name="update-business-hour"),
 
     # API URLS
-    path("api/hours/<uuid:listing_id>", get_business_hours_api, name="get-business-hours-api")
+    path("api/hours/<uuid:listing_id>", get_business_hours_api, name="get-business-hours-api"),
+    path("listing/<slug:listing_slug>/send-message", send_message, name="send-business-message"),
 ]

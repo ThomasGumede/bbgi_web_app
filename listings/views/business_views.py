@@ -2,7 +2,7 @@ import json, logging
 from django.db.models import Q
 from django.forms import formset_factory, modelformset_factory, BaseModelFormSet
 from accounts.utilities.custom_email import send_html_email
-from listings.forms import BusinessForm, BusinessSocialForm, BusinessContent, BusinessReviewForm, BusinessUpdateForm
+from listings.forms import BusinessForm, BusinessSocialForm, BusinessContent, BusinessReviewForm, BusinessUpdateForm, BusinessMessageForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from listings.models import Business, BusinessLocation, Category, BusinessHour
@@ -14,7 +14,9 @@ from django.contrib import messages
 
 from listings.utilities.custom_methods import sort_listing
 
-
+def popular_listing_tags(request):
+    
+    pass
 
 @login_required
 def manage_listings(request):
@@ -61,6 +63,7 @@ def get_listing(request, listing_slug):
     data = json.dumps(list(locations))
     categories = Category.objects.all()
     form = BusinessReviewForm()
+    message_form = BusinessMessageForm()
     
     if request.method == "POST":
         form = BusinessReviewForm(request.POST)
@@ -77,7 +80,7 @@ def get_listing(request, listing_slug):
             messages.error(request, "Error trying to add your review")
 
 
-    return render(request, "business/listing/listing-details.html", {"listing": listing, "form": form, "lcategories": categories, "locations": data})
+    return render(request, "business/listing/listing-details.html", {"listing": listing, "form": form, "lcategories": categories, "locations": data, "message_form": message_form})
 
 @login_required
 def add_listing(request, listing_slug=None):
@@ -219,7 +222,7 @@ def delete_listing(request, listing_slug):
         messages.success(request, "Listing was deleted successfully")
         return redirect("listings:manage-listings")
     else:
-        return render(request, "business/listing/delete-listing.html", {"message": f"Are you sure you want to delete this listing ({listing.title})?", "title": "Delete listing"})
+        return render(request, "business/listing/delete-listing.html", {"message": f"Are you sure you want to delete this listing ({listing.title})?", "title": "Delete listing", "listing": listing})
 
 @login_required
 def get_business_hours_api(request, listing_id):

@@ -1,5 +1,5 @@
 from django import forms
-from listings.models import HOURS_TYPE, Business, BusinessContent, BusinessHour, BusinessLocation, BusinessReview, ListingOrder
+from listings.models import HOURS_TYPE, Business, BusinessContent, BusinessHour, BusinessLocation, BusinessReview, ListingOrder, BusinessMessages
 from tinymce.widgets import TinyMCE
 
 
@@ -147,4 +147,17 @@ class BusinessReviewForm(forms.ModelForm):
             'comment_title': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your comment title..."}),
             
             'comment': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Type your comment..."}),
+        }
+        
+class BusinessMessageForm(forms.ModelForm):
+    class Meta:
+        model = BusinessMessages
+        fields = ("message", "sender_full_names", "sender_email", "message_title")
+
+        widgets = {
+            'sender_full_names': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your name..."}),
+            'sender_email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your email..."}),
+            'message_title': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your message title..."}),
+
+            'message': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Type your message..."}),
         }

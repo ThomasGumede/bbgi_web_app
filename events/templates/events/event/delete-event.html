@@ -1,0 +1,60 @@
+{% extends '_manage.html' %}
+{% load static %}
+
+{% block title %}Delete{% endblock title %}
+
+{% block content_v2 %}
+<div class="relative w-full  block ">
+    <div class="flex items-start w-full justify-center">
+        <div class="w-full max-w-full rounded-xl bg-white md:w-fit  relative shadow-xl text-center">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="p-5 md:p-7">
+                    <div class="space-y-6">
+                        <h3 class="text-custom-h text-2xl md:text-4xl font-extrabold">Please confirm</h3>
+                        <div>
+                            <i class="fa-regular fa-circle-xmark text-8xl font-extralight text-custom-h"></i>
+                        </div>
+
+                        <p class="text-custom-h text-lg font-medium">
+                            Delete Event: <span class="text-gray-500">{{event.title}}</span>
+                        </p>
+                        <p class="text-gray-500 text-lg font-medium">
+                            Are you sure you want to delete this event? <span class=""><i
+                                    class="fa-solid fa-exclamation-triangle text-yellow-500"></i> This action cannot be
+                                undone.</span>
+                        </p>
+
+                        <div class="flex flex-wrap items-center justify-between gap-4 mt-6 ">
+                            <a href="{% url 'events:manage-events' %}">
+                                <h5
+                                    class="uppercase text-sm md:text-base !text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                                    <span
+                                        class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                    <div
+                                        class="relative z-1 px-[30px] lg:px-10 py-3 md:py-[15px] lg:py-[17px]  leading-1.5 uppercase">
+                                        <p class="!text-white group-hover:!text-custom-h">Cancel</p>
+                                    </div>
+                                </h5>
+                            </a>
+                            <div>
+                                <h5
+                                    class="uppercase text-sm md:text-base text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-h hover:border-custom-primary inline-block z-0">
+                                    <span
+                                        class="inline-block absolute top-0 left-0 w-full h-full bg-custom-h group-hover:bg-custom-primary -z-1 group-hover:w-0 transition-all duration-300"></span>
+                                    <button type="submit"
+                                        class="relative z-1 px-5 font-sans md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                        Delete
+                                    </button>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+{% endblock content_v2 %}

@@ -44,19 +44,20 @@
             <div style="display: block; align-items: center; justify-content: center; width: 35%; margin-right: 30px;">
                 <div style=" padding: 10px; width: 100%; margin-bottom:10px; ">
                     <div style="position: relative; width: 100px; height: 100px; overflow: hidden; margin: auto;">
-                        <img src="{{protocol}}://{{domain}}{{ticket.qrcode_image.url}}"
+                        <img src="file://{{ticket.qrcode_image.path}}"
                             style="width: 100px; height: 100px; object-fit: cover;" alt="{{ticket.qrcode_url}}">
                     </div>
                 </div>
                 <div style="padding: 1px; ">
                     <div style="padding: 10px; ">
                         <div style="position: relative; width:170px;height:100px">
-                            <div><img src="{{protocol}}://{{domain}}{{ticket.barcode_image.url}}"
+                            <div><img src="file://{{ticket.barcode_image.path}}"
                                     style="width:170px;height:100px" alt="{{ticket.barcode_url}}" /></div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div style="width: 2px; background: #000; height: 240px; margin: 0 10px;"></div>
             <div style="font-size: 12px; width: 65%;">
                 <div style=" padding: 1px; width: 100%;">
                     <div style="padding-bottom: 8px;">

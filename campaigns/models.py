@@ -17,6 +17,7 @@ from django.utils.translation import gettext as _
 from django.contrib.auth import get_user_model
 from tinymce.models import HTMLField
 from taggit_autosuggest.managers import TaggableManager
+from listings.models import Business
 
 User = get_user_model()
 PHONE_REGEX = verify_rsa_phone()
@@ -31,7 +32,8 @@ class CampaignModel(AbstractCreate):
     image = models.ImageField(help_text=_("Upload campaign image."), upload_to=handle_campaign_file_upload, blank=True, null=True)
     title = models.CharField(help_text=_("Enter title for your campaign"), max_length=150)
     slug = models.SlugField(max_length=250, blank=True)
-    organiser = models.ForeignKey(User, on_delete=models.CASCADE, default=None, related_name="campaigns")
+    organiser = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, related_name="campaigns", null=True)
+    company_organiser = models.ForeignKey(Business, on_delete=models.SET_NULL, default=None, null=True, related_name="company_campaigns", blank=True)
     category = models.ForeignKey(BlogCategory, on_delete=models.PROTECT, related_name="campaigns")
     small_description = models.TextField(help_text=_("Small description about your campaign for search optimization."), null=True, blank=True)
     details = HTMLField(help_text=_("Enter additional details about your campaign"))
@@ -54,7 +56,7 @@ class CampaignModel(AbstractCreate):
     from bbgi_home.models import UUIDTaggedItem
     tags = TaggableManager(
         through=UUIDTaggedItem,
-        help_text="Add tags separated by commas"
+        help_text="Add tags separated by commas", blank=True
     )
 
     class Meta:

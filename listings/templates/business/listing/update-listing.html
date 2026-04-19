@@ -214,6 +214,36 @@
                                     {% endif %}
                                 </div>
                             </div>
+
+                            <div class="w-full px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_title">
+                                        Business Tags (Optional)
+                                    </label>
+                                    <input type="text" name="tags" id="id_tags" value="{{ listing.tags.all|join:',' }}" class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm">
+                                    <span class="text-[11px] text-custom-tertiary block font-normal capitalize">Add business tags (separated by
+                                        commas) for better discoverability</span>
+                                    {% if form.tags.errors %}
+                                    <span class="text-[11px] text-red-500 block font-normal capitalize">{{form.tags.errors.as_text}}</span>
+                                    {% endif %}
+                                    
+                                    {% if listing.tags.count > 0 %}
+                                    <div class="mt-2 flex items-center gap-4 w-full flex-wrap">
+                                    
+                                        <h6 class="text-base font-semibold">Current Tags: </h6>
+                                        <ul id="tags" class="flex flex-wrap gap-4 list-none pl-0">
+                                    
+                                            {% for tag in listing.tags.all %}
+                                            <li class="py-1 px-2 bg-custom-bg">
+                                                <a class="text-sm">{{tag.name}}</a>
+                                            </li>
+                                            {% endfor %}
+                                    
+                                        </ul>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
                     </div>
 

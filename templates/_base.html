@@ -178,7 +178,7 @@
 
     {% block seo_tags %}
     <!-- Primary Meta Tags -->
-      <title>BBGI - Empowering Black African Businesses and Professionals</title>
+      <title>{% block base_title %}BBGI - Empowering Black African Businesses and Professionals{% endblock %}</title>
       <meta name="description" content="BBGI is a platform for showcasing Black African businesses, campaigns, and events while fostering unity, collaboration, and growth among entrepreneurs and professionals.">
       <meta name="keywords" content="Black Business Growth Initiative, Black African businesses, business campaigns, events, services, business networking, Cape Town">
       <meta name="author" content="BBGI Team">
@@ -189,20 +189,20 @@
       <!-- Open Graph / Facebook -->
       <meta property="og:type" content="website">
       <meta property="og:url" content="https://bbgi.co.za/">
-      <meta property="og:title" content="BBGI - Empowering Black African Businesses and Professionals">
+      <meta property="og:title" content="{% block base_title1 %}BBGI - Empowering Black African Businesses and Professionals{% endblock %}">
       <meta property="og:description" content="BBGI is a platform for showcasing Black African businesses, campaigns, and events while fostering unity, collaboration, and growth among entrepreneurs and professionals.">
       <meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}">
 
       <!-- Twitter -->
       <meta name="twitter:card" content="summary_large_image">
       <meta name="twitter:url" content="https://bbgi.co.za/">
-      <meta name="twitter:title" content="BBGI - Empowering Black African Businesses and Professionals">
+      <meta name="twitter:title" content="{% block base_title2 %}BBGI - Empowering Black African Businesses and Professionals{% endblock %}">
       <meta name="twitter:description" content="BBGI is a platform for showcasing Black African businesses, campaigns, and events while fostering unity, collaboration, and growth among entrepreneurs and professionals.">
       <meta name="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}">
       <meta name="twitter:creator" content="@BBGIOfficial">
 
       <!-- Google+ / Schema.org -->
-      <meta itemprop="name" content="BBGI - Empowering Black African Businesses and Professionals">
+      <meta itemprop="name" content="{% block base_title3 %}BBGI - Empowering Black African Businesses and Professionals{% endblock %}">
       <meta itemprop="description" content="BBGI is a platform for showcasing Black African businesses, campaigns, and events while fostering unity, collaboration, and growth among entrepreneurs and professionals.">
       <meta itemprop="image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}">
 
