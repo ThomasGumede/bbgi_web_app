@@ -10,8 +10,7 @@ def send_message(request, listing_slug):
         form = BusinessMessageForm(request.POST)
         if form.is_valid():
             message = form.save(commit=False)
-            message.listing = listing
-            message.sender = request.user
+            message.business = listing
             message.save()
             messages.success(request, "Your message has been sent successfully!")
             return redirect("listings:get-listing", listing_slug=listing.slug)

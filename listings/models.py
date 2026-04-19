@@ -191,6 +191,8 @@ class BusinessMessages(AbstractCreate):
         # Implement email sending logic here to notify the business owner of the new message
         
     
+        
+    
 class BusinessReview(AbstractCreate):
     rating_value = models.IntegerField(validators=[
             MinValueValidator(1),   
