@@ -13,10 +13,10 @@ from django.core.files.storage import FileSystemStorage
 from taggit.models import Tag
 from django.db.models import Count
 
-# def get_popular_tags(limit=10):
-#     return Tag.objects.annotate(
-#         num_times=Count("taggit_taggeditem_items")
-#     ).order_by('-num_times')[:limit]
+def get_popular_tags(limit=10):
+    return Tag.objects.annotate(
+        num_times=Count("taggit_taggeditem_items")
+    ).order_by('-num_times')[:limit]
     
 @csrf_exempt
 def tinymce_image_upload(request):

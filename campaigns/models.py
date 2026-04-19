@@ -53,11 +53,11 @@ class CampaignModel(AbstractCreate):
     end_date = models.DateTimeField(default=in_fourteen_days, validators=[MinValueValidator(timezone.now(), "Date should not be less that today's date")])
     status = models.CharField(max_length=50, choices=StatusChoices.choices, default=StatusChoices.NOT_APPROVED)
     is_featured = models.BooleanField(default=False)
-    # from bbgi_home.models import UUIDTaggedItem
-    # tags = TaggableManager(
-    #     through=UUIDTaggedItem,
-    #     help_text="Add tags separated by commas", blank=True
-    # )
+    from bbgi_home.models import UUIDTaggedItem
+    tags = TaggableManager(
+        through=UUIDTaggedItem,
+        help_text="Add tags separated by commas", blank=True
+    )
 
     class Meta:
         verbose_name = _("Campaigns")

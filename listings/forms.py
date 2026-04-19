@@ -22,7 +22,7 @@ class BusinessForm(forms.ModelForm):
         model = Business
         fields = (
             "title", "background_image", "logo", 
-            "details", "slogan", "category", "bbbee_level", "phone", "website", "email", "alternative_phone"
+            "details", "slogan", "category", "bbbee_level", "phone", "website", "email", "alternative_phone", "tags"
         )
 
         widgets = {
@@ -50,7 +50,7 @@ class BusinessUpdateForm(forms.ModelForm):
         model = Business
         fields = (
             "title", "background_image", "logo", 
-            "details", "slogan", "category", "bbbee_level"
+            "details", "slogan", "category", "bbbee_level", "tags"
         )
 
         widgets = {
