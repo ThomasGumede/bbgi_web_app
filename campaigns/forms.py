@@ -5,7 +5,7 @@ from tinymce.widgets import TinyMCE
 class CampaignForm(forms.ModelForm):
     class Meta:
         model = CampaignModel
-        fields = ("category", "title", "details", "target", "start_date", "end_date", "image", "small_description", "tags")
+        fields = ("category", "title", "details", "target", "start_date", "end_date", "image", "small_description")
         widgets = {
             'small_description': forms.Textarea(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
             'title': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g John Snow's 30th Birthday"}),

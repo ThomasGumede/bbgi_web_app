@@ -83,7 +83,7 @@ class Category(AbstractCreate):
         verbose_name_plural = _("Categories")
 
 class Business(AbstractCreate):
-    from bbgi_home.models import UUIDTaggedItem
+    # from bbgi_home.models import UUIDTaggedItem
     
     background_image = models.ImageField(help_text=_("Upload company/business background image."), upload_to=handle_business_file_upload, blank=True, null=True)
     logo = models.ImageField(help_text=_("Upload company/business logo."), upload_to=handle_business_file_upload, blank=True, null=True)
@@ -110,10 +110,10 @@ class Business(AbstractCreate):
     linkedIn = models.URLField(validators=[validate_in_link], blank=True, null=True)
     status = models.CharField(max_length=50, choices=StatusChoices.choices, default=StatusChoices.NOT_APPROVED)
     is_completed = models.BooleanField(default=False)
-    tags = TaggableManager(
-        through=UUIDTaggedItem,
-        help_text="Add tags separated by commas", blank=True
-    )
+    # tags = TaggableManager(
+    #     through=UUIDTaggedItem,
+    #     help_text="Add tags separated by commas", blank=True
+    # )
 
     class Meta:
         verbose_name = 'Business'
@@ -190,7 +190,9 @@ class BusinessMessages(AbstractCreate):
         pass
         # Implement email sending logic here to notify the business owner of the new message
         
-    
+    def save(self, *args, **kwargs):
+        super(BusinessMessages, self).save(*args, **kwargs)
+        self.send_email_notification()
         
     
 class BusinessReview(AbstractCreate):

@@ -751,20 +751,9 @@
                         <span class="leading-1.3 pl-[10px] border-l-2 border-custom-primary">Popular tags</span>
                     </h4>
                     <ul class="list-none flex flex-wrap gap-4 pl-0">
-                        <li><a href="#">Popular</a></li>
-                        <li><a href="#">desgin</a></li>
-                        <li><a href="#">ux</a></li>
-                        <li><a href="#">usability</a></li>
-                        <li><a href="#">develop</a></li>
-                        <li><a href="#">icon</a></li>
-                        <li><a href="#">Car</a></li>
-                        <li><a href="#">Service</a></li>
-                        <li><a href="#">Repairs</a></li>
-                        <li><a href="#">Auto Parts</a></li>
-                        <li><a href="#">Oil</a></li>
-                        <li><a href="#">Dealer</a></li>
-                        <li><a href="#">Oil Change</a></li>
-                        <li><a href="#">Body Color</a></li>
+                        {% for tag in popular_tags %}
+                        <li><a href="">{{ tag.name }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <!-- Follow Us -->

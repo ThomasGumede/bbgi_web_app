@@ -1,7 +1,7 @@
 from django.contrib.sites.shortcuts import get_current_site
 from django.conf import settings
 from accounts.utilities.company import COMPANY
-from bbgi_home.views.blog_views import get_popular_tags
+# from bbgi_home.views.blog_views import get_popular_tags
 from listings.models import Category
 from bbgi_home.models import BlogCategory, Sponsor, Review
 
@@ -14,7 +14,7 @@ def global_context(request):
         'protocol': PROTOCOL,
         "blog_categories": BlogCategory.objects.all(),
         "listing_categories": Category.objects.all(),
-        "popular_tags": get_popular_tags(),
+        # "popular_tags": get_popular_tags(),
         "sponsors": Sponsor.objects.all(),
         "facebook": COMPANY["facebook"],
         "instagram": COMPANY["instagram"],

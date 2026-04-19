@@ -47,7 +47,7 @@ class EventCreateForm(forms.ModelForm):
     
     class Meta:
         model = EventModel
-        fields = ("image", "title", "email", "phone", "category", "content", "small_description", "event_startdate", "event_enddate", "event_link", "tags")
+        fields = ("image", "title", "email", "phone", "category", "content", "small_description", "event_startdate", "event_enddate", "event_link")
 
         widgets = {
             'title': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g John Snow's 30th Birthday"}),

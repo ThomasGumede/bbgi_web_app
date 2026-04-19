@@ -71,12 +71,12 @@ def campaigns(request, category_slug=None):
     if category_slug:
         category = get_object_or_404(BlogCategory, slug=category_slug)
         if query:
-            campaigns = queryset.filter(Q(category = category) & Q(title__icontains=query)| Q(organiser__first_name__icontains=query) | Q(tags__name=[query]))
+            campaigns = queryset.filter(Q(category = category) & Q(title__icontains=query)| Q(organiser__first_name__icontains=query))
         else:
             campaigns = queryset.filter(category = category)
     else:
         if query:
-            campaigns = queryset.filter(Q(title__icontains=query)| Q(organiser__first_name__icontains=query) | Q(tags__name=[query]))
+            campaigns = queryset.filter(Q(title__icontains=query)| Q(organiser__first_name__icontains=query))
         else:
             campaigns = queryset
     
