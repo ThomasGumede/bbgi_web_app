@@ -41,7 +41,7 @@ class EventModel(AbstractCreate):
     phone = models.CharField(help_text=_("Enter cellphone number"), max_length=15, validators=[PHONE_REGEX])
     email = models.EmailField()
     organiser = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=None, related_name="events")
-    company_organiser = models.ForeignKey(Business, on_delete=models.SET_NULL, default=None, null=True, related_name="company_events", blank=True)
+    company_organiser = models.ForeignKey(Business, on_delete=models.SET_NULL, default=None, null=True, related_name="company_events", blank=True, help_text=_("Select company if event is organised by a company"))
     small_description = models.TextField(help_text=_("Small description about your event for search"), null=True, blank=True)
     content = HTMLField()
     venue_name = models.CharField(max_length=400, help_text=_("Enter event venue name"), null=True, blank=True)

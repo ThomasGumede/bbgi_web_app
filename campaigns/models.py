@@ -33,7 +33,7 @@ class CampaignModel(AbstractCreate):
     title = models.CharField(help_text=_("Enter title for your campaign"), max_length=150)
     slug = models.SlugField(max_length=250, blank=True)
     organiser = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, related_name="campaigns", null=True)
-    company_organiser = models.ForeignKey(Business, on_delete=models.SET_NULL, default=None, null=True, related_name="company_campaigns", blank=True)
+    company_organiser = models.ForeignKey(Business, on_delete=models.SET_NULL, default=None, null=True, related_name="company_campaigns", blank=True, help_text=_("Select company if campaign is organised by a company"))
     category = models.ForeignKey(BlogCategory, on_delete=models.PROTECT, related_name="campaigns")
     small_description = models.TextField(help_text=_("Small description about your campaign for search optimization."), null=True, blank=True)
     details = HTMLField(help_text=_("Enter additional details about your campaign"))
