@@ -59,7 +59,7 @@
                 
                 {% if order.paid == 'PAID' %}
                 <li>
-                    <a class="text-sm flex items-center gap-4 mt-1" href="">
+                    <a class="text-sm flex items-center gap-4 mt-1" href="{% url 'events:generate-all-tickets' order.id %}">
                         <i class="fa-solid fa-ticket"></i>
                         <span class="leading-1.8"> Download Your Tickets</span>
                     </a>

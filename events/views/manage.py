@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import get_template
 import logging
+from io import BytesIO
 
 logger = logging.getLogger("events")
 
@@ -67,6 +68,34 @@ def generate_ticket(request, order_id, ticket_id):
         messages.error(request, "Sorry there was an error trying to generate your ticket")
         return redirect("events:manage-ticket-order", order_id=order.id)
 
+@login_required
+def generate_tickets(request, order_id):
+    order = get_object_or_404(TicketOrderModel, buyer=request.user, id=order_id, paid=PaymentStatus.PAID)
+    tickets = TicketModel.objects.filter(ticket_order=order)
+    try:
+        # generate_qr_and_bacode(order, request)
+        domain = get_current_site(request).domain
+        protocol = "https" if request.is_secure() else "http"
+        template = get_template("ticket/tickets.html")
+        context = {"tickets": tickets, 
+                    "event": order.event, 
+                    "buyer_full_name": order.buyer.get_full_name(),
+                    "order_number": order.order_number,
+                    "created": order.created,
+                    "domain": domain, 
+                    "protocol": protocol}
+        
+        render_template = template.render(context)
+        pdf_file = HTML(string=render_template).write_pdf()
+            
+        response = HttpResponse(pdf_file, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="{order.order_number}_tickets.pdf"'
+        return response
+    except Exception as ex:
+        logger.error(ex)
+        messages.error(request, "Sorry there was an error trying to generate your ticket")
+        return redirect("events:manage-ticket-order", order_id=order.id)
+    
 @login_required
 def generate_guest_list(request, event_id):
     event = get_object_or_404(EventModel, organiser=request.user, id=event_id)

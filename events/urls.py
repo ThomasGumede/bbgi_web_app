@@ -8,7 +8,7 @@ from events.views.order import create_ticket_order, add_guest_details, ticket_or
 from events.views.ticket_type import confirm_attandance, create_new_ticket_types, create_ticket_types, \
 update_ticket_type, get_event_ticket_types, delete_ticket_type
 
-from events.views.manage import manage_event, manage_events, manage_ticket_order, manage_ticket_orders, \
+from events.views.manage import generate_tickets, manage_event, manage_events, manage_ticket_order, manage_ticket_orders, \
     generate_guest_list, generate_ticket
 
 app_name = "events"
@@ -47,7 +47,9 @@ urlpatterns = [
     path("order/checkout/<uuid:ticket_order_id>", order_checkout, name="order-checkout"),
     path("account/order/manage", manage_ticket_orders, name="manage-ticket-orders"),
     path("account/order/manage/<uuid:order_id>", manage_ticket_order, name="manage-ticket-order"),
-    path("account/order/generate/ticket/<uuid:order_id>/<uuid:ticket_id>", generate_ticket, name="generate-ticket")
+    path("account/order/generate/ticket/<uuid:order_id>/<uuid:ticket_id>", generate_ticket, name="generate-ticket"),
+    
+    path("event/tickets/<uuid:order_id>", generate_tickets, name="generate-all-tickets")
 
     
     
