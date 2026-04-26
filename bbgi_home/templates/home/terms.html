@@ -10,21 +10,22 @@
 <meta name="description"
     content="Black Business Growth Initiative was formed with the intention of creating a gathering of black African business owners  and professionals. It is..." />
 
+<link rel="canonical" href="{{request.build_absolute_uri}}" />
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/about-us" />
+<meta property="og:url" content="{{request.build_absolute_uri}}" />
 <meta property="og:title" content="BBGI - Legal Information" />
 <meta property="og:description"
     content="Black Business Growth Initiative was formed with the intention of creating a gathering of black African business owners  and professionals. It is..." />
-<meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+<meta property="og:image" content="https://bbgi.co.za{% static 'images/privacy.webp' %}" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/about-us/refund-policy" />
+<meta property="twitter:url" content="{{request.build_absolute_uri}}" />
 <meta property="twitter:title" content="BBGI - Legal Information" />
 <meta property="twitter:description"
     content="Black Business Growth Initiative was formed with the intention of creating a gathering of black African business owners  and professionals. It is..." />
-<meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+<meta property="twitter:image" content="https://bbgi.co.za{% static 'images/privacy.webp' %}" />
 
 <!-- Meta Tags Generated with https://metatags.io -->
 {% endblock seo_tags %}
@@ -54,12 +55,10 @@
             <div class="w-full max-w-full px-4 flex-shrink-0 md:w-7/12 lg:w-8/12 h-full">
                 <div class="relative block">
                     <div class="relativ block lg:h-96 overflow-hidden">
-                        {% if post.image %}
-                        <img src="{{post.image.url}}" alt="" class="w-full object-cover h-full" />
-                        {% else %}
-                        <img src="{% static 'images/global/image-no.jpg' %}" alt=""
+                        
+                        <img src="{% static 'images/privacy.webp' %}" alt="BBGI WEB POLICIES IMAGE"
                             class="w-full object-cover h-full" />
-                        {% endif %}
+                        
 
                     </div>
                     <div class="relative block mt-3 mb-6 space-y-5">
