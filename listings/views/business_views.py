@@ -44,14 +44,14 @@ def manage_listing(request, listing_slug):
 def get_started_with_listing(request):
     return render(request, "business/get-started.html")
 
-def get_listings(request, category=None):
+def get_listings(request, category=None, tag=None):
     query = request.GET.get("query", None)
     place = request.GET.get("place", None)
     sort_by = request.GET.get("sort_by", None)
     province = request.GET.get("province", None)
     bbee_level = request.GET.get("bbee", None)
     
-    listings = sort_listing(sort_by, province, bbee_level, query, place, category)
+    listings = sort_listing(sort_by, province, bbee_level, query, place, category, tag)
     
     
     context = {
@@ -60,7 +60,7 @@ def get_listings(request, category=None):
         "place": place, 
         "sort_by": sort_by,
         "province": province,
-        "bbee_level": bbee_level, "category": category}
+        "bbee_level": bbee_level, "category": category, "tag": tag}
     return render(request, "business/listing/get-listings.html", context)
 
 def get_listing(request, listing_slug):
