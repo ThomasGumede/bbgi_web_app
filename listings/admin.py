@@ -57,8 +57,9 @@ class BusinessLocationAdmin(admin.ModelAdmin):
 
 @admin.register(BusinessMessages)
 class BusinessMessagesAdmin(admin.ModelAdmin):
-    list_display = ('sender_full_names', 'sender_email', 'business', 'sent_at')
-    search_fields = ('sender_full_names', 'sender_email', 'message', 'business__title')
+    list_display = ('sender_full_names', 'sender_email', 'business', 'created')
+    search_fields = ('sender_full_names', 'sender_email', 'business__title')
+    list_filter = ('created',)
 
 @admin.register(ListingOrder)
 class ListingOrderAdmin(admin.ModelAdmin):
