@@ -28,7 +28,7 @@
 {% endif %}
 {% endblock seo_tags %}
 {% block styles %}
-<link rel="stylesheet" href="{% static 'css/slick.min.css' %}">
+<!-- <link rel="stylesheet" href="{% static 'css/slick.min.css' %}"> -->
 <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
 <style>
     .lh-room-details .slick-slider {
@@ -115,7 +115,7 @@
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="relative flex items-center">
+                                            <a class="relative flex items-center" href="mailto:{{listing.email}}" target="_blank">
                                                 <div class="text-sm text-custom-primary">
                                                     <i class="fa-solid fa-envelope fa-lg font-bold"></i>
                                                 </div>
@@ -123,18 +123,18 @@
                                                     <p class="text-sm font-normal !text-white"><span>{% if listing.phone %}{{listing.email}} {% else %} No Email {% endif %}
                                                         </span></p>
                                                 </div>
-                                            </div>
+                                            </a>
                                             
                                             {% if listing.website %}
-                                                <div class="relative flex items-center">
-                                                    <div class="text-sm text-custom-primary">
-                                                        <i class="fa-solid fa-browser fa-lg font-bold"></i>
-                                                    </div>
-                                                    <div class="ml-2">
-                                                        <p class="text-sm font-normal !text-white"><span>{{listing.website}}
-                                                            </span></p>
-                                                    </div>
-                                                </div>
+                                                <a href="{{listing.website}}" target="_blank" class="relative flex items-center">
+                                                    <span class="text-sm text-custom-primary">
+                                                        <i class="fa-brands fa-chrome fa-lg font-bold"></i>
+                                                    </span>
+                                                    <p class="ml-2">
+                                                        <span class="text-sm font-normal !text-white">{{listing.website}}
+                                                            </span>
+                                                    </p>
+                                                </a>
                                             {% endif %}
                                                 
                                             
@@ -351,7 +351,7 @@
                     </div>
                     {% endif %}
 
-                    <div class="ltn__blog-tags-social-media mt-80 flex w-full flex-wrap justify-between">
+                    <div class="ltn__blog-tags-social-media flex w-full flex-wrap justify-between">
                         <div class="ltn__tagcloud-widget col-lg-8">
                             
                             <h4>Releted Tags</h4>
@@ -874,8 +874,8 @@
                 title: "{{listing.title}}",
                 html: [
                     '<div class="map-product-item">',
-                    `<a href="#"><img src="{% if listing.logo %}{{listing.logo.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}" alt="{{listing.title}} logo" class='h-52 w-full bg-custom-primary object-fit'></a>`,
-                    '<h5 class="ltn__map-product-title"><a href="#">{{listing.title}}</a></h5>',
+                    `<a href="{{listing.get_absolute_url}}"><img src="{% if listing.logo %}{{listing.logo.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}" alt="{{listing.title}} logo" class='h-52 w-full bg-custom-primary object-fit'></a>`,
+                    '<h5 class="ltn__map-product-title"><a href="{{listing.get_absolute_url}}">{{listing.title}}</a></h5>',
                     '<p class="ltn__map-product-info"><span>{{listing.slogan}}</span></p>',
                     '<p class="ltn__map-product-location"><i class="flaticon-pin"></i>{{listing.main_address}}</span>',
                     "</div>",
@@ -893,8 +893,8 @@
                         title: `{{listing.title}} location ${index}`,
                         html: [
                             '<div class="map-product-item">',
-                            `<a href="#"><img src="{% if listing.logo %}{{listing.logo.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}" alt="{{listing.title}} logo" class='h-52 w-full bg-custom-primary object-fit'></a>`,
-                            '<h5 class="ltn__map-product-title"><a href="#">{{listing.title}}</a></h5>',
+                            `<a href="{{listing.get_absolute_url}}"><img src="{% if listing.logo %}{{listing.logo.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}" alt="{{listing.title}} logo" class='h-52 w-full bg-custom-primary object-fit'></a>`,
+                            '<h5 class="ltn__map-product-title"><a href="{{listing.get_absolute_url}}">{{listing.title}}</a></h5>',
                             '<p class="ltn__map-product-info"><span>{{listing.slogan}}</span></p>',
                             `<p class="ltn__map-product-location"><i class="fa-solid fa-placeholder-pin"></i>${location.address}</p>`,
                             "</div>",

@@ -1,16 +1,27 @@
-{% extends '_business_update.html' %}
+{% extends '_manage-company.html' %}
 {% load static %}
 
+{% block title %}
+Update {{listing.title}}
+{% endblock title %}
 
-{% block businessblock %}
+{% block css %}
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/nice_select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/additional_css.css' %}">
 
-<section class="w-full  font-sans py-10 h-full bg-white">
+{% endblock css %}
+    
+
+{% block content %}
+
+<section class="w-full py-10 h-full bg-white dark:bg-neutral-700">
     <div class="">
 
         <div class="px-4">
             {% if forms.errors or form.errors %}
             <div class="w-full mx-auto">
-                <div class="bg-red-50 border-l-8 border-red-900">
+                <div class="bg-red-50 dark:bg-neutral-700 dark:border-neutral-600 border-l-8 border-red-900">
                     <div class="flex items-center">
                         <div class="p-2">
                             <div class="flex items-center">
@@ -75,17 +86,17 @@
                         <div class="flex flex-wrap">
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
-                                    <label for="id_image">
+                                    <label class="form-label"  for="id_image">
                                         Listing Cover
                                     </label>
                                     {{form.background_image}}
-                                    <div class="w-full border rounded-md bg-white border-dotted p-6">
+                                    <div class="w-full border dark:border-neutral-600 rounded-md bg-white dark:bg-neutral-700 border-dotted p-6">
                                         <div
                                             class="flex items-center flex-col md:flex-row gap-4 w-full justify-between">
                                             <div class="flex items-center space-x-4">
                                                 <div id="img_container_1"
                                                     data-background-image="{% if form.background_image.value %}{{form.background_image.value.url}}{% endif %}"
-                                                    class="h-16 w-20 overflow-hidden rounded bg-gray-300">
+                                                    class="h-16 w-20 overflow-hidden rounded bg-gray-300 dark:bg-neutral-700">
                                                     <div id="no_background_image"></div>
                                                 </div>
                                                 <div class="space-y-1">
@@ -96,7 +107,7 @@
                                                 </div>
                                             </div>
                                             <div id="pick_background_image"
-                                                class="border p-2 cursor-pointer text-center text-black">
+                                                class="border dark:border-neutral-600 p-2 cursor-pointer text-center text-black">
                                                 <p class="text-sm">Browser</p>
                                             </div>
                                         </div>
@@ -109,16 +120,16 @@
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
-                                    <label for="id_image">
+                                    <label class="form-label"  for="id_image">
                                         Listing logo
                                     </label>
                                     {{form.logo}}
-                                    <div class="w-full border rounded-md bg-white border-dotted p-6">
+                                    <div class="w-full border dark:border-neutral-600 rounded-md bg-white dark:bg-neutral-700 border-dotted p-6">
                                         <div
                                             class="flex items-center flex-col md:flex-row gap-4 w-full justify-between">
                                             <div class="flex items-center space-x-4">
                                                 <div id="img_container_2" data-logo="{% if form.logo.value %}{{form.logo.value.url}}{% endif %}"
-                                                    class="h-16 w-20 overflow-hidden rounded bg-gray-300">
+                                                    class="h-16 w-20 overflow-hidden rounded bg-gray-300 dark:bg-neutral-700">
                                                     <div id="no_logo"></div>
                                                 </div>
                                                 <div class="space-y-1">
@@ -129,7 +140,7 @@
                                                 </div>
                                             </div>
                                             <div id="pick_logo"
-                                                class="border p-2 cursor-pointer text-center text-black">
+                                                class="border dark:border-neutral-600 p-2 cursor-pointer text-center text-black">
                                                 <p class="text-sm">Browser</p>
                                             </div>
                                         </div>
@@ -143,7 +154,7 @@
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
-                                    <label for="id_title">
+                                    <label class="form-label"  for="id_title">
                                         Title*
                                     </label>
                                     {{form.title}}
@@ -157,7 +168,7 @@
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
-                                    <label for="id_title">
+                                    <label class="form-label"  for="id_title">
                                         slogan
                                     </label>
                                     {{form.slogan}}
@@ -171,7 +182,7 @@
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
-                                    <label for="id_category">
+                                    <label class="form-label"  for="id_category">
                                         category*
                                     </label>
                                     {{form.category}}
@@ -185,7 +196,7 @@
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
-                                    <label for="id_bbbee_level">
+                                    <label class="form-label"  for="id_bbbee_level">
                                         B-BBEEE Level*
                                     </label>
                                     {{form.bbbee_level}}
@@ -201,7 +212,7 @@
 
                             <div class="w-full px-4">
                                 <div class="relative w-full mb-3">
-                                    <label for="id_details">
+                                    <label class="form-label"  for="id_details">
                                         Details about the listing*
                                     </label>
 
@@ -217,10 +228,10 @@
 
                             <div class="w-full px-4">
                                 <div class="relative w-full mb-3">
-                                    <label for="id_title">
+                                    <label class="form-label"  for="id_title">
                                         Business Tags (Optional)
                                     </label>
-                                    <input type="text" name="tags" id="id_tags" value="{{ listing.tags.all|join:',' }}" class="text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm">
+                                    <input type="text" name="tags" id="id_tags" value="{{ listing.tags.all|join:',' }}" class="text-custom-text dark:bg-neutral-700 pl-5 dark:text-white  pr-[50px] outline-none border-2 dark:border-neutral-600  border-[#e4ecf2] focus:border dark:border-neutral-600 focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm">
                                     <span class="text-[11px] text-custom-tertiary block font-normal capitalize">Add business tags (separated by
                                         commas) for better discoverability</span>
                                     {% if form.tags.errors %}
@@ -234,7 +245,7 @@
                                         <ul id="tags" class="flex flex-wrap gap-4 list-none pl-0">
                                     
                                             {% for tag in listing.tags.all %}
-                                            <li class="py-1 px-2 bg-custom-bg">
+                                            <li class="py-1 px-2 bg-custom-bg dark:bg-neutral-700">
                                                 <a class="text-sm">{{tag.name}}</a>
                                             </li>
                                             {% endfor %}
@@ -257,7 +268,7 @@
 
                 <div class="flex mt-4 justify-start">
                     <h5
-                        class="uppercase text-sm md:text-base !text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
+                        class="uppercase text-sm md:text-base !text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border dark:border-neutral-600 border-custom-primary hover:border-custom-h inline-block z-0">
                         <span
                             class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
                         <button type="submit"
@@ -271,77 +282,13 @@
     </div>
 </section>
 
-{% endblock businessblock %}
-{% block js %}
-<script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD5_FEFwr5YQFY6SBGyE1RcqNgL_bvyYI&libraries=places&callback=initMap&solution_channel=GMP_QB_addressselection_v1_cAC"
-    async defer></script>
-<script>
-    "use strict";
+{% endblock content %}
+{% block scripts %}
+<script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+<script src="{% static 'js/nice_select.js' %}"></script>
 
-    function initMap() {
-        const coordinatesInput = '{{event.map_coordinates}}';
-        const coordinates = coordinatesInput.split(',');
-        const latitude = parseFloat(coordinates[0]);
-        const longitude = parseFloat(coordinates[1]);
-        const CONFIGURATION = {
-            "ctaTitle": "Checkout",
-            "mapOptions": {"center": {"lat": latitude, "lng": longitude}, "fullscreenControl": true, "mapTypeControl": true, "streetViewControl": true, "zoom": 11, "zoomControl": true, "maxZoom": 22, "mapId": ""},
-            "capabilities": {"addressAutocompleteControl": true, "mapDisplayControl": true, "ctaControl": true}
-        };
+<script src="{% static 'js/global.js' %}"></script>
 
-
-        const autocompleteInput = document.getElementById('id_main_address');
-
-
-        const autocomplete = new google.maps.places.Autocomplete(autocompleteInput, {
-            fields: ["place_id", "address_components", "geometry", "name"],
-            types: ["address"],
-        });
-
-        autocomplete.setComponentRestrictions(
-            {'country': ['za']});
-        autocomplete.addListener('place_changed', function () {
-
-            const place = autocomplete.getPlace();
-            if (!place.geometry) {
-                // User entered the name of a Place that was not suggested and
-                // pressed the Enter key, or the Place Details request failed.
-                window.alert('No details available for input: \'' + place.name + '\'');
-                return;
-            }
-            
-            
-            fillInAddress(place);
-        });
-
-        function fillInAddress(place) {
-            const addressNameFormat = {
-                'street_number': 'short_name',
-                'route': 'long_name',
-                'locality': 'long_name',
-                'administrative_area_level_1': 'short_name',
-                'country': 'long_name',
-                'postal_code': 'short_name',
-            };
-            const getAddressComp = function (type) {
-                for (const component of place.address_components) {
-                    if (component.types[0] === type) {
-                        return component[addressNameFormat[type]];
-                    }
-                }
-                return '';
-            };
-            const latitude = place.geometry.location.lat();
-            const longitude = place.geometry.location.lng();
-            if (latitude && longitude) {
-                document.getElementById('id_map_coordinates').value = latitude + ',' + longitude;
-            }
-
-            autocompleteInput.value = `${getAddressComp('route')}, ${getAddressComp('locality')}, ${getAddressComp('administrative_area_level_1')}, ${getAddressComp('postal_code')}, South Africa`
-        }
-    }
-</script>
 <script>
     
         const background_image_picker = document.querySelector("#id_background_image")
@@ -464,4 +411,4 @@
         };
     
 </script>
-{% endblock js %}
+{% endblock scripts %}

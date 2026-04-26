@@ -174,6 +174,50 @@
                                             {% endif %}
                                         </div>
                                     </div>
+                                    <div class="w-full px-4">
+                                        <div class="relative w-full mb-3">
+                                            <label for="id_title">
+                                                Company Organiser (Optional)
+                                            </label>
+                                            {{form.company_organiser}}
+                                            <span class="text-[11px] text-custom-tertiary block font-normal capitalize">Select the company organiser for
+                                                this event</span>
+                                            {% if form.company_organiser.errors %}
+                                            <span
+                                                class="text-[11px] text-red-500 block font-normal capitalize">{{form.company_organiser.errors.as_text}}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="w-full px-4">
+                                        <div class="relative w-full mb-3">
+                                            <label class="form-label" for="id_title">
+                                                Event Tags (Optional)
+                                            </label>
+                                            <input type="text" name="tags" id="id_tags" value="{{ event.tags.all|join:',' }}"
+                                                class="text-custom-text dark:bg-neutral-700 pl-5 dark:text-white  pr-[50px] outline-none border-2 dark:border-neutral-600  border-[#e4ecf2] focus:border dark:border-neutral-600 focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm">
+                                            <span class="text-[11px] text-custom-tertiary block font-normal capitalize">Add Event tags (separated by
+                                                commas) for better discoverability</span>
+                                            {% if form.tags.errors %}
+                                            <span class="text-[11px] text-red-500 block font-normal capitalize">{{form.tags.errors.as_text}}</span>
+                                            {% endif %}
+                                    
+                                            {% if event.tags.count > 0 %}
+                                            <div class="mt-2 flex items-center gap-4 w-full flex-wrap">
+                                    
+                                                <h6 class="text-base font-semibold">Current Tags: </h6>
+                                                <ul id="tags" class="flex flex-wrap gap-4 list-none pl-0">
+                                    
+                                                    {% for tag in event.tags.all %}
+                                                    <li class="py-1 px-2 bg-custom-bg dark:bg-neutral-700">
+                                                        <a class="text-sm">{{tag.name}}</a>
+                                                    </li>
+                                                    {% endfor %}
+                                    
+                                                </ul>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>

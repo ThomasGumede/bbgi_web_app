@@ -126,10 +126,10 @@ def create_campaign_address(request, campaign_slug):
 @login_required
 def add_campaign_socials(request, campaign_slug):
     campaign = get_object_or_404(CampaignModel, slug=campaign_slug, organiser=request.user)
-    form = CampaignContactForm(instance=campaign)
+    form = CampaignContactForm(instance=campaign, user=request.user)
     
     if request.method == "POST":
-        form = CampaignContactForm(instance=campaign, data=request.POST)
+        form = CampaignContactForm(instance=campaign, data=request.POST, user=request.user)
 
         if form.is_valid():
             form.save()
@@ -188,7 +188,7 @@ def update_campaign_contact(request, campaign_slug):
     form = CampaignContactForm(instance=campaign)
     
     if request.method == "POST":
-        form = CampaignContactForm(instance=campaign, data=request.POST)
+        form = CampaignContactForm(instance=campaign, data=request.POST, user=request.user)
 
         if form.is_valid():
             form.save()

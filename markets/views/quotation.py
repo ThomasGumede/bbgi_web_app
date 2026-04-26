@@ -24,7 +24,7 @@ def quotation_details(request, quotation_id):
     quotation = get_object_or_404(Qoutation, id=quotation_id)
     return render(request, "markets/quotations/quotation.html", {"quotation": quotation})
 
-@login_required
+# @login_required
 def create_quotation(request, service_id):
     
     service = get_object_or_404(Service, id=service_id)
@@ -35,7 +35,9 @@ def create_quotation(request, service_id):
             quote = form.save(commit=False)
             cd = form.cleaned_data
             quote.service = service
-            quote.client = request.user
+            
+            if request.user:
+                quote.client = request.user
             quote.save()
             domain = get_current_site(request).domain
             protocol = "https" if request.is_secure() else "http"

@@ -224,6 +224,3 @@ def send_subscription_confirm_email(order: SubscriptionOrder, request, status):
     except Exception as ex:
         email_logger.error(f"Error in sending subscription confirmation email: {ex}")
         return False
-
-
-

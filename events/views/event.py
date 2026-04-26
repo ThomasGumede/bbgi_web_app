@@ -69,7 +69,7 @@ def create_event(request, event_slug=None):
     if event_slug:
         event = get_object_or_404(EventModel, slug=event_slug, organiser=request.user)
         if request.method == "POST":
-            form = EventCreateForm(instance=event, data=request.POST, files=request.FILES)
+            form = EventCreateForm(instance=event, data=request.POST, files=request.FILES, user=request.user)
             if form.is_valid() and form.is_multipart():
                 # event = form.save(commit=False)
                 form.save()
@@ -80,11 +80,11 @@ def create_event(request, event_slug=None):
                 messages.error(request, "Please fix below errors")
                 return render(request, "events/event/create.html", {"form": form })
             
-        form = EventCreateForm(instance=event)
+        form = EventCreateForm(instance=event, user=request.user)
         return render(request, "events/event/create.html", {"form": form })
     else:
         if request.method == "POST":
-            form = EventCreateForm(request.POST, request.FILES)
+            form = EventCreateForm(request.POST, request.FILES, user=request.user)
             if form.is_valid() and form.is_multipart():
                 event = form.save(commit=False)
                 event.organiser = request.user
@@ -96,7 +96,7 @@ def create_event(request, event_slug=None):
                 
                 messages.error(request, "Please fix below errors")
                 return render(request, "events/event/create.html", {"form": form })
-        form = EventCreateForm()
+        form = EventCreateForm(user=request.user)
         return render(request, "events/event/create.html", {"form": form })
 
 @login_required
@@ -118,7 +118,7 @@ def create_event_address(request, event_slug):
 def update_event(request, event_slug):
     event = get_object_or_404(EventModel, organiser = request.user, slug = event_slug)
     if request.method == "POST":
-        form = EventCreateForm(instance=event, data=request.POST, files=request.FILES)
+        form = EventCreateForm(instance=event, data=request.POST, files=request.FILES, user=request.user)
         if form.is_valid() and form.is_multipart():
             
             event = form.save(commit=False)
@@ -129,7 +129,7 @@ def update_event(request, event_slug):
             messages.error(request, "Please fix below errors")
             return render(request, "events/event/update/update-event-details.html", {"form": form, "event": event })
         
-    form = EventCreateForm(instance=event)
+    form = EventCreateForm(instance=event, user=request.user)
     return render(request, "events/event/update/update-event-details.html", {"form": form, "event": event })
 
 @login_required

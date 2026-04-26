@@ -167,6 +167,18 @@
                                     <div class="w-full px-4">
                                         <div class="relative w-full mb-3">
                                             <label for="id_title">
+                                               Company Organiser (Optional)
+                                            </label>
+                                            {{form.company_organiser}}
+                                            <span class="text-[11px] text-custom-tertiary block font-normal capitalize">Select the company organiser for this event</span>
+                                            {% if form.company_organiser.errors %}
+                                            <span class="text-[11px] text-red-500 block font-normal capitalize">{{form.company_organiser.errors.as_text}}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="w-full px-4">
+                                        <div class="relative w-full mb-3">
+                                            <label for="id_title">
                                                 Event Tags (Optional)
                                             </label>
                                             {{form.tags}}

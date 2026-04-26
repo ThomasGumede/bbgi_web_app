@@ -1,0 +1,211 @@
+{% extends '_manage-company.html' %}
+{% load static %}
+{{form.media}}
+{% block title %}{{listing.title}} Manage{% endblock title %}
+{% block content %}
+
+{% if bmessages.count > 0 %}
+    <div class="grid grid-cols-1">
+        <div class="col-span-12 ">
+            <div class="card h-full p-0 border-0 email-card">
+                <div
+                    class="card-header border-b border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 py-4 px-6">
+                    <div class="flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="form-check style-check flex items-center">
+                                <input class="form-check-input rounded border bg-white dark:bg-neutral-600" type="checkbox"
+                                    name="checkbox" id="selectAll">
+                                <div class="">
+                                    <button data-dropdown-toggle="dropdownArrowDown"
+                                        class="focus:ring-4 focus:outline-none focus:ring-blue-300  text-sm dark:hover:bg-blue-700 dark:focus:ring-blue-800 rounded-full w-4 h-4 flex items-center justify-center"
+                                        type="button">
+                                        <iconify-icon icon="typcn:arrow-sorted-down"
+                                            class="icon line-height-1"></iconify-icon>
+                                    </button>
+                                    <!-- Dropdown menu -->
+                                    <div id="dropdownArrowDown"
+                                        class="sm:min-w-max z-10 hidden border border-transparent dark:border-neutral-600 bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44 dark:bg-gray-700">
+                                        <ul
+                                            class="rounded-lg bg-white dark:bg-neutral-700 shadow p-4 text-sm text-gray-700 dark:text-gray-200">
+                                            <li>
+                                                <button type="button"
+                                                    class="px-4 py-2 rounded text-neutral-600 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-600 block w-full text-start text-hover-neutral-900"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModalView">
+                                                    All
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button"
+                                                    class="px-4 py-2 rounded text-neutral-600 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-600 block w-full text-start text-hover-neutral-900"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModalEdit">
+                                                    None
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button"
+                                                    class="px-4 py-2 rounded text-neutral-600 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-600 block w-full text-start text-hover-neutral-900"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModalEdit">
+                                                    Read
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button"
+                                                    class="px-4 py-2 rounded text-neutral-600 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-600 block w-full text-start text-hover-neutral-900"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModalEdit">
+                                                    Unread
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button"
+                                                    class="px-4 py-2 rounded text-neutral-600 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-600 block w-full text-start text-hover-neutral-900"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModalEdit">
+                                                    Starred
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button"
+                                                    class="px-4 py-2 rounded text-neutral-600 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-600 block w-full text-start text-hover-neutral-900"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModalEdit">
+                                                    Unstarred
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="delete-button hidden text-secondary-light text-xl">
+                                <iconify-icon icon="material-symbols:delete-outline"
+                                    class="icon line-height-1"></iconify-icon>
+                            </button>
+                            <button type="button" class="reload-button text-secondary-light text-xl flex">
+                                <iconify-icon icon="tabler:reload" class="icon"></iconify-icon>
+                            </button>
+    
+                            <div class="">
+                                <button data-dropdown-toggle="dropdownThreeDots"
+                                    class="focus:ring-4 focus:outline-none focus:ring-blue-300  text-sm dark:hover:bg-blue-700 dark:focus:ring-blue-800 rounded-full w-4 h-4 flex items-center justify-center"
+                                    type="button">
+                                    <iconify-icon icon="entypo:dots-three-vertical"
+                                        class="icon text-secondary-light"></iconify-icon>
+                                </button>
+                                <!-- Dropdown menu -->
+                                <div id="dropdownThreeDots"
+                                    class="sm:min-w-max z-10 hidden border border-transparent dark:border-neutral-600 bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44 dark:bg-gray-700">
+                                    <ul class="p-4 text-sm text-gray-700 dark:text-gray-200">
+                                        <li>
+                                            <button type="button"
+                                                class="dropdown-item px-4 py-2 rounded text-secondary-light hover:bg-neutral-200 dark:hover:bg-neutral-600 text-hover-neutral-900 flex items-center text-start gap-2.5"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModalView">
+                                                <iconify-icon icon="gravity-ui:envelope-open"
+                                                    class="icon text-lg line-height-1"></iconify-icon>
+                                                Mark all as read
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <p class="ms-10 mt-2 text-neutral-500 mb-0">
+                                                Select messages to see more actions
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+    
+                            <form class="navbar-search lg:block hidden">
+                                <input type="text" class="bg-white dark:text-white dark:bg-neutral-700 h-10 w-auto"
+                                    name="search" placeholder="Search">
+                                <iconify-icon icon="ion:search-outline" class="icon dark:text-white"></iconify-icon>
+                            </form>
+                        </div>
+    
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="overflow-x-auto">
+    
+                        {% for bmessage in bmessages %}
+                        <li
+                            class="email-item px-6 py-4 flex gap-4 items-center border-b last:border-0 border-neutral-200 dark:border-neutral-600 cursor-pointer hover:bg-neutral-200 dark:hover:bg-neutral-600 min-w-max">
+                            <div class="form-check style-check flex items-center">
+                                <input
+                                    class="form-check-input rounded border border-neutral-400 bg-white dark:bg-neutral-600"
+                                    type="checkbox" name="checkbox">
+                            </div>
+    
+                            <a href="{% url 'listings:get-listing-message' listing_slug=listing.slug message_id=bmessage.id %}"
+                                class="text-neutral-600 dark:text-neutral-200 font-medium text-base text-line-1 w-[190px]">{{bmessage.sender_full_names}}</a>
+                            <a href="{% url 'listings:get-listing-message' listing_slug=listing.slug message_id=bmessage.id %}"
+                                class="text-neutral-600 dark:text-neutral-200 font-medium mb-0 line-clamp-1 max-w-[540px]">{{bmessage.message_title}}</a>
+                            <span
+                                class="text-neutral-600 dark:text-neutral-200 font-medium min-w-max-content ms-auto">{{bmessage.created}}</span>
+                        </li>
+                        {% endfor %}
+    
+    
+    
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="grid grid-cols-1 items-center justify-center w-full h-full">
+        <p class="text-xl font-bold">There are no messages currently</p>
+    </div>
+{% endif %}
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    // Table Header Checkbox checked all js Start
+    $('#selectAll').on('change', function () {
+        $('.form-check .form-check-input').prop('checked', $(this).prop('checked'));
+
+        if ($(this).prop('checked')) {
+            $('.email-item').addClass('active');
+        } else {
+            $('.email-item').removeClass('active');
+        }
+    });
+
+    // Active Item with js
+    $('.form-check .form-check-input').on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).closest('.email-item').addClass('active');
+        } else {
+            $(this).closest('.email-item').removeClass('active');
+        }
+    });
+
+    // Selected Checkbox count amount js Start
+    $('.email-card .form-check-input').on('change', function () {
+        let selectedCount = $('.email-card .form-check-input:checked').length;
+
+        if (selectedCount > 0) {
+            $('.delete-button').removeClass('hidden');
+        } else {
+            $('.delete-button').addClass('hidden')
+        }
+    });
+    // Selected Checkbox count amount js End
+
+    $('.delete-button').on('click', function () {
+        $('.email-item.active').addClass('hidden')
+    });
+
+    // Page Reload Js
+    $(".reload-button").on("click", function () {
+        history.go(0);
+    });
+
+    // Starred Button js
+    $('.starred-button').on('click', function () {
+        if ($(this).children('i').hasClass('ri-star-line')) {
+            $(this).children('i').removeClass('ri-star-line');
+            $(this).children('i').addClass('ri-star-fill text-warning-600');
+        } else {
+            $(this).children('i').addClass('ri-star-line');
+            $(this).children('i').removeClass('text-warning-600');
+        }
+    }); 
+</script>
+{% endblock scripts %}

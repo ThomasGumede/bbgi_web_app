@@ -9,6 +9,7 @@ from django.urls import path
 
 from bbgi_home.views.markets_views import all_quotations
 from bbgi_home.views.member_views import create_member, team_members, delete_member, update_member, team_member_details
+from bbgi_home.views.content import save_consent
 
 app_name = 'bbgi_home'
 urlpatterns = [
@@ -66,5 +67,7 @@ urlpatterns = [
 
     path("bbgi-admin/quotations/manage", all_quotations, name="all-quotations"),
     path('tinymce-upload/', tinymce_image_upload, name='tinymce_upload'),
+    path('api/consent/save/', save_consent, name='save_consent'),
+
 
 ]

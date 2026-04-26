@@ -1,5 +1,6 @@
 from listings.models import Business, BusinessMessages
 from listings.forms import BusinessMessageForm
+from listings.utilities.custom_shortcuts import get_listing_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
@@ -19,8 +20,26 @@ def send_message(request, listing_slug):
     else:
         messages.error(request, "Invalid request method.")
         return redirect("listings:get-listing", listing_slug=listing.slug)
-    
+
+@login_required    
 def get_messages(request, listing_slug):
-    listing = get_object_or_404(Business, slug=listing_slug)
-    messages = BusinessMessages.objects.filter(listing=listing).order_by("-created_at")
-    return render(request, "business/messages/messages.html", {"listing": listing, "messages": messages})
+    listing = get_object_or_404(Business,  slug=listing_slug, owner=request.user)
+    bmessages = BusinessMessages.objects.filter(business=listing).order_by("-created")
+    return render(request, "business/messages/messages.html", {"listing": listing, "bmessages": bmessages})
+
+@login_required
+def get_message(request, message_id, listing_slug):
+    listing = get_object_or_404(Business, slug=listing_slug, owner=request.user)
+    try:
+        message = BusinessMessages.objects.get(id=message_id, business=listing)
+        return render(request, "business/messages/message.html", {"listing": listing, "bmessage": message})
+    except BusinessMessages.DoesNotExist as ex:
+        return render(request, "business/not-found.html", {"listing": listing})
+    
+    
+
+@login_required
+def delete_message(request, message_id, listing_slug):
+    listing = get_object_or_404(Business, slug=listing_slug, owner=request.user)
+    message = get_listing_or_404(BusinessMessages, request=request, template='business/not-found.html', context={'listing': listing}, id=message_id, business=listing)
+    return render(request, "business/messages/message.html", {"listing": listing, "message": message})

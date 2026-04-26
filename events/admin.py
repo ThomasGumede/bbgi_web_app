@@ -68,7 +68,7 @@ class EventAdmin(admin.ModelAdmin):
             'fields': ('title', 'slug', 'category', 'image', 'small_description', 'content')
         }),
         ('Event Details', {
-            'fields': ('venue_name', 'event_address', 'map_coordinates', 'event_link', 'phone', 'email', 'organiser'),
+            'fields': ('venue_name', 'event_address', 'map_coordinates', 'event_link', 'phone', 'email', 'organiser', 'company_organiser'),
             'classes': ('collapse',)
         }),
         ('Event Timing & Stats', {

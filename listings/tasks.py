@@ -3,13 +3,35 @@ from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from accounts.utilities.company import COMPANY
 from accounts.utilities.custom_email import send_html_email
-from events.models import EventModel
-from events.views import event
-from listings.models import Business, BusinessMessages
+from django.db.models import Avg
+from django.utils import timezone
+from listings.models import Business, BusinessMessages, BusinessAnalytics
 import logging
 
 logger = logging.getLogger("tasks")
 email_logger = logging.getLogger("emails")
+
+@shared_task
+def update_business_analytics(business_id):
+    try:
+        business = Business.objects.get(id=business_id)
+        analytics, created = BusinessAnalytics.objects.get_or_create(business=business, date=timezone.now().date())
+        
+        if created:
+            return f"Analytics updated for {business.title}"
+        
+        analytics.total_views += 1
+        analytics.total_bookings = 0
+        analytics.total_messages = business.messages.count()
+        analytics.average_rating = business.reviews.aggregate(Avg('rating_value'))['rating_value__avg'] or 0
+        analytics.save()
+        return f"Analytics updated for {business.title}"
+    except Business.DoesNotExist:
+        logger.error(f"Business with id {business_id} does not exist")
+        return f"Business with id {business_id} does not exist"
+    except Exception as ex:
+        logger.error(ex)
+        return f"Analytics not updated for business with id {business_id}"
 
 @shared_task
 def send_notification_email_to_owner(message_id, protocol = 'https', domain = 'bbgi.co.za'):

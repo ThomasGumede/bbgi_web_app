@@ -2,11 +2,19 @@ from django import forms
 from events.models import EventModel, TicketOrderModel, EventTicketTypeModel, TicketModel, EventOrganisor, EventReview, EventContent
 from tinymce.widgets import TinyMCE
 
+from listings.models import Business
+
 class EventForm(forms.ModelForm):
-    
+    company_organiser = forms.ModelChoiceField(
+        queryset=Business.objects.none(),
+        widget=forms.Select(attrs={
+            "class": "selectize dark:bg-neutral-700 dark:text-white dark:border-neutral-600"
+        }),
+        required=False
+    )
     class Meta:
         model = EventModel
-        fields = ("image", "title", "email", "phone", "category", "content", "small_description", "venue_name", "event_address", "map_coordinates", "event_startdate", "event_enddate", "event_link", "tags")
+        fields = ("image", "title", "email", "phone", "category", "content", "small_description", "venue_name", "event_address", "map_coordinates", "event_startdate", "event_enddate", "event_link", "tags", "company_organiser")
 
         widgets = {
             'title': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g John Snow's 30th Birthday"}),
@@ -14,7 +22,7 @@ class EventForm(forms.ModelForm):
             'image': forms.FileInput(attrs={"class": "w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]"}),
             'map_coordinates': forms.HiddenInput(),
             'tags': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            
+            'company_organiser': forms.Select(attrs={"class": "selectize dark:bg-neutral-700 dark:text-white dark:border-neutral-600"}),
             'small_description': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Event Short Description"}),
             'phone': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "type": "tel"}),
             'email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
@@ -27,7 +35,12 @@ class EventForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user", None)
         super(EventForm, self).__init__(*args, **kwargs)
+        if user is not None:
+            self.fields["company_organiser"].queryset = Business.objects.filter(owner=user)
+        else:
+            self.fields["company_organiser"].queryset = Business.objects.none()
         for field_name, field_value in self.initial.items():
             if field_value is None:
                 self.initial[field_name] = ''
@@ -46,17 +59,23 @@ class EventForm(forms.ModelForm):
         return cleaned_data
 
 class EventCreateForm(forms.ModelForm):
-    
+    company_organiser = forms.ModelChoiceField(
+        queryset=Business.objects.none(),
+        widget=forms.Select(attrs={
+            "class": "selectize dark:bg-neutral-700 dark:text-white dark:border-neutral-600"
+        }),
+        required=False
+    )
     class Meta:
         model = EventModel
-        fields = ("image", "title", "email", "phone", "category", "content", "small_description", "event_startdate", "event_enddate", "event_link", "tags")
+        fields = ("image", "title", "email", "phone", "category", "content", "small_description", "event_startdate", "event_enddate", "event_link", "tags", "company_organiser")
 
         widgets = {
             'title': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g John Snow's 30th Birthday"}),
             'category': forms.Select(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
             'image': forms.FileInput(attrs={"class": "w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]"}),
             'tags': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            
+            'company_organiser': forms.Select(attrs={"class": "selectize dark:bg-neutral-700 dark:text-white dark:border-neutral-600"}),
             'map_coordinates': forms.HiddenInput(),
             'phone': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "type": "tel"}),
             'email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
@@ -70,7 +89,12 @@ class EventCreateForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user", None)
         super(EventCreateForm, self).__init__(*args, **kwargs)
+        if user is not None:
+            self.fields["company_organiser"].queryset = Business.objects.filter(owner=user)
+        else:
+            self.fields["company_organiser"].queryset = Business.objects.none()
         for field_name, field_value in self.initial.items():
             if field_value is None:
                 self.initial[field_name] = ''

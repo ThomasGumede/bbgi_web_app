@@ -5,7 +5,8 @@ from listings.views.business_order import order_subscription, cancel_listing_ord
 from listings.views.business_views import add_listing, add_listing_socials, delete_listing, \
     delete_listing_content, get_business_hours_api, get_listing, get_listings, manage_listing, \
         manage_listings, update_listing, update_listing_content, get_started_with_listing, update_listing_socials
-from listings.views.business_messages import send_message
+from listings.views.business_messages import send_message, get_messages, get_message, delete_message
+from listings.views.manage_business import get_business_events, get_business_campaigns
 
 
 app_name = "listings"
@@ -38,6 +39,12 @@ urlpatterns = [
     path("listing/manage/business-hours/<slug:listing_slug>", get_business_hours, name="get-business-hours"),
     path("listing/manage/update-business-hours/<slug:listing_slug>", update_business_hours, name="update-listing-hours-big"),
     path("listing/manage/update-business-hours/<slug:listing_slug>/<uuid:hour_id>", update_business_hour, name="update-business-hour"),
+    path("listing/manage/messages/<slug:listing_slug>", get_messages, name="listing-messages"),
+    path("listing/manage/messages/<slug:listing_slug>/<message_id>", get_message, name="get-listing-message"),
+    
+    # Events and Campaigns URLS
+    path("listing/manage/events/<slug:listing_slug>", get_business_events, name="listing-events"),
+    path("listing/manage/campaigns/<slug:listing_slug>", get_business_campaigns, name="listing-campaigns"),
 
     # API URLS
     path("api/hours/<uuid:listing_id>", get_business_hours_api, name="get-business-hours-api"),

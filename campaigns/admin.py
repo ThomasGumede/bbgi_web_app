@@ -58,9 +58,10 @@ class CampaignAdmin(admin.ModelAdmin):
 
         obj.save()
         if change:
-            protocol = "https" if request.is_secure() else "http"
-            domain = get_current_site(request).domain
-            notify_2_organiser_of_status_change.delay(obj.id, domain, protocol)
+            pass
+            # protocol = "https" if request.is_secure() else "http"
+            # domain = get_current_site(request).domain
+            # notify_2_organiser_of_status_change.delay(obj.id, domain, protocol)
 
 @admin.register(ContributionModel)
 class ContributionAdmin(admin.ModelAdmin):
