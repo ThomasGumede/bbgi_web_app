@@ -50,9 +50,15 @@ class BusinessAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
-    
 
-  
+@admin.register(BusinessLocation)
+class BusinessLocationAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(BusinessMessages)
+class BusinessMessagesAdmin(admin.ModelAdmin):
+    list_display = ('sender_full_names', 'sender_email', 'business', 'sent_at')
+    search_fields = ('sender_full_names', 'sender_email', 'message', 'business__title')
 
 @admin.register(ListingOrder)
 class ListingOrderAdmin(admin.ModelAdmin):

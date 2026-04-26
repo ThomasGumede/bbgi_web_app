@@ -5,7 +5,7 @@ from accounts.utilities.company import COMPANY
 from accounts.utilities.custom_email import send_html_email
 from django.db.models import Avg
 from django.utils import timezone
-from listings.models import Business, BusinessAnalytics
+from listings.models import Business, BusinessMessages, BusinessAnalytics
 import logging
 
 logger = logging.getLogger("tasks")
@@ -33,40 +33,40 @@ def update_business_analytics(business_id):
         logger.error(ex)
         return f"Analytics not updated for business with id {business_id}"
 
-# @shared_task
-# def send_notification_email_to_owner(message_id, protocol = 'https', domain = 'bbgi.co.za'):
-#     try:
+@shared_task
+def send_notification_email_to_owner(message_id, protocol = 'https', domain = 'bbgi.co.za'):
+    try:
         
-#         message = BusinessMessages.objects.get(id=message_id)
-#         context = {
+        message = BusinessMessages.objects.get(id=message_id)
+        context = {
             
-#             "message": message,
-#             "protocol": protocol,
-#             "domain": domain,
-#         }
-#         mail_subject = f"{message.sender_full_names} sent you a message regarding {message.business.title}"
-#         message_template = "emails/manage-event-email.html"
+            "message": message,
+            "protocol": protocol,
+            "domain": domain,
+        }
+        mail_subject = f"{message.sender_full_names} sent you a message regarding {message.business.title}"
+        message_template = "emails/manage-event-email.html"
         
-#         # Render email content
-#         message = render_to_string(message_template, context)
+        # Render email content
+        message = render_to_string(message_template, context)
 
-#         # Send email with attachments
-#         email = EmailMessage(
-#             subject=mail_subject,
-#             body=message,
-#             from_email="BBGI Listings <listings@bbgi.co.za>",
-#             to=[message.business.owner.email],
-#         )
-#         email.send(fail_silently=False)
-#         return f"Email sent to {message.business.owner.email} from Admin"
+        # Send email with attachments
+        email = EmailMessage(
+            subject=mail_subject,
+            body=message,
+            from_email="BBGI Listings <listings@bbgi.co.za>",
+            to=[message.business.owner.email],
+        )
+        email.send(fail_silently=False)
+        return f"Email sent to {message.business.owner.email} from Admin"
     
-#     except BusinessMessages.DoesNotExist:
-#         logger.error(f"Message with id {message_id} does not exist")
-#         return f"Message with id {message_id} does not exist"
+    except BusinessMessages.DoesNotExist:
+        logger.error(f"Message with id {message_id} does not exist")
+        return f"Message with id {message_id} does not exist"
     
-#     except Exception as ex:
-#         logger.error(ex)
-#         return f"Email not sent to {message.business.owner.email} from Admin"
+    except Exception as ex:
+        logger.error(ex)
+        return f"Email not sent to {message.business.owner.email} from Admin"
 
 @shared_task
 def send_on_boarding_email(listing_id):

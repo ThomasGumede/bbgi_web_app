@@ -1,7 +1,7 @@
 import json, logging
 from django.db.models import Q
 from django.forms import formset_factory, modelformset_factory, BaseModelFormSet
-from listings.forms import BusinessForm, BusinessSocialForm, BusinessContent, BusinessReviewForm, BusinessUpdateForm #, BusinessMessageForm
+from listings.forms import BusinessForm, BusinessSocialForm, BusinessContent, BusinessReviewForm, BusinessUpdateForm, BusinessMessageForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from listings.models import Business, BusinessLocation, Category, BusinessHour, BusinessAnalytics
@@ -70,7 +70,7 @@ def get_listing(request, listing_slug):
     data = json.dumps(list(locations))
     categories = Category.objects.all()
     form = BusinessReviewForm()
-    # message_form = BusinessMessageForm()
+    message_form = BusinessMessageForm()
     
     if request.method == "POST":
         form = BusinessReviewForm(request.POST)
@@ -87,7 +87,7 @@ def get_listing(request, listing_slug):
             messages.error(request, "Error trying to add your review")
 
     # update_business_analytics.delay(listing.id)
-    return render(request, "business/listing/listing-details.html", {"listing": listing, "form": form, "lcategories": categories, "locations": data, "message_form": None})
+    return render(request, "business/listing/listing-details.html", {"listing": listing, "form": form, "lcategories": categories, "locations": data, "message_form": message_form})
 
 @login_required
 def add_listing(request, listing_slug=None):
