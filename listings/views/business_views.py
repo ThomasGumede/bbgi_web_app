@@ -86,6 +86,11 @@ def get_listing(request, listing_slug):
         
             messages.error(request, "Error trying to add your review")
 
+    try:
+        update_business_analytics.delay(listing.id)
+    except Exception as ex:
+        logging.error(ex)
+        pass
     # update_business_analytics.delay(listing.id)
     return render(request, "business/listing/listing-details.html", {"listing": listing, "form": form, "lcategories": categories, "locations": data, "message_form": message_form})
 
