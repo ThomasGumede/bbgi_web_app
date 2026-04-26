@@ -210,29 +210,29 @@ class BusinessContent(AbstractCreate):
     image = models.ImageField(help_text=_("Upload company/business images."), upload_to=handle_business_file_upload, blank=True, null=True)
     business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name="images")
 
-class BusinessMessages(AbstractCreate):
-    business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name="messages")
-    sender_email = models.EmailField()
-    sender_full_names = models.CharField(max_length=250)
-    message_title = models.CharField(max_length=250)
-    message = models.TextField()
+#class BusinessMessages(AbstractCreate):
+#    business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name="messages")
+#    sender_email = models.EmailField()
+#    sender_full_names = models.CharField(max_length=250)
+#    message_title = models.CharField(max_length=250)
+#    message = models.TextField()
     
-    class Meta:
-        verbose_name = 'Business Message'
-        verbose_name_plural = 'Business Messages'
-        ordering = ["-created"]
+#    class Meta:
+#        verbose_name = 'Business Message'
+#        verbose_name_plural = 'Business Messages'
+#        ordering = ["-created"]
         
-    def __str__(self) -> str:
-        return self.sender_email
+#    def __str__(self) -> str:
+#        return self.sender_email
     
-    def send_email_notification(self):
-        pass
+#    def send_email_notification(self):
+#        pass
         # Implement email sending logic here to notify the business owner of the new message
     
     
-    def save(self, *args, **kwargs):
-        super(BusinessMessages, self).save(*args, **kwargs)
-        self.send_email_notification()
+#    def save(self, *args, **kwargs):
+#        super(BusinessMessages, self).save(*args, **kwargs)
+#        self.send_email_notification()
         
     
 class BusinessReview(AbstractCreate):
