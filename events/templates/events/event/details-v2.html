@@ -67,9 +67,9 @@
             <!-- details body -->
             <div class="lg:col-start-1 lg:col-span-8">
                 <!--  top -->
-                <ul class="flex flex-wrap gap-x-[15px] md:gap-x-[35px] gap-y-[15px] items-center mb-[30px]">
+                <ul class="flex flex-wrap gap-x-[15px] md:gap-x-[35px] gap-y-[15px] items-center mb-[30px] list-none pl-0">
                     <li>
-                        <ul class="flex gap-x-[15px] md:gap-x-[30px] items-center">
+                        <ul class="flex gap-x-[15px] md:gap-x-[30px] items-center list-none pl-0">
                             
                             <li>
                                 <a class="text-xs md:text-sm uppercase !text-white px-[15px] py-3 bg-custom-primary hover:text-white font-semibold"
@@ -85,7 +85,7 @@
                     </li>
                     
                     <li>
-                        <ul class="flex gap-x-[15px] md:gap-x-[30px] items-center">
+                        <ul class="flex gap-x-[15px] md:gap-x-[30px] items-center list-none pl-0">
                             <li>
                                 <p class="text-xs md:text-sm font-semibold">
                                     <span class="leading-1.8 md:leading-1.8"><i
@@ -147,7 +147,7 @@
                     <!-- Facts and Features-->
 
                     <!-- Gallery -->
-                     {% if event.images %}
+                     {% if event.images.count > 0 %}
                     <h4
                         class="text-[22px] font-semibold leading-1.3 pl-[10px] border-l-2 border-custom-primary text-custom-h my-[30px]">
                         From Our Gallery
@@ -185,8 +185,34 @@
                     </div>
                     {% endif %}
 
+                    <div class="ltn__blog-tags-social-media mt-80 flex w-full flex-wrap justify-between">
+                        <div class="ltn__tagcloud-widget col-lg-8">
+                    
+                            <h4>Releted Tags</h4>
+                            <ul class="flex flex-wrap gap-4 list-none pl-0">
+                    
+                                {% for tag in event.tags.all %}
+                                <li>
+                                    <a href="#">{{tag.name}}</a>
+                                </li>
+                                {% endfor %}
+                    
+                            </ul>
+                        </div>
+                        <div class="ltn__social-media text-end col-lg-4">
+                            <h4>Social Share</h4>
+                            <ul class="flex flex-wrap gap-4 list-none pl-0">
+                                <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                    
+                                <li><a href="#" title="Youtube"><i class="fab fa-youtube"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <!-- Customer Reviews -->
-                     {% if event.reviews %}
+                     <!-- {% if event.reviews %}
                     <h4
                         class="text-[22px] font-semibold leading-1.3 pl-[10px] border-l-2 border-custom-primary text-custom-h my-[30px]">
                         Customer Reviews
@@ -202,9 +228,9 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="my-[50px] border-t border-[#ededed] opacity-40">
+                    <hr class="my-[50px] border-t border-[#ededed] opacity-40"> -->
                     <!-- reviews -->
-                    <ul class="mb-[20px] w-full">
+                    <!-- <ul class="mb-[20px] w-full list-none pl-0">
                         {% for review in event.reviews.all %}
                         <li class="flex flex-col md:flex-row gap-x-[30px] gap-y-5 pb-[30px]">
                             <div class="flex-shrink-0">
@@ -217,7 +243,7 @@
                                     <a href="#" class="leading-1.3">{{review.commenter_full_names}}</a>
                                 </h4>
                                 <div>
-                                    <ul class="text-xs text-ratings flex items-center pt-[22px] md:pt-0 mb-[10px]">
+                                    <ul class="text-xs text-ratings flex items-center pt-[22px] md:pt-0 mb-[10px] list-none pl-0">
                                         <li class="pt-2">
                                             <svg class="w-4 h-4 {% if review.rating_value >= 1 %}text-yellow-300{% else %}text-gray-300{% endif %}"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -267,10 +293,10 @@
                         </li>
                         {% endfor %}
 
-                    </ul>
+                    </ul> -->
                     {% endif %}
                     <!-- add reviews -->
-                    <form method="post"
+                    <!-- <form method="post"
                         class="form-primary bg-white-5 shadow-box-shadow-2 px-[25px] pt-10 pb-[50px] md:p-[50px] md:pt-10 mt-5 mb-[60px]">
                         {% csrf_token %}
                         <h4 class="text-[17px] md:text-lg lg:text-xl font-bold text-custom-h mb-5">
@@ -329,7 +355,7 @@
                             </p>
                         </div>
                         <div class="grid gap-[30px] mb-[35px]">
-                            <!-- message -->
+                          
                             <div class="relative mb-2">
                                 {{form.comment}}
                                 <span class="absolute top-[30px] -translate-y-1/2 right-4">
@@ -337,7 +363,7 @@
                                         class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
                                 </span>
                             </div>
-                            <!-- name -->
+                           
                             <div class="relative">
                                 {{form.comment_title}}
                                 <span class="absolute top-1/2 -translate-y-1/2 right-4">
@@ -345,7 +371,7 @@
                                         class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
                                 </span>
                             </div>
-                            <!-- email -->
+                            
                             <div class="relative">
                                 {{form.commenter_full_names}}
                                 <span class="absolute top-1/2 -translate-y-1/2 right-4">
@@ -354,7 +380,7 @@
                                 </span>
                             </div>
 
-                            <!-- website -->
+                            
                             <div class="relative">
                                 {{form.commenter_email}}
                                 <span class="absolute top-1/2 -translate-y-1/2 right-4">
@@ -363,7 +389,7 @@
                                 </span>
                             </div>
                         </div>
-                        <!-- agree -->
+                        
                         <div class="text-sm flex items-center mb-[35px]">
                             <input type="checkbox" id="agree">
                             <label for="agree" class="text-sm ml-1">
@@ -372,7 +398,7 @@
                             </label>
                         </div>
 
-                        <!-- submit button -->
+                        
 
                         <div>
                             <h5
@@ -385,7 +411,7 @@
                                 </button>
                             </h5>
                         </div>
-                    </form>
+                    </form> -->
 
                     <!-- Related Properties -->
 
@@ -410,7 +436,7 @@
                         <p class="text-sm mb-[22px] hyphens-none">
                             <span class="leading-1.8">{{event.organiser.biography|truncatewords:10}}</span>
                         </p>
-                        <ul class="text-sm lg:text-base flex gap-[18px] justify-center items-center text-color-1">
+                        <ul class="text-sm lg:text-base flex gap-[18px] justify-center items-center text-color-1 list-none pl-0">
                             {% if event.organiser.facebook %}
                             <li class="leading-1.8 lg:leading-1.8">
                                 <a href="{{event.organiser.facebook}}"><i class="fab fa-facebook-f"></i></a>
@@ -454,49 +480,19 @@
                     
                 </div>
 
-                <!-- Follow Us -->
-                <div class="px-5 pt-[35px] pb-10 xl:pl-[35px] xl:pr-[30px] mb-10 border-2 border-[#ededed]">
+                <div class="px-5 pt-[35px] pb-10 xl:pl-[35px] xl:pr-[30px] mb-10 border-2 border-[#ededed] ltn__tagcloud-widget">
                     <h4 class="text-lg font-semibold text-custom-h mb-[25px]">
-                        <span class="leading-1.3 pl-[10px] border-l-2 border-custom-primary">Follow Us</span>
+                        <span class="leading-1.3 pl-[10px] border-l-2 border-custom-primary">Popular tags</span>
                     </h4>
-                    <ul class="flex gap-x-[15px] pt-4">
-                        {% if event.website %}
-                        <li>
-                            <a target="_blank" rel="noopener noreferrer" href="{{event.website}}"
-                                class="text-sm lg:text-base w-10 h-10 bg-[rgb(242_246_247_/_1)] hover:bg-custom-primary hover:text-white flex items-center justify-center"><i
-                                    class="fab fa-globe"></i></a>
-                        </li>
-                        {% endif %}
-                        {% if event.facebook %}
-                        <li>
-                            <a target="_blank" rel="noopener noreferrer" href="{{event.facebook}}"
-                                class="text-sm lg:text-base w-10 h-10 bg-[rgb(242_246_247_/_1)] hover:bg-custom-primary hover:text-white flex items-center justify-center"><i
-                                    class="fab fa-facebook-f"></i></a>
-                        </li>
-                        {% endif %}
-                        {% if event.twitter %}
-                        <li>
-                            <a target="_blank" rel="noopener noreferrer" href="{{event.twitter}}"
-                                class="text-sm lg:text-base w-10 h-10 bg-[rgb(242_246_247_/_1)] hover:bg-custom-primary hover:text-white flex items-center justify-center"><i
-                                    class="fab fa-twitter"></i></a>
-                        </li>
-                        {% endif %}
-                        {% if event.linkedin %}
-                        <li>
-                            <a target="_blank" rel="noopener noreferrer" href="{{event.linkedin}}"
-                                class="text-sm lg:text-base w-10 h-10 bg-[rgb(242_246_247_/_1)] hover:bg-custom-primary hover:text-white flex items-center justify-center"><i
-                                    class="fab fa-linkedin"></i></a>
-                        </li>
-                        {% endif %}
-                        {% if event.instagram %}
-                        <li>
-                            <a target="_blank" rel="noopener noreferrer" href="{{event.instagram}}"
-                                class="text-sm lg:text-base w-10 h-10 bg-[rgb(242_246_247_/_1)] hover:bg-custom-primary hover:text-white flex items-center justify-center"><i
-                                    class="fab fa-instagram"></i></a>
-                        </li>
-                        {% endif %}
+                    <ul class="list-none flex flex-wrap gap-4 pl-0">
+                        {% for tag in popular_tags %}
+                        <li><a href="">{{ tag.name }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
+
+                <!-- Follow Us -->
+                
 
             </div>
         </div>

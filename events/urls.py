@@ -8,7 +8,7 @@ from events.views.order import create_ticket_order, add_guest_details, ticket_or
 from events.views.ticket_type import confirm_attandance, create_new_ticket_types, create_ticket_types, \
 update_ticket_type, get_event_ticket_types, delete_ticket_type
 
-from events.views.manage import manage_event, manage_events, manage_ticket_order, manage_ticket_orders, \
+from events.views.manage import generate_tickets, manage_event, manage_events, manage_ticket_order, manage_ticket_orders, \
     generate_guest_list, generate_ticket
 
 app_name = "events"
@@ -41,13 +41,15 @@ urlpatterns = [
     path("event/manage/orders/<event_id>", ticket_orders, name="ticket-orders"),
     path("order/all/<slug:event_slug>/<uuid:order_id>", ticket_order, name="order"),
     path("order/generate/guest/<uuid:event_id>", generate_guest_list, name="generate-guest-list"),
-    path("order/create/<slug:event_slug>", create_ticket_order, name="create-ticket-order"),
+    path("reserve-tickets/<slug:event_slug>", create_ticket_order, name="create-ticket-order"),
     path("order/cancel/<uuid:order_id>", cancel_ticket_order, name="cancel-ticket-order"),
     path("order/guest/<uuid:ticket_order_id>", add_guest_details, name="add-guests"),
     path("order/checkout/<uuid:ticket_order_id>", order_checkout, name="order-checkout"),
     path("account/order/manage", manage_ticket_orders, name="manage-ticket-orders"),
     path("account/order/manage/<uuid:order_id>", manage_ticket_order, name="manage-ticket-order"),
-    path("account/order/generate/ticket/<uuid:order_id>/<uuid:ticket_id>", generate_ticket, name="generate-ticket")
+    path("account/order/generate/ticket/<uuid:order_id>/<uuid:ticket_id>", generate_ticket, name="generate-ticket"),
+    
+    path("event/tickets/<uuid:order_id>", generate_tickets, name="generate-all-tickets")
 
     
     

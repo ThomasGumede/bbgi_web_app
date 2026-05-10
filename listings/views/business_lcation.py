@@ -3,12 +3,15 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from listings.models import Business, BusinessLocation
 from django.contrib import messages
+import json, logging
 
 @login_required
 def get_locations(request, listing_slug):
     queryset = Business.objects.all().prefetch_related("business_locations")
     listing = get_object_or_404(queryset, slug=listing_slug, owner=request.user)
-    return render(request, "business/location/get-locations.html", {"listing": listing})
+    locations = BusinessLocation.objects.filter(business=listing).values("address", "map_coordinates")
+    data = json.dumps(list(locations))
+    return render(request, "business/location/get-locations.html", {"listing": listing, "locations": data,})
 
 @login_required
 def add_main_location(request, listing_slug):

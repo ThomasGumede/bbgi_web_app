@@ -46,13 +46,20 @@ class BusinessAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
         ('Business Info', {
-            'fields': ('bbbee_level', 'province', 'is_hours', 'hours_type', 'status', 'is_completed'),
+            'fields': ('bbbee_level', 'province', 'is_hours', 'hours_type', 'status', 'tags'),
             'classes': ('collapse',)
         }),
     )
-    
 
-  
+@admin.register(BusinessLocation)
+class BusinessLocationAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(BusinessMessages)
+class BusinessMessagesAdmin(admin.ModelAdmin):
+    list_display = ('sender_full_names', 'sender_email', 'business', 'created')
+    search_fields = ('sender_full_names', 'sender_email', 'business__title')
+    list_filter = ('created',)
 
 @admin.register(ListingOrder)
 class ListingOrderAdmin(admin.ModelAdmin):

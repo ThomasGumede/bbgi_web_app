@@ -1,13 +1,15 @@
 from django.db import models
 from django.db.models import Avg, Count
+from django.db import models, transaction, IntegrityError
 from django.urls import reverse
-import decimal
+import decimal, uuid
 from accounts.custom_models.abstracts import PHONE_VALIDATOR, AbstractPayment
 from accounts.custom_models.choices import StatusChoices
 from accounts.models import AbstractCreate
 from django.dispatch import receiver
 from django.db.models.signals import pre_delete
 from django.utils.translation import gettext as _
+from taggit_autosuggest.managers import TaggableManager
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.template.defaultfilters import slugify
@@ -63,6 +65,44 @@ class OperatingChoices(models.TextChoices):
     CLOSED = ("CLOSED", "Closed")
     OPEN = ("OPEN", "Open 24/7")
 
+class SingletonModel(models.Model):
+    """
+    Abstract base class for singleton models. Ensures only one instance exists.
+    """
+    singleton_pk = uuid.uuid4()  # Fixed primary key for the singleton instance
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        self.pk = self.singleton_pk  # Always set the primary key to the fixed value
+        
+        if self.__class__.objects.exclude(id=self.pk).exists():
+            raise Exception(f"An instance of {self.__class__.__name__} already exists. Cannot create another.")
+        
+        super(SingletonModel, self).save(*args, **kwargs)
+        
+    def delete(self, *args, **kwargs):
+        raise Exception(f"Deletion of {self.__class__.__name__} instance is not allowed.")
+    
+    @classmethod
+    def load(cls):
+        try:
+            return cls.objects.get(pk=cls.singleton_pk)
+        except cls.DoesNotExist:
+            try:
+                with transaction.atomic():
+                    return cls.objects.create(pk=cls.singleton_pk)
+            except IntegrityError:
+                return cls.objects.get(pk=cls.singleton_pk)
+
+    @classmethod
+    def load(cls):
+        obj, created = cls.objects.get_or_create()
+        return obj
+
 class Category(AbstractCreate):
     thumbnail = models.ImageField(upload_to="category/business/", null=True, blank=True)
     icon = models.CharField(max_length=250)
@@ -82,6 +122,8 @@ class Category(AbstractCreate):
         verbose_name_plural = _("Categories")
 
 class Business(AbstractCreate):
+    from bbgi_home.models import UUIDTaggedItem
+    
     background_image = models.ImageField(help_text=_("Upload company/business background image."), upload_to=handle_business_file_upload, blank=True, null=True)
     logo = models.ImageField(help_text=_("Upload company/business logo."), upload_to=handle_business_file_upload, blank=True, null=True)
     title = models.CharField(help_text=_("Enter title for your company/business"), max_length=150, unique=True)
@@ -107,6 +149,10 @@ class Business(AbstractCreate):
     linkedIn = models.URLField(validators=[validate_in_link], blank=True, null=True)
     status = models.CharField(max_length=50, choices=StatusChoices.choices, default=StatusChoices.NOT_APPROVED)
     is_completed = models.BooleanField(default=False)
+    tags = TaggableManager(
+        through=UUIDTaggedItem,
+        help_text="Add tags separated by commas", blank=True
+    )
 
     class Meta:
         verbose_name = 'Business'
@@ -164,6 +210,31 @@ class BusinessContent(AbstractCreate):
     image = models.ImageField(help_text=_("Upload company/business images."), upload_to=handle_business_file_upload, blank=True, null=True)
     business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name="images")
 
+class BusinessMessages(AbstractCreate):
+   business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name="messages")
+   sender_email = models.EmailField()
+   sender_full_names = models.CharField(max_length=250)
+   message_title = models.CharField(max_length=250)
+   message = models.TextField()
+    
+   class Meta:
+       verbose_name = 'Business Message'
+       verbose_name_plural = 'Business Messages'
+       ordering = ["-created"]
+        
+   def __str__(self) -> str:
+       return self.sender_email
+    
+   def send_email_notification(self):
+       pass
+        # Implement email sending logic here to notify the business owner of the new message
+    
+    
+   def save(self, *args, **kwargs):
+       super(BusinessMessages, self).save(*args, **kwargs)
+       self.send_email_notification()
+        
+    
 class BusinessReview(AbstractCreate):
     rating_value = models.IntegerField(validators=[
             MinValueValidator(1),   
@@ -266,6 +337,49 @@ class ListingOrder(AbstractCreate, AbstractPayment):
         
     def __str__(self):
         return f"Listing order by {self.client_first_name} {self.client_last_name}"
+
+# class BusinessBooking(AbstractCreate):
+#     business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name="bookings")
+#     client_first_name = models.CharField(max_length=250, help_text=_("Enter your first name"))
+#     client_last_name = models.CharField(max_length=250, help_text=_("Enter your last name"))
+#     client_email = models.EmailField(help_text=_("Enter your email address"), max_length=250)
+#     client_phone = models.CharField(max_length=15, validators=[PHONE_VALIDATOR], null=True, blank=True)
+#     booking_date = models.DateField(help_text=_("Select booking date"))
+#     booking_time = models.TimeField(help_text=_("Select booking time"))
+#     message = models.TextField(help_text=_("Enter additional details about your booking"))
+
+#     class Meta:
+#         verbose_name = 'Business Booking'
+#         verbose_name_plural = 'Business Bookings'
+#         ordering = ["-created"]
+        
+#     def __str__(self) -> str:
+#         return f"Booking by {self.client_first_name} {self.client_last_name} for {self.business.title}"
+
+
+class BusinessAnalytics(AbstractCreate):
+    business = models.OneToOneField(Business, on_delete=models.CASCADE, related_name="analytics")
+    date = models.DateField(help_text=_("Date of the analytics data"))
+    total_views = models.IntegerField(default=0)
+    total_quotations = models.IntegerField(default=0)
+    total_bookings = models.IntegerField(default=0)
+    total_messages = models.IntegerField(default=0)
+    average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
+
+    class Meta:
+        verbose_name = 'Business Analytics'
+        verbose_name_plural = 'Business Analytics'
+        ordering = ["-date"]
+        
+    def get_services(self):
+        return self.business.services.all()[0:5]
+    
+    def get_popular_services(self):
+        return self.business.services.annotate(num_quotations=Count('quotations')).order_by('-num_quotations')[:5]
+        
+    def __str__(self) -> str:
+        return f"Analytics for {self.business.title} on {self.date}"
+
 
 @receiver(pre_delete, sender=Business)
 def delete_business_images_hook(sender, instance, using, **kwargs):

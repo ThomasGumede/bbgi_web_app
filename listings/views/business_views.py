@@ -1,20 +1,22 @@
 import json, logging
 from django.db.models import Q
 from django.forms import formset_factory, modelformset_factory, BaseModelFormSet
-from accounts.utilities.custom_email import send_html_email
-from listings.forms import BusinessForm, BusinessSocialForm, BusinessContent, BusinessReviewForm, BusinessUpdateForm
+from listings.forms import BusinessForm, BusinessSocialForm, BusinessContent, BusinessReviewForm, BusinessUpdateForm, BusinessMessageForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
-from listings.models import Business, BusinessLocation, Category, BusinessHour
+from listings.models import Business, BusinessLocation, Category, BusinessHour, BusinessAnalytics
 from django.core import serializers
 from django.http import JsonResponse
 from listings.tasks import send_on_boarding_email
-from markets.forms import ServiceForm, QoutationForm
 from django.contrib import messages
+from django.utils import timezone
+from listings.tasks import update_business_analytics
 
 from listings.utilities.custom_methods import sort_listing
 
-
+def popular_listing_tags(request):
+    
+    pass
 
 @login_required
 def manage_listings(request):
@@ -30,19 +32,26 @@ def manage_listings(request):
 def manage_listing(request, listing_slug):
     queryset = Business.objects.all().select_related("category").prefetch_related("business_hours", "reviews", "images")
     listing = get_object_or_404(queryset, slug=listing_slug, owner=request.user)
-    return render(request, "business/listing/manage/manage-listing.html", {"listing": listing})
+    try:
+        analytics, created = BusinessAnalytics.objects.get_or_create(business=listing, date=timezone.now().date())
+        if created:
+            pass
+        
+    except Exception as ex:
+        analytics = None
+    return render(request, "business/listing/manage/manage-listing.html", {"listing": listing, "analytics": analytics})
 
 def get_started_with_listing(request):
     return render(request, "business/get-started.html")
 
-def get_listings(request, category=None):
+def get_listings(request, category=None, tag=None):
     query = request.GET.get("query", None)
     place = request.GET.get("place", None)
     sort_by = request.GET.get("sort_by", None)
     province = request.GET.get("province", None)
     bbee_level = request.GET.get("bbee", None)
     
-    listings = sort_listing(sort_by, province, bbee_level, query, place, category)
+    listings = sort_listing(sort_by, province, bbee_level, query, place, category, tag)
     
     
     context = {
@@ -51,7 +60,7 @@ def get_listings(request, category=None):
         "place": place, 
         "sort_by": sort_by,
         "province": province,
-        "bbee_level": bbee_level, "category": category}
+        "bbee_level": bbee_level, "category": category, "tag": tag}
     return render(request, "business/listing/get-listings.html", context)
 
 def get_listing(request, listing_slug):
@@ -61,6 +70,7 @@ def get_listing(request, listing_slug):
     data = json.dumps(list(locations))
     categories = Category.objects.all()
     form = BusinessReviewForm()
+    message_form = BusinessMessageForm()
     
     if request.method == "POST":
         form = BusinessReviewForm(request.POST)
@@ -76,8 +86,13 @@ def get_listing(request, listing_slug):
         
             messages.error(request, "Error trying to add your review")
 
-
-    return render(request, "business/listing/listing-details.html", {"listing": listing, "form": form, "lcategories": categories, "locations": data})
+    try:
+        update_business_analytics.delay(listing.id)
+    except Exception as ex:
+        logging.error(ex)
+        pass
+    # update_business_analytics.delay(listing.id)
+    return render(request, "business/listing/listing-details.html", {"listing": listing, "form": form, "lcategories": categories, "locations": data, "message_form": message_form})
 
 @login_required
 def add_listing(request, listing_slug=None):
@@ -177,7 +192,7 @@ def update_listing(request, listing_slug):
         if form.is_valid() and form.is_multipart():
             form.save()
             messages.success(request, "Listing updated successfully")
-            return redirect("listings:manage-listings")
+            return redirect("listings:update-listing", listing.slug)
         else:
             messages.error(request, "Something went wrong while trying to update your business")
             return render(request, "business/listing/update-listing.html", {"listing": listing, "form": form})
@@ -219,7 +234,7 @@ def delete_listing(request, listing_slug):
         messages.success(request, "Listing was deleted successfully")
         return redirect("listings:manage-listings")
     else:
-        return render(request, "business/listing/delete-listing.html", {"message": f"Are you sure you want to delete this listing ({listing.title})?", "title": "Delete listing"})
+        return render(request, "business/listing/delete-listing.html", {"message": f"Are you sure you want to delete this listing ({listing.title})?", "title": "Delete listing", "listing": listing})
 
 @login_required
 def get_business_hours_api(request, listing_id):

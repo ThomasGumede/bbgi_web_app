@@ -3,7 +3,7 @@ from listings.models import Business, Category
 from django.db.models import Q
 from django.db.models import Avg
 
-def sort_listing(sort_by=None, province=None, bbee_level=None, query=None, place=None, category=None):
+def sort_listing(sort_by=None, province=None, bbee_level=None, query=None, place=None, category=None, tag=None):
     listings = Business.objects.all()
     if category:
         category = get_object_or_404(Category, slug=category)
@@ -18,7 +18,11 @@ def sort_listing(sort_by=None, province=None, bbee_level=None, query=None, place
         listings = listings.filter(bbbee_level=bbee_level)
 
     if query:
-        listings = listings.filter(Q(title__icontains=query) | Q(category__label__icontains=query) | Q(slogan__icontains=query) | Q(main_address__icontains=place or query))
+        listings = listings.filter(Q(title__icontains=query) | Q(tags__icontains=query) | Q(category__label__icontains=query) | Q(slogan__icontains=query) | Q(main_address__icontains=place or query) | Q(tags__name__icontains=query))
+
+    if tag:
+        listings = listings.filter(Q(tags__name__icontains=tag) | Q(tags__slug__icontains=tag))
+
 
     if sort_by:
         

@@ -16,6 +16,7 @@ from events.utils import generate_qr_and_bacode, generate_tickets_in_pdf
 from accounts.custom_models.choices import StatusChoices
 from campaigns.utils import PaymentStatus
 
+
 logger = logging.getLogger("utils")
 
 def generate_coupon_number() -> str:
@@ -157,13 +158,6 @@ def create_ticket_order(request, event_slug):
     event = get_object_or_404(queryset, slug=event_slug)
     time_remaining = (event.event_enddate - timezone.now()).days
 
-    # if time_remaining <= 0 or event.get_total_seats() == 0:
-    #     messages.error(request, "Sorry, this event is closed or has run out of tickets.")
-    #     if time_remaining <= 0:
-    #         event.status = StatusChoices.COMPLETED
-    #         event.save(update_fields=["status"])
-    #     return redirect("events:event-details", event_slug=event.slug)
-
     formset = formset_factory(TicketForm, extra=event.tickettypes.count(), max_num=event.tickettypes.count())
 
     if request.method == "POST":
@@ -175,7 +169,7 @@ def create_ticket_order(request, event_slug):
                 order = create_order_and_coupon(order_form, request, event)
                 if create_ticket(forms, order, request):
                     
-                    return redirect("events:add-guests", ticket_order_id=order.id)
+                    return redirect("events:order-checkout", ticket_order_id=order.id)
         messages.error(request, "Something went wrong. Please fix the errors below.")
     
     return render(request, "events/orders/create.html", {"forms": formset(), "order_form": TicketOrderForm(), "event": event})
@@ -235,8 +229,20 @@ def order_checkout(request, ticket_order_id):
                 order.buyer = request.user
             
             order.save()
+                
             messages.success(request, "Billing details added successfully")
-            return redirect("payments:ticket-payment", ticket_order_id=ticket_order.id)
+            
+            if ticket_order.total_price == 0.00:
+                from payments.utilities.ticket_func import update_payment_status_zero_balance_ticket_order
+                ticket_order.paid = PaymentStatus.PAID
+                ticket_order.save()
+                updated = update_payment_status_zero_balance_ticket_order(request, ticket_order)
+                
+                if updated:
+                    messages.success(request, "You have successfully reserved your ticket. Check your email for more information")
+                return redirect("events:manage-ticket-order", order_id=ticket_order.id)
+            else:
+                return redirect("payments:ticket-payment", ticket_order_id=ticket_order.id)
         else:
             messages.error(request, "Something went wrong trying to checkout")
             return render(request, "events/orders/checkout.html", {"ticketorder": ticket_order, "form": form, "form2": form2})

@@ -1522,7 +1522,7 @@ img {
 .form-primary .nice-select {
   font-family: var(--body-font);
   height: 65px;
-  border: 2px solid var(--border-color-9);
+  border: 2px solid #e4ecf2;
   font-size: 14px;
   font-weight: bold;
   color: var(--paragraph-color);

@@ -26,7 +26,7 @@
                                             errors.</p>
                                     </div>
                     
-                                    <ul class="px-16 mb-4">
+                                    <ul class="px-16 mb-4 list-none pl-0">
                                         {% if forms.non_field_errors %}
                                         <li class="text-md font-bold p-1 list-none text-red-500 text-sm">{{forms.non_field_errors.as_text}}</li>
                                         {% endif %}
@@ -65,7 +65,7 @@
                         <div class="grid gap-5" id="ticket_types_inner_container">
                             
                         </div>
-                        <div class="w-full mt-4">
+                        <div class="w-full mt-4 hidden">
                             <div class="relative block bg-gray-50 p-4 border rounded-md">
                                 <div class="flex w-full flex-wrap gap-4 items-center justify-between mb-2">
                         

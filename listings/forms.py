@@ -1,5 +1,5 @@
 from django import forms
-from listings.models import HOURS_TYPE, Business, BusinessContent, BusinessHour, BusinessLocation, BusinessReview, ListingOrder
+from listings.models import HOURS_TYPE, Business, BusinessContent, BusinessHour, BusinessLocation, BusinessReview, ListingOrder , BusinessMessages
 from tinymce.widgets import TinyMCE
 
 
@@ -9,12 +9,12 @@ class ListingOrderForm(forms.ModelForm):
         fields = ("client_first_name", "client_last_name", "client_phone", "client_email", "client_address_one", "client_address_two", "client_city", "client_zipcode", "client_province")
 
         widgets = {
-            'client_address_one': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'client_address_two': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'client_city': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'client_country': forms.TextInput(attrs={"value": "South Africa", "class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'client_province': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'client_zipcode': forms.NumberInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"})
+            'client_address_one': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'client_address_two': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'client_city': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'client_country': forms.TextInput(attrs={"value": "South Africa", "class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'client_province': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'client_zipcode': forms.NumberInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"})
         }
 
 class BusinessForm(forms.ModelForm):
@@ -22,25 +22,26 @@ class BusinessForm(forms.ModelForm):
         model = Business
         fields = (
             "title", "background_image", "logo", 
-            "details", "slogan", "category", "bbbee_level", "phone", "website", "email", "alternative_phone" 
+            "details", "slogan", "category", "bbbee_level", "phone", "website", "email", "alternative_phone", "tags"
         )
 
         widgets = {
             'background_image': forms.FileInput(attrs={"class": "w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]"}),
             'logo': forms.FileInput(attrs={"class": "w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]"}),
+            'tags': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
             
-            'website': forms.URLInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g https://www.business.co.za"}),
-            'slogan': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g info@business.co.za"}),
-            'category': forms.Select(attrs={"class": "selectize"}),
-            'bbbee_level': forms.Select(attrs={"class": "selectize"}),
-            'website': forms.URLInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g https://www.business.co.za"}),
-            'phone': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'alternative_phone': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'website': forms.URLInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g https://www.business.co.za"}),
+            'slogan': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g info@business.co.za"}),
+            'category': forms.Select(attrs={"class": "selectize dark:bg-neutral-700 dark:text-white dark:border-neutral-600"}),
+            'bbbee_level': forms.Select(attrs={"class": "selectize dark:bg-neutral-700 dark:text-white dark:border-neutral-600"}),
+            'website': forms.URLInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g https://www.business.co.za"}),
+            'phone': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'alternative_phone': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
              
-            'title': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'details': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Business Description"}),
-            'zipcode': forms.NumberInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"})
+            'title': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'details': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Business Description"}),
+            'zipcode': forms.NumberInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"})
             
         }
 
@@ -49,25 +50,27 @@ class BusinessUpdateForm(forms.ModelForm):
         model = Business
         fields = (
             "title", "background_image", "logo", 
-            "details", "slogan", "category", "bbbee_level" 
+            "details", "slogan", "category", "bbbee_level", "tags"
         )
 
         widgets = {
             'background_image': forms.FileInput(attrs={"class": "w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]"}),
             'logo': forms.FileInput(attrs={"class": "w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]"}),
-            'main_address': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'website': forms.URLInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g https://www.business.co.za"}),
-            'slogan': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g info@business.co.za"}),
-            'category': forms.Select(attrs={"class": "selectize"}),
-            'bbbee_level': forms.Select(attrs={"class": "selectize"}),
-            'title': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'details': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Business Description"}),
-            'zipcode': forms.NumberInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'map_coordinates': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'address': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'website': forms.URLInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g https://www.business.co.za"}),
-            'email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g info@business.co.za"}),
+            'main_address': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'website': forms.URLInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g https://www.business.co.za"}),
+            'slogan': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g info@business.co.za"}),
+            'category': forms.Select(attrs={"class": "selectize dark:bg-neutral-700 dark:text-white dark:border-neutral-600"}),
+            'bbbee_level': forms.Select(attrs={"class": "selectize dark:bg-neutral-700 dark:text-white dark:border-neutral-600"}),
+            'tags': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            
+            'title': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'details': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Business Description"}),
+            'zipcode': forms.NumberInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'map_coordinates': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'address': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'website': forms.URLInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g https://www.business.co.za"}),
+            'email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g info@business.co.za"}),
             
         }
 
@@ -77,8 +80,8 @@ class BusinessLocationForm(forms.ModelForm):
         fields = ("address", "map_coordinates")
 
         widgets = {
-            'map_coordinates': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'address': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'map_coordinates': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'address': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
             
         }
 
@@ -89,8 +92,8 @@ class BusinessMainLocationForm(forms.ModelForm):
 
         widgets = {
             
-            'map_coordinates': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'main_address': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'map_coordinates': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
+            'main_address': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
             
         }
 
@@ -101,20 +104,20 @@ class BusinessSocialForm(forms.ModelForm):
 
         widgets = {
             
-            'website': forms.URLInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g https://www.business.co.za"}),
-            'email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g info@business.co.za"}),
+            'website': forms.URLInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g https://www.business.co.za"}),
+            'email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g info@business.co.za"}),
              
         }
 
 class HoursTypeForm(forms.ModelForm):
-    # hours_type = forms.ChoiceField(choices=HOURS_TYPE, help_text="Set main business hours or mark your business as closed", initial=HOURS_TYPE[1], widget=forms.Select(attrs={"class": "selectize"}))
+    # hours_type = forms.ChoiceField(choices=HOURS_TYPE, help_text="Set main business hours or mark your business as closed", initial=HOURS_TYPE[1], widget=forms.Select(attrs={"class": "selectize dark:bg-neutral-700 dark:text-white dark:border-neutral-600"}))
 
     class Meta:
         model = Business
         fields = ("hours_type", "is_hours")
         
         widgets = {
-            "hours_type": forms.Select(attrs={"class": "selectize"}),
+            "hours_type": forms.Select(attrs={"class": "selectize dark:bg-neutral-700 dark:text-white dark:border-neutral-600"}),
         }
 
     def clean(self):
@@ -139,9 +142,23 @@ class BusinessReviewForm(forms.ModelForm):
 
         widgets = {
             'rating_value': forms.HiddenInput(),
-            'commenter_full_names': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your name..."}),
-            'commenter_email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your email..."}),
-            'comment_title': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your comment title..."}),
+            'commenter_full_names': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your name..."}),
+            'commenter_email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your email..."}),
+            'comment_title': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your comment title..."}),
             
-            'comment': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Type your comment..."}),
+            'comment': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Type your comment..."}),
         }
+        
+class BusinessMessageForm(forms.ModelForm):
+    class Meta:
+        model = BusinessMessages
+        fields = ("message", "sender_full_names", "sender_email", "message_title")
+
+        widgets = {
+            'sender_full_names': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your name..."}),
+            'sender_email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your email..."}),
+            'message_title': forms.TextInput(attrs={"class": "text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "Type your message title..."}),
+
+            'message': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Type your message..."}),
+        }
+

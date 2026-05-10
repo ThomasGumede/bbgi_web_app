@@ -129,6 +129,20 @@
                                 </div>
                             </div>
 
+                            <div class="w-full px-4">
+                                <div class="relative w-full mb-3">
+                                    <label for="id_title">
+                                        Campaign Tags (Optional)
+                                    </label>
+                                    {{form.tags}}
+                                    <span class="text-[11px] text-custom-tertiary block font-normal capitalize">Add Campaign tags (separated by
+                                        commas) for better discoverability</span>
+                                    {% if form.tags.errors %}
+                                    <span class="text-[11px] text-red-500 block font-normal capitalize">{{form.tags.errors.as_text}}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

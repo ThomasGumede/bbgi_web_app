@@ -1,0 +1,73 @@
+{% extends '_manage-company.html' %}
+{% load static %}
+{{form.media}}
+{% block title %}{{listing.title}} Manage{% endblock title %}
+{% block content %}
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+    
+    <div class="col-span-12">
+        <div class="card h-full p-0 email-card overflow-x-auto block border-0">
+            <div class="min-w-[450px] flex flex-col justify-between h-full">
+                <div class="">
+                    <div
+                        class="card-header border-b border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 py-4 px-6 flex items-center gap-3 justify-between flex-wrap">
+                        <div class="flex items-center gap-2">
+                            <button class="text-secondary-light flex me-2"><iconify-icon icon="mingcute:arrow-left-line"
+                                    class="icon text-xl line-height-1"></iconify-icon></button>
+                            <h6 class="mb-0 text-lg">{{bmessage.message_title}}</h6>
+                            <span
+                                class="bg-primary-100 dark:bg-primary-600/25 text-primary-600 dark:text-primary-400 text-sm rounded px-2">{{bmessage.created}}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button class="text-secondary-light flex"><iconify-icon icon="mi:print"
+                                    class="icon text-2xl line-height-1"></iconify-icon></button>
+                            <button class="text-secondary-light flex"><iconify-icon icon="mdi:star-outline"
+                                    class="icon text-2xl line-height-1"></iconify-icon></button>
+                            <button class="text-secondary-light flex"><iconify-icon
+                                    icon="material-symbols:delete-outline"
+                                    class="icon text-2xl line-height-1"></iconify-icon></button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="py-4 px-6 border-b border-neutral-200 dark:border-neutral-600">
+                            <div class="flex items-start gap-3">
+                                <img src="{% static 'imgs/R.png' %}" alt="User Image" class="w-10 h-10 rounded-full">
+                                <div class="">
+                                    <div class="flex items-center flex-wrap gap-2">
+                                        <h6 class="mb-0 text-lg">{{bmessage.sender_full_names}}</h6>
+                                        <span class="text-secondary-light text-base">{{bmessage.sender_email}}</span>
+                                    </div>
+                                    <div class="mt-5">
+                                        <p class="mb-4 text-neutral-600 dark:text-neutral-200 font-bold"></p>
+                                        <p class="mb-4 text-neutral-600 dark:text-neutral-200">{{bmessage.message}}</p>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    function adjustHeight(textarea) {
+            // Calculate the scroll height of the content
+            let scrollHeight = textarea.scrollHeight;
+
+            // Set the textarea height to the scroll height, but not exceeding the maximum height
+            if (scrollHeight > 44 && scrollHeight <= 60) {
+                textarea.style.height = scrollHeight + 'px';
+            } else if (scrollHeight > 60) {
+                // textarea.style.height = '60px !important';
+                textarea.setAttribute('style', 'height: 60px !important;');
+            }
+        }
+</script>
+{% endblock scripts %}

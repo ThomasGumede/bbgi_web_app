@@ -20,3 +20,10 @@ def user_not_superuser_or_staff(function=None, redirect_url='/'):
         return decorator(function)
 
     return decorator
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        return x_forwarded_for.split(',')[0].strip()
+    return request.META.get('REMOTE_ADDR')

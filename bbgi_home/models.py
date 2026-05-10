@@ -7,8 +7,49 @@ from django.db.models.signals import pre_delete
 from django.urls import reverse
 from django.template.defaultfilters import slugify
 from tinymce.models import HTMLField
-
+from taggit_autosuggest.managers import TaggableManager
+from taggit.models import TagBase, GenericUUIDTaggedItemBase, TaggedItemBase
 from bbgi_home.utilities.file_handlers import handle_post_file_upload
+from django.conf import settings
+
+
+class CookieConsent(models.Model):
+    CONSENT_CHOICES = [
+        ('accepted', 'Accepted'),
+        ('declined', 'Declined'),
+        ('custom', 'Custom'),
+    ]
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='cookie_consents'
+    )
+    session_key = models.CharField(max_length=40, db_index=True)
+    consent_type = models.CharField(max_length=10, choices=CONSENT_CHOICES)
+
+    # granular flags
+    analytics = models.BooleanField(default=False)
+
+    # audit fields
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    user_agent = models.TextField(blank=True)
+    page = models.CharField(max_length=255, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        who = self.user or self.session_key
+        return f"{who} - {self.consent_type} ({self.created_at})"
+
+class UUIDTaggedItem(GenericUUIDTaggedItemBase, TaggedItemBase):    
+    class Meta:
+        verbose_name = _("Tag")
+        verbose_name_plural = _("Tags")
 
 class BlogCategory(AbstractCreate):
     thumbnail = models.ImageField(upload_to="category/", null=True, blank=True)
@@ -35,6 +76,10 @@ class Blog(AbstractCreate):
     author = models.ForeignKey(get_user_model(), on_delete=models.SET_DEFAULT, default=None, related_name="posts", null=True)
     category = models.ForeignKey(BlogCategory, on_delete=models.PROTECT, related_name="posts")
     content = HTMLField()
+    tags = TaggableManager(
+        through=UUIDTaggedItem,
+        help_text="Add tags separated by commas"
+    )
 
     class Meta:
         verbose_name = 'Post'

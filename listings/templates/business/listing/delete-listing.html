@@ -1,12 +1,12 @@
-{% extends '_account_v2.html' %}
+{% extends '_manage-listing.html' %}
 {% load static %}
 
 {% block title %}Delete Listing{% endblock title %}
 
 {% block content_v2 %}
-<div class="relative w-full h-full block bg-gray-50">
-    <div class="flex items-center w-full h-screen justify-center">
-        <div class="w-full max-w-full rounded-xl bg-white md:w-1/2 lg:w-5/12 relative shadow-xl text-center">
+<div class="relative w-full h-full block ">
+    <div class="flex items-start w-full justify-center">
+        <div class="w-full max-w-full rounded-xl bg-white md:w-1/2  relative shadow-xl text-center">
             <form action="" method="post">
                 {% csrf_token %}
                 <div class="p-5 md:p-7">
@@ -17,7 +17,7 @@
                         </div>
 
                         <p class="text-custom-h text-lg font-medium">
-                            Delete Listing
+                            Delete Listing : <span class="text-gray-500">{{listing.title}}</span>
                         </p>
                         <p class="text-gray-500 text-lg font-medium">
                             Are you sure you want to delete this listing?

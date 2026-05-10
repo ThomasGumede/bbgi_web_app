@@ -1,9 +1,23 @@
-{% extends '_manage-listing.html' %}
+{% extends '_manage-company.html' %}
 {% load static %}
 
-{% block title %}All Listings{% endblock title %}
+{% block title %}{{listing.title}} locations{% endblock title %}
 
-{% block content_v2 %}
+{% block css %}
+<link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="{% static 'css/nice_select.css' %}">
+<link rel="stylesheet" href="{% static 'css/additional_css.css' %}">
+
+{% endblock css %}
+
+{% block content %}
+
+<div class="h-[400px] mb-[60px] overflow-hidden">
+    <div class="google-map-locations-area">
+        <div id="gmap"></div>
+    </div>
+</div>
+
 <div class="relative px-4 block bg-white">
     <div class=" py-2  overflow-x-auto">
         <div class="relative flex flex-col w-full h-full text-gray-700 bg-white">
@@ -31,7 +45,7 @@
                                     </svg>
                                 </div>
                                 <input name="query"
-                                    class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 !pr-9 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-customborder-custom-text"
+                                    class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 !pr-9  text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-customborder-custom-text"
                                     placeholder=" " />
                                 <label
                                     class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-customborder-custom-text0 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-customborder-custom-text0">
@@ -49,7 +63,7 @@
                         <tr>
                             <th class="p-4 border-y border-blue-gray-100 bg-customborder-custom-text/50">
                                 <p
-                                    class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                    class="block  text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
                                     Location
                                 </p>
                             </th>
@@ -59,7 +73,7 @@
                             
                             <th class="p-4 border-y border-blue-gray-100 bg-customborder-custom-text/50">
                                 <p
-                                    class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                    class="block  text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
                                     Date
                                 </p>
                             </th>
@@ -67,7 +81,7 @@
                             
                             <th class="p-4 border-y border-blue-gray-100 bg-customborder-custom-text/50">
                                 <p
-                                    class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                    class="block  text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
                                 </p>
                             </th>
 
@@ -79,14 +93,14 @@
                         <tr>
                             <td class="p-4 border-b border-custom-text">
 
-                                <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                                <p class="block  text-sm antialiased font-normal leading-normal text-blue-gray-900">
                                     {{location.address}}
                                 </p>
                             </td>
 
                             <td class="p-4 border-b border-custom-text">
                                 <p
-                                    class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                                    class="block  text-sm antialiased font-normal leading-normal text-blue-gray-900">
                                     {{location.created}}
                                 </p>
                             </td>
@@ -94,7 +108,7 @@
                             
                             <td class="p-4 border-b border-custom-text space-x-8">
                                 <a href="{% url 'listings:update-location' location_id=location.id %}"
-                                    class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                    class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle  text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                     type="button">
                                     <span class="">
                                         <i class="fa-solid fa-plus text-xl"></i>
@@ -102,7 +116,7 @@
                                 </a>
 
                                 <a href="{% url 'listings:delete-location' location_id=location.id %}"
-                                    class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                    class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle  text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                     type="button">
                                     <span class="">
                                         <i class="fa-solid text-red-600 fa-trash text-xl"></i>
@@ -120,4 +134,86 @@
         </div>
     </div>
 </div>
-{% endblock content_v2 %}
+{% endblock content %}
+
+{% block scripts %}
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+    <script src="{% static 'js/nice_select.js' %}"></script>
+    
+    <script src="{% static 'js/global.js' %}"></script>
+
+    <script src="{% static 'js/maplace.js' %}"></script>
+    <script>
+        const coordinatesInput = '{{listing.map_coordinates}}';
+        const coordinates = coordinatesInput.split(',');
+        const latitude = parseFloat(coordinates[0]);
+        const longitude = parseFloat(coordinates[1]);
+        const locations = JSON.parse('{{locations|escapejs}}')
+
+
+        $(function () {
+            var LocsA = [
+
+                {
+                    lat: latitude,
+                    lon: longitude,
+                    title: "{{listing.title}}",
+                    html: [
+                        '<div class="map-product-item">',
+                        `<a href="{{listing.get_absolute_url}}"><img src="{% if listing.logo %}{{listing.logo.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}" alt="{{listing.title}} logo" class='h-52 w-full bg-custom-primary object-fit'></a>`,
+                        '<h5 class="ltn__map-product-title"><a href="{{listing.get_absolute_url}}">{{listing.title}}</a></h5>',
+                        '<p class="ltn__map-product-info"><span>{{listing.slogan}}</span></p>',
+                        '<p class="ltn__map-product-location"><i class="flaticon-pin"></i>{{listing.main_address}}</span>',
+                        "</div>",
+                    ].join(""),
+                    // icon: "../assets/img/icons/map-marker-2.png",
+                    animation: google.maps.Animation.BOUNCE,
+                },
+                ...locations.map((location, index) => {
+                    if (location.map_coordinates) {
+                        const [latitude, longitude] = location.map_coordinates.split(',');
+
+                        return {
+                            lat: parseFloat(latitude),
+                            lon: parseFloat(longitude),
+                            title: `{{listing.title}} location ${index}`,
+                            html: [
+                                '<div class="map-product-item">',
+                                `<a href="{{listing.get_absolute_url}}"><img src="{% if listing.logo %}{{listing.logo.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}" alt="{{listing.title}} logo" class='h-52 w-full bg-custom-primary object-fit'></a>`,
+                                '<h5 class="ltn__map-product-title"><a href="{{listing.get_absolute_url}}">{{listing.title}}</a></h5>',
+                                '<p class="ltn__map-product-info"><span>{{listing.slogan}}</span></p>',
+                                `<p class="ltn__map-product-location"><i class="fa-solid fa-placeholder-pin"></i>${location.address}</p>`,
+                                "</div>",
+                            ].join(""),
+                            // icon: "../assets/img/icons/map-marker-2.png",
+                            animation: google.maps.Animation.BOUNCE,
+                        };
+                    }
+
+                })
+
+
+            ];
+            new Maplace({
+                locations: LocsA,
+                show_markers: true,
+                controls_on_map: true,
+                map_options: {
+                    zoom: 13,
+                    scrollwheel: false,
+                    stopover: true,
+                },
+                stroke_options: {
+                    strokeColor: "#f10",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: "#f10",
+                    fillOpacity: 0.4,
+                },
+            }).Load();
+        });
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD5_FEFwr5YQFY6SBGyE1RcqNgL_bvyYI"></script>
+{% endblock scripts %}
+    

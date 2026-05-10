@@ -60,7 +60,7 @@
                 </a>
             </div>
             <nav class="flex-grow hidden xl:block">
-                <ul class="flex items-center justify-center gap-[15px] xl:gap-5">
+                <ul class="flex items-center justify-center gap-[15px] xl:gap-5 list-none pl-0">
                     <!-- item 1 -->
                     <li>
                         <a href="{% url 'bbgi_home:bbgi-home' %}"
@@ -80,7 +80,7 @@
                             <span class="text-sm font-extrabold -ml-0.5">+</span></a>
                         
                         <ul
-                            class="py-[15px] border-t-[5px] border-custom-primary bg-white w-dropdown shadow-box-shadow-4 absolute left-0 top-full opacity-0 invisible translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-xl">
+                            class="py-[15px] list-none pl-0 border-t-[5px] border-custom-primary bg-white w-dropdown shadow-box-shadow-4 absolute left-0 top-full opacity-0 invisible translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-xl">
                             
                             <li>
                                 <a class="whitespace-nowrap px-[30px] py-2" href="{% url 'markets:all-services' %}">Services</a>
@@ -121,7 +121,7 @@
             </nav>
             <!-- header right -->
             <div>
-                <ul class="flex items-center gap-[10px]">
+                <ul class="flex items-center gap-[10px] list-none pl-0">
                     
                     
                     {% if request.user.is_authenticated %}
@@ -140,7 +140,7 @@
                         </a>
                         <!-- dropdown -->
                         <ul
-                            class="py-[10px] w-[150px] shadow-box-shadow-4 absolute right-0 top-full opacity-0 invisible translate-y-4 bg-white transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-xl">
+                            class="py-[10px] list-none pl-0 w-[150px] shadow-box-shadow-4 absolute right-0 top-full opacity-0 invisible translate-y-4 bg-white transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-xl">
                             <li>
                                 <a class="whitespace-nowrap px-[15px] py-[5px]" href="{% url 'events:create-event' %}">Add event</a>
                             </li>
@@ -226,7 +226,7 @@
 
                     <!-- mobile menu accordions -->
                     <div class="border-b border-border-primary dark:border-borderColor-dark pb-8">
-                        <ul class="accordion-container">
+                        <ul class="accordion-container list-none pl-0">
                             <li class="mt-4">
                                 <!-- accordion header -->
                                 <a href="{% url 'bbgi_home:bbgi-home' %}"
@@ -253,7 +253,7 @@
                                 
                                 <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
                                     <div class="content-wrapper pl-[15px]">
-                                        <ul>
+                                        <ul class="list-none pl-0">
                                             <li class="mt-4">
                                                 
                                                 <a href="{% url 'markets:all-services' %}"
@@ -307,7 +307,7 @@
 
                     <!-- my account -->
                     <div>
-                        <ul class="mb-[30px] pb-5 pt-[5px] border-b border-border-primary">
+                        <ul class="mb-[30px] pb-5 pt-[5px] border-b border-border-primary list-none pl-0">
                             <li class="group mt-4">
                                 <!-- accordion header -->
                                  {% if request.user.is_authenticated %}
@@ -332,7 +332,7 @@
                     </div>
                     <!-- Mobile menu social area -->
                     <div>
-                        <ul class="flex gap-3 items-center pt-4">
+                        <ul class="flex gap-3 items-center pt-4 list-none pl-0">
                             <li>
                                 <a class="h-10 w-10 bg-section-bg-1 hover:bg-custom-primary hover:text-white text-center text-sm lg:text-base"
                                     href="{{facebook}}"><i class="fab fa-facebook-f leading-10"></i></a>

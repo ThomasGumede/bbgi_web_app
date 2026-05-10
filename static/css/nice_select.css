@@ -23,6 +23,24 @@
   white-space: nowrap;
   width: auto;
 }
+
+@media (prefers-color-scheme: dark) {
+    .option {
+      background-color: rgb(64, 64, 64);
+      color: #fff;
+    }
+
+    .nice-select .option {
+      background-color: rgb(64, 64, 64);
+      color: #fff;
+    }
+
+    .nice-select .nice-select-dropdown {
+      background-color: rgb(64, 64, 64);
+      color: #fff;
+    }
+}
+
 .nice-select:hover {
   border-color: #dbdbdb;
 }
@@ -246,7 +264,7 @@
 .form-primary .nice-select {
   font-family: var(--body-font);
   height: 65px;
-  border: 2px solid var(--border-color-9);
+  border: 2px solid #e8e8e8;
   font-size: 14px;
   font-weight: bold;
   color: var(--paragraph-color);

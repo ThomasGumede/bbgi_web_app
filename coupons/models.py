@@ -19,3 +19,4 @@ class Coupon(AbstractCreate):
     
     def get_formated_date(self):
         return
+    

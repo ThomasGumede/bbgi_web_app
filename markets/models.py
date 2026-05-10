@@ -19,8 +19,8 @@ class Service(AbstractCreate):
     price_decription = models.CharField(help_text=_("Enter service price decription e.g Callout fee"), max_length=150, null=True, blank=True, default="")
     price = models.DecimalField(help_text=_("Enter service price e.g 300.00"), max_digits=1000, decimal_places=2, null=True, blank=True)
     on_discount = models.BooleanField(default=False)
-    discount_percentage = models.DecimalField(max_digits=1000, decimal_places=2, help_text=_("Enter discount percentage, e.g 100"), null=True, blank=True)
-    discount_description = models.CharField(max_length=150, null=True, blank=True)
+    discount_percentage = models.DecimalField(max_digits=1000, decimal_places=2, help_text=_("Enter discount percentage, e.g 100"), null=True, blank=True, default=0)
+    discount_description = models.CharField(max_length=150, null=True, blank=True, help_text=_("Describe the discount e.g First Order"))
     is_popular = models.BooleanField(default=False)
 
     def get_absolute_url(self):
@@ -29,6 +29,8 @@ class Service(AbstractCreate):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
+        if self.discount_percentage > 0:
+            self.on_discount = True
         super(Service, self).save(*args, **kwargs)
 
     class Meta:
@@ -59,7 +61,7 @@ CALL_CHOICES = (
 class Qoutation(AbstractCreate):
     
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name="qoutations")
-    client = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="qoutations")
+    client = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name="qoutations", null=True, blank=True, default=None)
     file = models.ImageField(upload_to="business/qoutation/", null=True, blank=True)
     full_names = models.CharField(max_length=350)
     phone = models.CharField(help_text=_("Enter your cellphone number"), max_length=15, validators=[PHONE_VALIDATOR])
@@ -79,6 +81,10 @@ class Qoutation(AbstractCreate):
         verbose_name = _("Qoutation Request")
         verbose_name_plural = _("Qoutation Requests")
         ordering = ["-created"]
+        
+    def get_absolute_url(self):
+        return reverse("markets:manage-quote", kwargs={"quotation_id": self.id})
+    
         
 class RequestService(AbstractCreate):
     service_title = models.CharField(max_length=350)

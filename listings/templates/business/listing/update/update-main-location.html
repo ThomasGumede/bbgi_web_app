@@ -1,14 +1,25 @@
-{% extends '_business_update.html' %}
+{% extends '_manage-company.html' %}
 {% load static %}
 
-{% block businessblock %}
+{% block title %}
+Update {{listing.title}}
+{% endblock title %}
 
-<section class="w-full  font-sans py-10 h-full">
+{% block css %}
+<link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="{% static 'css/nice_select.css' %}">
+<link rel="stylesheet" href="{% static 'css/additional_css.css' %}">
+
+{% endblock css %}
+
+{% block content %}
+
+<section class="w-full   py-10 h-full">
     <div class="">
         <div class="px-4">
             {% if form.errors %}
             <div class="w-full mx-auto">
-                <div class="bg-red-50 border-l-8 border-red-900">
+                <div class="bg-red-50 dark:bg-neutral-700 dark:border-neutral-700 border-l-8 border-red-900">
                     <div class="flex items-center">
                         <div class="p-2">
                             <div class="flex items-center">
@@ -53,11 +64,11 @@
                             Where do you run your business from?
                         </h6>
                         <div class="mb-6">
-                            <p class="text-sm text-custom-text">
+                            <p class="text-sm text-custom-text dark:text-white">
                                 Provide a physical business address so customers can find you when searching for
                                 services in your area
                             </p>
-                            <p class="text-sm text-custom-text">
+                            <p class="text-sm text-custom-text dark:text-white">
                                 This can be your main office, a retail store, a co-working space or even your street
                                 address if you run your
                                 business
@@ -70,12 +81,12 @@
 
                             <div class="w-full lg:w-12/12 px-4">
                                 <div class="relative w-full mb-3">
-                                    <label for="id_title">
+                                    <label class="form-label" for="id_title">
                                         Search or Type Your Address*
                                     </label>
                                     {{form.main_address}}
                                     <span
-                                        class="text-[11px] text-custom-text block font-normal lowercase">{{form.main_address.help_text}}</span>
+                                        class="text-[11px] text-custom-text dark:text-white block font-normal lowercase">{{form.main_address.help_text}}</span>
                                     {% if form.main_address.errors %}
                                     <span
                                         class="text-[11px] text-red-500 block font-normal lowercase">{{form.main_address.errors.as_text}}</span>
@@ -92,12 +103,12 @@
 
                     <div class="w-full lg:w-12/12 px-4">
                         <div class="relative w-full mb-3">
-                            <label for="id_title">
+                            <label class="form-label" for="id_title">
                                 Search or Type Your Address Coordinates(latitude,logitude)*
                             </label>
                             {{form.map_coordinates}}
                             <span
-                                class="text-[11px] text-custom-text block font-normal lowercase">{{form.map_coordinates.help_text}}</span>
+                                class="text-[11px] text-custom-text dark:text-white block font-normal lowercase">{{form.map_coordinates.help_text}}</span>
                             {% if form.map_coordinates.errors %}
                             <span
                                 class="text-[11px] text-red-500 block font-normal lowercase">{{form.map_coordinates.errors.as_text}}</span>
@@ -114,7 +125,7 @@
                             <span
                                 class="inline-block absolute top-0 left-0 w-full h-full bg-custom-h group-hover:bg-custom-primary -z-1 group-hover:w-0 transition-all duration-300"></span>
                             <button type="submit"
-                                class="relative z-1 px-5 font-sans md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
+                                class="relative z-1 px-5  md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-1.5 uppercase">
                                 Update Main Address
                             </button>
                         </h5>
@@ -125,8 +136,8 @@
     </div>
 </section>
 
-{% endblock businessblock %}
-{% block js %}
+{% endblock content %}
+{% block scripts %}
 <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD5_FEFwr5YQFY6SBGyE1RcqNgL_bvyYI&libraries=places&callback=initMap&solution_channel=GMP_QB_addressselection_v1_cAC"
     async defer></script>
@@ -243,4 +254,4 @@
         }
     }
 </script>
-{% endblock js %}
+{% endblock scripts %}

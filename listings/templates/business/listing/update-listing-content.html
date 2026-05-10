@@ -1,12 +1,23 @@
-{% extends '_business_update.html' %}
+{% extends '_manage-company.html' %}
 {% load static %}
 
 
-{% block businessblock %}
+{% block title %}
+    Upload Images - {{listing.title}}
+{% endblock title %}
 
-<div class="w-full font-sans h-full bg-white">
-    <div class="space-y-4 bg-white w-full relative">
-        <div class="px-4">
+
+{% block css %}
+    <!-- <link rel="stylesheet" href="{% static 'css/lib/file-upload.css' %}" /> -->
+    <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
+{% endblock css %}
+    
+
+{% block content %}
+
+<div class="w-full h-full bg-white dark:bg-neutral-700">
+    <div class="w-full p-4 relative">
+        <div class="">
             {% if form.errors %}
                 <div class="w-full mx-auto">
                     <div class="bg-red-50 border-l-8 border-red-900">
@@ -77,7 +88,7 @@
                     <div class="flex flex-wrap space-y-3 md:space-y-0">
                         <div id="additional_files_container" class="w-full space-x-4 flex items-center flex-wrap">
                             <div id="additional_files"
-                                class="cursor-pointer w-full h-28 flex flex-wrap items-center justify-center rounded-md border-2 border-dotted text-center">
+                                class="cursor-pointer w-full h-28 flex flex-wrap items-center justify-center rounded-md border-2 dark:border-neutral-600  border-dotted text-center">
                                 <div>
                                     <p class="text-xl text-[#ea4c89]">Add more image files(Max 5 additional files)</p>
                                     <div class="text-[#6e6d7a] font-normal text-sm">
@@ -100,8 +111,9 @@
     </div>
 </div>
 
-{% endblock businessblock %}
-{% block js %}
+{% endblock content %}
+{% block scripts %}
+<!-- <script src="{% static 'js/lib/file-upload.js' %}"></script> -->
 <script>
     const additional_files = document.querySelector("#additional_files")
     const files = document.querySelector("#id_files")
@@ -141,7 +153,7 @@
         } else {
             additional_files_container.innerHTML = ''
             additional_files_container.innerHTML += `
-                        <div id="additional_files_new" onclick="addNewFile()" class="w-28 cursor-pointer h-28 flex items-center justify-center rounded-md border-2 border-dotted text-center">
+                        <div id="additional_files_new" onclick="addNewFile()" class="w-28 cursor-pointer h-28 flex items-center justify-center rounded-md border-2 dark:border-neutral-600  border-dotted text-center">
                             <input type="file" name="files" size="5" id="id_files_2" multiple onchange="addFile(event)"
                             accept="image/jpg,image/jpeg,image/pjpeg,image/png,image/apng,image/x-png,image/gif,image/webp"
                             class="w-[0.1px] h-[0.1px] opacity-0 overflow-hidden absolute -z-[1]" />
@@ -150,7 +162,7 @@
                     `
             newfiles.forEach((file, index) => {
                 additional_files_container.innerHTML += `
-                        <div id="additional_files_${index}" onclick="removeImage(${index})" class="w-28 h-28 cursor-pointer flex items-center justify-center rounded-md border-2 border-dotted text-center">
+                        <div id="additional_files_${index}" onclick="removeImage(${index})" class="w-28 h-28 cursor-pointer flex items-center justify-center rounded-md border-2 dark:border-neutral-600  border-dotted text-center">
                             <img src="${window.URL.createObjectURL(file)}" alt="${file.name}" class="w-full h-full object-cover" />
                         </div>
                     `
@@ -177,4 +189,4 @@
     }
 
 </script>
-{% endblock js %}
+{% endblock scripts %}

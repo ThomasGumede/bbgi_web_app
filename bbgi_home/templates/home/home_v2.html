@@ -1,6 +1,19 @@
 {% extends '_base_v2.html' %}
 {% load static %}
 
+{% block styles %}
+<style>
+    #f {
+        color: #071a1d;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+</style>
+{% endblock styles %}
+
 {% block content %}
 
 <!-- banner section -->
@@ -974,57 +987,60 @@
     </div>
 </div>
 
-<!-- <div class="fixed left-0 bottom-0 z-40 " x-data="{cookies: true}"
-    x-init='$watch("cookies", o => !o && window.setTimeout(() => (cookies = true), 1000)); setTimeout(() => cookies = true, 1500)'
-    @keydown.window.escape="cookies = false">
+<!-- COOKIE CONSENT -->
+<div class="fixed left-0 bottom-0 z-40" x-data="cookieConsent()" x-init="init()">
 
-    <div x-show="cookies"
-        class="fixed sm:left-4 bottom-20 rounded-lg bg-white shadow-2xl w-full sm:w-1/2 xl:w-1/4 max-w-[450px] overflow-hidden"
-        style="display: none;" x-transition:enter="transition ease-in duration-200"
-        x-transition:enter-start="opacity-0 transform -translate-x-40"
-        x-transition:enter-end="opacity-100 transform translate-x-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 transform translate-x-0"
-        x-transition:leave-end="opacity-0 transform -translate-x-40">
+    <!-- MAIN BANNER -->
+    <div x-show="visible"
+        class="fixed sm:left-4 bottom-20 rounded-lg bg-white shadow-2xl w-full sm:w-1/2 xl:w-1/4 max-w-[450px]"
+        x-transition style="display:none;">
 
-        <div class="">
-            <div class="relative overflow-hidden px-8 pt-8">
-                <div width="80" height="77" class="absolute -top-10 -right-10 text-yellow-500">
-                    <svg width="120" height="119" viewBox="0 0 120 119" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path opacity="0.3"
-                            d="M6.38128 49.1539C3.20326 32.893 13.809 17.1346 30.0699 13.9566L70.3846 6.07751C86.6455 2.89948 102.404 13.5052 105.582 29.7661L113.461 70.0808C116.639 86.3417 106.033 102.1 89.7724 105.278L49.4577 113.157C33.1968 116.335 17.4384 105.729 14.2604 89.4686L6.38128 49.1539Z"
-                            fill="currentColor" />
-                    </svg>
-                </div>
-                <div class="text-2xl flex flex-col pb-4">
-                    <small>Hello there..</small>
-                    <span class="text-3xl font-bold">We are the Cookies !</span>
-                </div>
-                <div class="pb-4">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, accusamus aliquid aperiam beatae
-                        consectetur culpa dolores eum expedita, ipsam iure laboriosam nobis odit quos, sed sunt
-                        veritatis
-                        voluptas voluptate voluptatum!
-                    </p>
-                </div>
-            </div>
+        <div class="px-6 pt-6 pb-4">
+            <h3 class="text-lg font-bold mb-2">We value your privacy</h3>
 
+            <p class="text-sm text-gray-600 mb-4">
+                We use cookies to improve your experience and analyze traffic.
+                You can accept or manage your preferences.
+                <a href="{% url 'bbgi_home:policy' %}" class="text-blue-600 underline">Learn more</a>.
+            </p>
         </div>
-       
-        <div class="w-full flex justify-center items-center border-t border-solid border-gray-200">
-            <button
-                class="border-r border-gray-200 flex-1 px-4 py-3 text-gray-500 hover:text-white hover:bg-red-400 duration-150"
-                @click="cookies = false">
-                No thanks !
-            </button>
-            <button class="flex-1 px-4 py-3 text-gray-500 hover:text-white hover:bg-green-400 duration-150"
-                @click="cookies = false">
-                Off course
-            </button>
+
+        <div class="flex border-t text-sm">
+            <button class="flex-1 p-3 hover:bg-gray-100" @click="declineAll()">Decline</button>
+
+            <button class="flex-1 p-3 hover:bg-gray-100" @click="openSettings()">Settings</button>
+
+            <button class="flex-1 p-3 bg-green-500 text-white" @click="acceptAll()">Accept</button>
         </div>
     </div>
 
-</div> -->
+    <!-- SETTINGS MODAL -->
+    <div x-show="settings" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+        style="display:none;">
+
+        <div class="bg-white p-6 rounded-lg w-[90%] max-w-md">
+
+            <h3 class="text-lg font-bold mb-4">Cookie Preferences</h3>
+
+            <label class="flex justify-between mb-3">
+                <span>Essential cookies</span>
+                <input type="checkbox" checked disabled>
+            </label>
+
+            <label class="flex justify-between mb-3">
+                <span>Analytics cookies</span>
+                <input type="checkbox" x-model="analytics">
+            </label>
+
+            <div class="mt-4 flex gap-2">
+                <button class="flex-1 p-2 bg-gray-200" @click="saveSettings()">Save</button>
+
+                <button class="flex-1 p-2 bg-red-400 text-white" @click="settings=false">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 {% endblock content %}
 
 {% block js %}
@@ -1152,5 +1168,100 @@
             }
         ]
     });
+</script>
+
+<script>
+function cookieConsent() {
+    return {
+        visible: false,
+        settings: false,
+        analytics: false,
+
+        init() {
+            const consent = localStorage.getItem('cookie_consent');
+
+            if (!consent) {
+                setTimeout(() => this.visible = true, 1500);
+            } else {
+                const parsed = JSON.parse(consent);
+                this.analytics = parsed.analytics;
+                this.apply(parsed.analytics);
+            }
+        },
+
+        async sendToServer(type, analytics) {
+            try {
+                await fetch('{% url "bbgi_home:save_consent" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': this.getCSRFToken()
+                    },
+                    body: JSON.stringify({
+                        type: type,
+                        analytics: analytics,
+                        page: window.location.pathname
+                    })
+                });
+            } catch (e) {
+                console.error('Consent logging failed', e);
+            }
+        },
+
+        acceptAll() {
+            const consent = { analytics: true };
+            localStorage.setItem('cookie_consent', JSON.stringify(consent));
+
+            this.sendToServer('accepted', true);
+            this.apply(true);
+            this.visible = false;
+        },
+
+        declineAll() {
+            const consent = { analytics: false };
+            localStorage.setItem('cookie_consent', JSON.stringify(consent));
+
+            this.sendToServer('declined', false);
+            this.apply(false);
+            this.visible = false;
+        },
+
+        openSettings() {
+            this.settings = true;
+        },
+
+        saveSettings() {
+            const consent = { analytics: this.analytics };
+            localStorage.setItem('cookie_consent', JSON.stringify(consent));
+
+            this.sendToServer('custom', this.analytics);
+            this.apply(this.analytics);
+
+            this.settings = false;
+            this.visible = false;
+        },
+
+        apply(analytics) {
+            if (typeof gtag !== "undefined") {
+                gtag('consent', 'update', {
+                    analytics_storage: analytics ? 'granted' : 'denied'
+                });
+            }
+        },
+
+        getCSRFToken() {
+            let cookieValue = null;
+            const cookies = document.cookie.split(';');
+
+            for (let cookie of cookies) {
+                cookie = cookie.trim();
+                if (cookie.startsWith('csrftoken=')) {
+                    cookieValue = cookie.substring('csrftoken='.length);
+                }
+            }
+            return cookieValue;
+        }
+    }
+}
 </script>
 {% endblock js %}

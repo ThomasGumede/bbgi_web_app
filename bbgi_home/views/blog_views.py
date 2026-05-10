@@ -6,6 +6,28 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render, redirect
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+from taggit.models import Tag
+from django.db.models import Count
+
+def get_popular_tags(limit=10):
+    return Tag.objects.annotate(
+        num_times=Count("taggit_taggeditem_items")
+    ).order_by('-num_times')[:limit]
+    
+@csrf_exempt
+def tinymce_image_upload(request):
+    if request.method == "POST":
+        if 'file' in request.FILES:
+            image = request.FILES['file']
+            fs = FileSystemStorage(location=settings.MEDIA_ROOT)
+            filename = fs.save(image.name, image)
+            file_url = settings.MEDIA_URL + filename
+            return JsonResponse({'location': file_url})
+    return JsonResponse({'error': 'No image uploaded'}, status=400)
 
 def blogs(request, category_slug=None):
     query = request.GET.get("query", None)

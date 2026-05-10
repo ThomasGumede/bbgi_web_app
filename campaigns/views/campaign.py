@@ -83,11 +83,11 @@ def campaigns(request, category_slug=None):
     return render(request, "campaigns/campaign/list.html", {"campaigns": campaigns, "query": query})
 
 def campaign_details(request, campaign_slug):
-    queryset = CampaignModel.objects.select_related("organiser", "category").order_by("-created")
+    queryset = CampaignModel.objects.select_related("organiser", "category").prefetch_related('tags').order_by("-created")
     campaign = get_object_or_404(queryset, slug = campaign_slug)
-    recent_campaigns = queryset[:5]
+    contributions = ContributionModel.objects.filter(campaign=campaign, paid=PaymentStatus.PAID).order_by('-created')[:5]
 
-    return render(request, "campaigns/campaign/details.html", {"campaign": campaign, "recent_campaigns":recent_campaigns})
+    return render(request, "campaigns/campaign/details.html", {"campaign": campaign, "contributions": contributions})
 
 @login_required
 def create_campaign(request, campaign_slug=None):
@@ -126,10 +126,10 @@ def create_campaign_address(request, campaign_slug):
 @login_required
 def add_campaign_socials(request, campaign_slug):
     campaign = get_object_or_404(CampaignModel, slug=campaign_slug, organiser=request.user)
-    form = CampaignContactForm(instance=campaign)
+    form = CampaignContactForm(instance=campaign, user=request.user)
     
     if request.method == "POST":
-        form = CampaignContactForm(instance=campaign, data=request.POST)
+        form = CampaignContactForm(instance=campaign, data=request.POST, user=request.user)
 
         if form.is_valid():
             form.save()
@@ -188,7 +188,7 @@ def update_campaign_contact(request, campaign_slug):
     form = CampaignContactForm(instance=campaign)
     
     if request.method == "POST":
-        form = CampaignContactForm(instance=campaign, data=request.POST)
+        form = CampaignContactForm(instance=campaign, data=request.POST, user=request.user)
 
         if form.is_valid():
             form.save()
@@ -210,4 +210,4 @@ def delete_campaign(request, campaign_slug):
         campaign.delete()
         return redirect("campaigns:manage-campaigns")
     
-    return render(request, "campaigns/delete/confirm_delete.html", {"message": f"Are you sure you want to delete this campaign ({campaign.title})?", "title": "Delete campaign"})
+    return render(request, "campaigns/campaign/delete-campaign.html", {"message": f"Are you sure you want to delete this campaign ({campaign.title})?", "title": "Delete campaign", "campaign": campaign})
