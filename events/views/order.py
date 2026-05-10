@@ -87,7 +87,8 @@ def validate_tickets_quantity(forms, request: HttpRequest) -> bool:
             )
 
         ticket_type.available_seats -= quantity
-        ticket_type.save(update_fields=["available_seats"])
+        ticket_type.seats_sold += quantity
+        ticket_type.save(update_fields=["available_seats", "seats_sold"])
         
     if custom_messages:
         for message in custom_messages:

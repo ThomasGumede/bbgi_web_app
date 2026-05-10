@@ -83,6 +83,13 @@ class EventModel(AbstractCreate):
     def get_total_seats(self):
         total_seats = sum([ticket.available_seats for ticket in self.tickettypes.all()])
         return total_seats
+    
+    def get_total_tickets_sold(self):
+        return sum([ticket.seats_sold for ticket in self.tickettypes.all()])
+    
+    def get_total_revenue(self):
+        revenue = sum([ticket.seats_sold * ticket.price for ticket in self.tickettypes.all()])
+        return revenue
 
     def __str__(self) -> str:
         return f"{self.title}"
@@ -157,6 +164,7 @@ class EventOrganisor(AbstractCreate):
 class EventTicketTypeModel(AbstractCreate):
     title = models.CharField(max_length=250, help_text=_("Enter ticket type"))
     available_seats = models.PositiveIntegerField(default=0)
+    seats_sold = models.PositiveIntegerField(default=0)
     sale_start = models.DateTimeField(null=True, blank=True, validators = [MinValueValidator(timezone.now(), "Ticket sale start date and time cannot be in the past")])
     sale_end = models.DateTimeField(null=True, blank=True, validators = [MinValueValidator(timezone.now(), "Ticket sale end date and time cannot be in the past")])
     price = models.DecimalField(max_digits=1000, decimal_places=2, default=0.00)

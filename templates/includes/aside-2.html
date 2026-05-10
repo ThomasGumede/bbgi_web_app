@@ -13,7 +13,7 @@
     <div class="sidebar-menu-area">
         <ul class="sidebar-menu list-none p-0" id="sidebar-menu">
             <li>
-                <a href="">
+                <a href="{% url 'events:manage-event' event.slug %}">
                     <iconify-icon icon="solar:home-smile-angle-outline" class="menu-icon"></iconify-icon>
                     <span>Dashboard</span>
                 </a>
@@ -21,8 +21,8 @@
             </li>
             <li class="sidebar-menu-group-title">Event</li>
             <li>
-                <a href="">
-                    <iconify-icon icon="mage:bill-list-broken" class="menu-icon"></iconify-icon>
+                <a href="{% url 'events:generate-guest-list' event_id=event.id %}">
+                    <iconify-icon icon="solar:bill-list-broken" class="menu-icon"></iconify-icon>
                     <span>Guest List</span>
                 </a>
             </li>
@@ -30,20 +30,16 @@
                 <a href="javascript:void(0)">
                     <iconify-icon icon="solar:calendar-outline" class="menu-icon"></iconify-icon>
                     <span>Bookings</span>
-                </a>
+                </a>n name:
+                solar:bill-list-broken
             </li> -->
             <li>
-                <a href="">
-                    <iconify-icon icon="solar:ticket-linear" class="menu-icon"></iconify-icon>
+                <a href="{% url 'events:ticket-orders' event.id %}">
+                    <iconify-icon icon="hugeicons:invoice-03" class="menu-icon"></iconify-icon>
                     <span>Ticket Orders</span>
                 </a>
             </li>
-            <li>
-                <a href="">
-                    <iconify-icon icon="hugeicons:invoice-03" class="menu-icon"></iconify-icon>
-                    <span>Check In</span>
-                </a>
-            </li>
+            
 
 
             <li class="sidebar-menu-group-title">Settings</li>
@@ -55,48 +51,44 @@
                 </a>
                 <ul class="sidebar-submenu list-none p-0">
                     <li>
-                        <a href=""><i
+                        <a href="{% url 'events:update-event' event.slug %}"><i
                                 class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
                             Edit Details</a>
                     </li>
                     <li>
-                        <a href=""><i
+                        <a href="{% url 'events:add-event-content' event_slug=event.slug %}"><i
                                 class="ri-circle-fill circle-icon text-warning-600 w-auto"></i>
                             Edit Images</a>
                     </li>
                     <li>
-                        <a href=""><i
+                        <a href="{% url 'events:create-ticket-types' event_id=event.id %}"><i
                                 class="ri-circle-fill circle-icon text-success-600 w-auto"></i>
-                            Edit Address</a>
+                            Add Ticket</a>
                     </li>
-                    <li>
-                        <a href=""><i
-                                class="ri-circle-fill circle-icon text-purple-600  dark:text-purple-400 w-auto"></i>
-                            Edit Contacts</a>
-                    </li>
+                    
 
                 </ul>
             </li>
-            <li class="dropdown">
+            <!-- <li class="dropdown">
                 <a href="javascript:void(0)">
                     <iconify-icon icon="heroicons:document" class="menu-icon"></iconify-icon>
                     <span>Event Progress</span>
                 </a>
                 <ul class="sidebar-submenu list-none p-0">
                     <li>
-                        <a href=""><i
+                        <a href="javascript:void(0)"><i
                                 class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Add Progress</a>
                     </li>
                     <li>
-                        <a href=""><i
+                        <a href="javascript:void(0)"><i
                                 class="ri-circle-fill circle-icon text-warning-600 w-auto"></i>
                             Add Service</a>
                     </li>
 
                 </ul>
-            </li>
+            </li> -->
             
-            <li class="dropdown">
+            <!-- <li class="dropdown">
                 <a href="javascript:void(0)">
                     <iconify-icon icon="flowbite:users-group-outline" class="menu-icon"></iconify-icon>
                     <span>Organisors</span>
@@ -112,7 +104,7 @@
                     </li>
 
                 </ul>
-            </li>
+            </li> -->
 
 
             <li class="sidebar-menu-group-title">Application</li>

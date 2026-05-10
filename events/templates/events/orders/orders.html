@@ -1,10 +1,10 @@
-{% extends '_manage.html' %}
+{% extends '_manage-event.html' %}
 {% load static %}
 
 {% block title %}All tickets orders{% endblock title %}
 
-{% block content_v2 %}
-<div class="relative block bg-white">
+{% block content %}
+<div class="relative block bg-white p-6 rounded-lg shadow-lg dark:bg-gray-800">
     {% if orders.count > 0 %}
     <div class=" py-2 overflow-x-auto">
         {% if event %}
@@ -149,4 +149,4 @@
     </div>
     {% endif %}
 </div>
-{% endblock content_v2 %}
+{% endblock content %}
