@@ -1,0 +1,211 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% tailwind_preload_css %}
+    {% tailwind_css %}
+    {{form.media}}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Manage{% endblock title %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/keen-slider.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'imgs/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'imgs/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'imgs/favicon-16x16.png' %}">
+    <link rel="shortcut icon" href="{% static 'imgs/favicon.ico' %}" type="image/x-icon">
+    <link rel="manifest" href="{% static 'site.webmanifest' %}">
+
+    <meta name="theme-color" content="#c9a646">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- google fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap"
+        rel="stylesheet" />
+    <!-- remix icon font css  -->
+    <link rel="stylesheet" href="{% static 'css/remixicon.css' %}" />
+    <!-- Apex Chart css -->
+    <link rel="stylesheet" href="{% static 'css/lib/apexcharts.css' %}" />
+    <!-- Data Table css -->
+    <link rel="stylesheet" href="{% static 'css/lib/dataTables.min.css' %}" />
+    <!-- Text Editor css -->
+    <link rel="stylesheet" href="{% static 'css/lib/editor-katex.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/lib/editor.atom-one-dark.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/lib/editor.quill.snow.css' %}" />
+    <!-- Date picker css -->
+    <link rel="stylesheet" href="{% static 'css/lib/flatpickr.min.css' %}" />
+    <!-- Calendar css -->
+    <!-- Vector Map css -->
+    <link rel="stylesheet" href="{% static 'css/lib/jquery-jvectormap-2.0.5.css' %}" />
+    <!-- Popup css -->
+    <link rel="stylesheet" href="{% static 'css/lib/magnific-popup.css' %}" />
+    <!-- Slick Slider css -->
+    <link rel="stylesheet" href="{% static 'css/lib/slick.css' %}" />
+
+    {% block css %}
+
+    {% endblock css %}
+    <!-- prism css -->
+    <!-- <link rel="stylesheet" href="{% static 'css/lib/prism.css' %}" /> -->
+    <!-- file upload css -->
+    <!-- main css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+
+<body class="bg-neutral-100 dark:bg-neutral-800 dark:text-white">
+
+    {% include 'includes/aside-2.html' %}
+
+    <main class="dashboard-main">
+        <div class="navbar-header border-b border-neutral-200 dark:border-neutral-600">
+            <div class="flex items-center justify-between">
+                <div class="col-auto">
+                    <div class="flex flex-wrap items-center gap-[16px]">
+                        <button type="button" class="sidebar-toggle">
+                            <iconify-icon icon="heroicons:bars-3-solid" class="icon non-active"></iconify-icon>
+                            <iconify-icon icon="iconoir:arrow-right" class="icon active"></iconify-icon>
+                        </button>
+                        <button type="button" class="sidebar-mobile-toggle d-flex !leading-[0]">
+                            <iconify-icon icon="heroicons:bars-3-solid" class="icon !text-[30px]"></iconify-icon>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <button type="button" id="theme-toggle"
+                            class="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-700 dark:text-white">
+                            <span id="theme-toggle-dark-icon" class="hidden">
+                                <i class="ri-sun-line"></i>
+                            </span>
+                            <span id="theme-toggle-light-icon" class="hidden">
+                                <i class="ri-moon-line"></i>
+                            </span>
+                        </button>
+
+                        <!-- Message Dropdown Start  -->
+
+                        <!-- Message Dropdown End  -->
+
+
+
+                        <button data-dropdown-toggle="dropdownProfile"
+                            class="flex items-center justify-center rounded-full" type="button">
+                            <img src="{% static 'images/user.png' %}" alt="image"
+                                class="object-fit-cover h-10 w-10 rounded-full" />
+                        </button>
+                        <div id="dropdownProfile"
+                            class="dropdown-menu-sm z-10 hidden rounded-lg bg-white p-3 shadow-lg dark:bg-neutral-700">
+                            <div
+                                class="mb-4 flex items-center justify-between gap-2 rounded-lg bg-primary-50 px-4 py-3 dark:bg-primary-600/25">
+                                <div>
+                                    <h6 class="mb-0 text-lg font-semibold text-neutral-900">
+                                        {{request.user.first_name}} {{request.user.last_name}}
+                                    </h6>
+                                    <span class="text-neutral-500">Admin</span>
+                                </div>
+                                <button type="button" class="hover:text-danger-600">
+                                    <iconify-icon icon="radix-icons:cross-1" class="icon text-xl"></iconify-icon>
+                                </button>
+                            </div>
+
+                            <div class="scroll-sm max-h-[400px] overflow-y-auto pe-2">
+                                <ul class="flex flex-col">
+                                    <li>
+                                        <a class="flex items-center gap-4 px-0 py-2 text-black hover:text-primary-600"
+                                            href="{{request.user.get_absolute_url}}">
+                                            <iconify-icon icon="solar:user-linear" class="icon text-xl"></iconify-icon>
+                                            My Profile</a>
+                                    </li>
+
+
+                                    <li>
+                                        <a class="flex items-center gap-4 px-0 py-2 text-black hover:text-danger-600"
+                                            href="{% url 'accounts:logout' %}">
+                                            <iconify-icon icon="lucide:power" class="icon text-xl"></iconify-icon>
+                                            Log Out</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="dashboard-main-body">
+            {% include 'includes/messages_v2.html' %}
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+                <h6 class="font-semibold mb-0 dark:text-white">Dashboard</h6>
+                <ul class="flex items-center gap-[6px]">
+                    <li class="font-medium">
+                        <a href="index.html"
+                            class="flex items-center gap-2 text-neutral-600 hover:text-primary-600 dark:text-white dark:hover:text-primary-600">
+                            <iconify-icon icon="solar:home-smile-angle-outline" class="icon text-lg"></iconify-icon>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="text-neutral-600 dark:text-white">-</li>
+                    <li class="text-neutral-600 font-medium dark:text-white">{{event.title}}</li>
+                </ul>
+            </div>
+
+            {% block content %}
+
+            {% endblock content %}
+
+
+        </div>
+        <footer class="d-footer">
+            <div class="flex items-center justify-between gap-3 flex-wrap">
+                <p class="mb-0 text-neutral-600">&copy; 2026 BBGI. All Rights Reserved.</p>
+                <p class="mb-0">Made by <a href="https://wedodevs.co.za"
+                        class="text-primary-600 dark:text-primary-600 hover:underline">wedodevs</a></p>
+            </div>
+        </footer>
+    </main>
+    <!-- jQuery library js -->
+    <script src="{% static 'js/lib/jquery-3.7.1.min.js' %}"></script>
+    <!-- Apex Chart js -->
+    <script src="{% static 'js/lib/apexcharts.min.js' %}"></script>
+    <!-- Data Table js -->
+    <script src="{% static 'js/lib/simple-datatables.min.js' %}"></script>
+    <!-- Iconify Font js -->
+    <script src="{% static 'js/lib/iconify-icon.min.js' %}"></script>
+    <!-- jQuery UI js -->
+    <script src="{% static 'js/lib/jquery-ui.min.js' %}"></script>
+    <!-- Vector Map js -->
+    <script src="{% static 'js/lib/jquery-jvectormap-2.0.5.min.js' %}"></script>
+    <script src="{% static 'js/lib/jquery-jvectormap-world-mill-en.js' %}"></script>
+    <!-- Popup js -->
+    <script src="{% static 'js/lib/magnifc-popup.min.js' %}"></script>
+    <!-- Slick Slider js -->
+    <script src="{% static 'js/lib/slick.min.js' %}"></script>
+    <!-- prism js -->
+    <script src="{% static 'js/lib/prism.js' %}"></script>
+
+    <script src="{% static 'js/flowbite.min.js' %}"></script>
+    <!-- main js -->
+    <script src="{% static 'js/app.js' %}"></script>
+
+    <script src="{% static 'js/homeTwoChart.js' %}"></script>
+    <script>
+        $('.remove-button').on('click', function () {
+            $(this).closest('.alert').addClass('hidden')
+        }); 
+    </script>
+
+
+    {% block scripts %}
+
+    {% endblock scripts %}
+
+
+</body>
+
+</html>

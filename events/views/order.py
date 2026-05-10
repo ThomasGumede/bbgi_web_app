@@ -86,6 +86,9 @@ def validate_tickets_quantity(forms, request: HttpRequest) -> bool:
                 f"Sorry, there {plural} {ticket_type.available_seats} seat(s) available in {ticket_type.title}"
             )
 
+        ticket_type.available_seats -= quantity
+        ticket_type.save(update_fields=["available_seats"])
+        
     if custom_messages:
         for message in custom_messages:
             messages.error(request, message)
@@ -107,7 +110,7 @@ def create_ticket(forms, order: TicketOrderModel, request: HttpRequest) -> bool:
 
             if quantity > 0:
                 TicketModel.objects.bulk_create([
-                    TicketModel(quantity=1, ticket_order=order, ticket_type=ticket_type)
+                    TicketModel(guest_full_name=f"{order.buyer.first_name} {order.buyer.last_name}", guest_email=order.buyer.email, quantity=1, ticket_order=order, ticket_type=ticket_type)
                     for _ in range(int(quantity))
                 ])
 

@@ -115,6 +115,7 @@ class EventModel(AbstractCreate):
         if self.status == StatusChoices.COMPLETED:
             pass
 
+
 class EventContent(AbstractCreate):
     image = models.ImageField(help_text=_("Upload emages images."), upload_to=handle_event_file_upload)
     event = models.ForeignKey(EventModel, on_delete=models.CASCADE, related_name="images")
@@ -133,7 +134,7 @@ class EventReview(AbstractCreate):
     comment = models.TextField()
 
     class Meta:
-        verbose_name = 'Ecent Review'
+        verbose_name = 'Event Review'
         verbose_name_plural = 'Ecent Reviews'
 
     def __str__(self) -> str:
@@ -285,6 +286,7 @@ class TicketModel(AbstractCreate):
         if self.qrcode_image.url is not None:
             return mark_safe(f"<img src={self.qrcode_image.url} alt={self.id}-qrcode_image-image height='60' width='60' />")
         return ""
+
 
 @receiver(pre_delete, sender=EventModel)
 def delete_event_image_hook(sender, instance, using, **kwargs):

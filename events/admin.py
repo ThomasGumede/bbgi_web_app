@@ -2,7 +2,7 @@ from django.contrib import admin
 # from events.tasks import notify_2_organiser_event_of_status_change
 # from django.contrib.sites.shortcuts import get_current_site
 from accounts.custom_models.choices import PaymentStatus
-from events.models import EventModel, TicketModel, TicketOrderModel, EventTicketTypeModel
+from events.models import EventModel, TicketModel, TicketOrderModel, EventTicketTypeModel, EventContent, EventReview
 from events.tasks import send_tickets_to_attendees
 
 # Actions
@@ -23,12 +23,22 @@ def mark_orders_paid(modeladmin, request, querset):
     for order in querset:
         order.paid = PaymentStatus.PAID
         order.save()
-        send_tickets_to_attendees.delay(order.id)
+        # send_tickets_to_attendees.delay(order.id)
 
 class EventTicketTypeInline(admin.TabularInline):
     model = EventTicketTypeModel
     readonly_fields = ("event",)
     exclude = ("sale_start", "sale_end")
+    extra = 0
+
+class EventContentInline(admin.TabularInline):
+    model = EventContent
+    readonly_fields = ("event",)
+    extra = 0
+
+class EventReviewInline(admin.TabularInline):
+    model = EventReview
+    readonly_fields = ("event",)
     extra = 0
 
 class TicketOrderInline(admin.TabularInline):
@@ -61,7 +71,7 @@ class EventAdmin(admin.ModelAdmin):
     search_fields = ('title', 'small_description', 'venue_name', 'event_address', 'organiser__username')
     ordering = ('-event_startdate',)
     actions = [make_approve, make_pending]
-    inlines = [EventTicketTypeInline]
+    inlines = [EventTicketTypeInline, EventContentInline, EventReviewInline]
     
     fieldsets = (
         (None, {

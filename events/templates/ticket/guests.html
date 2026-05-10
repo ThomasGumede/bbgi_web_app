@@ -183,7 +183,8 @@
                 <th>Ticket type</th>
                 <th>Full name</th>
                 <th>Email</th>
-                <th>Guest no</th>
+                <th>Purchase Date</th>
+                <th>Checked In</th>
                 
             </tr>
         </thead>
@@ -191,11 +192,12 @@
             {% for order in orders %}
                 {% for ticket in order.tickets.all %}
                     <tr>
-                        <td>{{ticket.order_number}}</td>
+                        <td>{{order.order_number}}</td>
                         <td>{{ticket.ticket_type.title}}</td>
                         <td>{{ticket.guest_full_name}}</td>
                         <td>{{ticket.guest_email}}</td>
-                        <td>{{ticket.id}}</td>
+                        <td>{{order.created}}</td>
+                        <td>[ ]</td>
                         
                     </tr>
                 {% endfor %}
