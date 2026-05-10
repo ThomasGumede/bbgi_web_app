@@ -30,7 +30,10 @@ def validate_in_link(value):
 
 
 def verify_rsa_phone():
-    PHONE_REGEX = RegexValidator(r'^(\+27|0)[1-9][0-9]{8}$', 'RSA phone number is required')
+    PHONE_REGEX = RegexValidator(
+    regex=r'^\+?[\d\s\-]{7,20}$',
+    message='Enter a valid phone number.'
+)
     return PHONE_REGEX
 
 def validate_rsa_phone(value):
