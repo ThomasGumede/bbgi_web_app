@@ -33,7 +33,7 @@
 
         <div
             style="font-size: 18px; font-family: 'Roboto' sans-serif; font-weight: 900; height: 10px; padding-bottom: 30px; display: flex; align-items: center; width: 100%; justify-content: space-between;">
-            <div style="padding: 1px; color: #1e3737;"><span>Ticket</span></div>
+            <div style="padding: 1px; color: #1e3737;"><span>Ticket - {{ticket.ticket_type.title}}</span></div>
 
             <div style="padding: 1px; word-wrap: break-word;">
                 <span style="color: #1e3737;">{{event.title|truncatewords:5}}</span>
@@ -118,7 +118,7 @@
                             </div>
 
                             <div style="padding: 1px; width: 75%; font-family: Museo Sans W01_500;">
-                                {{ticket.guest_full_name}}</div>
+                                {{ticket.ticket_order.buyer.get_full_name}}</div>
                         </div>
 
                         <div style="margin-bottom: 5px; display: flex;">
@@ -170,7 +170,7 @@
                 style="padding: 1px; width: 16.66%; ">&nbsp;</div>
 
             <div class="ts-col-10 ts-col-m-12"
-                style="padding: 1px; width: 83.33%; font-size: 7px; font-weight: 600; margin: auto;">
+                style="padding: 1px; width: 83.33%; font-size: 7px; font-family: Museo Sans W01_500; margin: auto;">
                 <span style="padding: 2px; position: absolute; bottom: 15px;">USE OF THIS TICKET MEANS THAT THE
                     ATTENDEE IS
                     BOUND BY ALL EVENT ORGANISER TERMS AND CONDITIONS</span>
