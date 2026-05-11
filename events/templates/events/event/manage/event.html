@@ -24,10 +24,7 @@
                         <span class="mb-2 font-medium text-secondary-light text-base">Ticket Sales</span>
                         <h6 class="font-semibold my-1">{{event.get_total_tickets_sold}}</h6>
                         <p class="text-sm mb-0">
-                            Increase by
-                            <span
-                                class="bg-success-100 dark:bg-success-600/50 px-1 py-0.5 rounded-sm font-medium text-success-600 dark:text-success-400 text-sm">+200</span>
-                            this week
+                            Total tickets sold for this event, including all paid.
                         </p>
                     </div>
                 </div>
@@ -54,10 +51,7 @@
                         <span class="mb-2 font-medium text-secondary-light text-base">Avalaible Tickets</span>
                         <h6 class="font-semibold my-1">{{event.get_total_seats}}</h6>
                         <p class="text-sm mb-0">
-                            Increase by
-                            <span
-                                class="bg-danger-100 dark:bg-danger-600/50 px-1 py-0.5 rounded-sm font-medium text-danger-600 dark:text-danger-400 text-sm">-200</span>
-                            this week
+                            Current available tickets for this event.
                         </p>
                     </div>
                 </div>
@@ -83,12 +77,9 @@
 
                     <div>
                         <span class="mb-2 font-medium text-secondary-light text-base">Pending Sales</span>
-                        <h6 class="font-semibold my-1">15,000</h6>
+                        <h6 class="font-semibold my-1">R{{event.get_unpaid_orders_total|floatformat:2}}</h6>
                         <p class="text-sm mb-0">
-                            Increase by
-                            <span
-                                class="bg-success-100 dark:bg-success-600/50 px-1 py-0.5 rounded-sm font-medium text-success-600 dark:text-success-400 text-sm">+200</span>
-                            this week
+                            This includes orders that are still pending payment or have not been paid at all.
                         </p>
                     </div>
                 </div>
@@ -115,10 +106,7 @@
                         <span class="mb-2 font-medium text-secondary-light text-base">Total Earning</span>
                         <h6 class="font-semibold my-1">R{{event.get_total_revenue|floatformat:2}}</h6>
                         <p class="text-sm mb-0">
-                            Increase by
-                            <span
-                                class="bg-success-100 dark:bg-success-600/50 px-1 py-0.5 rounded-sm font-medium text-success-600 dark:text-success-400 text-sm">+200</span>
-                            this week
+                            Total revenue generated from ticket sales for this event.
                         </p>
                     </div>
                 </div>

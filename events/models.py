@@ -90,6 +90,9 @@ class EventModel(AbstractCreate):
     def get_total_revenue(self):
         revenue = sum([ticket.seats_sold * ticket.price for ticket in self.tickettypes.all()])
         return revenue
+    
+    def get_unpaid_orders_total(self):
+        return sum([order.total_price for order in self.ticket_orders.filter(paid__in=[PaymentStatus.NOT_PAID, PaymentStatus.PENDING])])
 
     def __str__(self) -> str:
         return f"{self.title}"
