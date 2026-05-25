@@ -79,7 +79,7 @@ class EventCreateForm(forms.ModelForm):
             'map_coordinates': forms.HiddenInput(),
             'phone': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "type": "tel"}),
             'email': forms.EmailInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm"}),
-            'small_description': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Event Short Description", "maxlength": 160}),
+            'small_description': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Event Short Description", "maxlength": 60}),
             'venue_name': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g John Snow Hall, Next to Asgard"}),
             'event_link': forms.URLInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g https://www.eventtitle.co.za"}),
             'event_address': forms.TextInput(attrs={"class": "text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "placeholder": "e.g Durban St, Durban, 4312, KZN"}),
@@ -157,7 +157,7 @@ class EventTicketTypeForm(forms.ModelForm):
     generate_coupons = forms.BooleanField(required=False, initial=False)
     class Meta:
         model = EventTicketTypeModel
-        fields = ("title", "available_seats", "price", "sale_start", "sale_end")
+        fields = ("title", "available_seats", "price", "sale_start", "sale_end", "small_description")
 
         widgets = {
             'title': forms.TextInput(
@@ -167,6 +167,7 @@ class EventTicketTypeForm(forms.ModelForm):
                     'class': 'text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm'
                     }
                 ),
+            'small_description': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 8, "placeholder": "Ticket Short Description", "maxlength": 160}),
             'available_seats': forms.NumberInput(
                 attrs={
                     'type': 'number',
@@ -204,7 +205,7 @@ class EventReviewForm(forms.ModelForm):
 class EventTicketTypeUpdateForm(forms.ModelForm):
     class Meta:
         model = EventTicketTypeModel
-        fields = ("title", "available_seats", "price")
+        fields = ("title", "available_seats", "price", "small_description")
 
         widgets = {
             'title': forms.TextInput(
@@ -213,6 +214,7 @@ class EventTicketTypeUpdateForm(forms.ModelForm):
                     'class': 'text-custom-text pl-5 pr-[50px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary h-[65px] block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm'
                     }
                 ),
+            'small_description': forms.Textarea(attrs={"class": "!min-h-[50px] text-custom-text pl-5 pr-[50px] py-[15px] outline-none border-2 border-[#e4ecf2] focus:border focus:border-custom-primary block w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-custom-text placeholder:text-sm", "rows": 4, "placeholder": "Ticket Short Description", "maxlength": 60}),
             'available_seats': forms.NumberInput(
                 attrs={
                     'type': 'number', 

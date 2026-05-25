@@ -53,9 +53,11 @@ function get_ticket_types() {
                                         </select>
                                         <div id="ticket_title">
                                             <h6 class="text-base">
-                                                ${ticket_type.fields.title.slice(0, 35)}...
+                                                ${ticket_type.fields.title}
                                             </h6>
-                              
+                                            <p class="text-sm">
+                                                ${ticket_type.fields.small_description}
+                                            </p>
                                             <p class="text-sm" id="form-${index}-price-text">
                                                 R${ticket_type.fields.total_price}<span></span> - ${ticket_type.fields.available_seats} seats available
                                             </p>

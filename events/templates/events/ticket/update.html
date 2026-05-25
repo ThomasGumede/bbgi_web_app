@@ -48,6 +48,20 @@
                                                 {% endif %}
                                             </div>
                                         </div>
+                                        <div class="w-full md:px-4">
+                                            <div class="relative w-full mb-3">
+                                                <label for="id_small_description">
+                                                    Ticket Description
+                                                </label>
+                                                {{form.small_description}}
+                                                <span
+                                                    class="text-[11px] text-custom-tertiary block font-normal lowercase">{{form.small_description.help_text}}</span>
+                                                {% if form.small_description.errors %}
+                                                <span
+                                                    class="text-[11px] text-red-500 block font-normal lowercase">{{form.small_description.errors.as_text}}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
                                         <div class="w-full lg:w-4/12 md:px-4">
                                             <div class="relative w-full mb-3">
                                                 <label for="{{form.price.id_for_label}}"> Price* </label>

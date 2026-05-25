@@ -175,6 +175,7 @@ class EventOrganisor(AbstractCreate):
 
 class EventTicketTypeModel(AbstractCreate):
     title = models.CharField(max_length=250, help_text=_("Enter ticket type"))
+    small_description = models.TextField(help_text=_("Small description about this type of a ticket"), null=True, blank=True)
     available_seats = models.PositiveIntegerField(default=0)
     seats_sold = models.PositiveIntegerField(default=0)
     sale_start = models.DateTimeField(null=True, blank=True, validators = [MinValueValidator(timezone.now(), "Ticket sale start date and time cannot be in the past")])
