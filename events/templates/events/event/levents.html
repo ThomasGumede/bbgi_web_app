@@ -89,7 +89,7 @@
             
                         <h2 class="text-2xl font-bold leading-tight !text-white">
                             <a class="hover:underline !text-white" href="{{event.get_absolute_url}}">
-                                {{ event.title }}
+                                {{event.title|truncatewords:5}}
                             </a>
                         </h2>
                     </div>
@@ -121,7 +121,7 @@
             
                     <!-- Description -->
                     <p class="line-clamp-3 text-sm leading-relaxed text-zinc-600">
-                        {{ event.small_description|truncatewords:4 }}
+                        {{ event.small_description|truncatewords:10 }}
                     </p>
             
                     <!-- Footer -->
