@@ -2,52 +2,157 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from accounts.custom_models.choices import StatusChoices
 from bbgi_home.models import BlogCategory
-from events.models import EventContent, EventModel, EventOrganisor
+from events.models import EventContent, EventModel, EventOrganisor, EventTicketTypeModel
 from campaigns.utils import generate_slug, PaymentStatus
 from events.forms import EventAddressForm, EventCreateForm, EventForm, EventOrganisorForm, EventReviewForm
 from django.contrib import messages
 from django.db.models import Q, When, Case
 
+from django.shortcuts import render
+from django.db.models import Q
+from django.utils import timezone
+from datetime import datetime
 
-def events(request, category_slug=None):
-    query = request.GET.get("query", None)
-    place = request.GET.get("place", None)
-    sort_by = request.GET.get("sort_by", None)
-    queryset = EventModel.objects.filter(Q(status = StatusChoices.APPROVED) | Q(status = StatusChoices.COMPLETED))
-    if category_slug:
-        category = get_object_or_404(BlogCategory, slug=category_slug)
-        if query:
-            events = queryset.filter(Q(category = category) & Q(title__icontains=query)| Q(organiser__first_name__icontains=query) | Q(event_address__icontains=place or query))
-        else:
-            events = queryset.filter(category = category)
+PROVINCES = [
+    ("kzn", "KwaZulu-Natal"),
+    ("mp", "Mpumalanga"),
+    ("nw", "North-West"),
+    ("fs", "Free-State"),
+    ("wc", "Western Cape"),
+    ("lp", "Limpopo"),
+    ("gp", "Gauteng"),
+    ("ec", "Eastern Cape"),
+    ("nc", "Northern Cape"),
+]
+
+def events(request):
+
+    events = EventModel.objects.filter(Q(status = StatusChoices.APPROVED) | Q(status = StatusChoices.COMPLETED)).select_related(
+        "category",
+        "organiser",
+        "company_organiser"
+    ).order_by("-created")
+
+    # -----------------------------
+    # FILTERS
+    # -----------------------------
+
+    search = request.GET.get("search", "")
+    category = request.GET.get("category")
+    province = request.GET.get("province")
+    venue = request.GET.get("venue")
+    start_date = request.GET.get("start_date")
+    end_date = request.GET.get("end_date")
+    created = request.GET.get("created")
+
+    # SEARCH
+    if search:
+        events = events.filter(
+            Q(title__icontains=search) |
+            Q(small_description__icontains=search) |
+            Q(tags__name__icontains=search)
+        ).distinct()
+
+    # CATEGORY
+    if category:
+        events = events.filter(category__slug=category)
+
+    # PROVINCE
+    if province:
+        events = events.filter(
+            event_address__icontains=province
+        )
+
+    # VENUE
+    if venue:
+        events = events.filter(
+            venue_name__icontains=venue
+        )
+
+    # DATE RANGE
+    if start_date:
+        events = events.filter(
+            event_startdate__date__gte=start_date
+        )
+
+    if end_date:
+        events = events.filter(
+            event_enddate__date__lte=end_date
+        )
+
+    # CREATED ORDERING
+    if created == "oldest":
+        events = events.order_by("created")
+
     else:
-        if query:
-            events = queryset.filter(Q(title__icontains=query)| Q(organiser__first_name__icontains=query))
-        else:
-            events = queryset
-    if sort_by == 'newest':
-        events = events.order_by('-created')
-        
+        events = events.order_by("-created")
+
+    # -----------------------------
+    # FILTER DATA
+    # -----------------------------
+
+
+    provinces = [
+        "EC",
+        "FS",
+        "GP",
+        "KZN",
+        "LP",
+        "MP",
+        "NC",
+        "NW",
+        "WC"
+    ]
+
     context = {
-        "events": events, 
-        "query": query,
-        "place": place,
-        "sort_by": sort_by,
-        "category": category_slug
+        "events": events,
+        "provinces": provinces,
+        "search": search
     }
 
-    return render(request, "events/event/list.html", {"events": events, "query": query})
+    return render(request, "events/event/levents.html", context)
+
+# def events(request, category_slug=None):
+#     query = request.GET.get("query", None)
+#     place = request.GET.get("place", None)
+#     sort_by = request.GET.get("sort_by", None)
+#     queryset = EventModel.objects.filter(Q(status = StatusChoices.APPROVED) | Q(status = StatusChoices.COMPLETED))
+#     if category_slug:
+#         category = get_object_or_404(BlogCategory, slug=category_slug)
+#         if query:
+#             events = queryset.filter(Q(category = category) & Q(title__icontains=query)| Q(organiser__first_name__icontains=query) | Q(event_address__icontains=place or query))
+#         else:
+#             events = queryset.filter(category = category)
+#     else:
+#         if query:
+#             events = queryset.filter(Q(title__icontains=query)| Q(organiser__first_name__icontains=query))
+#         else:
+#             events = queryset
+#     if sort_by == 'newest':
+#         events = events.order_by('-created')
+        
+#     context = {
+#         "events": events, 
+#         "query": query,
+#         "place": place,
+#         "sort_by": sort_by,
+#         "category": category_slug
+#     }
+
+#     return render(request, "events/event/levents.html", {"events": events, "query": query})
 
 def event_details(request, event_slug):
     queryset = EventModel.objects.all().select_related("organiser").prefetch_related("images")
+    
     event = get_object_or_404(queryset, slug = event_slug)
+    ticket_type = EventTicketTypeModel.objects.filter(event=event).order_by('-price').first()
     form = EventReviewForm()
     recent_events = EventModel.objects.all().order_by("-created")[:6]
     if event.status == StatusChoices.NOT_APPROVED or event.status == StatusChoices.BLOCKED:
         messages.info(request, "This event is either not approved or blocked. Please contact the event organisors before purchasing tickets")
-    for event_file in event.images.all():
-        print(f"{event_file.image.url}")
-        print("6")
+    # for event_file in event.images.all():
+    #     print(f"{event_file.image.url}")
+    #     print("6")
         
     if request.method == "POST":
         form = EventReviewForm(request.POST)
@@ -62,7 +167,7 @@ def event_details(request, event_slug):
         else:
             messages.error(request, "Error trying to add your review")
             
-    return render(request, "events/event/details-v2.html", {"event": event, "form": form})
+    return render(request, "events/event/details-v2.html", {"event": event, "form": form, 'ticket_type': ticket_type, "recent_events": recent_events})
 
 @login_required
 def create_event(request, event_slug=None):

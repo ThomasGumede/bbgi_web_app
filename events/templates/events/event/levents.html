@@ -1,0 +1,355 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="min-h-screen bg-zinc-100">
+
+    <!-- TOP BAR -->
+    <div class="z-30 border-b border-zinc-200 bg-white/90 backdrop-blur">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
+
+            <div>
+                <h1 class="text-2xl font-bold text-zinc-900">
+                    Events
+                </h1>
+
+                <p class="text-sm text-zinc-500">
+                    Discover trending experiences
+                </p>
+            </div>
+
+            <!-- FILTER BUTTON -->
+            <button onclick="openFilters()"
+                class="inline-flex items-center gap-2 rounded-2xl bg-black px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="h-5 w-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h18M6.75 12h10.5M10.5 19.5h3" />
+                </svg>
+
+                Filters
+            </button>
+
+        </div>
+    </div>
+
+    <!-- EVENTS GRID -->
+    <div class="mx-auto max-w-7xl px-4 py-8">
+
+        {% if events %}
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+
+            {% for event in events %}
+
+            <div
+                class="group relative w-full max-w-sm overflow-hidden rounded-3xl bg-white shadow-xl transition duration-300 hover:-translate-y-1 hover:shadow-2xl">
+            
+                <!-- Event Image -->
+                <div class="relative h-64 overflow-hidden">
+                    <img src="{% if event.image %}{{event.image.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}"
+                        alt="{{ event.title }}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+            
+                    <!-- Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            
+                    <!-- Category Badge -->
+                    <div class="absolute top-4 left-4">
+                        <span
+                            class="rounded-full bg-white/90 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-zinc-900 backdrop-blur">
+                            {{ event.category }}
+                        </span>
+                    </div>
+            
+                    <!-- Price -->
+                    <div class="absolute top-4 right-4">
+                        <span class="rounded-full bg-black/80 px-4 py-1 text-sm font-bold text-white backdrop-blur">
+            
+                            {% if event.get_first_ticket_price %}
+                            From R{{ event.get_first_ticket_price }}
+                            {% else %}
+                            Free
+                            {% endif %}
+            
+            
+                        </span>
+                    </div>
+            
+                    <!-- Event Info Overlay -->
+                    <div class="absolute bottom-0 w-full p-5 text-white">
+                        <div class="mb-2 flex items-center gap-2 text-sm text-zinc-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="h-4 w-4">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M6.75 3v2.25M17.25 3v2.25M3 8.25h18M4.5 5.25h15A1.5 1.5 0 0121 6.75v11.25A1.5 1.5 0 0119.5 19.5h-15A1.5 1.5 0 013 18V6.75A1.5 1.5 0 014.5 5.25z" />
+                            </svg>
+            
+                            <span>{{ event.date_time_formatter }}</span>
+                        </div>
+            
+                        <h2 class="text-2xl font-bold leading-tight !text-white">
+                            <a class="hover:underline !text-white" href="{{event.get_absolute_url}}">
+                                {{ event.title }}
+                            </a>
+                        </h2>
+                    </div>
+                </div>
+            
+                <!-- Content -->
+                <div class="space-y-5 p-5">
+            
+                    <!-- Location -->
+                    <div class="flex items-start gap-3">
+                        <div class="mt-1 text-zinc-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="h-5 w-5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 21s6-4.35 6-10.125A6 6 0 006 10.875C6 16.65 12 21 12 21z" />
+                                <circle cx="12" cy="10.875" r="2.25" />
+                            </svg>
+                        </div>
+            
+                        <div>
+                            <p class="text-sm font-medium text-zinc-900">
+                                {{ event.event_address }}
+                            </p>
+                            <p class="text-sm text-zinc-500">
+                                {{ event.venue_name }}
+                            </p>
+                        </div>
+                    </div>
+            
+                    <!-- Description -->
+                    <p class="line-clamp-3 text-sm leading-relaxed text-zinc-600">
+                        {{ event.small_description|truncatewords:4 }}
+                    </p>
+            
+                    <!-- Footer -->
+                    <div class="flex items-center justify-between pt-2">
+            
+                        <!-- Tickets Left -->
+                        <div>
+                            <p class="text-xs uppercase tracking-wide text-zinc-400">
+                                Tickets Left
+                            </p>
+                            <p class="font-bold text-zinc-900">
+                                {{ event.get_total_tickets_unsold }}
+                            </p>
+                        </div>
+            
+                        <!-- Button -->
+                        <a href="{{event.get_absolute_url}}"
+                            class="inline-flex items-center gap-2 rounded-xl bg-black px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800">
+            
+                            Get Tickets
+            
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="h-4 w-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                            </svg>
+            
+                        </a>
+            
+                    </div>
+            
+                </div>
+            
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <!-- EMPTY -->
+        <div class="flex min-h-[400px] flex-col items-center justify-center text-center">
+
+            <h2 class="text-2xl font-bold text-zinc-900">
+                No events found
+            </h2>
+
+            <p class="mt-2 text-zinc-500">
+                Try changing your filters.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- FILTER OVERLAY -->
+<div id="filterOverlay" class="fixed inset-0 z-50 hidden">
+
+    <!-- BACKDROP -->
+    <div onclick="closeFilters()" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+
+    <!-- SIDEBAR -->
+    <div class="absolute right-0 top-0 h-full w-full max-w-md overflow-y-auto bg-white shadow-2xl">
+
+        <!-- HEADER -->
+        <div class="sticky top-0 z-20 flex items-center justify-between border-b border-zinc-200 bg-white px-6 py-5">
+
+            <div>
+                <h2 class="text-xl font-bold text-zinc-900">
+                    Filter Events
+                </h2>
+
+                <p class="text-sm text-zinc-500">
+                    Narrow your search
+                </p>
+            </div>
+
+            <button onclick="closeFilters()" class="rounded-full p-2 transition hover:bg-zinc-100">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="h-6 w-6 text-zinc-700">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+        </div>
+
+        <!-- FILTER FORM -->
+        <form method="GET" class="space-y-6 p-6">
+
+            <!-- SEARCH -->
+            <div>
+                <label class="mb-2 block text-sm font-semibold text-zinc-800">
+                    Search Event
+                </label>
+
+                <input type="text" name="search" value="{{ request.GET.search }}" placeholder="Search..."
+                    class="w-full rounded-2xl border border-zinc-300 px-4 py-3 outline-none focus:border-black">
+            </div>
+
+            <!-- CATEGORY -->
+            <div>
+                <label class="mb-2 block text-sm font-semibold text-zinc-800">
+                    Category
+                </label>
+
+                <select name="category" class="w-full rounded-2xl border border-zinc-300 px-4 py-3">
+
+                    <option value="">
+                        All Categories
+                    </option>
+
+                    {% for category in blog_categories %}
+
+                    <option value="{{ category.slug }}" {% if request.GET.category == category.slug %} selected {% endif %}>
+                        {{ category.label }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+            </div>
+
+            <!-- PROVINCE -->
+            <div>
+                <label class="mb-2 block text-sm font-semibold text-zinc-800">
+                    Province
+                </label>
+
+                <select name="province" class="w-full rounded-2xl border border-zinc-300 px-4 py-3">
+
+                    <option value="">
+                        All Provinces
+                    </option>
+
+                    {% for province in provinces %}
+
+                    <option value="{{ province }}" {% if request.GET.province == province %} selected {% endif %}>
+                        {{ province }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+            </div>
+
+            <!-- VENUE -->
+            <div>
+                <label class="mb-2 block text-sm font-semibold text-zinc-800">
+                    Venue
+                </label>
+
+                <input type="text" name="venue" value="{{ request.GET.venue }}" placeholder="Venue name..."
+                    class="w-full rounded-2xl border border-zinc-300 px-4 py-3">
+            </div>
+
+            <!-- DATE RANGE -->
+            <div>
+                <label class="mb-2 block text-sm font-semibold text-zinc-800">
+                    Date Range
+                </label>
+
+                <div class="grid grid-cols-2 gap-3">
+
+                    <input type="date" name="start_date" value="{{ request.GET.start_date }}"
+                        class="rounded-2xl border border-zinc-300 px-4 py-3">
+
+                    <input type="date" name="end_date" value="{{ request.GET.end_date }}"
+                        class="rounded-2xl border border-zinc-300 px-4 py-3">
+
+                </div>
+            </div>
+
+            <!-- CREATED -->
+            <div>
+                <label class="mb-2 block text-sm font-semibold text-zinc-800">
+                    Created
+                </label>
+
+                <select name="created" class="w-full rounded-2xl border border-zinc-300 px-4 py-3">
+
+                    <option value="newest">
+                        Newest First
+                    </option>
+
+                    <option value="oldest" {% if request.GET.created == "oldest" %} selected {% endif %}>
+                        Oldest First
+                    </option>
+
+                </select>
+            </div>
+
+            <!-- BUTTONS -->
+            <div class="flex gap-3 pt-4">
+
+                <a href="{% url 'events:events' %}"
+                    class="flex-1 rounded-2xl border border-zinc-300 px-5 py-3 text-center font-semibold text-zinc-700 transition hover:bg-zinc-100">
+                    Reset
+                </a>
+
+                <button type="submit"
+                    class="flex-1 rounded-2xl bg-black px-5 py-3 font-semibold text-white transition hover:bg-zinc-800">
+                    Apply
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+    function openFilters() {
+        document.getElementById('filterOverlay').classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+    }
+
+    function closeFilters() {
+        document.getElementById('filterOverlay').classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+    }
+
+</script>
+
+{% endblock %}

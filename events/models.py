@@ -87,6 +87,15 @@ class EventModel(AbstractCreate):
     def get_total_tickets_sold(self):
         return sum([ticket.seats_sold for ticket in self.tickettypes.all()])
     
+    def get_total_tickets_unsold(self):
+        return sum([ticket.available_seats for ticket in self.tickettypes.all()])
+    
+    def get_first_ticket_price(self):
+        first_ticket = self.tickettypes.order_by('price').first()
+        if first_ticket:
+            return first_ticket.price
+        return None
+    
     def get_total_revenue(self):
         revenue = sum([ticket.seats_sold * ticket.price for ticket in self.tickettypes.all()])
         return revenue
@@ -179,6 +188,7 @@ class EventTicketTypeModel(AbstractCreate):
     class Meta:
         verbose_name = 'Event Ticket Type'
         verbose_name_plural = 'Event Ticket Types'
+        ordering = ['-price']
 
     def __str__(self) -> str:
         return f"{self.title} - R{self.price}"
