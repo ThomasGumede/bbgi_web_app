@@ -120,7 +120,14 @@
                         <span class="leading-1.8 lg:leading-1.8">{{event.content|safe}}</span>
                     </p>
                     <div class="text-base my-10 font-bold text-custom-h">
-                        <p class="py-2">from R{{ticket_type.price}} per ticket</p>
+                        
+                        {% if event.get_first_ticket_price %}
+                            <p class="py-2">from R{{event.get_first_ticket_price}} per ticket</p>
+                        {% else %}
+                            <p class="py-2">Free</p>
+                        {% endif %}
+                            
+                        
                         {% if event.status == "Completed" %}
                         <div class="px-4 group duration-150 w-fit  border-custom-h rounded-md h-14 grid items-center bg-custom-h ">
                             <p class="text-white text-base grid  duration-150 items-center justify-center w-full h-full font-semibold">Event
