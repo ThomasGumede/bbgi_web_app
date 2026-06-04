@@ -180,7 +180,13 @@
                                     </a>
                                 </td>
                                 <td>{{service.price_decription}} : R{{service.price}}</td>
-                                <td>{{service.discount_percentage}}%</td>
+                                <td>
+                                    {% if service.discount_percentage %}
+                                        {{service.discount_percentage}}%
+                                    {% else %}
+                                        No Discount
+                                    {% endif %}
+                                </td>
                                 <td>{{service.qoutations.count}}</td>
                                 <td >
                                     <a href="{% url 'markets:update-service' service_id=service.id listing_slug=service.business.slug %}"

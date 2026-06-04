@@ -95,7 +95,7 @@
 
                     <button data-dropdown-toggle="dropdownProfile" class="flex items-center justify-center rounded-full"
                         type="button">
-                        <img src="{% static 'images/user.png' %}" alt="image" class="object-fit-cover h-10 w-10 rounded-full" />
+                        <img src="{% if request.user.profile_image %}{{ request.user.profile_image.url }}{% else %}{% static 'images/user.png' %}{% endif %}" alt="{{request.user.first_name}}" class="object-fit-cover h-10 w-10 rounded-full" />
                     </button>
                     <div id="dropdownProfile"
                         class="dropdown-menu-sm z-10 hidden rounded-lg bg-white p-3 shadow-lg dark:bg-neutral-700">
@@ -105,7 +105,7 @@
                                 <h6 class="mb-0 text-lg font-semibold text-neutral-900">
                                     {{request.user.first_name}} {{request.user.last_name}}
                                 </h6>
-                                <span class="text-neutral-500">Admin</span>
+                                <span class="text-neutral-500">{{request.user.username}}</span>
                             </div>
                             <button type="button" class="hover:text-danger-600">
                                 <iconify-icon icon="radix-icons:cross-1" class="icon text-xl"></iconify-icon>

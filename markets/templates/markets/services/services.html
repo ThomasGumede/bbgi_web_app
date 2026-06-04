@@ -13,7 +13,7 @@ Update {{listing.title}}
 {% endblock css %}
 
 {% block content %}
-<div class="md:col-span-12 2xl:col-span-6">
+<div class="md:col-span-12 2xl:col-span-6 overflow-hidden">
     <div class="card h-full border-0">
         <div class="card-body p-6">
             <div class="flex items-center flex-wrap gap-2 justify-between mb-5">
@@ -45,7 +45,13 @@ Update {{listing.title}}
                                 </div>
                             </td>
                             <td>{{service.price_decription}} : R{{service.price}}</td>
-                            <td>{{service.discount_percentage}}%</td>
+                            <td>
+                            {% if service.discount_percentage %}
+                                {{service.discount_percentage}}%
+                                {% else %}
+                                No Discount
+                            {% endif %}
+                                </td>
                             <td>{{service.qoutations.count}}</td>
                             <td>
                                 <a href="{% url 'markets:update-service' service_id=service.id listing_slug=service.business.slug %}"
