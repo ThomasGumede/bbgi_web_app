@@ -16,11 +16,11 @@ class Service(AbstractCreate):
     title = models.CharField(max_length=150, unique=True)
     slug = models.SlugField(max_length=250)
     description = models.TextField()
-    price_decription = models.CharField(help_text=_("Enter service price decription e.g Callout fee"), max_length=150, null=True, blank=True, default="")
+    price_decription = models.CharField(help_text=_("Enter service price decription e.g Callout fee"), max_length=150, null=True, blank=True, default="Per Order")
     price = models.DecimalField(help_text=_("Enter service price e.g 300.00"), max_digits=1000, decimal_places=2, null=True, blank=True)
     on_discount = models.BooleanField(default=False)
     discount_percentage = models.DecimalField(max_digits=1000, decimal_places=2, help_text=_("Enter discount percentage, e.g 100"), null=True, blank=True, default=0)
-    discount_description = models.CharField(max_length=150, null=True, blank=True, help_text=_("Describe the discount e.g First Order"))
+    discount_description = models.CharField(max_length=150, null=True, blank=True, help_text=_("Describe the discount e.g First Order"), default="First Order")
     is_popular = models.BooleanField(default=False)
 
     def get_absolute_url(self):

@@ -1,18 +1,7 @@
 {% extends '_base.html' %}
 {% load static %}
 
-{% block styles %}
-<style>
-    #f {
-        color: #071a1d;
-    }
 
-    ul {
-        list-style: none;
-        padding-left: 0;
-    }
-</style>
-{% endblock styles %}
 
 {% block seo_tags %}
 <!-- Primary Meta Tags -->
@@ -42,6 +31,14 @@
 
 {% block styles %}
 <style>
+    #f {
+        color: #071a1d;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
     #hero-section-bg {
         background-image: url("{% static 'imgs/home.jpg' %}");
         background-size: cover;
