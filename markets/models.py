@@ -84,8 +84,7 @@ class Qoutation(AbstractCreate):
         
     def get_absolute_url(self):
         return reverse("markets:manage-quote", kwargs={"quotation_id": self.id})
-    
-        
+       
 class RequestService(AbstractCreate):
     service_title = models.CharField(max_length=350)
     file = models.ImageField(upload_to="business/qoutation/", null=True, blank=True)

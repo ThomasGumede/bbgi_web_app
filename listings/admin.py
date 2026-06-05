@@ -64,3 +64,9 @@ class BusinessMessagesAdmin(admin.ModelAdmin):
 @admin.register(ListingOrder)
 class ListingOrderAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(BusinessAnalytics)
+class BusinessAnalyticsAdmin(admin.ModelAdmin):
+    list_display = ('business', 'total_views', 'total_quotations', 'total_messages', 'created')
+    search_fields = ('business__title',)
+    list_filter = ('created',)
