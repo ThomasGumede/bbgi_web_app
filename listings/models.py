@@ -49,15 +49,15 @@ HOURS_TYPE = [
     ]
 
 PROVINCES = [
-    ("kzn", "KwaZulu-Natal"),
-    ("mp", "Mpumalanga"),
-    ("nw", "North-West"),
-    ("fs", "Free-State"),
-    ("wc", "Western Cape"),
-    ("lp", "Limpopo"),
-    ("gp", "Gauteng"),
-    ("ec", "Eastern Cape"),
-    ("nc", "Northern Cape"),
+    ("KZN", "KwaZulu-Natal"),
+    ("MP", "Mpumalanga"),
+    ("NW", "North-West"),
+    ("FS", "Free-State"),
+    ("WC", "Western Cape"),
+    ("LP", "Limpopo"),
+    ("GP", "Gauteng"),
+    ("EC", "Eastern Cape"),
+    ("NC", "Northern Cape"),
 ]
 
 class OperatingChoices(models.TextChoices):
