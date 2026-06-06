@@ -79,7 +79,7 @@
                 <!-- SEARCH -->
                 <div class="mt-12">
 
-                    <form method="GET" action="" class="mx-auto max-w-5xl">
+                    <form method="GET" action="{% url 'bbgi_home:search' %}" class="mx-auto max-w-5xl">
 
                         <div class="overflow-hidden rounded-3xl bg-white shadow-2xl">
 
@@ -95,8 +95,8 @@
                                             d="m21 21-4.35-4.35m0 0A7.65 7.65 0 1 0 5.85 5.85a7.65 7.65 0 0 0 10.8 10.8Z" />
                                     </svg>
 
-                                    <input type="text" name="q"
-                                        placeholder="Search events, businesses, jobs, services..."
+                                    <input type="text" name="query"
+                                        placeholder="Search events, businesses, services..."
                                         class="w-full border-none text-lg outline-none placeholder:text-zinc-400">
 
                                 </div>
@@ -107,15 +107,15 @@
                                     <select name="province"
                                         class="h-full w-full min-w-[240px] bg-white px-6 py-5 text-zinc-700 outline-none">
                                         <option value="">All Provinces</option>
-                                        <option>Eastern Cape</option>
-                                        <option>Free State</option>
-                                        <option>Gauteng</option>
-                                        <option>KwaZulu-Natal</option>
-                                        <option>Limpopo</option>
-                                        <option>Mpumalanga</option>
-                                        <option>North West</option>
-                                        <option>Northern Cape</option>
-                                        <option>Western Cape</option>
+                                        <option value="ec">Eastern Cape</option>
+                                        <option value="fs">Free State</option>
+                                        <option value="gt">Gauteng</option>
+                                        <option value="kzn">KwaZulu-Natal</option>
+                                        <option value="lp">Limpopo</option>
+                                        <option value="mp">Mpumalanga</option>
+                                        <option value="nw">North West</option>
+                                        <option value="nc">Northern Cape</option>
+                                        <option value="wc">Western Cape</option>
                                     </select>
 
                                 </div>
@@ -237,7 +237,7 @@
                 </p>
             </div>
 
-            <a href="#"
+            <a href="{% url 'events:events' %}"
                 class="mt-6 md:mt-0 inline-flex items-center px-6 py-3 bg-custom-primary text-white rounded-xl hover:bg-red-700 transition">
                 View All Events
                 <i class="fas fa-arrow-right ml-2"></i>

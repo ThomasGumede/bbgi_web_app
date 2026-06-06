@@ -92,6 +92,7 @@
                                         Search or Type Your Address*
                                     </label>
                                     {{form.main_address}}
+                                    {{form.province}}
                                     <span
                                         class="text-[11px] text-custom-text block font-normal lowercase">{{form.main_address.help_text}}</span>
                                     {% if form.main_address.errors %}
@@ -247,16 +248,20 @@
             };
             const getAddressComp = function (type) {
                 for (const component of place.address_components) {
-                    if (component.types[0] === type) {
-                        return component[addressNameFormat[type]];
+                    if (component.types.includes(type)) {
+                        return component[addressNameFormat[type]] || component.long_name;
                     }
                 }
                 return '';
             };
             const latitude = place.geometry.location.lat();
             const longitude = place.geometry.location.lng();
+            const province = getAddressComp('administrative_area_level_1');
             if (latitude && longitude) {
                 document.getElementById('id_map_coordinates').value = latitude + ',' + longitude;
+            }
+            if (province) {
+                document.getElementById('id_province').value = province;
             }
             autocompleteInput.value = `${getAddressComp('route')}, ${getAddressComp('locality')}, ${getAddressComp('administrative_area_level_1')}, ${getAddressComp('postal_code')}, South Africa`
         }

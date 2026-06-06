@@ -106,3 +106,4 @@ class RequestService(AbstractCreate):
         verbose_name = _("Qoutation Request")
         verbose_name_plural = _("Qoutation Requests")
         ordering = ["-created"]
+
