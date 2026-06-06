@@ -22,10 +22,10 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Business)
 class BusinessAdmin(admin.ModelAdmin):
     # Columns to display in list view
-    list_display = ('title', 'owner', 'category', 'province', 'status', 'is_completed', 'phone', 'website')
+    list_display = ('title', 'owner', 'category', 'main_address', 'province', 'status',  'phone', 'website')
     
     # Editable directly in list view
-    list_editable = ('status', 'is_completed')
+    list_editable = ('status', 'province')
     
     # Filters in sidebar
     list_filter = ('status', 'category', 'province', 'is_completed')
@@ -61,9 +61,9 @@ class BusinessMessagesAdmin(admin.ModelAdmin):
     search_fields = ('sender_full_names', 'sender_email', 'business__title')
     list_filter = ('created',)
 
-@admin.register(ListingOrder)
-class ListingOrderAdmin(admin.ModelAdmin):
-    pass
+# @admin.register(ListingOrder)
+# class ListingOrderAdmin(admin.ModelAdmin):
+#     pass
 
 @admin.register(BusinessAnalytics)
 class BusinessAnalyticsAdmin(admin.ModelAdmin):
