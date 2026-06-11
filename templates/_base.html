@@ -196,18 +196,18 @@
       <meta name="author" content="BBGI Team">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="robots" content="index, follow">
-      <link rel="canonical" href="https://bbgi.co.za/">
+      <link rel="canonical" href="{{ request.build_absolute_uri }}">
 
       <!-- Open Graph / Facebook -->
       <meta property="og:type" content="website">
-      <meta property="og:url" content="https://bbgi.co.za/">
+      <meta property="og:url" content="{{ request.build_absolute_uri }}">
       <meta property="og:title" content="{% block base_title1 %}BBGI - Empowering Black African Businesses and Professionals{% endblock %}">
       <meta property="og:description" content="BBGI is a platform for showcasing Black African businesses, campaigns, and events while fostering unity, collaboration, and growth among entrepreneurs and professionals.">
       <meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}">
 
       <!-- Twitter -->
       <meta name="twitter:card" content="summary_large_image">
-      <meta name="twitter:url" content="https://bbgi.co.za/">
+      <meta name="twitter:url" content="{{ request.build_absolute_uri }}">
       <meta name="twitter:title" content="{% block base_title2 %}BBGI - Empowering Black African Businesses and Professionals{% endblock %}">
       <meta name="twitter:description" content="BBGI is a platform for showcasing Black African businesses, campaigns, and events while fostering unity, collaboration, and growth among entrepreneurs and professionals.">
       <meta name="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}">
@@ -229,7 +229,7 @@
         {
           "@context": "https://schema.org",
           "@type": "WebSite",
-          "url": "https://bbgi.co.za/",
+          "url": "{{ request.build_absolute_uri }}",
           "name": "Black Business Growth Initiative (BBGI)",
           "description": "A platform to empower Black African businesses and professionals through business listings, campaigns, and events.",
           "publisher": {
@@ -243,25 +243,25 @@
             "query-input": "required name=search_term_string"
           },
           "hasPart": [
-            {
-              "@type": "Service",
-              "name": "Business Listings",
-              "description": "Explore Black-owned businesses and their services. Join BBGI to list your business and connect with other entrepreneurs.",
-              "url": "https://bbgi.co.za/businesses"
-            },
-            {
-              "@type": "Service",
-              "name": "Campaign Listings",
-              "description": "Support and discover campaigns by Black African professionals and businesses to drive community and economic growth.",
-              "url": "https://bbgi.co.za/campaigns"
-            },
-            {
-              "@type": "Service",
-              "name": "Event Listings",
-              "description": "Attend networking events, seminars, and workshops to grow your business and connect with the Black African business community.",
-              "url": "https://bbgi.co.za/events"
-            }
-          ]
+                {
+                  "@type": "Service",
+                  "name": "Business Listings",
+                  "description": "Explore Black-owned businesses and their services. Join BBGI to list your business and connect with other entrepreneurs.",
+                  "url": "{% url 'listings:listings' %}"
+                },
+                {
+                  "@type": "Service",
+                  "name": "Campaign Listings",
+                  "description": "Support and discover campaigns by Black African professionals and businesses to drive community and economic growth.",
+                  "url": "{% url 'campaigns:campaigns' %}"
+                },
+                {
+                  "@type": "Service",
+                  "name": "Event Listings",
+                  "description": "Attend networking events, seminars, and workshops to grow your business and connect with the Black African business community.",
+                  "url": "{% url 'events:events' %}"
+                }
+              ]
         }
       </script>
     {% endblock seo_tags %}

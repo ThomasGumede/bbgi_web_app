@@ -3,7 +3,7 @@ from listings.models import Business, Category
 from django.db.models import Q
 from django.db.models import Avg
 
-def sort_listing(sort_by=None, province=None, bbee_level=None, query=None, place=None, category=None, tag=None):
+def sort_listing(sort_by=None, province=None, bbee_level=None, query=None, category_search=None, category=None, tag=None):
     """
     Filter and sort business listings based on provided parameters.
     
@@ -12,7 +12,7 @@ def sort_listing(sort_by=None, province=None, bbee_level=None, query=None, place
         province (str): Province filter
         bbee_level (str): BBBEE level filter
         query (str): General search query
-        place (str): Location-specific search (used for main_address if provided)
+        category_search (str): Location-specific search (used for main_address if provided)
         category (str): Category slug
         tag (str): Tag name or slug
     
@@ -23,6 +23,10 @@ def sort_listing(sort_by=None, province=None, bbee_level=None, query=None, place
     
     if category:
         category = get_object_or_404(Category, slug=category)
+        listings = listings.filter(category=category)
+    
+    if category_search:
+        category = get_object_or_404(Category, slug=category_search)
         listings = listings.filter(category=category)
 
     if province:
@@ -35,9 +39,9 @@ def sort_listing(sort_by=None, province=None, bbee_level=None, query=None, place
         listings = listings.filter(
             Q(title__icontains=query) | 
             Q(tags__name__icontains=query) | 
-            Q(category__label__icontains=query) | 
+            Q(category__label__icontains=query or category_search) | 
             Q(slogan__icontains=query) | 
-            Q(main_address__icontains=place or query)
+            Q(main_address__icontains=province or query)
         )
 
     if tag:

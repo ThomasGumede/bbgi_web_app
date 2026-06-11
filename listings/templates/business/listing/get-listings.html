@@ -3,7 +3,7 @@
 
 
 {% block seo_tags %}
-<title>Businesses - Discover Black-Owned Enterprises on BBGI</title>
+<title>Black-owned businesses in South Africa &dash; BBGI</title>
 <meta name="description"
     content="Explore and connect with Black-owned businesses listed on BBGI. Find services, expertise, and opportunities to support and collaborate with these enterprises.">
 <meta name="keywords"
@@ -14,7 +14,7 @@
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-<meta property="og:title" content="Businesses - Discover Black-Owned Enterprises on BBGI" />
+<meta property="og:title" content="Black-owned businesses in South Africa &dash; BBGI" />
 <meta property="og:description"
     content="Explore and connect with Black-owned businesses listed on BBGI. Find services, expertise, and opportunities to support and collaborate with these enterprises." />
 <meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
@@ -22,7 +22,7 @@
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
-<meta property="twitter:title" content="Businesses - Discover Black-Owned Enterprises on BBGI" />
+<meta property="twitter:title" content="Black-owned businesses in South Africa &dash; BBGI" />
 <meta property="twitter:description"
     content="Explore and connect with Black-owned businesses listed on BBGI. Find services, expertise, and opportunities to support and collaborate with these enterprises." />
 <meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
@@ -213,48 +213,66 @@
         </div>
 
         <!-- FORM -->
+         <form method="GET" class="space-x-5 p-6 flex items-center justify-between">
+            <input type="text" name="search" value="{{ request.GET.search }}" placeholder="Search businesses..."
+                class="w-full rounded-xl border px-4 py-3">
+                <button type="submit" class="bg-custom-primary px-10 py-3 rounded-xl text-lg font-semibold text-white transition hover:bg-red-700">
+                    Search
+                </button>
+         </form>
         <form method="GET" class="space-y-5 p-6">
 
             <!-- SEARCH -->
-            <input type="text" name="search" value="{{ request.GET.search }}" placeholder="Search businesses..."
-                class="w-full rounded-xl border px-4 py-3">
+            
 
             <!-- CATEGORY -->
             <select name="category" class="w-full rounded-xl border px-4 py-3">
                 <option value="">All Categories</option>
-                {% for c in categories %}
-                <option value="{{ c.id }}">{{ c.name }}</option>
+                {% for c in listing_categories %}
+                <option value="{{ c.slug }}">{{ c.label }}</option>
                 {% endfor %}
             </select>
 
             <!-- BBBEE -->
             <select name="bbbee_level" class="w-full rounded-xl border px-4 py-3">
                 <option value="">BBBEE Level</option>
-                {% for level, label in bbbee_levels %}
-                <option value="{{ level }}">{{ label }}</option>
+                {% for key, value in bbee_levels.items %}
+                <option value="{{ key }}">{{ value }}</option>
                 {% endfor %}
+
             </select>
 
             <!-- PROVINCE -->
             <select name="province" class="w-full rounded-xl border px-4 py-3">
                 <option value="">Province</option>
-                {% for p in provinces %}
-                <option value="{{ p }}">{{ p }}</option>
-                {% endfor %}
+                
+                <option value="KZN">KwaZulu-Natal</option>
+                <option value="MP">Mpumalanga</option>
+                <option value="NW">North-West</option>
+                <option value="FS">Free-State</option>
+                <option value="WC">Western Cape</option>
+                <option value="LP">Limpopo</option>
+                <option value="GP">Gauteng</option>
+                <option value="EC">Eastern Cape</option>
+                <option value="NC">Northern Cape</option>
+                
             </select>
 
             <!-- SORT -->
-            <select name="sort" class="w-full rounded-xl border px-4 py-3">
+            <select name="sort_by" class="w-full rounded-xl border px-4 py-3">
                 <option value="newest">Newest</option>
                 <option value="oldest">Oldest</option>
+                <option value="best-rating">Best Rating</option>
+                <option value="title_asc">Title A-Z</option>
+                <option value="title_desc">Title Z-A</option>
             </select>
 
             <!-- STATUS -->
-            <select name="status" class="w-full rounded-xl border px-4 py-3">
+            <!-- <select name="status" class="w-full rounded-xl border px-4 py-3">
                 <option value="">All Status</option>
                 <option value="APPROVED">Approved</option>
                 <option value="PENDING">Pending</option>
-            </select>
+            </select> -->
 
             <!-- BUTTONS -->
             <div class="flex gap-3 pt-4">

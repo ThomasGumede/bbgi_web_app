@@ -4,7 +4,7 @@ from django.forms import formset_factory, modelformset_factory, BaseModelFormSet
 from listings.forms import BusinessForm, BusinessSocialForm, BusinessContent, BusinessReviewForm, BusinessUpdateForm, BusinessMessageForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
-from listings.models import Business, BusinessLocation, Category, BusinessHour, BusinessAnalytics
+from listings.models import Business, BusinessLocation, Category, BBBEE_RATINGS, BusinessAnalytics
 from django.core import serializers
 from django.http import JsonResponse
 from listings.tasks import send_on_boarding_email
@@ -45,22 +45,32 @@ def get_started_with_listing(request):
     return render(request, "business/get-started.html")
 
 def get_listings(request, category=None, tag=None):
-    query = request.GET.get("query", None)
-    place = request.GET.get("place", None)
+    query = request.GET.get("search", None)
+    category_filter = request.GET.get("category", None)
     sort_by = request.GET.get("sort_by", None)
     province = request.GET.get("province", None)
-    bbee_level = request.GET.get("bbee", None)
+    bbee_level = request.GET.get("bbbee_level", None)
     
-    listings = sort_listing(sort_by, province, bbee_level, query, place, category, tag)
+    listings = sort_listing(sort_by, province, bbee_level, query, category_filter, category, tag)
     
-    
+    BBEEE = {
+        "BEL1": "BBEEE Level 1",
+        "BEL2": "BBEEE Level 2",
+        "BEL3": "BBEEE Level 3",
+        "BEL4": "BBEEE Level 4",
+        "BEL5": "BBEEE Level 5",
+        "BEL6": "BBEEE Level 6",
+        "BEL7": "BBEEE Level 7",
+        "NOT": "Not Sure",
+        "NC": "Non-compliance",
+    }
     context = {
         "listings": listings,
         "query": query, 
-        "place": place, 
+        "category_filter": category_filter, 
         "sort_by": sort_by,
         "province": province,
-        "bbee_level": bbee_level, "category": category, "tag": tag}
+        "bbee_level": bbee_level, "category": category, "tag": tag, "bbee_levels": BBEEE,}
     return render(request, "business/listing/get-listings.html", context)
 
 def get_listing(request, listing_slug):

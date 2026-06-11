@@ -21,25 +21,36 @@
 
     window.onload = loadRecaptcha;
 </script>
-<title>BBGI - Contact Black Business Growth Initiative</title>
-<meta name="title" content="BBGI - Contact Black Business Growth Initiative" />
+
+
+
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"ContactPage",
+ "url":"{{ request.build_absolute_uri }}",
+ "name":"Contact BBGI"
+}
+</script>
+<title>Contact BBGI | Get In Touch</title>
+<meta name="title" content="Contact BBGI | Get In Touch" />
 <meta name="description"
-    content="We serves as a unified community of Black entrepreneurs and professionals, providing a space to showcase businesses and expertise." />
+    content="Contact BBGI for business listings, events, partnerships, sponsorships, fundraising campaigns and support." />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/contact-us" />
-<meta property="og:title" content="BBGI - Contact Black Business Growth Initiative" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+<meta property="og:title" content="Contact BBGI | Get In Touch" />
 <meta property="og:description"
-    content="We serves as a unified community of Black entrepreneurs and professionals, providing a space to showcase businesses and expertise." />
+    content="Reach out to the BBGI team for assistance and partnership opportunities." />
 <meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/contact-us" />
-<meta property="twitter:title" content="BBGI - Contact Black Business Growth Initiative" />
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
+<meta property="twitter:title" content="Contact BBGI | Get In Touch" />
 <meta property="twitter:description"
-    content="We serves as a unified community of Black entrepreneurs and professionals, providing a space to showcase businesses and expertise." />
+    content="Reach out to the BBGI team for assistance and partnership opportunities." />
 <meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 
 <!-- Meta Tags Generated with https://metatags.io -->

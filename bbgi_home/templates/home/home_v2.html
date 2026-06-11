@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block styles %}
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <style>
     #f {
         color: #071a1d;
@@ -218,163 +220,219 @@
 
 </section>
 
-{% if events.count >= 3 %}
 
-<section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6">
+<section class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
 
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
-            <div>
-                <span class="text-custom-primary font-semibold uppercase tracking-wider">
-                    Trending Events
-                </span>
-
-                <h2 class="text-4xl font-bold text-gray-900 mt-2">
-                    Upcoming Experiences
-                </h2>
-
-                <p class="text-gray-600 mt-3">
-                    Discover conferences, networking sessions, workshops and community events.
-                </p>
-            </div>
-
-            <a href="{% url 'events:events' %}"
-                class="mt-6 md:mt-0 inline-flex items-center px-6 py-3 bg-custom-primary text-white rounded-xl hover:bg-red-700 transition">
-                View All Events
-                <i class="fas fa-arrow-right ml-2"></i>
-            </a>
+        <!-- Heading -->
+        <div class="mb-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900">
+                Businesses by Provinces
+            </h2>
+            <p class="text-gray-600 mt-1">
+                Explore verified businesses across South Africa
+            </p>
         </div>
 
-        <!-- Slider -->
-        <div class="overflow-x-auto scrollbar-hide">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 pb-4 px-4">
-                {% for event in events %}
-                <!-- Event Card -->
-                <div
-                    class="group relative w-full max-w-sm overflow-hidden rounded-3xl bg-white shadow-xl transition duration-300 hover:-translate-y-1 hover:shadow-2xl">
-                
-                    <!-- Event Image -->
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="{% if event.image %}{{event.image.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}"
-                            alt="{{ event.title }}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
-                
-                        <!-- Overlay -->
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                
-                        <!-- Category Badge -->
-                        <div class="absolute top-4 left-4">
-                            <span
-                                class="rounded-full bg-white/90 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-zinc-900 backdrop-blur">
-                                {{ event.category }}
-                            </span>
+        <!-- Swiper -->
+        <div class="swiper provinceSwiper">
+            <div class="swiper-wrapper">
+
+                <!-- KwaZulu-Natal -->
+                <div class="swiper-slide">
+                    <div class="relative overflow-hidden rounded-2xl shadow-md h-44 group">
+
+                        <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition duration-500"
+                            style="background-image: url('https://cisp.cachefly.net/assets/articles/images/resized/0000649418_resized_kzn16171022.jpg');">
                         </div>
-                
-                        <!-- Price -->
-                        <div class="absolute top-4 right-4">
-                            <span class="rounded-full bg-black/80 px-4 py-1 text-sm font-bold text-white backdrop-blur">
-                
-                                {% if event.get_first_ticket_price %}
-                                From R{{ event.get_first_ticket_price }}
-                                {% else %}
-                                Free
-                                {% endif %}
-                
-                
-                            </span>
-                        </div>
-                
-                        <!-- Event Info Overlay -->
-                        <div class="absolute bottom-0 w-full p-5 text-white">
-                            <div class="mb-2 flex items-center gap-2 text-sm text-zinc-200">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                    stroke="currentColor" class="h-4 w-4">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M6.75 3v2.25M17.25 3v2.25M3 8.25h18M4.5 5.25h15A1.5 1.5 0 0121 6.75v11.25A1.5 1.5 0 0119.5 19.5h-15A1.5 1.5 0 013 18V6.75A1.5 1.5 0 014.5 5.25z" />
-                                </svg>
-                
-                                <span>{{ event.date_time_formatter }}</span>
+
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/10"></div>
+
+                        <div class="relative p-6 text-white">
+                            <h3 class="text-xl font-bold text-white">KwaZulu-Natal</h3>
+                            <p class="text-sm text-white/80 mt-1">1,240 Businesses</p>
+
+                            <div class="mt-4 h-2 w-full bg-white/20 rounded-full">
+                                <div class="h-2 bg-blue-400 rounded-full w-[70%]"></div>
                             </div>
-                
-                            <h2 class="text-2xl font-bold leading-tight !text-white">
-                                <a class="hover:underline !text-white" href="{{event.get_absolute_url}}">
-                                    {{event.title|truncatewords:5}}
-                                </a>
-                            </h2>
                         </div>
                     </div>
-                
-                    <!-- Content -->
-                    <div class="space-y-5 p-5">
-                
-                        <!-- Location -->
-                        <div class="flex items-start gap-3">
-                            <div class="mt-1 text-zinc-500">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                    stroke="currentColor" class="h-5 w-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 21s6-4.35 6-10.125A6 6 0 006 10.875C6 16.65 12 21 12 21z" />
-                                    <circle cx="12" cy="10.875" r="2.25" />
-                                </svg>
-                            </div>
-                
-                            <div>
-                                <p class="text-sm font-medium text-zinc-900">
-                                    {{ event.event_address }}
-                                </p>
-                                <p class="text-sm text-zinc-500">
-                                    {{ event.venue_name }}
-                                </p>
-                            </div>
-                        </div>
-                
-                        <!-- Description -->
-                        <p class="line-clamp-3 text-sm leading-relaxed text-zinc-600">
-                            {{ event.small_description|truncatewords:10 }}
-                        </p>
-                
-                        <!-- Footer -->
-                        <div class="flex items-center justify-between pt-2">
-                
-                            <!-- Tickets Left -->
-                            <div>
-                                <p class="text-xs uppercase tracking-wide text-zinc-400">
-                                    Tickets Left
-                                </p>
-                                <p class="font-bold text-zinc-900">
-                                    {{ event.get_total_tickets_unsold }}
-                                </p>
-                            </div>
-                
-                            <!-- Button -->
-                            <a href="{{event.get_absolute_url}}"
-                                class="inline-flex items-center gap-2 rounded-xl bg-black px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800">
-                
-                                Get Tickets
-                
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                    stroke="currentColor" class="h-4 w-4">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                                </svg>
-                
-                            </a>
-                
-                        </div>
-                
-                    </div>
-                
                 </div>
-                {% endfor %}
 
-                
+                <!-- North West -->
+                <div class="swiper-slide">
+                    <div class="relative overflow-hidden rounded-2xl shadow-md h-44 group">
+
+                        <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition duration-500"
+                            style="background-image: url('https://interestingfacts.co.za/wp-content/uploads/2023/05/Sun-City-North-West-Province.jpg');">
+                        </div>
+
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/10"></div>
+
+                        <div class="relative p-6 text-white">
+                            <h3 class="text-xl font-bold text-white">North West</h3>
+                            <p class="text-sm text-white/80 mt-1">1,240 Businesses</p>
+
+                            <div class="mt-4 h-2 w-full bg-white/20 rounded-full">
+                                <div class="h-2 bg-blue-400 rounded-full w-[70%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Northen Cape -->
+                <div class="swiper-slide">
+                    <div class="relative overflow-hidden rounded-2xl shadow-md h-44 group">
+
+                        <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition duration-500"
+                            style="background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20220315/pngtree-colonial-german-architecture-in-swakopmund-city-wall-color-photo-image_21738654.jpg');">
+                        </div>
+
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/10"></div>
+
+                        <div class="relative p-6 text-white">
+                            <h3 class="text-xl font-bold text-white">Northen Cape</h3>
+                            <p class="text-sm text-white/80 mt-1">3,890 Businesses</p>
+
+                            <div class="mt-4 h-2 w-full bg-white/20 rounded-full">
+                                <div class="h-2 bg-green-400 rounded-full w-[90%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Free State -->
+                <div class="swiper-slide">
+                    <div class="relative overflow-hidden rounded-2xl shadow-md h-44 group">
+
+                        <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition duration-500"
+                            style="background-image: url('https://www.gotosouthafrica.co.za/wp-content/uploads/2023/04/Go-To-South-Africa-Blog-Banner-9-1.jpg');">
+                        </div>
+
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/10"></div>
+
+                        <div class="relative p-6 text-white">
+                            <h3 class="text-xl font-bold text-white">Free State</h3>
+                            <p class="text-sm text-white/80 mt-1">3,890 Businesses</p>
+
+                            <div class="mt-4 h-2 w-full bg-white/20 rounded-full">
+                                <div class="h-2 bg-green-400 rounded-full w-[90%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mpumalanga -->
+                <div class="swiper-slide">
+                    <div class="relative overflow-hidden rounded-2xl shadow-md h-44 group">
+
+                        <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition duration-500"
+                            style="background-image: url('https://thumbs.dreamstime.com/b/nelspruit-city-night-stars-sky-mpumalanga-south-africa-nelspruit-city-night-stars-sky-205603783.jpg');">
+                        </div>
+
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/10"></div>
+
+                        <div class="relative p-6 text-white">
+                            <h3 class="text-xl font-bold text-white">Mpumalanga</h3>
+                            <p class="text-sm text-white/80 mt-1">3,890 Businesses</p>
+
+                            <div class="mt-4 h-2 w-full bg-white/20 rounded-full">
+                                <div class="h-2 bg-green-400 rounded-full w-[90%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gauteng -->
+                <div class="swiper-slide">
+                    <div class="relative overflow-hidden rounded-2xl shadow-md h-44 group">
+
+                        <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition duration-500"
+                            style="background-image: url('https://cdn.britannica.com/49/100349-050-24E63356/view-central-business-district-Johannesburg-South-Africa.jpg');">
+                        </div>
+
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/10"></div>
+
+                        <div class="relative p-6 text-white">
+                            <h3 class="text-xl font-bold text-white">Gauteng</h3>
+                            <p class="text-sm text-white/80 mt-1">3,890 Businesses</p>
+
+                            <div class="mt-4 h-2 w-full bg-white/20 rounded-full">
+                                <div class="h-2 bg-green-400 rounded-full w-[90%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Western Cape -->
+                <div class="swiper-slide">
+                    <div class="relative overflow-hidden rounded-2xl shadow-md h-44 group">
+
+                        <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition duration-500"
+                            style="background-image: url('https://www.discoverafrica.com/wp-content/uploads/2018/12/western-cape-aerial-of-city-1.jpg');">
+                        </div>
+
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/10"></div>
+
+                        <div class="relative p-6 text-white">
+                            <h3 class="text-xl font-bold text-white">Western Cape</h3>
+                            <p class="text-sm text-white/80 mt-1">2,150 Businesses</p>
+
+                            <div class="mt-4 h-2 w-full bg-white/20 rounded-full">
+                                <div class="h-2 bg-purple-400 rounded-full w-[80%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Eastern Cape -->
+                <div class="swiper-slide">
+                    <div class="relative overflow-hidden rounded-2xl shadow-md h-44 group">
+
+                        <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition duration-500"
+                            style="background-image: url('https://soluap.com/wp-content/uploads/2023/05/image-241.png');">
+                        </div>
+
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/10"></div>
+
+                        <div class="relative p-6 text-white">
+                            <h3 class="text-xl font-bold text-white">Eastern Cape</h3>
+                            <p class="text-sm text-white/80 mt-1">980 Businesses</p>
+
+                            <div class="mt-4 h-2 w-full bg-white/20 rounded-full">
+                                <div class="h-2 bg-yellow-400 rounded-full w-[55%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Limpopo -->
+                <div class="swiper-slide">
+                    <div class="relative overflow-hidden rounded-2xl shadow-md h-44 group">
+
+                        <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition duration-500"
+                            style="background-image: url('https://limpopo.hotelguide.co.za/images/polokwane-590x390.jpg');">
+                        </div>
+
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/10"></div>
+
+                        <div class="relative p-6 text-white">
+                            <h3 class="text-xl font-bold text-white">Limpopo</h3>
+                            <p class="text-sm text-white/80 mt-1">760 Businesses</p>
+
+                            <div class="mt-4 h-2 w-full bg-white/20 rounded-full">
+                                <div class="h-2 bg-red-400 rounded-full w-[45%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
-        </div>
 
+            <!-- Navigation -->
+            <div class="swiper-pagination mt-6"></div>
+        </div>
     </div>
 </section>
-
-{% endif %}
-
 <!-- banner section -->
 
 <section class="bg-custom-bg py-20">
@@ -484,6 +542,12 @@
 </section>
 
 <!-- services section -->
+
+
+
+
+
+
 
 
 <!-- about section -->
@@ -1381,7 +1445,28 @@
     });
 
 </script>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
+<script>
+    const swiperrr = new Swiper(".provinceSwiper", {
+        slidesPerView: 1.2,
+        spaceBetween: 16,
+        loop: true,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 2.2,
+            },
+            1024: {
+                slidesPerView: 3.5,
+            },
+        },
+    });
+</script>
 <script>
 function cookieConsent() {
     return {

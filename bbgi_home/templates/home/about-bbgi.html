@@ -5,28 +5,48 @@
 
 {% block seo_tags %}
 <!-- Primary Meta Tags -->
-<title>BBGI - The Leading Business Growth Initiative</title>
-<meta name="title" content="BBGI - The Leading Business Growth Initiative" />
+<title>About BBGI | Black Business Growth Initiative South Africa</title>
+
 <meta name="description"
-    content="Black Business Growth Initiative was formed with the intention of creating a gathering of black African business owners  and professionals. It is..." />
+    content="Learn about BBGI (Black Business Growth Initiative), a South African platform empowering Black-owned businesses through networking, events, fundraising campaigns, education, and marketplace opportunities.">
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://bbgi.co.za/about-us" />
-<meta property="og:title" content="BBGI - The Leading Business Growth Initiative" />
+<meta name="keywords"
+    content="BBGI, Black Business Growth Initiative, Black-owned businesses South Africa, entrepreneurship, economic empowerment, business networking, business directory South Africa">
+
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="About BBGI | Black Business Growth Initiative">
 <meta property="og:description"
-    content="Black Business Growth Initiative was formed with the intention of creating a gathering of black African business owners  and professionals. It is..." />
-<meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+    content="Empowering Black-owned businesses across South Africa through networking, events, funding opportunities and marketplace visibility.">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:site_name" content="BBGI">
+<meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}">
 
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bbgi.co.za/about-us" />
-<meta property="twitter:title" content="BBGI - The Leading Business Growth Initiative" />
-<meta property="twitter:description"
-    content="Black Business Growth Initiative was formed with the intention of creating a gathering of black African business owners  and professionals. It is..." />
-<meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About BBGI">
+<meta name="twitter:description" content="Learn about BBGI and our mission to empower Black-owned businesses.">
+<meta name="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}">
 
-<!-- Meta Tags Generated with https://metatags.io -->
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Organization",
+ "name":"Black Business Growth Initiative",
+ "alternateName":"BBGI",
+ "url":"https://bbgi.co.za",
+ "logo":"https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}",
+ "description":"South Africa's leading platform for Black-owned businesses, events, fundraising campaigns and entrepreneurship.",
+ "sameAs":[
+   "https://facebook.com/bbgi",
+   "https://linkedin.com/company/bbgi",
+   "https://instagram.com/bbgi"
+ ]
+}
+</script>
+
 {% endblock seo_tags %}
 
 {% block styles %}
