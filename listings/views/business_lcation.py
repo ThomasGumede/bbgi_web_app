@@ -5,6 +5,10 @@ from listings.models import Business, BusinessLocation
 from django.contrib import messages
 import json, logging
 
+def get_listings_by_province(request, province):
+    businesses = Business.objects.approved_by_province(province)
+    return render(request, "business/listing/get-listings.html", {"businesses": businesses, "province": province})
+
 @login_required
 def get_locations(request, listing_slug):
     queryset = Business.objects.all().prefetch_related("business_locations")

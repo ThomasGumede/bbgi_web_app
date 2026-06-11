@@ -34,11 +34,11 @@
 
     <!-- TOP BAR -->
     <div class="z-30 border-b border-zinc-200 bg-white/90 backdrop-blur">
-        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
+        <div class="mx-auto flex flex-flow max-w-7xl items-center justify-between px-4 py-4">
 
             <div>
                 <h1 class="text-2xl font-bold text-zinc-900">
-                    Businesses
+                    Black-owned businesses in South Africa
                 </h1>
 
                 <p class="text-sm text-zinc-500">
@@ -87,7 +87,7 @@
                         
 
                         <div class="text-white">
-                            <h2 class="font-bold text-lg leading-tight">
+                            <h2 class="font-bold text-lg leading-tight mb-0">
                                 <a href="{{business.get_absolute_url}}" class="text-white">
                                     {{ business.title }}
                                 </a>
@@ -114,18 +114,18 @@
 
                     <!-- LOCATION -->
                     <p class="text-sm text-zinc-600">
-                        📍 {% if business.main_address %}{{ business.main_address }}{% else %}<em>No address available</em>{% endif %}
+                        <i class="fa-solid fa-location-dot"></i> {% if business.main_address %}{{ business.main_address }}{% else %}<em>No address available</em>{% endif %}
                     </p>
 
                     <!-- TAGS -->
                     <div class="flex flex-wrap gap-2 text-xs">
 
-                        <span class="rounded-full bg-zinc-100 px-3 py-1">
+                        <a class="rounded-full bg-zinc-100 px-3 py-1" href="{% url 'listings:get-listings-by-category' business.category.slug %}">
                             {{ business.category.label }}
-                        </span>
+                        </a>
 
                         <span class="rounded-full bg-blue-100 text-blue-700 px-3 py-1">
-                            BBBEE: {{ business.bbbee_level }}
+                            BBBEE: {{ business.get_bbbee_level_display }}
                         </span>
 
                         <span class="rounded-full bg-green-100 text-green-700 px-3 py-1">
@@ -277,7 +277,7 @@
             <!-- BUTTONS -->
             <div class="flex gap-3 pt-4">
 
-                <a href="" class="flex-1 text-center rounded-xl border px-4 py-3">
+                <a href="{% url 'listings:listings' %}" class="flex-1 text-center rounded-xl border px-4 py-3">
                     Reset
                 </a>
 

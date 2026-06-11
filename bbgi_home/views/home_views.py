@@ -22,8 +22,21 @@ def bbgi_home(request):
     listings = Business.objects.all()[:5]
     events = EventModel.objects.order_by('-created')[:3]
     testimonials = Review.objects.all()
-    popular_services = Service.objects.filter(is_popular=True, on_discount=True)[:3]
-    return render(request, "home/home_v2.html", {"posts": blogs, "listings": listings, "testimonials": testimonials, "events": events})
+    context = {
+        "posts": blogs,
+        "listings": listings,
+        "testimonials": testimonials,
+        "kzn": Business.objects.approved_by_province("KwaZulu-Natal").count(),
+        "lp": Business.objects.approved_by_province("Limpopo").count(),
+        "gp": Business.objects.approved_by_province("Gauteng").count(),
+        "ec": Business.objects.approved_by_province("Eastern Cape").count(),
+        "fs": Business.objects.approved_by_province("Free State").count(),
+        "mp": Business.objects.approved_by_province("Mpumalanga").count(),
+        "nc": Business.objects.approved_by_province("Northern Cape").count(),
+        "nw": Business.objects.approved_by_province("North West").count(),
+        "wc": Business.objects.approved_by_province("Western Cape").count(),
+    }
+    return render(request, "home/home_v2.html", context)
 
 def about_bbgi(request):
     members = Member.objects.all()

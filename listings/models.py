@@ -17,6 +17,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from accounts.utilities.validators import validate_fcbk_link, validate_in_link, validate_insta_link, validate_rsa_phone, validate_twitter_link
 from campaigns.utils import PaymentStatus
 from listings.utilities.file_handlers import handle_business_file_upload, handle_business_verification_file_upload
+from listings.utilities.managers import BusinessManager
 
 DAYCHOICES = [
     ("MO", "Monday"),
@@ -154,6 +155,7 @@ class Business(AbstractCreate):
         help_text="Add tags separated by commas", blank=True
     )
 
+    objects = BusinessManager()
     class Meta:
         verbose_name = 'Business'
         verbose_name_plural = 'Businesses'
