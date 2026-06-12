@@ -16,7 +16,7 @@ urlpatterns = [
     path("account/listings/manage", manage_listings, name="manage-listings"),
     path("listings/category=<slug:category>", get_listings, name="get-listings-by-category"),
     path("listings/tag=<slug:tag>", get_listings, name="get-listings-by-tag"),
-    path("listings/province=<str:province>", get_listings_by_province, name="get-listings-by-province"),
+    path("businesses-in-<str:province>", get_listings_by_province, name="get-listings-by-province"),
     path("business/<slug:listing_slug>", get_listing, name="get-listing"),
     path("listing/create-listing", add_listing, name = "add-listing"),
     path("listing/<slug:listing_slug>/create-listing", add_listing, name = "add-listing-with-slug"),
