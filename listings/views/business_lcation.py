@@ -7,7 +7,7 @@ import json, logging
 
 def get_listings_by_province(request, province:str):
     businesses = Business.objects.approved_by_province(province)
-    return render(request, "business/listing/get-listings-by-province.html", {"businesses": businesses, "province": province})
+    return render(request, "business/listing/get-listings-by-province.html", {"listings": businesses, "province": province})
 
 @login_required
 def get_locations(request, listing_slug):

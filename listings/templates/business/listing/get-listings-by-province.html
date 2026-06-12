@@ -5,7 +5,7 @@
 {% block seo_tags %}
 <title>Black-owned businesses in {{ province }} &dash; BBGI</title>
 <meta name="description"
-    content="Explore and connect with Black-owned businesses listed on BBGI. Find services, expertise, and opportunities to support and collaborate with these enterprises.">
+    content="Explore and connect with {{province}} Black-owned businesses listed on BBGI. Find services, expertise, and opportunities to support and collaborate with these enterprises.">
 <meta name="keywords"
     content="Black-owned businesses, business directory, Black entrepreneurs, BBGI businesses, Cape Town business community">
 <meta name="robots" content="index, follow">
@@ -16,7 +16,7 @@
 <meta property="og:url" content="{{ request.build_absolute_uri }}" />
 <meta property="og:title" content="Black-owned businesses in {{ province }} &dash; BBGI" />
 <meta property="og:description"
-    content="Explore and connect with Black-owned businesses listed on BBGI. Find services, expertise, and opportunities to support and collaborate with these enterprises." />
+    content="Explore and connect with {{province}} Black-owned businesses listed on BBGI. Find services, expertise, and opportunities to support and collaborate with these enterprises." />
 <meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 
 <!-- Twitter -->
@@ -24,7 +24,7 @@
 <meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
 <meta property="twitter:title" content="Black-owned businesses in {{ province }} &dash; BBGI" />
 <meta property="twitter:description"
-    content="Explore and connect with Black-owned businesses listed on BBGI. Find services, expertise, and opportunities to support and collaborate with these enterprises." />
+    content="Explore and connect with {{province}} Black-owned businesses listed on BBGI. Find services, expertise, and opportunities to support and collaborate with these enterprises." />
 <meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 {% endblock seo_tags %}
 

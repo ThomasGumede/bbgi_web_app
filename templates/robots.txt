@@ -8,5 +8,26 @@ Allow: {% url 'bbgi_home:contact' %}
 Allow: {% url 'bbgi_home:blogs' %}
 Allow: {% url 'campaigns:campaigns' %}
 Allow: {% url 'listings:listings' %}
+Allow: {% url 'listings:get-listings-by-province' 'KwaZulu-Natal' %}
+Allow: {% url 'listings:get-listings-by-province' 'Gauteng' %}
+Allow: {% url 'listings:get-listings-by-province' 'Western Cape' %}
+Allow: {% url 'listings:get-listings-by-province' 'Eastern Cape' %}
+Allow: {% url 'listings:get-listings-by-province' 'Limpopo' %}
+Allow: {% url 'listings:get-listings-by-province' 'Mpumalanga' %}
+Allow: {% url 'listings:get-listings-by-province' 'North West' %}
+Allow: {% url 'listings:get-listings-by-province' 'Free State' %}
+Allow: {% url 'listings:get-listings-by-province' 'Northern Cape' %}
+{% for category in listing_categories %}
+Allow: {% url 'listings:get-listings-by-category' category.slug %}
+{% endfor %}
 Allow: {% url 'events:events' %}
+{% comment %} Allow: {% url 'events:get-events-by-province' 'KwaZulu-Natal' %}
+Allow: {% url 'events:get-events-by-province' 'Gauteng' %}
+Allow: {% url 'events:get-events-by-province' 'Western Cape' %}
+Allow: {% url 'events:get-events-by-province' 'Eastern Cape' %}
+Allow: {% url 'events:get-events-by-province' 'Limpopo' %}
+Allow: {% url 'events:get-events-by-province' 'Mpumalanga' %}
+Allow: {% url 'events:get-events-by-province' 'North West' %}
+Allow: {% url 'events:get-events-by-province' 'Free State' %}
+Allow: {% url 'events:get-events-by-province' 'Northern Cape' %} {% endcomment %}
 Sitemap: {{ request.scheme }}://{{ request.get_host }}/sitemap.xml
