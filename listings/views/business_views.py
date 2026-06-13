@@ -71,7 +71,12 @@ def get_listings(request, category=None, tag=None):
         "sort_by": sort_by,
         "province": province,
         "bbee_level": bbee_level, "category": category, "tag": tag, "bbee_levels": BBEEE,}
-    return render(request, "business/listing/get-listings.html", context)
+
+    if tag:
+        return render(request, "business/listing/get-listings-by-tag.html", context)
+
+    else:
+        return render(request, "business/listing/get-listings.html", context)
 
 def get_listing(request, listing_slug):
     queryset = Business.objects.all().select_related("category").prefetch_related("business_hours", "reviews", "images")

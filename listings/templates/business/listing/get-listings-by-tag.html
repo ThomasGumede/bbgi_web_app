@@ -3,28 +3,28 @@
 
 
 {% block seo_tags %}
-<title>Black-owned businesses in {{ province }} &dash; BBGI</title>
+<title>{{tag}} companies in South Africa &dash; BBGI</title>
 <meta name="description"
-    content="Explore and connect with {{province}} Black-owned businesses listed on BBGI. Find services, expertise, and opportunities to support and collaborate with these enterprises.">
+    content="Explore and connect with {{tag}} companies in South Africa. Find services, expertise, and opportunities to support and collaborate with these enterprises.">
 <meta name="keywords"
-    content="Black-owned businesses, business directory, Black entrepreneurs, BBGI businesses, Cape Town business community">
+    content="Black-owned businesses, business directory, Black entrepreneurs, BBGI businesses, Cape Town business community, {{tag}} companies in South Africa, {{tag}}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="{{ request.build_absolute_uri }}">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-<meta property="og:title" content="Black-owned businesses in {{ province }} &dash; BBGI" />
+<meta property="og:title" content="{{tag}} companies in South Africa &dash; BBGI" />
 <meta property="og:description"
-    content="Explore and connect with {{province}} Black-owned businesses listed on BBGI. Find services, expertise, and opportunities to support and collaborate with these enterprises." />
+    content="Explore and connect with {{tag}} companies in South Africa. Find services, expertise, and opportunities to support and collaborate with these enterprises." />
 <meta property="og:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
-<meta property="twitter:title" content="Black-owned businesses in {{ province }} &dash; BBGI" />
+<meta property="twitter:title" content="{{tag}} companies in South Africa &dash; BBGI" />
 <meta property="twitter:description"
-    content="Explore and connect with {{province}} Black-owned businesses listed on BBGI. Find services, expertise, and opportunities to support and collaborate with these enterprises." />
+    content="Explore and connect with {{tag}} companies in South Africa. Find services, expertise, and opportunities to support and collaborate with these enterprises." />
 <meta property="twitter:image" content="https://bbgi.co.za{% static 'imgs/logo/logo.jpeg' %}" />
 {% endblock seo_tags %}
 
@@ -38,7 +38,7 @@
 
             <div>
                 <h1 class="text-2xl font-bold text-zinc-900">
-                    Black-owned businesses in {{ province }}
+                    {{tag}} companies in South Africa
                 </h1>
 
                 <p class="text-sm text-zinc-500">
