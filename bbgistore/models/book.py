@@ -5,8 +5,10 @@ from django.contrib.auth import get_user_model
 from bbgistore.models.abstract import StoreCategory, StoreItem, Person
 from django.utils.translation import gettext as _
 from django.template.defaultfilters import slugify
-from bbgistore.utilities.validators import validate_file_type
+from bbgistore.utilities.validators import generate_unique_slug, validate_file_type
 from pypdf import PdfReader
+from pathlib import Path
+from django.core.exceptions import ValidationError
 
 class Book(StoreItem):
     book_review_file = models.FileField(upload_to="bbgistore/book_reviews/", help_text=_("Provide a PDF file containing the book review"), null=True, blank=True, validators=[validate_file_type]) 
@@ -43,7 +45,8 @@ class Book(StoreItem):
     def save(self, *args, **kwargs):
         # Ensure the book_format is always set to "ebook"
         self.book_format = "ebook"
-        self.slug = slugify(self.title)
+        if not self.slug:
+            self.slug = generate_unique_slug(self, self.title)
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -64,9 +67,9 @@ class BookFile(AbstractCreate):
     )
 
     file = models.FileField(
-        upload_to="books/",
+        upload_to="books/", null=True, blank=True, help_text=_("Upload book file")
     )
-
+    book_file_link = models.URLField(null=True, blank=True, help_text=_("Provide a book file link e.g google drive, cloud drive, etc"))
     version = models.CharField(
         max_length=50,
         default="1.0",
@@ -104,16 +107,31 @@ class BookFile(AbstractCreate):
         verbose_name_plural = "Book Files"
         ordering = ["-created"]
         
+    def clean(self):
+        from urllib.parse import urlparse
+        super().clean()
+        if self.file == None and self.book_file_link == None:
+            raise ValidationError("Please provide atleast one book source, either book link or book file")
+        
+        if self.book_file_link:
+            parse = urlparse(self.book_file_link)
+            if not parse.scheme:
+                self.book_file_link = f"https://{self.book_file_link}"
+        
     def save(self, *args, **kwargs):
         # Update file_size and checksum when saving
         
         if self.file:
             reader = PdfReader(self.file)
-            self.book.number_of_pages = len(reader.pages)
-            self.book.save(update_fields=['number_of_pages'])
+
            
             self.file_size = self.file.size
-            self.extension = self.file.name.split('.')[-1].lower()
+            self.extension = Path(self.file.name).suffix.replace(".", "").lower()
+            if Path(self.file.name).suffix.replace(".", "").lower() == "pdf":
+                reader = PdfReader(self.file)
+                self.book.number_of_pages = len(reader.pages)
+                self.book.save(update_fields=["number_of_pages"])
+                
             import hashlib
             sha256 = hashlib.sha256()
             for chunk in self.file.chunks():

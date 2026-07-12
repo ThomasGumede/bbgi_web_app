@@ -2,6 +2,7 @@ import uuid
 from django.db import models
 from django.utils.translation import gettext as _
 from accounts.utilities.validators import validate_fcbk_link, validate_in_link, validate_insta_link, validate_twitter_link, verify_rsa_phone
+from campaigns.utils import PaymentStatus
 
 PHONE_VALIDATOR = verify_rsa_phone()
 
@@ -53,6 +54,16 @@ class AbstractPayment(models.Model):
     payment_method_masked_card = models.CharField(max_length=50, null=True, blank=True)
     payment_method_scheme = models.CharField(max_length=50, null=True, blank=True)
     payment_date = models.CharField(max_length=50, null=True, blank=True)
+    currency = models.CharField(
+        max_length=5,
+        default="ZAR"
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=PaymentStatus.choices,
+        default=PaymentStatus.PENDING,
+    )
+    
 
     class Meta:
         abstract = True

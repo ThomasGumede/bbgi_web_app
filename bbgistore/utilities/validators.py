@@ -1,5 +1,19 @@
 import magic
 from django.core.exceptions import ValidationError
+from django.utils.text import slugify
+
+def generate_unique_slug(instance, value, slug_field="slug"):
+    slug = slugify(value)
+    unique_slug = slug
+    num = 1
+
+    Model = instance.__class__
+
+    while Model.objects.filter(**{slug_field: unique_slug}).exclude(pk=instance.pk).exists():
+        unique_slug = f"{slug}-{num}"
+        num += 1
+
+    return unique_slug
 
 def validate_recap_video_file_size(file):
     """

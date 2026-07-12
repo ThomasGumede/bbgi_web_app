@@ -45,6 +45,10 @@ class StoreCategory(AbstractCreate):
     class Meta:
         ordering = ("-created",)
         verbose_name_plural = "Store Categories"
+        
+    @property
+    def book_count(self):
+        return self.books.count()
 
     def __str__(self):
         return self.title
