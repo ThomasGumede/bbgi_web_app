@@ -1,0 +1,106 @@
+<a href="{% url 'bbgistore:book_details' book.slug %}"
+    class="group bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden flex flex-col">
+
+    <div class=" overflow-hidden bg-gray-100">
+
+        {% if book.thumbnail %}
+
+        <img src="{{ book.thumbnail.url }}" alt="{{ book.title }}"
+            class=" h-64 w-full object-thumbnail group-hover:scale-105 transition duration-300">
+
+        {% else %}
+
+        <div class="h- h-64 flex items-center justify-center">
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-gray-300" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v12m6-6H6" />
+
+            </svg>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <div class="p-5 flex flex-col flex-grow">
+
+        <div class="flex items-center justify-between mb-2">
+
+            <span class="text-xs font-medium bg-gray-100 text-gray-700 px-2 py-1 rounded">
+
+                {{ book.book_format }}
+
+            </span>
+
+            {% if book.category %}
+
+            <span class="text-xs text-gray-500">
+                {{ book.category.title }}
+            </span>
+
+            {% endif %}
+
+        </div>
+
+        <h2 class="font-semibold text-lg text-gray-900 line-clamp-2">
+
+            {{ book.title }}
+
+        </h2>
+
+        {% if book.get_first_author %}
+        <p class="mt-2 text-sm text-gray-500">
+            {{ book.get_first_author }}
+        </p>
+        {% endif %}
+
+        {% if book.short_description %}
+        <p class="mt-3 text-sm text-gray-600 line-clamp-3">
+            {{ book.short_description }}
+        </p>
+        {% endif %}
+
+        <div class="mt-auto pt-5 flex items-center justify-between">
+
+            <div>
+
+                {% if book.sale_price %}
+
+                <p class="text-xl font-bold">
+
+                    R{{ book.sale_price }}
+
+                </p>
+
+                <p class="text-sm text-gray-400 line-through">
+
+                    R{{ book.price }}
+
+                </p>
+
+                {% else %}
+
+                <p class="text-xl font-bold">
+
+                    R{{ book.price }}
+
+                </p>
+
+                {% endif %}
+
+            </div>
+
+            <span class="bg-black text-white px-4 py-2 rounded-lg text-sm">
+
+                View
+
+            </span>
+
+        </div>
+
+    </div>
+
+</a>

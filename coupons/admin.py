@@ -2,8 +2,8 @@ from django.contrib import admin
 from coupons.models import Coupon
 
 @admin.action(description="Deactivate selected coupons")
-def make_inactive(modeladmin, request, querset):
-    querset.update(active=False)
+def make_inactive(modeladmin, request, queryset):
+    queryset.update(active=False)
 
 @admin.register(Coupon)
 class CouponAdmin(admin.ModelAdmin):

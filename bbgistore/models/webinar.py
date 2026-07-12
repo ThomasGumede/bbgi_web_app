@@ -31,6 +31,7 @@ class Webinar(StoreItem):
     cpd_points = models.PositiveIntegerField(validators=[MinValueValidator(0, _("CPD points should be 0 or more"))], help_text=_("Enter the number of CPD points awarded for attending this webinar. Set to 0 if not applicable."), default=0)
     webinar_type = models.CharField(max_length=20, choices=Type.choices, default=Type.LIVE)
     level = models.CharField(max_length=20, choices=Level.choices, default=Level.ALL)
+    added_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, related_name="webinars", help_text=_("The person who added this webinar."))
     
     
     class Meta:

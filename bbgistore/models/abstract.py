@@ -17,8 +17,8 @@ class StoreItem(AbstractCreate):
     slug = models.SlugField(unique=True)
     short_description = models.CharField(max_length=300, help_text=_("Enter short description about this book/webinar/course"))
     description = HTMLField(help_text=_("Enter full description about this book/webinar/course"))
-    thumbnail = models.ImageField(upload_to="bbgistore/thumbnails/", help_text=_("Choose an image for this book/webinar/course"))
-    recap_video = models.FileField(upload_to="bbgistore/videos/", help_text=_("Provide a short video explaination for this book/webinar/course, should be not longer than 5 minutes"), validators=[validate_video_file_type, validate_recap_video_file_size])
+    thumbnail = models.ImageField(upload_to="bbgistore/thumbnails/", help_text=_("Choose an image for this book/webinar/course"), null=True, blank=True)
+    recap_video = models.FileField(upload_to="bbgistore/videos/", help_text=_("Provide a short video explaination for this book/webinar/course, should be not longer than 5 minutes"), validators=[validate_video_file_type, validate_recap_video_file_size], null=True, blank=True)
     price = models.DecimalField(max_digits=10,decimal_places=2)
     status = models.CharField(max_length=30, choices=StoreStatusChoices.choices, default=StoreStatusChoices.DRAFT)
     featured = models.BooleanField(default=False)
@@ -27,9 +27,7 @@ class StoreItem(AbstractCreate):
         through=UUIDTaggedItem,
         help_text=_("Add tags separated by commas"), blank=True
     )
-    added_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, related_name="store_items")
 
-    
     class Meta: 
         verbose_name = "Store Item"
         verbose_name_plural = "Store Items"
@@ -53,9 +51,9 @@ class StoreCategory(AbstractCreate):
     
 class Person(AbstractCreate):
     full_names = models.CharField(max_length=250, help_text=_("Enter full names of the Author/Contributor/Instructor"))
-    thumbnail = models.ImageField(upload_to="bbgistore/thumbnails/", help_text=_("Choose an image for this Author/Contributor/Instructor"))
+    thumbnail = models.ImageField(upload_to="bbgistore/thumbnails/", help_text=_("Choose an image for this Author/Contributor/Instructor"), null=True, blank=True)
     biography = models.TextField(blank=True, help_text=_("Enter biography"))
-    bbgi_account = models.OneToOneField(get_user_model(), related_name="author_or_instructor", on_delete=models.SET_NULL, null=True, help_text=_("If this person has bbgi account, please select them or leave the space blank"))
+    bbgi_account = models.OneToOneField(get_user_model(), related_name="author_or_instructor", on_delete=models.SET_NULL, null=True, blank=True, help_text=_("If this person has bbgi account, please select them or leave the space blank"), verbose_name=_("BBGI Account"))
 
     class Meta:
         ordering = ("-created",)

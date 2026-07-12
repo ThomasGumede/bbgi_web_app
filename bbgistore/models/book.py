@@ -5,9 +5,11 @@ from django.contrib.auth import get_user_model
 from bbgistore.models.abstract import StoreCategory, StoreItem, Person
 from django.utils.translation import gettext as _
 from django.template.defaultfilters import slugify
+from bbgistore.utilities.validators import validate_file_type
 from pypdf import PdfReader
 
 class Book(StoreItem):
+    book_review_file = models.FileField(upload_to="bbgistore/book_reviews/", help_text=_("Provide a PDF file containing the book review"), null=True, blank=True, validators=[validate_file_type]) 
     category = models.ForeignKey(StoreCategory, on_delete=models.SET_NULL, null=True, blank=True, related_name="books", help_text=_("Select category for this book"))
     isbn = models.CharField(max_length=20, blank=True,unique=True, help_text=_("Provide ISBN for this book"))
     edition = models.CharField(max_length=200, blank=True, help_text=_("Provide edition e.g 1st Edition"))
@@ -16,12 +18,28 @@ class Book(StoreItem):
     number_of_pages = models.PositiveIntegerField(validators=[MinValueValidator(1, _("Number of pages in book should be more that 1"))])
     book_format = models.CharField(max_length=100, default="ebook", help_text=_("Currently, only eletronic books are sold"), editable=False)
     authors = models.ManyToManyField(Person, related_name="books", blank=True)
+    added_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, related_name="books", help_text=_("The person who added this book."))
 
     class Meta:
         verbose_name = "Book"
         verbose_name_plural = "Books"
         ordering = ["-created"]
         
+    @property
+    def get_first_author(self):
+        first_author = self.authors.first()
+        return first_author.full_names if first_author else "Unknown Author"
+    
+    @property
+    def get_all_authors(self):
+        authors = self.authors.all()
+        return ", ".join(f"{author.full_names}(Author)" for author in authors) if authors else "Unknown Author"
+    
+    @property
+    def get_other_book_format(self):
+        files = self.bookfiles.all()
+        return ", ".join(f"{file.extension.upper()}(File)" for file in files) if files else "No other formats available"
+
     def save(self, *args, **kwargs):
         # Ensure the book_format is always set to "ebook"
         self.book_format = "ebook"

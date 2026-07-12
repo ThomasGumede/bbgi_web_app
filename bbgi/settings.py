@@ -82,9 +82,6 @@ if DEBUG:
     ALLOWED_HOSTS=['*']
 
 else:
-    
-    
-
     # SSL SETTINGS
     
     SECURE_SSL_REDIRECT = True
@@ -129,13 +126,14 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     
     'accounts.apps.AccountsConfig',
-    'bbgi_home',
-    'listings',
+    'bbgi_home.apps.BbgiHomeConfig',
+    'listings.apps.ListingsConfig',
     'campaigns.apps.CampaignsConfig',
     'events.apps.EventsConfig',
-    "markets",
+    "markets.apps.MarketsConfig",
     'payments.apps.PaymentsConfig',
-    'coupons',
+    'coupons.apps.CouponsConfig',
+    'bbgistore.apps.BbgistoreConfig',
     
     'tailwind',
     'theme',
