@@ -87,7 +87,7 @@ class Webinar(StoreItem):
     @property
     def enrollment_count(self):
         return self.enrollments.count()
-
+    
 
     @property
     def attendee_count(self):

@@ -4,6 +4,9 @@ import os, re
 from bbgi.logging_settings import LOGGING
 from decouple import config, Csv
 from celery.schedules import crontab
+from django.templatetags.static import static
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
 BROKER_URL = 'redis://127.0.0.1:6379/0'
@@ -115,8 +118,12 @@ if not os.path.exists(TICKETS_QRCODE_DIR):
 # Application definition
 
 INSTALLED_APPS = [
-    'admin_interface',
-    'colorfield',
+    "unfold",
+    "unfold.contrib.filters",  # optional, if special filters are needed
+    "unfold.contrib.forms",  # optional, if special form elements are needed
+    "unfold.contrib.inlines",  # optional, if special inlines are needed
+    "unfold.contrib.import_export",  # optional, if django-import-export package is used
+    "unfold.contrib.guardian",  # optional, if django-guardian package is used
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -304,3 +311,77 @@ else:
     EMAIL_HOST_USER = 'noreply@bbgi.co.za'
     EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
     DEFAULT_FROM_EMAIL = 'BBGI <noreply@bbgi.co.za>'
+
+UNFOLD = {
+
+    "SITE_TITLE": "BBGI Administration",
+
+    "SITE_HEADER": "BBGI",
+
+    "SITE_SYMBOL": "dashboard",
+
+    "SHOW_HISTORY": True,
+    "SITE_URL": "/",
+
+    "SHOW_VIEW_ON_SITE": True,
+    "SITE_DROPDOWN": [
+        {
+            "icon": "diamond",
+            "title": _("My site"),
+            "link": "https://example.com",
+            "attrs": {
+                "target": "_blank",
+            },
+        },
+        {
+            "icon": "diamond",
+            "title": _("My site"),
+            "link": reverse_lazy("admin:index"),
+        },
+    ],
+    "SITE_ICON": {
+        "light": lambda request: static("imgs/android-chrome-512x512.png"),  # light mode
+        "dark": lambda request: static("imgs/android-chrome-512x512.png"),  # dark mode
+    },
+    # "SITE_LOGO": lambda request: static("logo.svg"),  # both modes, optimise for 32px height
+    "SITE_LOGO": {
+        "light": lambda request: static("images/logo.png"),  # light mode
+        "dark": lambda request: static("images/logo-light.png"),  # dark mode
+    },
+    "SITE_SYMBOL": "speed",  # symbol from icon set
+    "SITE_FAVICONS": [
+        {
+            "rel": "icon",
+            "sizes": "32x32",
+            "type": "image/png",
+            "href": lambda request: static("imgs/favicon-32x32.png"),
+        },
+    ],
+    
+    "COLORS": {
+
+        "primary": {
+            "50": "250 247 234",
+            "100": "244 238 203",
+            "200": "236 225 159",
+            "300": "226 210 116",
+            "400": "217 196 92",
+            "500": "209 181 75",   # Your Gold
+            "600": "184 159 47",
+            "700": "156 135 40",
+            "800": "126 109 32",
+            "900": "94 82 24",
+        },
+
+    },
+    "STYLES": [
+
+        lambda request: static("admin/css/bbgi-admin.css"),
+
+    ],
+    "ENVIRONMENT": "Dev", # environment name in header
+    "ENVIRONMENT_TITLE_PREFIX": "Dev", # environment name prefix in title tag
+    "THEME": "dark",
+}
+
+

@@ -51,6 +51,7 @@ def validate_video_file_type(file):
     """
     # Define allowed MIME types for video files
     allowed_mime_types = [
+        'application/octet-stream',
         'video/mp4',  # MP4
         'video/x-msvideo',  # AVI
         'video/x-matroska',  # MKV

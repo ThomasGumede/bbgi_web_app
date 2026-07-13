@@ -3,9 +3,15 @@ from accounts.custom_models.account import Account, SubscriptionPackage, Subscri
 from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
+from unfold.forms import AdminPasswordChangeForm, UserChangeForm, UserCreationForm
+from unfold.admin import ModelAdmin
+from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
+from django.contrib.auth.models import User, Group
+
+admin.site.unregister(Group)
 
 @admin.register(Account)
-class AccountAdmin(UserAdmin):
+class AccountAdmin(UserAdmin, ModelAdmin):
     def profile_image_tag(self, obj):
         """Display user profile image thumbnail in admin."""
         if obj.profile_image:
@@ -116,14 +122,18 @@ class AccountAdmin(UserAdmin):
         }),
     )
 
+@admin.register(Group)
+class GroupAdmin(BaseGroupAdmin, ModelAdmin):
+    pass
+
 @admin.register(AboutCompany)
-class AboutCompanyAdmin(admin.ModelAdmin):
+class AboutCompanyAdmin(ModelAdmin):
     pass
 
-@admin.register(SubscriptionPackage)
-class SubscriptionPackageAdmin(admin.ModelAdmin):
-    pass
+# @admin.register(SubscriptionPackage)
+# class SubscriptionPackageAdmin(ModelAdmin):
+#     pass
 
-@admin.register(SubscriptionOrder)
-class SubscriptionOrderAdmin(admin.ModelAdmin):
-    pass
+# @admin.register(SubscriptionOrder)
+# class SubscriptionOrderAdmin(ModelAdmin):
+#     pass

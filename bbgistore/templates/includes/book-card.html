@@ -1,94 +1,130 @@
-<a href="{% url 'bbgistore:book_details' book.slug %}"
-    class="group bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden flex flex-col">
+<div
+    class="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-primary-500 hover:shadow-xl transition-all duration-300">
 
-    <div class=" overflow-hidden bg-gray-100">
+    <!-- Thumbnail -->
+    <div class="relative overflow-hidden">
 
-        {% if book.thumbnail %}
+        <img src="{% if book.thumbnail %}{{ book.thumbnail.url }}{% else %}{% endif %}" alt="{{ book.title }}"
+            class="w-full h-72 object-cover group-hover:scale-105 transition duration-500">
 
-        <img src="{{ book.thumbnail.url }}" alt="{{ book.title }}"
-            class=" h-64 w-full object-thumbnail group-hover:scale-105 transition duration-300">
+        <!-- Category -->
+        {% if book.category %}
+        <span
+            class="absolute top-4 left-4 bg-white/90 backdrop-blur text-xs font-semibold px-3 py-1 rounded-full shadow">
+            {{ book.category.title }}
+        </span>
+        {% endif %}
 
-        {% else %}
-
-        <div class="h- h-64 flex items-center justify-center">
-
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-gray-300" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v12m6-6H6" />
-
-            </svg>
-
-        </div>
-
+        <!-- Discount -->
+        {% if book.sale_price %}
+        <span class="absolute top-4 right-4 bg-red-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+            Sale
+        </span>
+        {% elif book.is_free %}
+        <span class="absolute top-4 right-4 bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+            FREE
+        </span>
         {% endif %}
 
     </div>
 
-    <div class="p-5 flex flex-col flex-grow">
+    <!-- Content -->
+    <div class="p-6">
 
-        <div class="flex items-center justify-between mb-2">
+        <!-- Title -->
+        <h3 class="text-xl font-bold text-gray-900 line-clamp-2 mb-2">
+            <a href="{{ book.get_absolute_url }}" class="hover:text-primary-600">
+                {{ book.title }}
+            </a>
+        </h3>
 
-            <span class="text-xs font-medium bg-gray-100 text-gray-700 px-2 py-1 rounded">
-
-                {{ book.book_format }}
-
+        <!-- Author -->
+        <p class="text-sm text-gray-500 mb-4">
+            By
+            <span class="font-medium text-gray-700">
+                {{ book.first_author }}
             </span>
+        </p>
 
-            {% if book.category %}
+        
 
-            <span class="text-xs text-gray-500">
-                {{ book.category.title }}
-            </span>
+        <!-- Info -->
+        <div class="grid grid-cols-2 gap-3 text-sm mb-5">
 
-            {% endif %}
+            <div class="flex items-center gap-2 text-gray-600">
+                <i class="fa-solid fa-file-lines text-primary-500"></i>
+                {{ book.number_of_pages }} pages
+            </div>
+
+            <div class="flex items-center gap-2 text-gray-600">
+                <i class="fa-solid fa-hard-drive text-primary-500"></i>
+                {{ book.bookfiles.first.formatted_size }}
+            </div>
+
+            <div class="flex items-center gap-2 text-gray-600 col-span-2">
+                <i class="fa-solid fa-file-arrow-down text-primary-500"></i>
+                {{ book.get_other_book_format }}
+            </div>
 
         </div>
 
-        <h2 class="font-semibold text-lg text-gray-900 line-clamp-2">
+        <!-- Tags -->
+        {% if book.tags.all %}
+        <div class="flex flex-wrap gap-2 mb-5">
 
-            {{ book.title }}
+            {% for tag in book.tags.all|slice:":3" %}
+            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">
+                {{ tag }}
+            </span>
+            {% endfor %}
 
-        </h2>
+        </div>
+        {% endif %}
 
-        <div class="mt-auto pt-2 flex items-center justify-between">
+        <!-- Price -->
+        <div class="flex items-center justify-between border-t pt-5">
 
             <div>
 
-                {% if book.sale_price %}
+                {% if book.is_free %}
+                <div class="text-2xl font-bold text-green-600">
+                    Free
+                </div>
 
-                <p class="text-xl font-bold">
+                {% elif book.sale_price %}
 
-                    R{{ book.sale_price }}
+                <div class="flex items-center gap-2">
 
-                </p>
+                    <span class="text-2xl font-bold text-primary-600">
+                        R{{ book.sale_price }}
+                    </span>
 
-                <p class="text-sm text-gray-400 line-through">
+                    <span class="text-gray-400 line-through">
+                        R{{ book.price }}
+                    </span>
 
-                    R{{ book.price }}
-
-                </p>
+                </div>
 
                 {% else %}
 
-                <p class="text-xl font-bold">
-
+                <span class="text-2xl font-bold text-primary-600">
                     R{{ book.price }}
-
-                </p>
+                </span>
 
                 {% endif %}
 
             </div>
 
-            <span class="bg-black text-white px-4 py-2 rounded-lg text-sm">
+            <a href="{{ book.get_absolute_url }}"
+                class="inline-flex items-center gap-2 text-primary-600 bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-lg font-medium transition">
 
                 View
+                <i class="fa-solid fa-arrow-right"></i>
 
-            </span>
+            </a>
 
         </div>
 
     </div>
 
-</a>
+</div>

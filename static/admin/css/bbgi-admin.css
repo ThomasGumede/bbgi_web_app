@@ -1,0 +1,11 @@
+.sidebar {
+    background: #103447;
+}
+
+.sidebar a {
+    color: white;
+}
+
+.sidebar a:hover {
+    color: #D1B54B;
+}

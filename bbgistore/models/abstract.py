@@ -19,7 +19,15 @@ class StoreItem(AbstractCreate):
     description = HTMLField(help_text=_("Enter full description about this book/webinar/course"))
     thumbnail = models.ImageField(upload_to="bbgistore/thumbnails/", help_text=_("Choose an image for this book/webinar/course"), null=True, blank=True)
     recap_video = models.FileField(upload_to="bbgistore/videos/", help_text=_("Provide a short video explaination for this book/webinar/course, should be not longer than 5 minutes"), validators=[validate_video_file_type, validate_recap_video_file_size], null=True, blank=True)
+    recap_video_url = models.URLField(help_text=_("Provide recap video url for this book/webinar/course"), blank=True, null=True)
     price = models.DecimalField(max_digits=10,decimal_places=2)
+    sale_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True
+    )
+    is_free = models.BooleanField(default=False)
     status = models.CharField(max_length=30, choices=StoreStatusChoices.choices, default=StoreStatusChoices.DRAFT)
     featured = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -66,3 +74,7 @@ class Person(AbstractCreate):
 
     def __str__(self):
         return self.full_names
+    
+    
+    
+    

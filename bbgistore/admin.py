@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.db.models import Count
+from unfold.admin import ModelAdmin
 from bbgistore.models.abstract import StoreCategory, Person
 from bbgistore.models.book import Book, BookFile, BookDownload
 from bbgistore.models.webinar import Webinar, WebinarVideo
@@ -25,12 +25,19 @@ class BookFileInline(admin.StackedInline):
 
 class WebinarVideoInline(admin.StackedInline):
     model = WebinarVideo
-    extra = 0
+    extra = 1
+    min_num = 0
+    ordering = ("order",)
+    autocomplete_fields = ()
     fields = (
-        "video",
-        "video_link",
-        "is_bonus",
+        "title",
+        "description",
+        ("order", "duration"),
+        ("video", "video_link"),
+        "thumbnail",
+        ("is_preview", "is_bonus", "is_active"),
     )
+    readonly_fields = ("created", "updated")
 
 
 # ==========================================================
@@ -38,7 +45,7 @@ class WebinarVideoInline(admin.StackedInline):
 # ==========================================================
 
 @admin.register(StoreCategory)
-class StoreCategoryAdmin(admin.ModelAdmin):
+class StoreCategoryAdmin(ModelAdmin):
     list_display = (
         "title",
         "book_count",
@@ -71,7 +78,7 @@ class StoreCategoryAdmin(admin.ModelAdmin):
 # ==========================================================
 
 @admin.register(Person)
-class PersonAdmin(admin.ModelAdmin):
+class PersonAdmin(ModelAdmin):
     list_display = (
         "photo",
         "full_names",
@@ -199,7 +206,7 @@ class PersonAdmin(admin.ModelAdmin):
 # BOOK
 # ==========================================================
 @admin.register(Book)
-class BookAdmin(admin.ModelAdmin):
+class BookAdmin(ModelAdmin):
     list_display = (
         "cover",
         "title",
@@ -425,7 +432,7 @@ class BookAdmin(admin.ModelAdmin):
 # BOOK FILES
 # ==========================================================
 @admin.register(BookFile)
-class BookFileAdmin(admin.ModelAdmin):
+class BookFileAdmin(ModelAdmin):
     list_display = (
         "book",
         "extension_badge",
@@ -594,7 +601,7 @@ class BookFileAdmin(admin.ModelAdmin):
 # ==========================================================
 
 @admin.register(BookDownload)
-class BookDownloadAdmin(admin.ModelAdmin):
+class BookDownloadAdmin(ModelAdmin):
     list_display = (
         "user",
         "book",
@@ -715,7 +722,7 @@ class BookDownloadAdmin(admin.ModelAdmin):
 # ==========================================================
 
 @admin.register(Webinar)
-class WebinarAdmin(admin.ModelAdmin):
+class WebinarAdmin(ModelAdmin):
     list_display = (
         "thumbnail_preview",
         "title",
@@ -905,7 +912,7 @@ class WebinarAdmin(admin.ModelAdmin):
 
     @admin.display(description="Videos")
     def video_count(self, obj):
-        return obj.webinarvideos.count()
+        return obj.videos.count()
 
     @admin.display(description="Status")
     def status_badge(self, obj):
@@ -976,7 +983,7 @@ class WebinarAdmin(admin.ModelAdmin):
             super()
             .get_queryset(request)
             .select_related("category", "added_by")
-            .prefetch_related("presenters", "webinarvideos")
+            .prefetch_related("presenters", "videos")
         )
 
 # ==========================================================
@@ -984,7 +991,7 @@ class WebinarAdmin(admin.ModelAdmin):
 # ==========================================================
 
 @admin.register(WebinarVideo)
-class WebinarVideoAdmin(admin.ModelAdmin):
+class WebinarVideoAdmin(ModelAdmin):
     list_display = (
         "webinar",
         "video_name",
