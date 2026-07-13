@@ -381,7 +381,7 @@ UNFOLD = {
     ],
     "ENVIRONMENT": "Dev", # environment name in header
     "ENVIRONMENT_TITLE_PREFIX": "Dev", # environment name prefix in title tag
-    "THEME": "dark",
+    
 }
 
 
