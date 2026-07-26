@@ -1,0 +1,293 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}{{ webinar.title }}{% endblock title %}
+
+{% block content %}
+<div class="min-h-screen bg-[#070B11] text-white">
+    <!-- Top Brand Strip -->
+    <div class="border-b border-white/10 bg-[#0B1220]">
+        <div
+            class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div class="flex items-center gap-3">
+                <div
+                    class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-600 text-[#07111D] font-extrabold shadow-lg shadow-amber-500/20">
+                    BBGI
+                </div>
+                <div>
+                    <p class="text-sm font-semibold tracking-wide text-amber-300">Black Business Growth Initiative</p>
+                    <p class="text-xs text-white/60">Books, webinars, courses, and growth opportunities</p>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+                {% if webinar.featured %}
+                <span
+                    class="inline-flex items-center rounded-full bg-amber-400/15 px-3 py-1 font-semibold text-amber-300 ring-1 ring-amber-400/30">Featured</span>
+                {% endif %}
+                <span
+                    class="inline-flex items-center rounded-full bg-white/5 px-3 py-1 font-medium text-white/70 ring-1 ring-white/10">{{webinar.get_webinar_type_display }}</span>
+                <span
+                    class="inline-flex items-center rounded-full bg-white/5 px-3 py-1 font-medium text-white/70 ring-1 ring-white/10">{{webinar.get_level_display }}</span>
+                {% if webinar.is_free %}
+                <span
+                    class="inline-flex items-center rounded-full bg-emerald-400/15 px-3 py-1 font-semibold text-emerald-300 ring-1 ring-emerald-400/30">Free
+                    Access</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+        <div class="mb-6 flex items-center justify-between gap-4">
+            <a href="javascript:history.back()"
+                class="inline-flex items-center gap-2 text-sm font-medium text-white/70 hover:text-amber-300 transition-colors">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back
+            </a>
+
+            {% if webinar.featured %}
+            <span
+                class="inline-flex items-center rounded-full bg-amber-400/15 px-3 py-1 text-xs font-semibold text-amber-300 ring-1 ring-amber-400/30">
+                Featured
+            </span>
+            {% endif %}
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Hero Card -->
+                <div class="overflow-hidden rounded-[2rem] bg-white/5 shadow-2xl ring-1 ring-white/10 backdrop-blur">
+                    <div class="relative">
+                        {% if webinar.thumbnail %}
+                        <img src="{{ webinar.thumbnail.url }}" alt="{{ webinar.title }}"
+                            class="h-72 w-full object-cover sm:h-[30rem]">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#070B11] via-[#070B11]/20 to-transparent">
+                        </div>
+                        {% else %}
+                        <div
+                            class="flex h-72 w-full items-center justify-center bg-gradient-to-br from-[#101A2B] via-[#0B1220] to-[#070B11] sm:h-[30rem]">
+                            <div class="text-center px-6 max-w-2xl">
+                                <div
+                                    class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-400/15 ring-1 ring-amber-400/30 text-amber-300 font-black tracking-widest">
+                                    BBGI
+                                </div>
+                                <p class="text-2xl font-bold text-white sm:text-4xl">{{ webinar.title }}</p>
+                                <p class="mt-3 text-sm sm:text-base text-white/70">Discover practical learning, expert
+                                    guidance, and access to premium content through BBGI Store.</p>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="absolute left-4 top-4 flex flex-wrap gap-2">
+                            <span
+                                class="inline-flex items-center rounded-full bg-[#07111D]/85 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/10 backdrop-blur">
+                                {{ webinar.get_webinar_type_display }}
+                            </span>
+                            <span
+                                class="inline-flex items-center rounded-full bg-[#07111D]/85 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/10 backdrop-blur">
+                                {{ webinar.get_level_display }}
+                            </span>
+                            {% if webinar.is_free %}
+                            <span
+                                class="inline-flex items-center rounded-full bg-emerald-400/15 px-3 py-1 text-xs font-semibold text-emerald-300 ring-1 ring-emerald-400/30">
+                                Free
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="p-6 sm:p-8">
+                        <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                                <div
+                                    class="mb-3 inline-flex items-center gap-2 rounded-full bg-amber-400/10 px-3 py-1 text-xs font-semibold text-amber-300 ring-1 ring-amber-400/20">
+                                    BBGI Store Webinar
+                                </div>
+                                <h1 class="text-3xl font-black tracking-tight text-white sm:text-5xl">{{ webinar.title }}</h1>
+                                <p class="mt-4 max-w-3xl text-base leading-7 text-white/70">{{ webinar.short_description}}</p>
+                            </div>
+
+                            <div
+                                class="rounded-[1.5rem] border border-amber-400/20 bg-[#0B1220] px-5 py-4 shadow-lg shadow-black/20 sm:min-w-48">
+                                <p class="text-[11px] font-semibold uppercase tracking-[0.25em] text-amber-300/80">Price
+                                </p>
+                                <div class="mt-2 flex items-end gap-2">
+                                    {% if webinar.is_free %}
+                                    <span class="text-3xl font-black text-emerald-300">Free</span>
+                                    {% else %}
+                                    {% if webinar.sale_price %}
+                                    <span class="text-3xl font-black text-white">R{{ webinar.sale_price }}</span>
+                                    <span class="text-sm text-white/45 line-through">R{{ webinar.price }}</span>
+                                    {% else %}
+                                    <span class="text-3xl font-black text-white">R{{ webinar.price }}</span>
+                                    {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                            <div class="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
+                                <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/45">Duration
+                                </p>
+                                <p class="mt-2 text-sm font-semibold text-white">{{ webinar.duration }}</p>
+                            </div>
+                            <div class="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
+                                <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/45">CPD
+                                    Points</p>
+                                <p class="mt-2 text-sm font-semibold text-white">{{ webinar.cpd_points }}</p>
+                            </div>
+                            <div class="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
+                                <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/45">Replay
+                                </p>
+                                <p
+                                    class="mt-2 text-sm font-semibold {% if webinar.replay_available %}text-emerald-300{% else %}text-white{% endif %}">
+                                    {% if webinar.replay_available %}Available{% else %}Not available{% endif %}
+                                </p>
+                            </div>
+                            <div class="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
+                                <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/45">
+                                    Certificate</p>
+                                <p
+                                    class="mt-2 text-sm font-semibold {% if webinar.certificate_available %}text-emerald-300{% else %}text-white{% endif %}">
+                                    {% if webinar.certificate_available %}Available{% else %}Not available{% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About -->
+                <section class="rounded-[2rem] bg-white p-6 sm:p-8 shadow-2xl ring-1 ring-black/5">
+                    <div class="flex items-center justify-between gap-4">
+                        <h2 class="text-xl font-black text-[#0B1220]">About this webinar</h2>
+                        {% if webinar.category %}
+                        <span class="rounded-full bg-[#0B1220] px-3 py-1 text-xs font-semibold text-amber-300">{{ webinar.category }}</span>
+                        {% endif %}
+                    </div>
+
+                    <div
+                        class="mt-5 ">
+                        {{ webinar.description|safe }}
+                    </div>
+                </section>
+
+                <!-- Video -->
+                {% if webinar.recap_video or webinar.recap_video_url %}
+                <section class="rounded-[2rem] bg-white p-6 sm:p-8 shadow-2xl ring-1 ring-black/5">
+                    <div class="flex items-center justify-between gap-4">
+                        <h2 class="text-xl font-black text-[#0B1220]">Recap video</h2>
+                        <span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">Optional
+                            preview</span>
+                    </div>
+                    <div class="mt-5 overflow-hidden rounded-2xl bg-[#0B1220]">
+                        {% if webinar.recap_video %}
+                        <video controls class="w-full">
+                            <source src="{{ webinar.recap_video.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        {% else %}
+                        <div class="p-6 sm:p-8">
+                            <a href="{{ webinar.recap_video_url }}" target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-amber-400 to-yellow-500 px-5 py-3 text-sm font-bold text-[#07111D] hover:from-amber-300 hover:to-yellow-400">
+                                Watch recap video
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 7h8m0 0v8m0-8L10 18m-4 0h2m-2 0v-2" />
+                                </svg>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </section>
+                {% endif %}
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="space-y-6 lg:sticky lg:top-6 lg:self-start">
+                <div class="rounded-[2rem] bg-white p-6 shadow-2xl ring-1 ring-black/5">
+                    <div class="flex items-center justify-between gap-3">
+                        <div>
+                            <h2 class="text-lg font-black text-[#0B1220]">Register now</h2>
+                            <p class="mt-1 text-sm leading-6 text-slate-600">
+                                Secure your place and get access to BBGI premium learning content.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 space-y-4">
+                        <a href="#"
+                            class="inline-flex w-full items-center justify-center rounded-2xl bg-[#0B1220] px-5 py-3 text-sm font-bold text-white hover:bg-[#111B2E] ring-1 ring-[#0B1220]">
+                            {% if webinar.is_free %}Join for free{% else %}Buy ticket{% endif %}
+                        </a>
+
+                        {% if webinar.registration_deadline %}
+                        <div class="rounded-2xl bg-amber-50 p-4 ring-1 ring-amber-200">
+                            <p class="text-[11px] font-bold uppercase tracking-[0.22em] text-amber-700">Registration
+                                deadline</p>
+                            <p class="mt-1 text-sm font-semibold text-amber-950">{{
+                                webinar.registration_deadline|date:"d M Y, H:i" }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="rounded-[2rem] bg-white p-6 shadow-2xl ring-1 ring-black/5">
+                    <h3 class="text-[11px] font-bold uppercase tracking-[0.25em] text-slate-500">Event details</h3>
+                    <dl class="mt-4 space-y-4 text-sm">
+                        <div class="flex items-start justify-between gap-4">
+                            <dt class="text-slate-500">Type</dt>
+                            <dd class="font-semibold text-slate-900 text-right">{{ webinar.get_webinar_type_display }}
+                            </dd>
+                        </div>
+                        <div class="flex items-start justify-between gap-4">
+                            <dt class="text-slate-500">Level</dt>
+                            <dd class="font-semibold text-slate-900 text-right">{{ webinar.get_level_display }}</dd>
+                        </div>
+                        <div class="flex items-start justify-between gap-4">
+                            <dt class="text-slate-500">Start time</dt>
+                            <dd class="font-semibold text-slate-900 text-right">
+                                {% if webinar.start_time %}{{ webinar.start_time|date:"d M Y, H:i" }}{% else %}TBA{% endif %}
+                            </dd>
+                        </div>
+                        <div class="flex items-start justify-between gap-4">
+                            <dt class="text-slate-500">End time</dt>
+                            <dd class="font-semibold text-slate-900 text-right">
+                                {% if webinar.end_time %}{{ webinar.end_time|date:"d M Y, H:i" }}{% else %}TBA{% endif %}
+                            </dd>
+                        </div>
+                        <div class="flex items-start justify-between gap-4">
+                            <dt class="text-slate-500">Max participants</dt>
+                            <dd class="font-semibold text-slate-900 text-right">{% if webinar.max_participants %}{{ webinar.max_participants }}{% else %}Unlimited{% endif %}</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                {% if webinar.presenters.all %}
+                <div class="rounded-[2rem] bg-white p-6 shadow-2xl ring-1 ring-black/5">
+                    <h3 class="text-[11px] font-bold uppercase tracking-[0.25em] text-slate-500">Presenters</h3>
+                    <div class="mt-4 space-y-3">
+                        {% for presenter in webinar.presenters.all %}
+                        <div class="flex items-center gap-3 rounded-2xl bg-slate-50 p-3 ring-1 ring-slate-200">
+                            <div
+                                class="flex h-10 w-10 items-center justify-center rounded-full bg-[#0B1220] text-sm font-bold text-amber-300">
+                                {{ presenter|slice:":1"|upper }}
+                            </div>
+                            <div>
+                                <p class="font-semibold text-slate-900">{{ presenter }}</p>
+                                {% if presenter.role %}<p class="text-xs text-slate-500">{{ presenter.role }}</p>{% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </aside>
+        </div>
+    </div>
+</div>
+{% endblock content %}

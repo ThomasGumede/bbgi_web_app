@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from bbgistore.models.abstract import StoreCategory, StoreItem, Person
 from django.utils.translation import gettext as _
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 
 
 from bbgistore.utilities.validators import generate_unique_slug, validate_video_file_type
@@ -34,6 +35,8 @@ class Webinar(StoreItem):
     level = models.CharField(max_length=20, choices=Level.choices, default=Level.ALL)
     added_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, related_name="webinars", help_text=_("The person who added this webinar."))
     
+    def get_absolute_url(self):
+        return reverse("bbgistore:webinar_details", kwargs={"webinar_slug": self.slug})
     
     class Meta:
         verbose_name = "02. Webinar"
