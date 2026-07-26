@@ -3,7 +3,7 @@ from payments.views.contribution import contributions_payment_cancelled, contrib
 from payments.views.subscribe import subscription_payment, subscription_payment_cancelled, subscription_payment_failed, subscription_payment_success
 from payments.views.ticket_order import tickets_payment_cancelled, tickets_payment_failed, verify_ticket_payment_order, tickets_payment_success, payment, resend_tickets
 from payments.views.webhook import create_webhook, get_webhooks, webhook, delete_webhook
-from payments.views.book_order import book_payment
+from payments.views.book_order import book_payment, book_order_payment_cancelled, book_order_payment_failed, book_order_payment_sucessfull
 
 app_name = "payments"
 urlpatterns = [
@@ -30,5 +30,8 @@ urlpatterns = [
     path("tickets/manage/resend/<uuid:order_uuid>", resend_tickets, name="resend-tickets"),
     
     path("book-order/payment/<uuid:bookorder_id>", book_payment, name="book-payment"),
+    path("book-order/payment/cancelled/<uuid:bookorder_id>", book_order_payment_cancelled, name="book-payment-cancelled"),
+    path("book-order/payment/failed/<uuid:bookorder_id>", book_order_payment_failed, name="book-payment-failed"),
+    path("book-order/payment/success/<uuid:bookorder_id>", book_order_payment_sucessfull, name="book-payment-success"),
     
 ]

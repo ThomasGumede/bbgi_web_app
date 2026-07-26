@@ -9,6 +9,7 @@ from accounts.custom_models.abstracts import AbstractPayment
 from bbgistore.models.book import Book, BookDownload
 from bbgistore.models.webinar import Webinar
 from campaigns.utils import generate_order_number
+import uuid
 
 class BookOrder(AbstractCreate, AbstractPayment):
     order_number = models.CharField(max_length=300, editable=False, unique=True)
@@ -102,4 +103,27 @@ class WebinarOrder(AbstractCreate, AbstractPayment):
     
     def __str__(self):
         return f"{self.client} - {self.webinar}"
-    
+
+
+class StoreAccess(models.Model):
+
+    order = models.OneToOneField(
+        BookOrder,
+        on_delete=models.CASCADE,
+        related_name="access"
+    )
+    token = models.UUIDField(
+        default=uuid.uuid4,
+        unique=True,
+        editable=False
+    )
+    expires_at = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+    is_active = models.BooleanField(
+        default=True
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )

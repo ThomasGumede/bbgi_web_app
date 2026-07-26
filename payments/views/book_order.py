@@ -20,7 +20,7 @@ def book_payment(request, bookorder_id):
         fail_url = request.build_absolute_uri(reverse("payments:book-payment-failed", kwargs={"bookorder_id": bookorder.id}))
         str_amount = decimal_to_str(bookorder.amount)
 
-        if bookorder.price == decimal.Decimal(0.00):
+        if bookorder.amount == decimal.Decimal(0.00):
             return redirect("payments:book-payment-success", bookorder.id)
         
         lineitems = [
