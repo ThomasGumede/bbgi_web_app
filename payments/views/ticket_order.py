@@ -1,12 +1,10 @@
 from accounts.utilities.custom_email import send_html_email_with_attachments
 from events.utils import generate_qr_and_bacode
-from payments.utilities.custom_email import send_ticket_order_received_to_admin, send_tickets_email
-from payments.utilities.yoco_func import headers
+from payments.utilities.custom_email import send_ticket_order_received_to_admin
+from payments.utilities.yoco_func import headers, decimal_to_str, decimal_to_str
 import requests, logging, json, decimal, base64
-from accounts.custom_models.account import SubscriptionOrder
-from accounts.utilities.custom_email import send_html_email_with_attachments, send_html_email
+from accounts.utilities.custom_email import send_html_email_with_attachments
 from events.models import TicketOrderModel, reservation_time
-from campaigns.models import ContributionModel, in_fourteen_days
 from campaigns.utils import PaymentStatus
 from events.models import TicketOrderModel
 from io import BytesIO
@@ -25,8 +23,6 @@ from payments.tasks import resend_tickets_2_task, check_payment_update_2_ticket_
 from django.contrib.sites.shortcuts import get_current_site
 
 from payments.utilities.ticket_func import update_payment_status_ticket_order, update_payment_status_zero_balance_ticket_order
-from payments.utilities.yoco_func import decimal_to_str
-from django.template.loader import render_to_string
 from accounts.utilities.company import COMPANY
 
 

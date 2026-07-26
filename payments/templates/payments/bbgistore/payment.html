@@ -1,0 +1,168 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Proceed to Payment{% endblock title %}
+
+{% block content %}
+<div class="min-h-screen bg-[#F6F1E8] text-slate-900">
+    <!-- Brand Strip -->
+     
+     {% with order.book as item %}
+        
+     
+        
+    <div class="border-b border-amber-200 bg-white/90 backdrop-blur">
+        <div
+            class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div class="flex items-center gap-3">
+                <div
+                    class="flex h-11 w-11 items-center justify-center rounded-md bg-gradient-to-br from-amber-400 to-yellow-500 text-[#132238] font-extrabold shadow-sm">
+                    BBGI
+                </div>
+                <div>
+                    <p class="text-sm font-semibold tracking-wide text-[#132238]">Black Business Growth Initiative</p>
+                    <p class="text-xs text-slate-500">Order created. Ready to complete payment.</p>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+                <span
+                    class="inline-flex items-center rounded-full bg-amber-100 px-3 py-1 font-semibold text-amber-800 ring-1 ring-amber-200">{{order.get_status_display}}</span>
+                {% if order %}
+                <span
+                    class="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 font-medium text-slate-700 ring-1 ring-slate-200">Order
+                    #{{ order.order_number }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="mx-auto max-w-fit px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+        <div class="rounded-sm bg-white shadow-lg ring-1 ring-slate-200 overflow-hidden">
+            <div class="border-b border-slate-200 bg-slate-50 px-6 sm:px-8 py-6">
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                        <h1 class="text-2xl sm:text-3xl font-black text-[#132238]">Proceed to payment</h1>
+                        <p class="mt-2 text-sm text-slate-600">Your order has been created successfully. Click the
+                            button below to continue to the payment system.</p>
+                    </div>
+                    {% if order %}
+                    <span
+                        class="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800 ring-1 ring-emerald-200">#{{order.order_number}}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-0">
+                <!-- Left / Summary -->
+                <div class="lg:col-span-2 p-6 sm:p-8 space-y-8">
+                    <section>
+                        <h2 class="text-sm font-bold uppercase tracking-[0.22em] text-slate-500">Order summary</h2>
+                        <div class="mt-4 rounded-md bg-slate-50 p-5 ring-1 ring-slate-200">
+                            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                                <div>
+                                    <p class="text-lg font-bold text-[#132238]">{% if item %}{{ item.title }}{% else %}Selected item{% endif %}</p>
+                                    <p class="mt-1 text-sm text-slate-600">{% if item %}{{ item.short_description }}{% else %}Book / webinar / course access{% endif %}</p>
+                                </div>
+                                <div class="text-left sm:text-right">
+                                    <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+                                        Amount</p>
+                                    <p class="mt-1 text-2xl font-black text-[#132238]">
+                                        {% if item %}
+                                        {% if item.is_free %}
+                                        Free
+                                        {% elif item.sale_price %}
+                                        R{{ item.sale_price }}
+                                        {% else %}
+                                        R{{ item.price }}
+                                        {% endif %}
+                                        {% else %}
+                                        R0.00
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2 class="text-sm font-bold uppercase tracking-[0.22em] text-slate-500">Payment steps</h2>
+                        <div class="mt-4 grid gap-4 sm:grid-cols-3">
+                            <div class="rounded-md border border-slate-200 bg-white p-4 shadow-sm">
+                                <p class="text-sm font-semibold text-[#132238]">1. Confirm order</p>
+                                <p class="mt-2 text-sm text-slate-600">Review your order details before continuing.</p>
+                            </div>
+                            <div class="rounded-md border border-slate-200 bg-white p-4 shadow-sm">
+                                <p class="text-sm font-semibold text-[#132238]">2. Complete payment</p>
+                                <p class="mt-2 text-sm text-slate-600">You will be redirected to the secure payment
+                                    page.</p>
+                            </div>
+                            <div class="rounded-md border border-slate-200 bg-white p-4 shadow-sm">
+                                <p class="text-sm font-semibold text-[#132238]">3. Receive access</p>
+                                <p class="mt-2 text-sm text-slate-600">Confirmation and access details will be sent to
+                                    your email.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {% if order %}
+                    <section class="rounded-md bg-amber-50 p-5 ring-1 ring-amber-200">
+                        <h2 class="text-sm font-bold uppercase tracking-[0.22em] text-amber-700">Order details</h2>
+                        <dl class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <dt class="text-slate-500">Order number</dt>
+                                <dd class="mt-1 font-semibold text-slate-900">#{{ order.order_number }}</dd>
+                            </div>
+                            <div>
+                                <dt class="text-slate-500">Customer</dt>
+                                <dd class="mt-1 font-semibold text-slate-900">{% if order.client.full_name %}{{ order.client.full_name }}{% else %}{{ order.client.first_name }} {{ order.client.last_name }}{% endif %}</dd>
+                            </div>
+                            <div>
+                                <dt class="text-slate-500">Email</dt>
+                                <dd class="mt-1 font-semibold text-slate-900">{{ order.client.email }}</dd>
+                            </div>
+                            <div>
+                                <dt class="text-slate-500">Status</dt>
+                                <dd class="mt-1 font-semibold text-slate-900">Awaiting payment</dd>
+                            </div>
+                        </dl>
+                    </section>
+                    {% endif %}
+                </div>
+
+                <!-- Right / CTA -->
+                <aside class="border-t lg:border-t-0 lg:border-l border-slate-200 bg-slate-50 p-6 sm:p-8">
+                    <div class="sticky top-6 space-y-5">
+                        <div class="rounded-sm bg-white p-6 shadow-sm ring-1 ring-slate-200">
+                            <h2 class="text-lg font-black text-[#132238]">Pay now</h2>
+                            <p class="mt-2 text-sm leading-6 text-slate-600">You’ll be sent to the payment gateway to
+                                complete your purchase securely.</p>
+
+                            <form method="post" class="mt-6 space-y-3">
+                                {% csrf_token %}
+                                <button type="submit"
+                                    class="inline-flex w-full items-center justify-center rounded-md bg-[#132238] px-5 py-3 text-sm font-bold text-white hover:bg-[#1D314F]">
+                                    Pay Now
+                                </button>
+                                
+                                <a href="javascript:history.back()"
+                                    class="inline-flex w-full items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50">
+                                    Go back
+                                </a>
+                            </form>
+                        </div>
+
+                        <div class="rounded-sm bg-[#132238] p-6 text-white shadow-sm">
+                            <h3 class="text-sm font-bold uppercase tracking-[0.22em] text-amber-300">Secure checkout
+                            </h3>
+                            <p class="mt-3 text-sm leading-6 text-white/75">Your payment will be processed on a secure
+                                external payment system. Keep this page open until the redirect completes.</p>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+</div>
+{% endblock content %}

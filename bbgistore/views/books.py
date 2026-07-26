@@ -1,6 +1,7 @@
 from bbgistore.models.book import Book
 from bbgistore.models.abstract import StoreCategory
-from django.shortcuts import get_object_or_404, render
+from payments.ordermodels.storeorder import BookOrder
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 
 
@@ -25,3 +26,13 @@ def get_book_details(request, book_slug):
         "book": book
     }
     return render(request, "bbgistore/books/book-details.html", context)
+
+@login_required
+def buy_book(request, book_slug):
+    book = get_object_or_404(Book, slug=book_slug)
+    try:
+        bookorder = BookOrder.objects.get(client=request.user, paid=False)
+    except BookOrder.DoesNotExist:
+        bookorder = BookOrder.objects.create(client=request.user, book=book, amount=book.price)
+        
+    return redirect('payments:book-payment', bookorder.id)

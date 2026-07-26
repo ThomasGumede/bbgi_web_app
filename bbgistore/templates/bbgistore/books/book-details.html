@@ -156,7 +156,7 @@
           </div>
 
           <div class="mt-6 space-y-4">
-            <a href="#" class="inline-flex w-full items-center justify-center rounded-2xl bg-[#132238] px-5 py-3 text-sm font-bold text-white hover:bg-[#1D314F] ring-1 ring-[#132238]">
+            <a href="{% url 'bbgistore:order-book' book.slug %}" class="inline-flex w-full items-center justify-center rounded-2xl bg-[#132238] px-5 py-3 text-sm font-bold text-white hover:bg-[#1D314F] ring-1 ring-[#132238]">
               {% if book.is_free %}Download for free{% else %}Buy now{% endif %}
             </a>
 
