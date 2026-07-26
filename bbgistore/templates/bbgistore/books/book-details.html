@@ -118,10 +118,18 @@
 
                     </div>
                     
-                    <div class="">
+                    <div class="flex items-center gap-2">
                         <a href="" id="donation_form"
                             type="submit"
                             class="text-white grid items-center justify-center h-12 bg-custom-primary w-28  cursor-pointer text-sm font-semibold">Buy Now</a>
+                            
+                            {% if book.book_review_file %}
+                                <a href="" id="donation_form" type="submit"
+                                    class="text-custom-primary grid items-center justify-center h-12 bg-white w-fit border border-custom-primary border-solid p-2 hover:text-white hover:bg-custom-primary  cursor-pointer text-sm font-semibold">View
+                                    Book Preview</a>
+                            {% endif %}
+                                
+                        
                     </div>
                     
                     {%if book.get_other_book_format %}
@@ -199,6 +207,17 @@
                         <span class="leading-1.8 lg:leading-1.8">{{book.description|safe}}</span>
                     </p>
 
+                    
+                    {% if book.recap_video %}
+                        <h4 class="text-[22px] font-semibold leading-1.3 pl-[10px] border-l-2 border-custom-primary text-custom-h my-[30px]">
+                            Video Preview
+                        </h4>
+                        <video src="{{book.recap_video.url}}" controls autoplay="false" preload="metadata" poster="{% if book.thumbnail %}{{book.thumbnail.url}}{% else %}{% static 'images/global/image-no.jpg' %}{% endif %}"></video>
+                    {% endif %}
+                        
+                    <!-- Description -->
+                    
+
 
                     <!-- Facts and Features-->
 
@@ -232,209 +251,6 @@
                             </ul>
                         </div>
                     </div>
-                    <!-- Customer Reviews -->
-                    <!-- {% if book.reviews %}
-                    <h4
-                        class="text-[22px] font-semibold leading-1.3 pl-[10px] border-l-2 border-custom-primary text-custom-h my-[30px]">
-                        Customer Reviews
-                    </h4>
-                    <div>
-                        <div class="relative flex items-center">
-                            <div class="text-sm text-custom-primary">
-                                <i class="fa-regular fa-star fa-lg font-bold"></i>
-                            </div>
-                            <div class="ml-2">
-                                <p class="text-sm font-normal">{{book.get_average_rating|safe}} Average stars
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="my-[50px] border-t border-[#ededed] opacity-40"> -->
-                    <!-- reviews -->
-                    <!-- <ul class="mb-[20px] w-full list-none pl-0">
-                        {% for review in book.reviews.all %}
-                        <li class="flex flex-col md:flex-row gap-x-[30px] gap-y-5 pb-[30px]">
-                            <div class="flex-shrink-0">
-                                <img src="{% if review.commenter.profile_image %}{{review.commenter.profile_image.url}}{% else %}{% static 'imgs/no-image.png' %}{% endif %}"
-                                    alt="{{review.commenter_full_names}}"
-                                    class="w-20 h-20 md:w-100px md:h-100px rounded-full">
-                            </div>
-                            <div class="relative">
-                                <h4 class="text-lg text-custom-h font-semibold mb-[5px]">
-                                    <a href="#" class="leading-1.3">{{review.commenter_full_names}}</a>
-                                </h4>
-                                <div>
-                                    <ul class="text-xs text-ratings flex items-center pt-[22px] md:pt-0 mb-[10px] list-none pl-0">
-                                        <li class="pt-2">
-                                            <svg class="w-4 h-4 {% if review.rating_value >= 1 %}text-yellow-300{% else %}text-gray-300{% endif %}"
-                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                fill="currentColor" viewBox="0 0 22 20">
-                                                <path
-                                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                            </svg>
-                                        </li>
-                                        <li class="pt-2">
-                                            <svg class="w-4 h-4 {% if review.rating_value >= 2 %}text-yellow-300{% else %}text-gray-300{% endif %}"
-                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                fill="currentColor" viewBox="0 0 22 20">
-                                                <path
-                                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                            </svg>
-                                        </li>
-                                        <li class="pt-2">
-                                            <svg class="w-4 h-4 {% if review.rating_value >= 3 %}text-yellow-300{% else %}text-gray-300{% endif %}"
-                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                fill="currentColor" viewBox="0 0 22 20">
-                                                <path
-                                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                            </svg>
-                                        </li>
-                                        <li class="pt-2">
-                                            <svg class="w-4 h-4 {% if review.rating_value >= 4 %}text-yellow-300{% else %}text-gray-300{% endif %}"
-                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                fill="currentColor" viewBox="0 0 22 20">
-                                                <path
-                                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                            </svg>
-                                        </li>
-                                        <li class="pt-2">
-                                            <svg class="w-4 h-4 {% if review.rating_value >= 5 %}text-yellow-300{% else %}text-gray-300{% endif %}"
-                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                fill="currentColor" viewBox="0 0 22 20">
-                                                <path
-                                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                            </svg>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <p class="text-sm mb-5 md:mb-0">
-                                    <span class="leading-1.8">{{review.comment}}</span>
-                                </p>
-                            </div>
-                        </li>
-                        {% endfor %}
-
-                    </ul> -->
-                    <!-- {% endif %} -->
-                    <!-- add reviews -->
-                    <!-- <form method="post"
-                        class="form-primary bg-white-5 shadow-box-shadow-2 px-[25px] pt-10 pb-[50px] md:p-[50px] md:pt-10 mt-5 mb-[60px]">
-                        {% csrf_token %}
-                        <h4 class="text-[17px] md:text-lg lg:text-xl font-bold text-custom-h mb-5">
-                            <span class="leading-1.3 md:leading-1.3 lg:leading-1.3">
-                                Add a Review</span>
-                        </h4>
-                        <div class="flex gap-[15px] items-center mb-[30px]">
-                            <h5 class="text-sm md:text-[15px] lg:text-base font-bold text-custom-h mb-0">
-                                <span class="leading-1.3 md:leading-1.3 lg:leading-1.3">
-                                    Your Ratings:</span>
-                            </h5>
-                            <div class="flex w-fit mx-auto items-center">
-                                <div class="flex space-x-1" id="star-rating">
-                                    <svg class="w-6 h-6 text-gray-300 hover:text-custom-h cursor-pointer"
-                                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                                        data-value="1">
-                                        <path
-                                            d="M9.049 2.927a1 1 0 011.902 0l1.616 4.95a1 1 0 00.95.69h5.174a1 1 0 01.593 1.809l-4.187 3.048a1 1 0 00-.364 1.118l1.617 4.95a1 1 0 01-1.541 1.118l-4.186-3.048a1 1 0 00-1.176 0l-4.186 3.048a1 1 0 01-1.541-1.118l1.617-4.95a1 1 0 00-.364-1.118L2.3 10.376a1 1 0 01.593-1.809h5.174a1 1 0 00.95-.69l1.616-4.95z">
-                                        </path>
-                                    </svg>
-                                    <svg class="w-6 h-6 text-gray-300 hover:text-custom-h cursor-pointer"
-                                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                                        data-value="2">
-                                        <path
-                                            d="M9.049 2.927a1 1 0 011.902 0l1.616 4.95a1 1 0 00.95.69h5.174a1 1 0 01.593 1.809l-4.187 3.048a1 1 0 00-.364 1.118l1.617 4.95a1 1 0 01-1.541 1.118l-4.186-3.048a1 1 0 00-1.176 0l-4.186 3.048a1 1 0 01-1.541-1.118l1.617-4.95a1 1 0 00-.364-1.118L2.3 10.376a1 1 0 01.593-1.809h5.174a1 1 0 00.95-.69l1.616-4.95z">
-                                        </path>
-                                    </svg>
-                                    <svg class="w-6 h-6 text-gray-300 hover:text-custom-h cursor-pointer"
-                                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                                        data-value="3">
-                                        <path
-                                            d="M9.049 2.927a1 1 0 011.902 0l1.616 4.95a1 1 0 00.95.69h5.174a1 1 0 01.593 1.809l-4.187 3.048a1 1 0 00-.364 1.118l1.617 4.95a1 1 0 01-1.541 1.118l-4.186-3.048a1 1 0 00-1.176 0l-4.186 3.048a1 1 0 01-1.541-1.118l1.617-4.95a1 1 0 00-.364-1.118L2.3 10.376a1 1 0 01.593-1.809h5.174a1 1 0 00.95-.69l1.616-4.95z">
-                                        </path>
-                                    </svg>
-                                    <svg class="w-6 h-6 text-gray-300 hover:text-custom-h cursor-pointer"
-                                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                                        data-value="4">
-                                        <path
-                                            d="M9.049 2.927a1 1 0 011.902 0l1.616 4.95a1 1 0 00.95.69h5.174a1 1 0 01.593 1.809l-4.187 3.048a1 1 0 00-.364 1.118l1.617 4.95a1 1 0 01-1.541 1.118l-4.186-3.048a1 1 0 00-1.176 0l-4.186 3.048a1 1 0 01-1.541-1.118l1.617-4.95a1 1 0 00-.364-1.118L2.3 10.376a1 1 0 01.593-1.809h5.174a1 1 0 00.95-.69l1.616-4.95z">
-                                        </path>
-                                    </svg>
-                                    <svg class="w-6 h-6 text-gray-300 hover:text-custom-h cursor-pointer"
-                                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                                        data-value="5">
-                                        <path
-                                            d="M9.049 2.927a1 1 0 011.902 0l1.616 4.95a1 1 0 00.95.69h5.174a1 1 0 01.593 1.809l-4.187 3.048a1 1 0 00-.364 1.118l1.617 4.95a1 1 0 01-1.541 1.118l-4.186-3.048a1 1 0 00-1.176 0l-4.186 3.048a1 1 0 01-1.541-1.118l1.617-4.95a1 1 0 00-.364-1.118L2.3 10.376a1 1 0 01.593-1.809h5.174a1 1 0 00.95-.69l1.616-4.95z">
-                                        </path>
-                                    </svg>
-                                </div>
-                                {{form.rating_value}}
-                            </div>
-                        </div>
-                        <div class="mb-4 w-fit mx-auto">
-                            <p id="review-text" class="text-custom-h font-medium text-xl">
-
-                            </p>
-                        </div>
-                        <div class="grid gap-[30px] mb-[35px]">
-                          
-                            <div class="relative mb-2">
-                                {{form.comment}}
-                                <span class="absolute top-[30px] -translate-y-1/2 right-4">
-                                    <i
-                                        class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
-                                </span>
-                            </div>
-                           
-                            <div class="relative">
-                                {{form.comment_title}}
-                                <span class="absolute top-1/2 -translate-y-1/2 right-4">
-                                    <i
-                                        class="fa-solid fa-pencil text-sm lg:text-base text-custom-primary font-bold"></i>
-                                </span>
-                            </div>
-                            
-                            <div class="relative">
-                                {{form.commenter_full_names}}
-                                <span class="absolute top-1/2 -translate-y-1/2 right-4">
-                                    <i class="fa-solid fa-user text-sm lg:text-base text-custom-primary font-bold"></i>
-
-                                </span>
-                            </div>
-
-                            
-                            <div class="relative">
-                                {{form.commenter_email}}
-                                <span class="absolute top-1/2 -translate-y-1/2 right-4">
-                                    <i
-                                        class="fa-solid fa-envelope text-sm lg:text-base text-custom-primary font-bold"></i>
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <div class="text-sm flex items-center mb-[35px]">
-                            <input type="checkbox" id="agree">
-                            <label for="agree" class="text-sm ml-1">
-                                Save my name, email, and website in this browser for the
-                                next time I comment.
-                            </label>
-                        </div>
-
-                        
-
-                        <div>
-                            <h5
-                                class="uppercase text-sm md:text-base !text-white relative group whitespace-nowrap font-normal mb-0 transition-all duration-300 border border-custom-primary hover:border-custom-h inline-block z-0">
-                                <span
-                                    class="inline-block absolute top-0 right-0 w-full h-full bg-custom-primary group-hover:bg-black -z-1 group-hover:w-0 transition-all duration-300"></span>
-                                <button type="submit"
-                                    class="relative z-1 px-5 md:px-[25px] lg:px-10 py-[10px] md:py-[15px] lg:py-[17px] group-hover:text-custom-h leading-23px uppercase">
-                                    Submit
-                                </button>
-                            </h5>
-                        </div>
-                    </form> -->
-
-                    <!-- Related Properties -->
 
                 </div>
             </div>
@@ -517,47 +333,7 @@
 
                 </div>
 
-                {% if book.book_review_file %}
-                <div class="px-5 pt-[35px] pb-10 xl:pl-[35px] xl:pr-[30px] mb-10 border-2 border-[#ededed]">
-                    <h4 class="text-lg font-semibold text-custom-h mb-[25px]">
-                        <span class="leading-1.3 pl-[10px] border-l-2 border-custom-primary">Book Preview</span>
-                    </h4>
                 
-                    <div class="pt-4">
-                        <ul class="space-y-4">
-                            
-                            <li class="flex items-center ">
-                                <div class="pr-5 w-20 h-16 overflow-hidden">
-                                    {% if book.thumbnail %}
-                                    <img src="{{book.thumbnail.url}}" alt="{{book.title}}"
-                                        class="w-full h-full object-cover rounded-md">
-                                    
-                                    {% else %}
-                                    <div class="w-full h-full grid items-center justify-center bg-custom-h">
-                                        <p class="text-white font-semibold">{{ book.title }}</p>
-                                    </div>
-                                    {% endif %}
-                
-                                </div>
-                                <div class="relative top-[-3px]">
-                                    <h3 class="text-lg m-0 text-custom-h">
-                
-                                        <p  class="block text-base text-black font-extrabold">
-                                            {{book.title}}
-                                        </p>
-                                        <a href="{{book.book_review_file.url}}" target="_blank" rel="noopener noreferrer" class="text-sm font-normal !text-gray-500">
-                
-                                            View Book Preview
-                                        </a>
-                                    </h3>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                
-                
-                </div>
-                {% endif %}
 
                 
 

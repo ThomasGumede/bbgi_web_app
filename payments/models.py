@@ -1,6 +1,6 @@
-import uuid
 from django.db import models
 from accounts.models import AbstractCreate
+from payments.ordermodels import *
 
 class BBGIBankModel(AbstractCreate):
     balance = models.DecimalField(max_digits=1000, decimal_places=2, default=0.00)

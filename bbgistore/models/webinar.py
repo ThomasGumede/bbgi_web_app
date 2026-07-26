@@ -6,6 +6,7 @@ from bbgistore.models.abstract import StoreCategory, StoreItem, Person
 from django.utils.translation import gettext as _
 from django.core.exceptions import ValidationError
 
+
 from bbgistore.utilities.validators import generate_unique_slug, validate_video_file_type
 
 class Webinar(StoreItem):
@@ -35,8 +36,8 @@ class Webinar(StoreItem):
     
     
     class Meta:
-        verbose_name = "Webinar"
-        verbose_name_plural = "Webinars"
+        verbose_name = "02. Webinar"
+        verbose_name_plural = "02. Webinars"
         ordering = ["-created"]
         
     def save(self, *args, **kwargs):
@@ -134,43 +135,34 @@ class WebinarVideo(AbstractCreate):
         on_delete=models.CASCADE,
         related_name="videos"
     )
-
     title = models.CharField(max_length=255, help_text="Enter title for this webinar video")
-
     description = models.TextField(blank=True, help_text="Enter description for this webinar video")
-
     order = models.PositiveIntegerField(default=1, help_text="Enter the order of this video in the webinar sequence")
-
     duration = models.DurationField(
         null=True,
         blank=True, help_text="Enter the duration of this video in HH:MM:SS format"
     )
-
     thumbnail = models.ImageField(
         upload_to="bbgistore/webinar_thumbnails/",
         blank=True,
         null=True, help_text="Choose a thumbnail image for this webinar video"
     )
-
     video = models.FileField(
         upload_to="bbgistore/webinars/",
         validators=[validate_video_file_type], help_text="Upload the video file for this webinar video", blank=True, null=True
     )
     video_link = models.URLField(help_text=_("Enter video external url if available"), blank=True, null=True)
-    
     is_preview = models.BooleanField(
         default=False,
          help_text="Indicate whether this video is a free preview before purchase."
     )
-
     is_bonus = models.BooleanField(
         default=False, help_text="Indicate whether this video is a bonus video included with the webinar."
     )
-
     is_active = models.BooleanField(
         default=True
     )
-    
+
     def clean(self):
         from urllib.parse import urlparse
         super().clean()
@@ -184,6 +176,7 @@ class WebinarVideo(AbstractCreate):
 
     class Meta:
         ordering = ["order", "created"]
+        verbose_name = "06. Webinar video"
         
 class WebinarEnrollment(AbstractCreate):
     class Status(models.TextChoices):

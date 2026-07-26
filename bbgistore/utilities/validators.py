@@ -19,9 +19,9 @@ def validate_recap_video_file_size(file):
     """
     Validate the file size of the recap video.
     """
-    max_file_size = 5 * 1024 * 1024  # 5 MB in bytes
+    max_file_size = 25 * 1024 * 1024  # 5 MB in bytes
     if file.size > max_file_size:
-        raise ValidationError(f"Recap video file size should not exceed 5 MB. Current size: {file.size / (1024 * 1024):.2f} MB")
+        raise ValidationError(f"Recap video file size should not exceed 25 MB. Current size: {file.size / (1024 * 1024):.2f} MB")
     
 
 def validate_file_type(file):

@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from django.urls import reverse
 from accounts.models import AbstractCreate
 from django.contrib.auth import get_user_model
 from bbgistore.models.abstract import StoreCategory, StoreItem, Person
@@ -24,8 +25,8 @@ class Book(StoreItem):
     added_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, related_name="books", help_text=_("The person who added this book."))
 
     class Meta:
-        verbose_name = "Book"
-        verbose_name_plural = "Books"
+        verbose_name = "01. Book"
+        verbose_name_plural = "01. Books"
         ordering = ["-created"]
         
     @property
@@ -52,6 +53,10 @@ class Book(StoreItem):
 
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse("bbgistore:book_details", kwargs={"book_slug": self.slug})
+    
 
 class BookFile(AbstractCreate):
     class Extension(models.TextChoices):
@@ -108,8 +113,8 @@ class BookFile(AbstractCreate):
         return self.downloads.aggregate(total=models.Sum('download_count'))['total'] or 0
     
     class Meta:
-        verbose_name = "Book File"
-        verbose_name_plural = "Book Files"
+        verbose_name = "05. Book File"
+        verbose_name_plural = "05. Book Files"
         ordering = ["-created"]
         constraints = [
         models.UniqueConstraint(
@@ -146,7 +151,7 @@ class BookFile(AbstractCreate):
             if Path(self.file.name).suffix.replace(".", "").lower() == "pdf":
                 reader = PdfReader(self.file)
                 pages = len(reader.pages)
-
+                print(pages)
                 if self.book.number_of_pages != pages:
                     self.book.number_of_pages = pages
                     self.book.save(update_fields=["number_of_pages"])
@@ -168,7 +173,7 @@ class BookDownload(AbstractCreate):
     last_downloaded = models.DateTimeField(null=True, blank=True)
 
     class Meta:
-        verbose_name = "Book Download"
-        verbose_name_plural = "Book Downloads"
+        verbose_name = "07. Book Download"
+        verbose_name_plural = "07. Book Downloads"
         unique_together = ("book_file", "user")
 

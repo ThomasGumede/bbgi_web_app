@@ -52,7 +52,8 @@ class StoreCategory(AbstractCreate):
 
     class Meta:
         ordering = ("-created",)
-        verbose_name_plural = "Store Categories"
+        verbose_name = "03. Store Category"
+        verbose_name_plural = "03. Store Categories"
         
     @property
     def book_count(self):
@@ -69,8 +70,8 @@ class Person(AbstractCreate):
 
     class Meta:
         ordering = ("-created",)
-        verbose_name = "Author/Contributor/Instructor"
-        verbose_name_plural = "Authors, Contributors and Instructors"
+        verbose_name = "04. Author/Contributor/Instructor"
+        verbose_name_plural = "04. Authors, Contributors and Instructors"
 
     def __str__(self):
         return self.full_names

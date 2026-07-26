@@ -118,12 +118,8 @@ if not os.path.exists(TICKETS_QRCODE_DIR):
 # Application definition
 
 INSTALLED_APPS = [
-    "unfold",
-    "unfold.contrib.filters",  # optional, if special filters are needed
-    "unfold.contrib.forms",  # optional, if special form elements are needed
-    "unfold.contrib.inlines",  # optional, if special inlines are needed
-    "unfold.contrib.import_export",  # optional, if django-import-export package is used
-    "unfold.contrib.guardian",  # optional, if django-guardian package is used
+    "admin_interface",
+    "colorfield",  # optional, if special filters are needed
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -324,21 +320,7 @@ UNFOLD = {
     "SITE_URL": "/",
 
     "SHOW_VIEW_ON_SITE": True,
-    "SITE_DROPDOWN": [
-        {
-            "icon": "diamond",
-            "title": _("My site"),
-            "link": "https://example.com",
-            "attrs": {
-                "target": "_blank",
-            },
-        },
-        {
-            "icon": "diamond",
-            "title": _("My site"),
-            "link": reverse_lazy("admin:index"),
-        },
-    ],
+    
     "SITE_ICON": {
         "light": lambda request: static("imgs/android-chrome-512x512.png"),  # light mode
         "dark": lambda request: static("imgs/android-chrome-512x512.png"),  # dark mode

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from payments.models import BBGIBankModel, PaymentInformation
 from events.models import TicketOrderModel
-from bbgistore.models.order import BookOrder, WebinarOrder
+from payments.ordermodels.storeorder import BookOrder, WebinarOrder
 from campaigns.models import ContributionModel
 from django.utils.html import format_html
 

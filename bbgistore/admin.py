@@ -1,5 +1,5 @@
 from django.contrib import admin
-from unfold.admin import ModelAdmin
+# from unfold.admin import admin.ModelAdmin
 from bbgistore.models.abstract import StoreCategory, Person
 from bbgistore.models.book import Book, BookFile, BookDownload
 from bbgistore.models.webinar import Webinar, WebinarVideo
@@ -45,7 +45,7 @@ class WebinarVideoInline(admin.StackedInline):
 # ==========================================================
 
 @admin.register(StoreCategory)
-class StoreCategoryAdmin(ModelAdmin):
+class StoreCategoryAdmin(admin.ModelAdmin):
     list_display = (
         "title",
         "book_count",
@@ -78,7 +78,7 @@ class StoreCategoryAdmin(ModelAdmin):
 # ==========================================================
 
 @admin.register(Person)
-class PersonAdmin(ModelAdmin):
+class PersonAdmin(admin.ModelAdmin):
     list_display = (
         "photo",
         "full_names",
@@ -206,7 +206,7 @@ class PersonAdmin(ModelAdmin):
 # BOOK
 # ==========================================================
 @admin.register(Book)
-class BookAdmin(ModelAdmin):
+class BookAdmin(admin.ModelAdmin):
     list_display = (
         "cover",
         "title",
@@ -432,7 +432,7 @@ class BookAdmin(ModelAdmin):
 # BOOK FILES
 # ==========================================================
 @admin.register(BookFile)
-class BookFileAdmin(ModelAdmin):
+class BookFileAdmin(admin.ModelAdmin):
     list_display = (
         "book",
         "extension_badge",
@@ -601,7 +601,7 @@ class BookFileAdmin(ModelAdmin):
 # ==========================================================
 
 @admin.register(BookDownload)
-class BookDownloadAdmin(ModelAdmin):
+class BookDownloadAdmin(admin.ModelAdmin):
     list_display = (
         "user",
         "book",
@@ -722,7 +722,7 @@ class BookDownloadAdmin(ModelAdmin):
 # ==========================================================
 
 @admin.register(Webinar)
-class WebinarAdmin(ModelAdmin):
+class WebinarAdmin(admin.ModelAdmin):
     list_display = (
         "thumbnail_preview",
         "title",
@@ -991,7 +991,7 @@ class WebinarAdmin(ModelAdmin):
 # ==========================================================
 
 @admin.register(WebinarVideo)
-class WebinarVideoAdmin(ModelAdmin):
+class WebinarVideoAdmin(admin.ModelAdmin):
     list_display = (
         "webinar",
         "video_name",
